@@ -1,0 +1,9 @@
+-cpu=H8SXA:24:MD
+-lang=c
+-object="C:\WorkSpace\FullMoni\FullMoni\Debug\spi.obj"
+-outcode=sjis
+-debug
+-nolist
+-chgincpath
+"C:\WorkSpace\FullMoni\FullMoni\spi.c"
+-nologo

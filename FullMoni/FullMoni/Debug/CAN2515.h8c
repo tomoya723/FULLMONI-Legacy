@@ -1,0 +1,9 @@
+-cpu=H8SXA:24:MD
+-lang=c
+-object="C:\WorkSpace\FullMoni\FullMoni\Debug\CAN2515.obj"
+-outcode=sjis
+-debug
+-nolist
+-chgincpath
+"C:\WorkSpace\FullMoni\FullMoni\CAN2515.c"
+-nologo

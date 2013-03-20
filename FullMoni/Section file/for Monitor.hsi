@@ -1,0 +1,8 @@
+[Hew Section Information]
+Version=2.0
+Section overlay=No
+Entry=2
+Address1=0x00FF2000
+Section1=PResetPRG,PIntPRG,P,C,C$DSEC,C$BSEC,D,B,R
+Address2=0x00FFBE00
+Section2=S

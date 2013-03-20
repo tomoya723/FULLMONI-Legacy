@@ -1,0 +1,4 @@
+-cpu=H8SXA:24:MD
+-output="C:\WorkSpace\FullMoni\FullMoni\Debug\FullMoni.lib"
+-head=runtime,new,stdio,stdlib
+-lang=c
