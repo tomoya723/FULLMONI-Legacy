@@ -1,0 +1,576 @@
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:32:59 PAGE   1
+
+******* STACK FRAME INFORMATION ********
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\ADS7843.c
+
+Function (File C:\WorkSpa, Line    40): Init_ADS7843
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line    51): Touch_SampX
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000004 Byte(s)
+Total Frame Size        : 0x00000008 Byte(s)
+
+Used Runtime Library Name
+$SRI$3      
+
+Function (File C:\WorkSpa, Line   107): Touch_SampY
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000004 Byte(s)
+Total Frame Size        : 0x00000008 Byte(s)
+
+Used Runtime Library Name
+$SRI$3      
+
+Function (File C:\WorkSpa, Line   163): Touch_Read
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000018 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000014 Byte(s)
+Total Frame Size        : 0x00000030 Byte(s)
+
+Used Runtime Library Name
+
+
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:32:59 PAGE   1
+
+************ OBJECT LISTING ************
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\ADS7843.c
+
+SCT OFFSET CODE               LABEL     INSTRUCTION OPERAND    COMMENT
+
+P                                                                  ; section
+         1:    // --------------------------------------------------------------------
+         2:    // Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+         3:    //
+         4:    // This file is part of FullMoni firmwere.
+         5:    //
+         6:    // FullMoni is free software: you can redistribute it and/or modify
+         7:    // it under the terms of the GNU General Public License as published by
+         8:    // the Free Software Foundation, either version 3 of the License, or
+         9:    // (at your option ) any later version.
+        10:    //
+        11:    // FullMoni is distributed in the hope that it will be useful,
+        12:    // but WITHIOUT ANY WARRANTY; without even the implied warranty of
+        13:    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   See the
+        14:    // GNU General Public License for more details.
+        15:    //
+        16:    // You should have received a copy of the GNU General Public License
+        17:    // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
+        18:    //
+        19:    // filename     :   ADS7843.c
+        20:    // brief        :   FullMoni rev.B タッチパネル管理
+        21:    // author       :   Tomoya Sato
+        22:    // update       :   2013/03/31
+        23:    // version      :   1.02
+        24:    // --------------------------------------------------------------------
+        25:    
+        26:    // --------------------------------------------------------------------
+        27:    // ユーザーヘッダファイル
+        28:    // --------------------------------------------------------------------
+        29:    #include "iodefine.h"
+        30:    #include "ADS7843.h"
+        31:    
+        32:    // --------------------------------------------------------------------
+        33:    // グローバル変数宣言
+        34:    // --------------------------------------------------------------------
+        35:    volatile unsigned int g_TouchX, g_TouchY;
+        36:    
+        37:    // --------------------------------------------------------------------
+        38:    // タッチパネル 初期化
+        39:    // --------------------------------------------------------------------
+        40:    void Init_ADS7843(void)
+  00000000                    _Init_ADS7843:                       ; function: Init_ADS7843
+        41:    {
+        42:        // SPIバス アイドル
+        43:        TP_SPI_SCK_L;
+  00000000 7F557220               BCLR.B      #2,@H'00FFFF55:8
+        44:        TP_SPI_CS_H;
+  00000004 7F557030               BSET.B      #3,@H'00FFFF55:8
+        45:        TP_SPI_SO_L;
+  00000008 7F557200               BCLR.B      #0,@H'00FFFF55:8
+  0000000C 5470                   RTS
+        46:    }
+        47:    
+        48:    // --------------------------------------------------------------------
+        49:    // タッチパネル X軸値 読み込み
+        50:    // --------------------------------------------------------------------
+        51:    unsigned int Touch_SampX(void)
+  0000000E                    _Touch_SampX:                        ; function: Touch_SampX
+  0000000E 01006DF2               PUSH.L      ER2
+        52:    {
+        53:        unsigned long dat1;
+        54:        unsigned int i, j, dat2;
+        55:        
+        56:        TP_SPI_SCK_L;
+  00000012 7F557220               BCLR.B      #2,@H'00FFFF55:8
+        57:        TP_SPI_CS_L;
+  00000016 7F557230               BCLR.B      #3,@H'00FFFF55:8
+        58:        TP_SPI_SO_L;
+  0000001A 7F557200               BCLR.B      #0,@H'00FFFF55:8
+        59:        
+        60:        // 8ビット出力
+        61:        for(i = 0; i < 8; i++)
+  0000001E 1922                   SUB.W       R2,R2
+  00000020                    L6805:                                
+        62:        {
+        63:            if(( 0x94 >> (7 -i)) & 0x1)
+  00000020 79000094               MOV.W       #H'0094:16,R0
+  00000024 0F71                   MOV.W       #7:3,R1
+  00000026 1921                   SUB.W       R2,R1
+  00000028 5E000000               JSR         @$SRI$3:24
+  0000002C 7308                   BTST.B      #0,R0L
+  0000002E 4700                   BEQ         L6807:8
+        64:            {
+        65:                TP_SPI_SO_H;
+  00000030 7F557000               BSET.B      #0,@H'00FFFF55:8
+  00000034 4000                   BRA         L6808:8
+  00000036                    L6807:                                
+        66:            }
+        67:            else
+        68:            {
+        69:                TP_SPI_SO_L;
+  00000036 7F557200               BCLR.B      #0,@H'00FFFF55:8
+  0000003A                    L6808:                                
+        70:            }
+        71:            for( j = 0; j < 50; j++ );
+  0000003A 1900                   SUB.W       R0,R0
+  0000003C                    L6809:                                
+  0000003C 0B50                   INC.W       #1,R0
+  0000003E 79200032               CMP.W       #H'0032:16,R0
+  00000042 4500                   BLO         L6809:8
+        72:            TP_SPI_SCK_H;
+  00000044 7F557020               BSET.B      #2,@H'00FFFF55:8
+        73:            for( j = 0; j < 50; j++ );
+  00000048 1900                   SUB.W       R0,R0
+  0000004A                    L6811:                                
+  0000004A 0B50                   INC.W       #1,R0
+  0000004C 79200032               CMP.W       #H'0032:16,R0
+  00000050 4500                   BLO         L6811:8
+        74:            TP_SPI_SCK_L;
+  00000052 7F557220               BCLR.B      #2,@H'00FFFF55:8
+        75:            for( j = 0; j < 50; j++ );
+  00000056 1900                   SUB.W       R0,R0
+  00000058                    L6813:                                
+  00000058 0B50                   INC.W       #1,R0
+  0000005A 79200032               CMP.W       #H'0032:16,R0
+  0000005E 4500                   BLO         L6813:8
+  00000060 0B52                   INC.W       #1,R2
+  00000062 79220008               CMP.W       #8:16,R2
+  00000066 4500                   BLO         L6805:8
+        76:        }
+        77:        for(j = 0; j < 1000; j++ );
+  00000068 1900                   SUB.W       R0,R0
+  0000006A                    L6816:                                
+  0000006A 0B50                   INC.W       #1,R0
+  0000006C 792003E8               CMP.W       #H'03E8:16,R0
+  00000070 4500                   BLO         L6816:8
+        78:        // 12ビット入力
+        79:        dat1 = 0;
+  00000072 1A91                   SUB.L       ER1,ER1
+        80:        for(i = 0; i < 12; i++)
+  00000074 1988                   SUB.W       E0,E0
+  00000076                    L6818:                                
+        81:        {
+        82:            dat1 = dat1 << 1;
+  00000076 1031                   SHLL.L      ER1
+        83:            
+        84:            for( j = 0; j < 50; j++ );
+  00000078 1900                   SUB.W       R0,R0
+  0000007A                    L6819:                                
+  0000007A 0B50                   INC.W       #1,R0
+  0000007C 79200032               CMP.W       #H'0032:16,R0
+  00000080 4500                   BLO         L6819:8
+        85:            TP_SPI_SCK_H;
+  00000082 7F557020               BSET.B      #2,@H'00FFFF55:8
+        86:            for( j = 0; j < 50; j++ );
+  00000086 1900                   SUB.W       R0,R0
+  00000088                    L6821:                                
+  00000088 0B50                   INC.W       #1,R0
+  0000008A 79200032               CMP.W       #H'0032:16,R0
+  0000008E 4500                   BLO         L6821:8
+        87:            TP_SPI_SCK_L;
+  00000090 7F557220               BCLR.B      #2,@H'00FFFF55:8
+        88:            for( j = 0; j < 50; j++ );
+  00000094 1900                   SUB.W       R0,R0
+  00000096                    L6823:                                
+  00000096 0B50                   INC.W       #1,R0
+  00000098 79200032               CMP.W       #H'0032:16,R0
+  0000009C 4500                   BLO         L6823:8
+        89:            
+        90:            if(TP_SPI_SI)
+  0000009E 7E457310               BTST.B      #1,@H'00FFFF45:8
+  000000A2 4700                   BEQ         L6826:8
+        91:            {
+        92:                dat1 |= 1;
+  000000A4 7009                   BSET.B      #0,R1L
+  000000A6                    L6826:                                
+  000000A6 0B58                   INC.W       #1,E0
+  000000A8 7928000C               CMP.W       #H'000C:16,E0
+  000000AC 4500                   BLO         L6818:8
+        93:            }
+        94:        }
+        95:        for(j = 0; j < 100; j++ );
+  000000AE 1900                   SUB.W       R0,R0
+  000000B0                    L6828:                                
+  000000B0 0B50                   INC.W       #1,R0
+  000000B2 79200064               CMP.W       #H'0064:16,R0
+  000000B6 4500                   BLO         L6828:8
+        96:        TP_SPI_CS_H;
+  000000B8 7F557030               BSET.B      #3,@H'00FFFF55:8
+        97:        
+        98:        dat2 = (((dat1 - 230) * 320)) / (3850 - 230);   // 液晶座標系に変換
+  000000BC 7A3900E6               SUB.L       #H'00E6:16,ER1
+  000000C0 0F90                   MOV.L       ER1,ER0
+  000000C2 1071                   SHLL.L      #2,ER1
+  000000C4 0A81                   ADD.L       ER0,ER1
+  000000C6 03861031               SHLL.L      #6:5,ER1
+  000000CA 7A0A0E24               MOV.L       #H'0E24:16,ER2
+  000000CE 01DA5321               DIVU.L      ER2,ER1
+  000000D2 0D10                   MOV.W       R1,R0
+        99:        if(dat2 > 320) dat2 = 0;                        // リミット
+  000000D4 79210140               CMP.W       #H'0140:16,R1
+  000000D8 4300                   BLS         L6831:8
+  000000DA 1900                   SUB.W       R0,R0
+  000000DC                    L6831:                                
+  000000DC 5402                   RTS/L       ER2
+       100:    
+       101:        return dat2;
+       102:    }
+       103:    
+       104:    // --------------------------------------------------------------------
+       105:    // タッチパネル Y軸値 読み込み
+       106:    // --------------------------------------------------------------------
+       107:    unsigned int Touch_SampY(void)
+  000000DE                    _Touch_SampY:                        ; function: Touch_SampY
+  000000DE 01006DF2               PUSH.L      ER2
+       108:    {
+       109:        long dat1;
+       110:        unsigned int i, j, dat2;
+       111:        
+       112:        TP_SPI_SCK_L;
+  000000E2 7F557220               BCLR.B      #2,@H'00FFFF55:8
+       113:        TP_SPI_CS_L;
+  000000E6 7F557230               BCLR.B      #3,@H'00FFFF55:8
+       114:        TP_SPI_SO_L;
+  000000EA 7F557200               BCLR.B      #0,@H'00FFFF55:8
+       115:        
+       116:        // 8ビット出力
+       117:        for(i = 0; i < 8; i++)
+  000000EE 1922                   SUB.W       R2,R2
+  000000F0                    L6833:                                
+       118:        {
+       119:            if(( 0xd4 >> (7 -i)) & 0x1)
+  000000F0 790000D4               MOV.W       #H'00D4:16,R0
+  000000F4 0F71                   MOV.W       #7:3,R1
+  000000F6 1921                   SUB.W       R2,R1
+  000000F8 5E000000               JSR         @$SRI$3:24
+  000000FC 7308                   BTST.B      #0,R0L
+  000000FE 4700                   BEQ         L6835:8
+       120:            {
+       121:                TP_SPI_SO_H;
+  00000100 7F557000               BSET.B      #0,@H'00FFFF55:8
+  00000104 4000                   BRA         L6836:8
+  00000106                    L6835:                                
+       122:            }
+       123:            else
+       124:            {
+       125:                TP_SPI_SO_L;
+  00000106 7F557200               BCLR.B      #0,@H'00FFFF55:8
+  0000010A                    L6836:                                
+       126:            }
+       127:            for( j = 0; j < 50; j++ );
+  0000010A 1900                   SUB.W       R0,R0
+  0000010C                    L6837:                                
+  0000010C 0B50                   INC.W       #1,R0
+  0000010E 79200032               CMP.W       #H'0032:16,R0
+  00000112 4500                   BLO         L6837:8
+       128:            TP_SPI_SCK_H;
+  00000114 7F557020               BSET.B      #2,@H'00FFFF55:8
+       129:            for( j = 0; j < 50; j++ );
+  00000118 1900                   SUB.W       R0,R0
+  0000011A                    L6839:                                
+  0000011A 0B50                   INC.W       #1,R0
+  0000011C 79200032               CMP.W       #H'0032:16,R0
+  00000120 4500                   BLO         L6839:8
+       130:            TP_SPI_SCK_L;
+  00000122 7F557220               BCLR.B      #2,@H'00FFFF55:8
+       131:            for( j = 0; j < 50; j++ );
+  00000126 1900                   SUB.W       R0,R0
+  00000128                    L6841:                                
+  00000128 0B50                   INC.W       #1,R0
+  0000012A 79200032               CMP.W       #H'0032:16,R0
+  0000012E 4500                   BLO         L6841:8
+  00000130 0B52                   INC.W       #1,R2
+  00000132 79220008               CMP.W       #8:16,R2
+  00000136 4500                   BLO         L6833:8
+       132:        }
+       133:        for(j = 0; j < 1000; j++ );
+  00000138 1900                   SUB.W       R0,R0
+  0000013A                    L6844:                                
+  0000013A 0B50                   INC.W       #1,R0
+  0000013C 792003E8               CMP.W       #H'03E8:16,R0
+  00000140 4500                   BLO         L6844:8
+       134:        // 12ビット入力
+       135:        dat1 = 0;
+  00000142 1A91                   SUB.L       ER1,ER1
+       136:        for(i = 0; i < 12; i++)
+  00000144 1988                   SUB.W       E0,E0
+  00000146                    L6846:                                
+       137:        {
+       138:            dat1 = dat1 << 1;
+  00000146 1031                   SHLL.L      ER1
+       139:            
+       140:            for( j = 0; j < 50; j++ );
+  00000148 1900                   SUB.W       R0,R0
+  0000014A                    L6847:                                
+  0000014A 0B50                   INC.W       #1,R0
+  0000014C 79200032               CMP.W       #H'0032:16,R0
+  00000150 4500                   BLO         L6847:8
+       141:            TP_SPI_SCK_H;
+  00000152 7F557020               BSET.B      #2,@H'00FFFF55:8
+       142:            for( j = 0; j < 50; j++ );
+  00000156 1900                   SUB.W       R0,R0
+  00000158                    L6849:                                
+  00000158 0B50                   INC.W       #1,R0
+  0000015A 79200032               CMP.W       #H'0032:16,R0
+  0000015E 4500                   BLO         L6849:8
+       143:            TP_SPI_SCK_L;
+  00000160 7F557220               BCLR.B      #2,@H'00FFFF55:8
+       144:            for( j = 0; j < 50; j++ );
+  00000164 1900                   SUB.W       R0,R0
+  00000166                    L6851:                                
+  00000166 0B50                   INC.W       #1,R0
+  00000168 79200032               CMP.W       #H'0032:16,R0
+  0000016C 4500                   BLO         L6851:8
+       145:            
+       146:            if(TP_SPI_SI)
+  0000016E 7E457310               BTST.B      #1,@H'00FFFF45:8
+  00000172 4700                   BEQ         L6854:8
+       147:            {
+       148:                dat1 |= 1;
+  00000174 7009                   BSET.B      #0,R1L
+  00000176                    L6854:                                
+  00000176 0B58                   INC.W       #1,E0
+  00000178 7928000C               CMP.W       #H'000C:16,E0
+  0000017C 4500                   BLO         L6846:8
+       149:            }
+       150:        }
+       151:        for(j = 0; j < 100; j++ );
+  0000017E 1900                   SUB.W       R0,R0
+  00000180                    L6856:                                
+  00000180 0B50                   INC.W       #1,R0
+  00000182 79200064               CMP.W       #H'0064:16,R0
+  00000186 4500                   BLO         L6856:8
+       152:        TP_SPI_CS_H;
+  00000188 7F557030               BSET.B      #3,@H'00FFFF55:8
+       153:        
+       154:        dat2 = (((dat1 - 230) * 240)) / (3850 - 230);   // 液晶座標系に変換
+       155:        dat2 = (dat2 - 240) * -1;                       // 軸反転
+  0000018C 7A3900E6               SUB.L       #H'00E6:16,ER1
+  00000190 0F90                   MOV.L       ER1,ER0
+  00000192 1039                   SHLL.L      #4,ER1
+  00000194 1A81                   SUB.L       ER0,ER1
+  00000196 1039                   SHLL.L      #4,ER1
+  00000198 7A0A0E24               MOV.L       #H'0E24:16,ER2
+  0000019C 01D25321               DIVS.L      ER2,ER1
+  000001A0 793100F0               SUB.W       #H'00F0:16,R1
+  000001A4 7902FFFF               MOV.W       #H'FFFF:16,R2
+  000001A8 01CA5021               MULU.W      R2,R1
+  000001AC 0D10                   MOV.W       R1,R0
+       156:        if(dat2 > 240) dat2 = 0;                        // リミット
+  000001AE 792100F0               CMP.W       #H'00F0:16,R1
+  000001B2 4300                   BLS         L6859:8
+  000001B4 1900                   SUB.W       R0,R0
+  000001B6                    L6859:                                
+  000001B6 5402                   RTS/L       ER2
+       157:        return dat2;
+       158:    }
+       159:    
+       160:    // --------------------------------------------------------------------
+       161:    // タッチパネル 誤検出防止読み込み
+       162:    // --------------------------------------------------------------------
+       163:    void Touch_Read(void)
+  000001B8                    _Touch_Read:                         ; function: Touch_Read
+  000001B8 01306DF2               STM.L       (ER2-ER5),@-SP
+  000001BC 01006DF6               PUSH.L      ER6
+  000001C0 79370018               SUB.W       #H'0018:16,R7
+  000001C4 5E000000               JSR         @_Touch_SampX:24
+       164:    {
+       165:    //      g_TouchX = Touch_SampX();
+       166:    //      g_TouchY = Touch_SampY();
+       167:    
+       168:        unsigned int i, X[6], Y[6], Xavr, Yavr, Xsum, Ysum, j1, j2;
+       169:        int n;
+       170:        
+       171:        X[0] = Touch_SampX();   Y[0] = Touch_SampY();
+  000001C8 69F0                   MOV.W       R0,@SP
+  000001CA 5E000000               JSR         @_Touch_SampY:24
+  000001CE 6FF0000C               MOV.W       R0,@(H'000C:16,SP)
+  000001D2 5E000000               JSR         @_Touch_SampX:24
+       172:        X[1] = Touch_SampX();   Y[1] = Touch_SampY();
+  000001D6 6FF00002               MOV.W       R0,@(2:16,SP)
+  000001DA 5E000000               JSR         @_Touch_SampY:24
+  000001DE 6FF0000E               MOV.W       R0,@(H'000E:16,SP)
+  000001E2 5E000000               JSR         @_Touch_SampX:24
+       173:        X[2] = Touch_SampX();   Y[2] = Touch_SampY();
+  000001E6 6FF00004               MOV.W       R0,@(4:16,SP)
+  000001EA 5E000000               JSR         @_Touch_SampY:24
+  000001EE 6FF00010               MOV.W       R0,@(H'0010:16,SP)
+  000001F2 5E000000               JSR         @_Touch_SampX:24
+       174:        X[3] = Touch_SampX();   Y[3] = Touch_SampY();
+  000001F6 6FF00006               MOV.W       R0,@(6:16,SP)
+  000001FA 5E000000               JSR         @_Touch_SampY:24
+  000001FE 6FF00012               MOV.W       R0,@(H'0012:16,SP)
+  00000202 5E000000               JSR         @_Touch_SampX:24
+       175:        X[4] = Touch_SampX();   Y[4] = Touch_SampY();
+  00000206 6FF00008               MOV.W       R0,@(8:16,SP)
+  0000020A 5E000000               JSR         @_Touch_SampY:24
+  0000020E 6FF00014               MOV.W       R0,@(H'0014:16,SP)
+  00000212 5E000000               JSR         @_Touch_SampX:24
+       176:        X[5] = Touch_SampX();   Y[5] = Touch_SampY();
+  00000216 0D02                   MOV.W       R0,R2
+  00000218 6FF0000A               MOV.W       R0,@(H'000A:16,SP)
+  0000021C 5E000000               JSR         @_Touch_SampY:24
+  00000220 6FF00016               MOV.W       R0,@(H'0016:16,SP)
+       177:        
+       178:        Xavr = (X[0] + X[1] + X[2] + X[3] + X[4] + X[5]) / 6;
+  00000224 6978                   MOV.W       @SP,E0
+  00000226 015A1718               ADD.W       @(2:2,SP),E0
+  0000022A 015A2718               ADD.W       @(4:2,SP),E0
+  0000022E 015A3718               ADD.W       @(6:2,SP),E0
+  00000232 015AC7180008           ADD.W       @(8:16,SP),E0
+  00000238 0928                   ADD.W       R2,E0
+  0000023A 01DE5168               DIVU.W      #6:4,E0
+  0000023E 0D8E                   MOV.W       E0,E6
+       179:        Yavr = (Y[0] + Y[1] + Y[2] + Y[3] + Y[4] + Y[5]) / 6;
+  00000240 6F78000C               MOV.W       @(H'000C:16,SP),E0
+  00000244 015AC718000E           ADD.W       @(H'000E:16,SP),E0
+  0000024A 015AC7180010           ADD.W       @(H'0010:16,SP),E0
+  00000250 015AC7180012           ADD.W       @(H'0012:16,SP),E0
+  00000256 015AC7180014           ADD.W       @(H'0014:16,SP),E0
+  0000025C 0908                   ADD.W       R0,E0
+  0000025E 01DE5168               DIVU.W      #6:4,E0
+  00000262 0D84                   MOV.W       E0,R4
+       180:        
+       181:        j1 = 0;
+  00000264 19CC                   SUB.W       E4,E4
+       182:        j2 = 0;
+  00000266 0DC6                   MOV.W       E4,R6
+       183:        Xsum = 0;
+  00000268 0DC5                   MOV.W       E4,R5
+       184:        Ysum = 0;
+  0000026A 0DCD                   MOV.W       E4,E5
+       185:        
+       186:        for(i = 0; i < 6; i++)
+  0000026C 0DCB                   MOV.W       E4,E3
+  0000026E                    L6861:                                
+       187:        {
+       188:            n = X[i] - Xavr;
+       189:            if(abs(n) < 10)
+  0000026E 0DB2                   MOV.W       E3,R2
+  00000270 1772                   EXTU.L      ER2
+  00000272 1032                   SHLL.L      ER2
+  00000274 0FF0                   MOV.L       SP,ER0
+  00000276 0AA0                   ADD.L       ER2,ER0
+  00000278 6903                   MOV.W       @ER0,R3
+  0000027A 0D30                   MOV.W       R3,R0
+  0000027C 19E0                   SUB.W       E6,R0
+  0000027E 5E000000               JSR         @_abs:24
+  00000282 7920000A               CMP.W       #H'000A:16,R0
+  00000286 4C00                   BGE         L6863:8
+       190:            {
+       191:                Xsum = Xsum + X[i];
+  00000288 0935                   ADD.W       R3,R5
+       192:                j1++;
+  0000028A 0B5C                   INC.W       #1,E4
+  0000028C                    L6863:                                
+       193:            }
+       194:            n = Y[i] - Yavr;
+       195:            if(abs(n) < 10)
+  0000028C 0FF0                   MOV.L       SP,ER0
+  0000028E 7910000C               ADD.W       #H'000C:16,R0
+  00000292 0AA0                   ADD.L       ER2,ER0
+  00000294 6902                   MOV.W       @ER0,R2
+  00000296 0D20                   MOV.W       R2,R0
+  00000298 1940                   SUB.W       R4,R0
+  0000029A 5E000000               JSR         @_abs:24
+  0000029E 7920000A               CMP.W       #H'000A:16,R0
+  000002A2 4C00                   BGE         L6865:8
+       196:            {
+       197:                Ysum = Ysum + Y[i];
+  000002A4 092D                   ADD.W       R2,E5
+       198:                j2++;
+  000002A6 0B56                   INC.W       #1,R6
+  000002A8                    L6865:                                
+  000002A8 0B5B                   INC.W       #1,E3
+  000002AA 1F6B                   CMP.W       #6:3,E3
+  000002AC 4500                   BLO         L6861:8
+       199:            }
+       200:        }
+       201:        if(( j1 <= 3) || ( j2 <= 3))
+  000002AE 1F3C                   CMP.W       #3:3,E4
+  000002B0 4300                   BLS         L6868:8
+  000002B2 1F36                   CMP.W       #3:3,R6
+  000002B4 4300                   BLS         L6868:8
+       202:        {
+       203:            g_TouchX = 999;
+       204:            g_TouchY = 999;
+       205:        }
+       206:        else
+       207:        {
+       208:            g_TouchX = Xsum / j1;
+  000002B6 01DA51C5               DIVU.W      E4,R5
+  000002BA 6BA500000000           MOV.W       R5,@_g_TouchX:32
+       209:            g_TouchY = Ysum / j2;
+  000002C0 0DD0                   MOV.W       E5,R0
+  000002C2 01DA5160               DIVU.W      R6,R0
+  000002C6 6BA000000000           MOV.W       R0,@_g_TouchY:32
+  000002CC 4000                   BRA         L6870:8
+  000002CE                    L6868:                                
+  000002CE 797403E748000000       MOV.W       #H'03E7:16,@_g_TouchX:32
+           0000               
+  000002D8 797403E748000000       MOV.W       #H'03E7:16,@_g_TouchY:32
+           0000               
+  000002E2                    L6870:                                
+  000002E2 79170018               ADD.W       #H'0018:16,R7
+  000002E6 01006D76               POP.L       ER6
+  000002EA 5435                   RTS/L       (ER2-ER5)
+       210:        }   
+       211:    }
+B                                                                  ; section
+  00000000                    _g_TouchX:                           ; static: g_TouchX
+  00000000 00000002               .RES.W      1
+  00000002                    _g_TouchY:                           ; static: g_TouchY
+  00000002 00000002               .RES.W      1
+
+

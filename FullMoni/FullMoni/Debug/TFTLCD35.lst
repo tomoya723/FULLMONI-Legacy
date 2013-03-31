@@ -1,0 +1,3921 @@
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:51:52 PAGE   1
+
+******* STACK FRAME INFORMATION ********
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\TFTLCD35.c
+
+Function (File C:\WorkSpa, Line    54): delay
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line    66): write_comm
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line    75): write_data
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line    83): Init_TFTLCD
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   192): Display_Home
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   230): LCD_Refresh
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   240): LCD_locate
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   249): LCD_FadeIN
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   265): LCD_FadeOUT
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000004 Byte(s)
+Total Frame Size        : 0x00000008 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   281): FONT_open
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000008 Byte(s)
+Total Frame Size        : 0x0000000c Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   296): LCD_pset
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000004 Byte(s)
+Total Frame Size        : 0x00000008 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   315): LCD_line
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000008 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000014 Byte(s)
+Total Frame Size        : 0x00000020 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   392): LCD_line2
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x0000000a Byte(s)
+Temporary Size          : 0x00000006 Byte(s)
+Register Save Area Size : 0x00000014 Byte(s)
+Total Frame Size        : 0x00000028 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   482): swap
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000004 Byte(s)
+Total Frame Size        : 0x00000008 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   515): LCD_CLR
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000002 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000006 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   562): LCD_PAINT
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000004 Byte(s)
+Register Save Area Size : 0x00000014 Byte(s)
+Total Frame Size        : 0x0000001c Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   613): LCD_Gcopy
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000014 Byte(s)
+Total Frame Size        : 0x00000018 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   637): LCD_textout
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x0000000c Byte(s)
+Total Frame Size        : 0x00000010 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   681): LCD_CHR_Copy_Smallfont
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x0000000c Byte(s)
+Total Frame Size        : 0x00000010 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   789): LCD_CHR_copyBN
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x0000000c Byte(s)
+Total Frame Size        : 0x00000010 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   817): LCD_CHR_copyBNR
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x0000000c Byte(s)
+Total Frame Size        : 0x00000010 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   845): LCD_CHR_copyBN2
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000014 Byte(s)
+Total Frame Size        : 0x00000018 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   930): LCD_INT_draw
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000006 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000012 Byte(s)
+Total Frame Size        : 0x0000001c Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line  1033): LCD_INT_drawBN
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000006 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000012 Byte(s)
+Total Frame Size        : 0x0000001c Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line  1136): LCD_INT_drawBNR
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000006 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000012 Byte(s)
+Total Frame Size        : 0x0000001c Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line  1239): LCD_INT_drawBN2
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000006 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000012 Byte(s)
+Total Frame Size        : 0x0000001c Byte(s)
+
+Used Runtime Library Name
+
+
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:51:52 PAGE   1
+
+************ OBJECT LISTING ************
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\TFTLCD35.c
+
+SCT OFFSET CODE               LABEL     INSTRUCTION OPERAND    COMMENT
+
+P                                                                  ; section
+         1:    // --------------------------------------------------------------------
+         2:    // Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+         3:    //
+         4:    // This file is part of FullMoni firmwere.
+         5:    //
+         6:    // FullMoni is free software: you can redistribute it and/or modify
+         7:    // it under the terms of the GNU General Public License as published by
+         8:    // the Free Software Foundation, either version 3 of the License, or
+         9:    // (at your option ) any later version.
+        10:    //
+        11:    // FullMoni is distributed in the hope that it will be useful,
+        12:    // but WITHIOUT ANY WARRANTY; without even the implied warranty of
+        13:    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   See the
+        14:    // GNU General Public License for more details.
+        15:    //
+        16:    // You should have received a copy of the GNU General Public License
+        17:    // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
+        18:    //
+        19:    // filename     :   TFTLCD35.c
+        20:    // brief        :   FullMoni rev.B TFT液晶管理
+        21:    // author       :   Tomoya Sato
+        22:    // update       :   2013/03/31
+        23:    // version      :   1.02
+        24:    // --------------------------------------------------------------------
+        25:    
+        26:    // --------------------------------------------------------------------
+        27:    // システムヘッダファイル
+        28:    // --------------------------------------------------------------------
+        29:    #include <machine.h>
+        30:    
+        31:    // --------------------------------------------------------------------
+        32:    // ユーザーヘッダファイル
+        33:    // --------------------------------------------------------------------
+        34:    #include "iodefine.h"
+        35:    #include "TFTLCD35.h"
+        36:    
+        37:    // --------------------------------------------------------------------
+        38:    // defineマクロ宣言
+        39:    // --------------------------------------------------------------------
+        40:    #define LCD_RS  P1.DR.BIT.B0        //  コマンド信号 (RS for Parallel Interface)
+        41:    #define LCD_RES P2.DR.BIT.B4        //  リセット信号
+        42:    
+        43:    // --------------------------------------------------------------------
+        44:    // グローバル変数宣言
+        45:    // --------------------------------------------------------------------
+        46:    volatile unsigned int g_LCD_x;
+        47:    volatile unsigned int g_LCD_y;
+        48:    volatile unsigned int g_drawbuff_flg;
+        49:    volatile unsigned int g_oneshot_flg;
+        50:    
+        51:    // --------------------------------------------------------------------
+        52:    // ソフトディレイ関数
+        53:    // --------------------------------------------------------------------
+        54:    void delay(unsigned int t)
+  00000000                    _delay:                              ; function: delay
+  00000000                    L7007:                                
+        55:    {
+        56:        unsigned int t1;
+        57:        while(t --)
+  00000000 0D00                   MOV.W       R0,R0
+  00000002 4700                   BEQ         L7009:8
+  00000004 1B50                   DEC.W       #1,R0
+        58:        for(t1 = 11000; t1 > 0; t1 --)
+  00000006 79082AF8               MOV.W       #H'2AF8:16,E0
+  0000000A                    L7010:                                
+        59:        {
+        60:            nop();
+  0000000A 0000                   NOP
+  0000000C 1B58                   DEC.W       #1,E0
+  0000000E 4600                   BNE         L7010:8
+  00000010 4000                   BRA         L7007:8
+  00000012                    L7009:                                
+  00000012 5470                   RTS
+        61:        }
+        62:    }
+        63:    // --------------------------------------------------------------------
+        64:    // TFT LCD バス コマンド出力
+        65:    // --------------------------------------------------------------------
+        66:    void write_comm(unsigned int command)
+  00000014                    _write_comm:                         ; function: write_comm
+        67:    {
+        68:        LCD_RS = 0;     // CLR_RS;
+  00000014 7F507200               BCLR.B      #0,@H'00FFFF50:8
+        69:        LCD_D = command;
+  00000018 6BA000400000           MOV.W       R0,@H'00400000:32
+  0000001E 5470                   RTS
+        70:    }
+        71:    
+        72:    // --------------------------------------------------------------------
+        73:    // TFT LCD バス データ出力
+        74:    // --------------------------------------------------------------------
+        75:    void write_data(unsigned int data)
+  00000020                    _write_data:                         ; function: write_data
+        76:    {
+        77:        LCD_RS = 1;     // SET_RS;
+  00000020 7F507000               BSET.B      #0,@H'00FFFF50:8
+        78:        LCD_D = data;
+  00000024 6BA000400000           MOV.W       R0,@H'00400000:32
+  0000002A 5470                   RTS
+        79:    }
+        80:    // --------------------------------------------------------------------
+        81:    // TFT LCD 初期化
+        82:    // --------------------------------------------------------------------
+        83:    void Init_TFTLCD()
+  0000002C                    _Init_TFTLCD:                        ; function: Init_TFTLCD
+        84:    {
+        85:        
+        86:        LCD_RS = 1;     // SET_RS;
+  0000002C 7F507000               BSET.B      #0,@H'00FFFF50:8
+        87:        LCD_RES = 0;    //  CLR_RESET;
+  00000030 7F517240               BCLR.B      #4,@H'00FFFF51:8
+        88:        delay(200);
+  00000034 790000C8               MOV.W       #H'00C8:16,R0
+  00000038 5500                   BSR         _delay:8
+        89:        LCD_RES = 1;    //  SET_RESET;
+  0000003A 7F517040               BSET.B      #4,@H'00FFFF51:8
+        90:        delay(500);
+  0000003E 790001F4               MOV.W       #H'01F4:16,R0
+  00000042 5500                   BSR         _delay:8
+        91:        
+        92:        write_comm(0x0028);     // VCOM OTP
+  00000044 79000028               MOV.W       #H'0028:16,R0
+  00000048 5500                   BSR         _write_comm:8
+        93:        write_data(0x0006);     // Page 55-56 of SSD2119 datasheet
+  0000004A 0F60                   MOV.W       #6:3,R0
+  0000004C 5500                   BSR         _write_data:8
+        94:        
+        95:        write_comm(0x0000);     // start Oscillator
+  0000004E 1900                   SUB.W       R0,R0
+  00000050 5500                   BSR         _write_comm:8
+        96:        write_data(0x0001);     // Page 36 of SSD2119 datasheet
+  00000052 0F10                   MOV.W       #1:3,R0
+  00000054 5500                   BSR         _write_data:8
+        97:        
+        98:        write_comm(0x0010);     // Sleep mode
+  00000056 79000010               MOV.W       #H'0010:16,R0
+  0000005A 5500                   BSR         _write_comm:8
+        99:        write_data(0x0000);     // Page 49 of SSD2119 datasheet
+  0000005C 1900                   SUB.W       R0,R0
+  0000005E 5500                   BSR         _write_data:8
+       100:        
+       101:        write_comm(0x0001);     // Driver Output Control
+  00000060 0F10                   MOV.W       #1:3,R0
+  00000062 5500                   BSR         _write_comm:8
+       102:        write_data(0x32EF);     // Page 36-39 of SSD2119 datasheet
+  00000064 790032EF               MOV.W       #H'32EF:16,R0
+  00000068 5500                   BSR         _write_data:8
+       103:    //  write_data(0x7AEF);     // Page 36-39 of SSD2119 datasheet
+       104:        
+       105:        write_comm(0x0002);     // LCD Driving Waveform Control
+  0000006A 0F20                   MOV.W       #2:3,R0
+  0000006C 5500                   BSR         _write_comm:8
+       106:        write_data(0x0600);     // Page 40-42 of SSD2119 datasheet
+  0000006E 79000600               MOV.W       #H'0600:16,R0
+  00000072 5500                   BSR         _write_data:8
+       107:        
+       108:        write_comm(0x0003);     // Power Control 1
+  00000074 0F30                   MOV.W       #3:3,R0
+  00000076 5500                   BSR         _write_comm:8
+       109:        write_data(0x6A38);     // Page 43-44 of SSD2119 datasheet
+  00000078 79006A38               MOV.W       #H'6A38:16,R0
+  0000007C 5500                   BSR         _write_data:8
+       110:        
+       111:        write_comm(0x0011);     // Entry Mode
+  0000007E 79000011               MOV.W       #H'0011:16,R0
+  00000082 5500                   BSR         _write_comm:8
+       112:    //  write_data(0x6870);     // Page 50-52 of SSD2119 datasheet
+       113:        write_data(0x6860);     // Page 50-52 of SSD2119 datasheet  // 左右反転対策
+  00000084 79006860               MOV.W       #H'6860:16,R0
+  00000088 5500                   BSR         _write_data:8
+       114:        
+       115:        write_comm(0X000F);     // Gate Scan Position
+  0000008A 7900000F               MOV.W       #H'000F:16,R0
+  0000008E 5E000000               JSR         @_write_comm:24
+       116:        write_data(0x0000);     // Page 49 of SSD2119 datasheet
+  00000092 1900                   SUB.W       R0,R0
+  00000094 5E000000               JSR         @_write_data:24
+       117:        
+       118:        write_comm(0X000B);     // Frame Cycle Control
+  00000098 7900000B               MOV.W       #H'000B:16,R0
+  0000009C 5E000000               JSR         @_write_comm:24
+       119:        write_data(0x5308);     // Page 45 of SSD2119 datasheet
+  000000A0 79005308               MOV.W       #H'5308:16,R0
+  000000A4 5E000000               JSR         @_write_data:24
+       120:        
+       121:        write_comm(0x000C);     // Power Control 2
+  000000A8 7900000C               MOV.W       #H'000C:16,R0
+  000000AC 5E000000               JSR         @_write_comm:24
+       122:        write_data(0x0003);     // Page 47 of SSD2119 datasheet
+  000000B0 0F30                   MOV.W       #3:3,R0
+  000000B2 5E000000               JSR         @_write_data:24
+       123:        
+       124:        write_comm(0x000D);     // Power Control 3
+  000000B6 7900000D               MOV.W       #H'000D:16,R0
+  000000BA 5E000000               JSR         @_write_comm:24
+       125:        write_data(0x000A);     // Page 48 of SSD2119 datasheet
+  000000BE 7900000A               MOV.W       #H'000A:16,R0
+  000000C2 5E000000               JSR         @_write_data:24
+       126:        
+       127:        write_comm(0x000E);     // Power Control 4
+  000000C6 7900000E               MOV.W       #H'000E:16,R0
+  000000CA 5E000000               JSR         @_write_comm:24
+       128:        write_data(0x2E00);     // Page 48 of SSD2119 datasheet
+  000000CE 79002E00               MOV.W       #H'2E00:16,R0
+  000000D2 5E000000               JSR         @_write_data:24
+       129:        
+       130:        write_comm(0x001E);     // Power Control 5
+  000000D6 7900001E               MOV.W       #H'001E:16,R0
+  000000DA 5E000000               JSR         @_write_comm:24
+       131:        write_data(0x00BE);     // Page 53 of SSD2119 datasheet
+  000000DE 790000BE               MOV.W       #H'00BE:16,R0
+  000000E2 5E000000               JSR         @_write_data:24
+       132:        
+       133:        write_comm(0x0025);     // Frame Frequency Control
+  000000E6 79000025               MOV.W       #H'0025:16,R0
+  000000EA 5E000000               JSR         @_write_comm:24
+       134:        write_data(0x8000);     // Page 53 of SSD2119 datasheet
+  000000EE 79008000               MOV.W       #H'8000:16,R0
+  000000F2 5E000000               JSR         @_write_data:24
+       135:        
+       136:        write_comm(0x0026);     // Analog setting
+  000000F6 79000026               MOV.W       #H'0026:16,R0
+  000000FA 5E000000               JSR         @_write_comm:24
+       137:        write_data(0x7800);     // Page 54 of SSD2119 datasheet
+  000000FE 79007800               MOV.W       #H'7800:16,R0
+  00000102 5E000000               JSR         @_write_data:24
+       138:        
+       139:        write_comm(0x004E);     // Ram Address Set
+  00000106 7900004E               MOV.W       #H'004E:16,R0
+  0000010A 5E000000               JSR         @_write_comm:24
+       140:        write_data(0x0000);     // Page 58 of SSD2119 datasheet
+  0000010E 1900                   SUB.W       R0,R0
+  00000110 5E000000               JSR         @_write_data:24
+       141:        
+       142:        write_comm(0x004F);     // Ram Address Set
+  00000114 7900004F               MOV.W       #H'004F:16,R0
+  00000118 5E000000               JSR         @_write_comm:24
+       143:        write_data(0x0000);     // Page 58 of SSD2119 datasheet
+  0000011C 1900                   SUB.W       R0,R0
+  0000011E 5E000000               JSR         @_write_data:24
+       144:        
+       145:        write_comm(0x0012);     // Sleep mode
+  00000122 79000012               MOV.W       #H'0012:16,R0
+  00000126 5E000000               JSR         @_write_comm:24
+       146:        write_data(0x08D9);     // Page 49 of SSD2119 datasheet
+  0000012A 790008D9               MOV.W       #H'08D9:16,R0
+  0000012E 5E000000               JSR         @_write_data:24
+       147:        
+       148:        // Gamma Control (R30h to R3Bh)
+       149:        // Page 56 of SSD2119 datasheet
+       150:        write_comm(0x0030);
+  00000132 79000030               MOV.W       #H'0030:16,R0
+  00000136 5E000000               JSR         @_write_comm:24
+       151:        write_data(0x0000);
+  0000013A 1900                   SUB.W       R0,R0
+  0000013C 5E000000               JSR         @_write_data:24
+       152:        
+       153:        write_comm(0x0031);
+  00000140 79000031               MOV.W       #H'0031:16,R0
+  00000144 5E000000               JSR         @_write_comm:24
+       154:        write_data(0x0104);
+  00000148 79000104               MOV.W       #H'0104:16,R0
+  0000014C 5E000000               JSR         @_write_data:24
+       155:        
+       156:        write_comm(0x0032);
+  00000150 79000032               MOV.W       #H'0032:16,R0
+  00000154 5E000000               JSR         @_write_comm:24
+       157:        write_data(0x0100);
+  00000158 79000100               MOV.W       #H'0100:16,R0
+  0000015C 5E000000               JSR         @_write_data:24
+       158:        
+       159:        write_comm(0x0033);
+  00000160 79000033               MOV.W       #H'0033:16,R0
+  00000164 5E000000               JSR         @_write_comm:24
+       160:        write_data(0x0305);
+  00000168 79000305               MOV.W       #H'0305:16,R0
+  0000016C 5E000000               JSR         @_write_data:24
+       161:        
+       162:        write_comm(0x0034);
+  00000170 79000034               MOV.W       #H'0034:16,R0
+  00000174 5E000000               JSR         @_write_comm:24
+       163:        write_data(0x0505);
+  00000178 79000505               MOV.W       #H'0505:16,R0
+  0000017C 5E000000               JSR         @_write_data:24
+       164:        
+       165:        write_comm(0x0035);
+  00000180 79000035               MOV.W       #H'0035:16,R0
+  00000184 5E000000               JSR         @_write_comm:24
+       166:        write_data(0x0305);
+  00000188 79000305               MOV.W       #H'0305:16,R0
+  0000018C 5E000000               JSR         @_write_data:24
+       167:        
+       168:        write_comm(0x0036);
+  00000190 79000036               MOV.W       #H'0036:16,R0
+  00000194 5E000000               JSR         @_write_comm:24
+       169:        write_data(0x0707);
+  00000198 79000707               MOV.W       #H'0707:16,R0
+  0000019C 5E000000               JSR         @_write_data:24
+       170:        
+       171:        write_comm(0x0037);
+  000001A0 79000037               MOV.W       #H'0037:16,R0
+  000001A4 5E000000               JSR         @_write_comm:24
+       172:        write_data(0x0300);
+  000001A8 79000300               MOV.W       #H'0300:16,R0
+  000001AC 5E000000               JSR         @_write_data:24
+       173:        
+       174:        write_comm(0x003A);
+  000001B0 7900003A               MOV.W       #H'003A:16,R0
+  000001B4 5E000000               JSR         @_write_comm:24
+       175:        write_data(0x1200);
+  000001B8 79001200               MOV.W       #H'1200:16,R0
+  000001BC 5E000000               JSR         @_write_data:24
+       176:        
+       177:        write_comm(0x003B);
+  000001C0 7900003B               MOV.W       #H'003B:16,R0
+  000001C4 5E000000               JSR         @_write_comm:24
+       178:        write_data(0x0800);      
+  000001C8 79000800               MOV.W       #H'0800:16,R0
+  000001CC 5E000000               JSR         @_write_data:24
+       179:        
+       180:        write_comm(0x0007);     // Display Control 
+  000001D0 0F70                   MOV.W       #7:3,R0
+  000001D2 5E000000               JSR         @_write_comm:24
+       181:        write_data(0x0033);     // Page 45 of SSD2119 datasheet
+  000001D6 79000033               MOV.W       #H'0033:16,R0
+  000001DA 5E000000               JSR         @_write_data:24
+       182:        
+       183:        delay(150);
+  000001DE 79000096               MOV.W       #H'0096:16,R0
+  000001E2 5E000000               JSR         @_delay:24
+       184:        //_delay_ms(150);
+       185:        
+       186:        write_comm(0x0022);     // RAM data write/read
+  000001E6 79000022               MOV.W       #H'0022:16,R0
+  000001EA 5A000000               JMP         @_write_comm:24
+       187:    }
+       188:    
+       189:    // --------------------------------------------------------------------
+       190:    // TDT LCD リフレッシュ処理
+       191:    // --------------------------------------------------------------------
+       192:    void Display_Home()
+  000001EE                    _Display_Home:                       ; function: Display_Home
+       193:    {
+       194:        write_comm(0x004E);     // RAM address set
+  000001EE 7900004E               MOV.W       #H'004E:16,R0
+  000001F2 5E000000               JSR         @_write_comm:24
+       195:        write_data(0x0000);     // Page 58 of SSD2119 datasheet
+  000001F6 1900                   SUB.W       R0,R0
+  000001F8 5E000000               JSR         @_write_data:24
+       196:        write_comm(0x004F);     // RAM address set
+  000001FC 7900004F               MOV.W       #H'004F:16,R0
+  00000200 5E000000               JSR         @_write_comm:24
+       197:        write_data(0x0000);     // Page 58 of SSD2119 datasheet
+  00000204 1900                   SUB.W       R0,R0
+  00000206 5E000000               JSR         @_write_data:24
+       198:        
+       199:        write_comm(0x0044);     // Vertical RAM address position
+  0000020A 79000044               MOV.W       #H'0044:16,R0
+  0000020E 5E000000               JSR         @_write_comm:24
+       200:        write_data(0xEF00);     // Page 57 of SSD2119 datasheet
+  00000212 7900EF00               MOV.W       #H'EF00:16,R0
+  00000216 5E000000               JSR         @_write_data:24
+       201:        write_comm(0x0045);     // Horizontal RAM address position 
+  0000021A 79000045               MOV.W       #H'0045:16,R0
+  0000021E 5E000000               JSR         @_write_comm:24
+       202:        write_data(0x0000);     // Page 57 of SSD2119 datasheet
+  00000222 1900                   SUB.W       R0,R0
+  00000224 5E000000               JSR         @_write_data:24
+       203:        write_comm(0x0046);     // Horizontal RAM address position
+  00000228 79000046               MOV.W       #H'0046:16,R0
+  0000022C 5E000000               JSR         @_write_comm:24
+       204:        write_data(0x013F);     // Page 57 of SSD2119 datasheet
+  00000230 7900013F               MOV.W       #H'013F:16,R0
+  00000234 5E000000               JSR         @_write_data:24
+       205:        
+       206:        write_comm(0x0022);     // RAM data write/read
+  00000238 79000022               MOV.W       #H'0022:16,R0
+  0000023C 5E000000               JSR         @_write_comm:24
+       207:        
+       208:        LCD_RS = 1;     // SET_RS;
+  00000240 7F507000               BSET.B      #0,@H'00FFFF50:8
+       209:        
+       210:        g_oneshot_flg ++;
+  00000244 6B38000000000A10       ADD.W       #1:3,@_g_oneshot_flg:32
+       211:        
+       212:        // フレームバッファの切り替え
+       213:        if(g_drawbuff_flg == 0)
+  0000024C 6B2100000000           MOV.W       @_g_drawbuff_flg:32,R1
+  00000252 4600                   BNE         L7019:8
+       214:        {
+       215:            EXDMAC0.EDSAR       = 0x200000;     //*ADATA        // EXDMA ソースアドレスレジスタ1
+  00000254 7A74002000004000       MOV.L       #H'00200000:32,@H'00FFFC80:16
+           FC80               
+  0000025E 4000                   BRA         L7020:8
+  00000260                    L7019:                                
+       216:        }
+       217:        else
+       218:        {
+       219:            EXDMAC0.EDSAR       = 0x225800;     //*BDATA        // EXDMA ソースアドレスレジスタ2
+  00000260 7A74002258004000       MOV.L       #H'00225800:32,@H'00FFFC80:16
+           FC80               
+  0000026A                    L7020:                                
+       220:        }
+       221:        EXDMAC0.EDDAR           = 0x400000;     //LCD_D         // EXDMA デスティネーションアドレスレジスタ
+  0000026A 7A74004000004000       MOV.L       #H'00400000:32,@H'00FFFC84:16
+           FC84               
+       222:        EXDMAC0.EDTCR           = 0x00025800;                   // EXDMA 転送カウントレジスタ 320*240*2=0x00025800
+  00000274 7A74000258004000       MOV.L       #H'00025800:32,@H'00FFFC8C:16
+           FC8C               
+       223:        
+       224:        EXDMAC0.EDMDR.BIT.DTE   = 1;
+  0000027E 6A18FC947070           BSET.B      #7,@H'00FFFC94:16
+  00000284 5470                   RTS
+       225:    }
+       226:    
+       227:    // --------------------------------------------------------------------
+       228:    // TDT LCD リフレッシュ同期フレームバッファ更新処理
+       229:    // --------------------------------------------------------------------
+       230:    void LCD_Refresh(void)
+  00000286                    _LCD_Refresh:                        ; function: LCD_Refresh
+  00000286                    L7022:                                
+       231:    {
+       232:        while(g_refresh_done == 0);
+  00000286 7A0100000000           MOV.L       #_g_drawbuff_flg,ER1
+  0000028C 6B2000000000           MOV.W       @_g_refresh_done:32,R0
+  00000292 4700                   BEQ         L7022:8
+       233:        g_refresh_done = 0;
+  00000294 6BF000000000           MOV.W       #0:4,@_g_refresh_done:32
+       234:        if(g_drawbuff_flg == 0){g_drawbuff_flg=1;}else{g_drawbuff_flg=0;}
+  0000029A 6910                   MOV.W       @ER1,R0
+  0000029C 4600                   BNE         L7025:8
+  0000029E 015D0101               MOV.W       #1:8,@ER1
+  000002A2 5470                   RTS
+  000002A4                    L7025:                                
+  000002A4 015D0100               MOV.W       #0:8,@ER1
+  000002A8 5470                   RTS
+       235:    }
+       236:    
+       237:    // --------------------------------------------------------------------
+       238:    // TFT LCD 描画座標設定
+       239:    // --------------------------------------------------------------------
+       240:    void LCD_locate(unsigned int x, unsigned int y)
+  000002AA                    _LCD_locate:                         ; function: LCD_locate
+       241:    {
+       242:        g_LCD_x = x;
+  000002AA 6BA000000000           MOV.W       R0,@_g_LCD_x:32
+       243:        g_LCD_y = y;
+  000002B0 6BA800000000           MOV.W       E0,@_g_LCD_y:32
+  000002B6 5470                   RTS
+       244:    }
+       245:    
+       246:    // --------------------------------------------------------------------
+       247:    // TFT LCD バックライト点灯
+       248:    // --------------------------------------------------------------------
+       249:    void LCD_FadeIN(void)
+  000002B8                    _LCD_FadeIN:                         ; function: LCD_FadeIN
+       250:    {
+       251:        static unsigned long y, z;
+       252:        
+       253:        for(z = 0x2579; z >= 0x10; z -- )
+  000002B8 7A092579               MOV.L       #H'2579:16,ER1
+  000002BC                    L7031:                                
+       254:        {
+       255:            for(y = 0; y <= 100; y ++ )
+  000002BC F865                   MOV.B       #H'65:8,R0L
+  000002BE                    L7032:                                
+       256:            {
+       257:                TPU4.TGRB = z & 0xFFFF;
+  000002BE 6B81FEEA               MOV.W       R1,@H'00FFFEEA:16
+  000002C2 1A08                   DEC.B       R0L
+  000002C4 4600                   BNE         L7032:8
+  000002C6 1A80                   SUB.L       ER0,ER0
+  000002C8 F865                   MOV.B       #H'65:8,R0L
+  000002CA 01006BA000000000       MOV.L       ER0,@__$y$23:32
+  000002D2 1B71                   DEC.L       #1,ER1
+  000002D4 01006BA100000000       MOV.L       ER1,@__$z$24:32
+  000002DC 7A290010               CMP.L       #H'0010:16,ER1
+  000002E0 4400                   BHS         L7031:8
+  000002E2 5470                   RTS
+       258:            }
+       259:        }
+       260:    }
+       261:    
+       262:    // --------------------------------------------------------------------
+       263:    // TFT LCD バックライト消灯
+       264:    // --------------------------------------------------------------------
+       265:    void LCD_FadeOUT(void)
+  000002E4                    _LCD_FadeOUT:                        ; function: LCD_FadeOUT
+  000002E4 01006DF2               PUSH.L      ER2
+       266:    {
+       267:        static unsigned long y, z;
+       268:        
+       269:        for(z = 0x10; z <= 0x2579; z ++ )
+  000002E8 7A0A256A               MOV.L       #H'256A:16,ER2
+  000002EC 79010010               MOV.W       #H'0010:16,R1
+  000002F0                    L7036:                                
+       270:        {
+       271:            for(y = 0; y <= 100; y ++ )
+  000002F0 F865                   MOV.B       #H'65:8,R0L
+  000002F2                    L7037:                                
+       272:            {
+       273:                TPU4.TGRB = z & 0xFFFF;
+  000002F2 6B81FEEA               MOV.W       R1,@H'00FFFEEA:16
+  000002F6 1A08                   DEC.B       R0L
+  000002F8 4600                   BNE         L7037:8
+  000002FA 1A80                   SUB.L       ER0,ER0
+  000002FC F865                   MOV.B       #H'65:8,R0L
+  000002FE 01006BA000000000       MOV.L       ER0,@__$y$27:32
+  00000306 0B51                   INC.W       #1,R1
+  00000308 1B72                   DEC.L       #1,ER2
+  0000030A 4600                   BNE         L7036:8
+  0000030C 7A7C257A48000000       MOV.L       #H'257A:16,@__$z$28:32
+           0000               
+  00000316 5402                   RTS/L       ER2
+       274:            }
+       275:        }
+       276:    }
+       277:    
+       278:    // --------------------------------------------------------------------
+       279:    // FONTデータ展開(Flash→内部RAM)
+       280:    // --------------------------------------------------------------------
+       281:    void FONT_open(void)
+  00000318                    _FONT_open:                          ; function: FONT_open
+  00000318 01106DF2               STM.L       (ER2-ER3),@-SP
+       282:    {
+       283:        static unsigned long icnt;
+       284:        
+       285:        for(icnt = 0; icnt < 0x00012C00; icnt ++ )
+  0000031C 7A0300012C00           MOV.L       #H'00012C00,ER3
+  00000322 0FB2                   MOV.L       ER3,ER2
+       286:        {
+       287:            *(FONTR + icnt) = *(FONT + icnt) & 0xF800;  // 白文字→赤文字で転送
+  00000324 1A91                   SUB.L       ER1,ER1
+  00000326                    L7042:                                
+  00000326 78106B200000F800       MOV.W       @(H'0000F800:32,ER1),R0
+  0000032E 7960F800               AND.W       #H'F800:16,R0
+  00000332 78106BA00024B000       MOV.W       R0,@(H'0024B000:32,ER1)
+  0000033A 0BF1                   INC.L       #2,ER1
+  0000033C 1B72                   DEC.L       #1,ER2
+  0000033E 4600                   BNE         L7042:8
+  00000340 01006BA300000000       MOV.L       ER3,@__$icnt$31:32
+  00000348 5413                   RTS/L       (ER2-ER3)
+       288:    //      *(FONTR + icnt) = *(FONT + icnt) & 0x07E0;  // 白文字→緑文字で転送
+       289:    //      *(FONTR + icnt) = *(FONT + icnt) & 0x001F;  // 白文字→青文字で転送
+       290:        }
+       291:    }
+       292:    
+       293:    // --------------------------------------------------------------------
+       294:    // TFT LCD 点描画
+       295:    // --------------------------------------------------------------------
+       296:    void LCD_pset(unsigned int x, unsigned int y, unsigned int color)
+  0000034A                    _LCD_pset:                           ; function: LCD_pset
+  0000034A 01006DF2               PUSH.L      ER2
+       297:    {
+       298:        unsigned long z;
+       299:        
+       300:        z = y;
+       301:        
+       302:        if(g_drawbuff_flg)
+  0000034E 0D1A                   MOV.W       R1,E2
+  00000350 0D02                   MOV.W       R0,R2
+  00000352 79010140               MOV.W       #H'0140:16,R1
+  00000356 0D80                   MOV.W       E0,R0
+  00000358 5210                   MULXU.W     R1,ER0
+  0000035A 0D21                   MOV.W       R2,R1
+  0000035C 1771                   EXTU.L      ER1
+  0000035E 0A90                   ADD.L       ER1,ER0
+  00000360 1030                   SHLL.L      ER0
+  00000362 6B2100000000           MOV.W       @_g_drawbuff_flg:32,R1
+  00000368 4700                   BEQ         L7047:8
+       303:        {
+       304:            *(ADATA + (x + z * 320)) = color;
+  0000036A 78006BAA00200000       MOV.W       E2,@(H'00200000:32,ER0)
+  00000372 5402                   RTS/L       ER2
+  00000374                    L7047:                                
+       305:        }
+       306:        else
+       307:        {
+       308:            *(BDATA + (x + z * 320)) = color;
+  00000374 78006BAA00225800       MOV.W       E2,@(H'00225800:32,ER0)
+  0000037C 5402                   RTS/L       ER2
+       309:        }
+       310:    }
+       311:    
+       312:    // --------------------------------------------------------------------
+       313:    // TFT LCD 線描画
+       314:    // --------------------------------------------------------------------
+       315:    void LCD_line(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1, unsigned int color)
+  0000037E                    _LCD_line:                           ; function: LCD_line
+  0000037E 01306DF2               STM.L       (ER2-ER5),@-SP
+  00000382 01006DF6               PUSH.L      ER6
+  00000386 79370008               SUB.W       #8:16,R7
+       316:    {
+       317:        unsigned int st;
+       318:        int sx0, sx1, sy0, sy1;
+       319:        int dx, dy;
+       320:        int err;
+       321:        int ystep;
+       322:        unsigned long x, y;
+       323:        
+       324:        sx0 = (int) x0;
+  0000038A 69F0                   MOV.W       R0,@SP
+       325:        sx1 = (int) x1;
+  0000038C 6FF10004               MOV.W       R1,@(4:16,SP)
+       326:        sy0 = (int) y0;
+  00000390 6FF80002               MOV.W       E0,@(2:16,SP)
+       327:        sy1 = (int) y1;
+  00000394 6FF90006               MOV.W       E1,@(6:16,SP)
+       328:        
+       329:        st = abs(sy1 - sy0) > abs(sx1 - sx0);
+  00000398 1989                   SUB.W       E0,E1
+  0000039A 0D90                   MOV.W       E1,R0
+  0000039C 7A0300000000           MOV.L       #_abs,ER3
+  000003A2 5D30                   JSR         @ER3
+  000003A4 0D02                   MOV.W       R0,R2
+  000003A6 6F700004               MOV.W       @(4:16,SP),R0
+  000003AA 7CF01900               SUB.W       @SP,R0
+  000003AE 5D30                   JSR         @ER3
+  000003B0 1988                   SUB.W       E0,E0
+  000003B2 1D02                   CMP.W       R0,R2
+  000003B4 4F00                   BLE         L7052:8
+  000003B6 0F18                   MOV.W       #1:3,E0
+  000003B8                    L7052:                                
+  000003B8 0D84                   MOV.W       E0,R4
+  000003BA 4700                   BEQ         L7054:8
+       330:        
+       331:        if(st)
+       332:        {
+       333:            swap(&sx0, &sy0);
+  000003BC 0FF0                   MOV.L       SP,ER0
+  000003BE 0FF1                   MOV.L       SP,ER1
+  000003C0 0BF1                   INC.L       #2,ER1
+  000003C2 5E000000               JSR         @_swap:24
+       334:            swap(&sx1, &sy1);
+  000003C6 0FF0                   MOV.L       SP,ER0
+  000003C8 0B90                   ADDS.L      #4,ER0
+  000003CA 0FF1                   MOV.L       SP,ER1
+  000003CC 0A61                   ADD.W       #6:3,R1
+  000003CE 5E000000               JSR         @_swap:24
+  000003D2                    L7054:                                
+       335:        }
+       336:        
+       337:        if(sx0 > sx1)
+  000003D2 0156697C0720           CMP.W       @(4:2,SP),@SP
+  000003D8 4F00                   BLE         L7056:8
+       338:        {
+       339:            swap(&sx0, &sx1);
+  000003DA 0FF0                   MOV.L       SP,ER0
+  000003DC 0FF1                   MOV.L       SP,ER1
+  000003DE 0B91                   ADDS.L      #4,ER1
+  000003E0 5E000000               JSR         @_swap:24
+       340:            swap(&sy0, &sy1);
+  000003E4 0FF0                   MOV.L       SP,ER0
+  000003E6 0BF0                   INC.L       #2,ER0
+  000003E8 0FF1                   MOV.L       SP,ER1
+  000003EA 0A61                   ADD.W       #6:3,R1
+  000003EC 5E000000               JSR         @_swap:24
+  000003F0                    L7056:                                
+       341:        }
+       342:        
+       343:        dx = sx1 - sx0;
+  000003F0 6F720004               MOV.W       @(4:16,SP),R2
+  000003F4 7CF01902               SUB.W       @SP,R2
+  000003F8 0D2D                   MOV.W       R2,E5
+       344:        dy = abs(sy1 - sy0);
+  000003FA 6F700006               MOV.W       @(6:16,SP),R0
+  000003FE 015A1730               SUB.W       @(2:2,SP),R0
+  00000402 5D30                   JSR         @ER3
+  00000404 0D0A                   MOV.W       R0,E2
+       345:        err = dx >> 1;
+  00000406 1192                   SHAR.W      R2
+       346:        ystep = (sy0 < sy1)? +1 : -1;
+  00000408 6F700002               MOV.W       @(2:16,SP),R0
+  0000040C 790CFFFF               MOV.W       #H'FFFF:16,E4
+  00000410 015A3720               CMP.W       @(6:2,SP),R0
+  00000414 4C00                   BGE         L7058:8
+  00000416 0F1C                   MOV.W       #1:3,E4
+  00000418                    L7058:                                
+       347:        y = sy0;
+  00000418 17F0                   EXTS.L      ER0
+  0000041A 0F83                   MOV.L       ER0,ER3
+       348:        
+       349:        for(x = sx0; x <= sx1; x++)
+  0000041C 6971                   MOV.W       @SP,R1
+  0000041E 17F1                   EXTS.L      ER1
+  00000420 179A                   NEG.W       E2
+  00000422 0DA5                   MOV.W       E2,R5
+  00000424 0DC0                   MOV.W       E4,R0
+  00000426 17F0                   EXTS.L      ER0
+  00000428 0F86                   MOV.L       ER0,ER6
+  0000042A 5A000000               JMP         @L7059:24
+  0000042E                    L7060:                                
+       350:        {
+       351:            if(st)
+  0000042E 0D44                   MOV.W       R4,R4
+  00000430 4700                   BEQ         L7062:8
+       352:            {
+       353:                if((y >= 0) && (x >= 0) && (y < 320) && (x < 240))
+  00000432 7A2B0140               CMP.L       #H'0140:16,ER3
+  00000436 58400000               BHS         L7064:16
+  0000043A 7A2900F0               CMP.L       #H'00F0:16,ER1
+  0000043E 4400                   BHS         L7064:8
+       354:                {
+       355:                    if(g_drawbuff_flg)
+  00000440 0F90                   MOV.L       ER1,ER0
+  00000442 1070                   SHLL.L      #2,ER0
+  00000444 0A90                   ADD.L       ER1,ER0
+  00000446 03861030               SHLL.L      #6:5,ER0
+  0000044A 0AB0                   ADD.L       ER3,ER0
+  0000044C 1030                   SHLL.L      ER0
+  0000044E 6B2A00000000           MOV.W       @_g_drawbuff_flg:32,E2
+  00000454 4700                   BEQ         L7067:8
+       356:                    {
+       357:                        *(ADATA + (y + x * 320)) = color;
+  00000456 0158C7C800200020       MOV.W       @(H'0020:16,SP),@(H'00200000:32,ER0)
+           0000               
+  00000460 4000                   BRA         L7064:8
+  00000462                    L7067:                                
+       358:                    }
+       359:                    else
+       360:                    {
+       361:                        *(BDATA + (y + x * 320)) = color;
+  00000462 0158C7C800200022       MOV.W       @(H'0020:16,SP),@(H'00225800:32,ER0)
+           5800               
+  0000046C 4000                   BRA         L7064:8
+  0000046E                    L7062:                                
+       362:                    }
+       363:                }
+       364:            }
+       365:            else
+       366:            {
+       367:                if((x >= 0) && (y >= 0) && (x < 320) && (y < 240))
+  0000046E 7A290140               CMP.L       #H'0140:16,ER1
+  00000472 4400                   BHS         L7064:8
+  00000474 7A2B00F0               CMP.L       #H'00F0:16,ER3
+  00000478 4400                   BHS         L7064:8
+       368:                {
+       369:                    if(g_drawbuff_flg)
+  0000047A 0FB0                   MOV.L       ER3,ER0
+  0000047C 1070                   SHLL.L      #2,ER0
+  0000047E 0AB0                   ADD.L       ER3,ER0
+  00000480 03861030               SHLL.L      #6:5,ER0
+  00000484 0A90                   ADD.L       ER1,ER0
+  00000486 1030                   SHLL.L      ER0
+  00000488 6B2A00000000           MOV.W       @_g_drawbuff_flg:32,E2
+  0000048E 4700                   BEQ         L7071:8
+       370:                    {
+       371:                        *(ADATA + (x + y * 320)) = color;
+  00000490 0158C7C800200020       MOV.W       @(H'0020:16,SP),@(H'00200000:32,ER0)
+           0000               
+  0000049A 4000                   BRA         L7064:8
+  0000049C                    L7071:                                
+       372:                    }
+       373:                    else
+       374:                    {
+       375:                        *(BDATA + (x + y * 320)) = color;
+  0000049C 0158C7C800200022       MOV.W       @(H'0020:16,SP),@(H'00225800:32,ER0)
+           5800               
+  000004A6                    L7064:                                
+       376:                    }
+       377:                }
+       378:            }
+       379:            
+       380:            err = err - dy;
+  000004A6 0952                   ADD.W       R5,R2
+       381:            if(err < 0)
+  000004A8 0D22                   MOV.W       R2,R2
+  000004AA 4C00                   BGE         L7073:8
+       382:            {
+       383:                y = y + ystep;
+  000004AC 0AE3                   ADD.L       ER6,ER3
+       384:                err = err + dx;
+  000004AE 09D2                   ADD.W       E5,R2
+  000004B0                    L7073:                                
+  000004B0 0B71                   INC.L       #1,ER1
+  000004B2                    L7059:                                
+  000004B2 6F700004               MOV.W       @(4:16,SP),R0
+  000004B6 17F0                   EXTS.L      ER0
+  000004B8 1F81                   CMP.L       ER0,ER1
+  000004BA 58300000               BLS         L7060:16
+  000004BE 79170008               ADD.W       #8:16,R7
+  000004C2 01006D76               POP.L       ER6
+  000004C6 5435                   RTS/L       (ER2-ER5)
+       385:            }
+       386:        }
+       387:    }
+       388:    
+       389:    // --------------------------------------------------------------------
+       390:    // TFT LCD 線描画 2倍寸
+       391:    // --------------------------------------------------------------------
+       392:    void LCD_line2(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1, unsigned int color)
+  000004C8                    _LCD_line2:                          ; function: LCD_line2
+  000004C8 01306DF2               STM.L       (ER2-ER5),@-SP
+  000004CC 01006DF6               PUSH.L      ER6
+  000004D0 79370010               SUB.W       #H'0010:16,R7
+       393:    {
+       394:        unsigned int st;
+       395:        int sx0, sx1, sy0, sy1;
+       396:        int dx, dy;
+       397:        int err;
+       398:        int ystep;
+       399:        unsigned long x, y;
+       400:        
+       401:        sx0 = (int) x0;
+  000004D4 69F0                   MOV.W       R0,@SP
+       402:        sx1 = (int) x1;
+  000004D6 6FF10004               MOV.W       R1,@(4:16,SP)
+       403:        sy0 = (int) y0;
+  000004DA 6FF80002               MOV.W       E0,@(2:16,SP)
+       404:        sy1 = (int) y1;
+  000004DE 6FF90006               MOV.W       E1,@(6:16,SP)
+       405:        
+       406:        st = abs(sy1 - sy0) > abs(sx1 - sx0);
+  000004E2 1989                   SUB.W       E0,E1
+  000004E4 0D90                   MOV.W       E1,R0
+  000004E6 7A0300000000           MOV.L       #_abs,ER3
+  000004EC 5D30                   JSR         @ER3
+  000004EE 0D02                   MOV.W       R0,R2
+  000004F0 6F700004               MOV.W       @(4:16,SP),R0
+  000004F4 7CF01900               SUB.W       @SP,R0
+  000004F8 5D30                   JSR         @ER3
+  000004FA 1988                   SUB.W       E0,E0
+  000004FC 1D02                   CMP.W       R0,R2
+  000004FE 4F00                   BLE         L7077:8
+  00000500 0F18                   MOV.W       #1:3,E0
+  00000502                    L7077:                                
+  00000502 0D8C                   MOV.W       E0,E4
+  00000504 4700                   BEQ         L7079:8
+       407:        
+       408:        if(st)
+       409:        {
+       410:            swap(&sx0, &sy0);
+  00000506 0FF0                   MOV.L       SP,ER0
+  00000508 0FF1                   MOV.L       SP,ER1
+  0000050A 0BF1                   INC.L       #2,ER1
+  0000050C 5E000000               JSR         @_swap:24
+       411:            swap(&sx1, &sy1);
+  00000510 0FF0                   MOV.L       SP,ER0
+  00000512 0B90                   ADDS.L      #4,ER0
+  00000514 0FF1                   MOV.L       SP,ER1
+  00000516 0A61                   ADD.W       #6:3,R1
+  00000518 5E000000               JSR         @_swap:24
+  0000051C                    L7079:                                
+       412:        }
+       413:        
+       414:        if(sx0 > sx1)
+  0000051C 0156697C0720           CMP.W       @(4:2,SP),@SP
+  00000522 4F00                   BLE         L7081:8
+       415:        {
+       416:            swap(&sx0, &sx1);
+  00000524 0FF0                   MOV.L       SP,ER0
+  00000526 0FF1                   MOV.L       SP,ER1
+  00000528 0B91                   ADDS.L      #4,ER1
+  0000052A 5E000000               JSR         @_swap:24
+       417:            swap(&sy0, &sy1);
+  0000052E 0FF0                   MOV.L       SP,ER0
+  00000530 0BF0                   INC.L       #2,ER0
+  00000532 0FF1                   MOV.L       SP,ER1
+  00000534 0A61                   ADD.W       #6:3,R1
+  00000536 5E000000               JSR         @_swap:24
+  0000053A                    L7081:                                
+       418:        }
+       419:        
+       420:        dx = sx1 - sx0;
+  0000053A 6F740004               MOV.W       @(4:16,SP),R4
+  0000053E 7CF01904               SUB.W       @SP,R4
+  00000542 6FF40008               MOV.W       R4,@(8:16,SP)
+       421:        dy = abs(sy1 - sy0);
+  00000546 6F700006               MOV.W       @(6:16,SP),R0
+  0000054A 015A1730               SUB.W       @(2:2,SP),R0
+  0000054E 5D30                   JSR         @ER3
+  00000550 0D0A                   MOV.W       R0,E2
+       422:        err = dx >> 1;
+  00000552 1194                   SHAR.W      R4
+       423:        ystep = (sy0 < sy1)? +1 : -1;
+  00000554 6F710002               MOV.W       @(2:16,SP),R1
+  00000558 7902FFFF               MOV.W       #H'FFFF:16,R2
+  0000055C 015A3721               CMP.W       @(6:2,SP),R1
+  00000560 4C00                   BGE         L7083:8
+  00000562 0F12                   MOV.W       #1:3,R2
+  00000564                    L7083:                                
+       424:        y = sy0;
+  00000564 17F1                   EXTS.L      ER1
+       425:        
+       426:        for(x = sx0; x < sx1; x++)
+  00000566 6970                   MOV.W       @SP,R0
+  00000568 17F0                   EXTS.L      ER0
+  0000056A 0F83                   MOV.L       ER0,ER3
+  0000056C 179A                   NEG.W       E2
+  0000056E 6FFA000A               MOV.W       E2,@(H'000A:16,SP)
+  00000572 0D20                   MOV.W       R2,R0
+  00000574 17F0                   EXTS.L      ER0
+  00000576 010369F0               MOV.L       ER0,@(12:2,SP)
+  0000057A 5A000000               JMP         @L7084:24
+  0000057E                    L7085:                                
+       427:        {
+       428:            if(st)
+  0000057E 0DCC                   MOV.W       E4,E4
+  00000580 58700000               BEQ         L7087:16
+       429:            {
+       430:                if((y >= 0) && (x >= 0) && (y < 320) && (x < 240))
+  00000584 7A290140               CMP.L       #H'0140:16,ER1
+  00000588 58400000               BHS         L7089:16
+  0000058C 7A2B00F0               CMP.L       #H'00F0:16,ER3
+  00000590 58400000               BHS         L7089:16
+       431:                {
+       432:                    if(g_drawbuff_flg)
+  00000594 0FB2                   MOV.L       ER3,ER2
+  00000596 1072                   SHLL.L      #2,ER2
+  00000598 0AB2                   ADD.L       ER3,ER2
+  0000059A 03861032               SHLL.L      #6:5,ER2
+  0000059E 0F95                   MOV.L       ER1,ER5
+  000005A0 0AA5                   ADD.L       ER2,ER5
+  000005A2 1035                   SHLL.L      ER5
+  000005A4 0F96                   MOV.L       ER1,ER6
+  000005A6 1B76                   DEC.L       #1,ER6
+  000005A8 0AA6                   ADD.L       ER2,ER6
+  000005AA 1036                   SHLL.L      ER6
+  000005AC 0FB0                   MOV.L       ER3,ER0
+  000005AE 1A98                   SUB.L       #1:3,ER0
+  000005B0 0F82                   MOV.L       ER0,ER2
+  000005B2 1070                   SHLL.L      #2,ER0
+  000005B4 0A82                   ADD.L       ER0,ER2
+  000005B6 03861032               SHLL.L      #6:5,ER2
+  000005BA 0A92                   ADD.L       ER1,ER2
+  000005BC 1032                   SHLL.L      ER2
+  000005BE 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  000005C4 4700                   BEQ         L7092:8
+       433:                    {
+       434:                        *(ADATA + (y + x       * 320)) = color;
+  000005C6 6F700028               MOV.W       @(H'0028:16,SP),R0
+  000005CA 78506BA000200000       MOV.W       R0,@(H'00200000:32,ER5)
+       435:                        *(ADATA + ((y - 1) + x * 320)) = color;
+  000005D2 78606BA000200000       MOV.W       R0,@(H'00200000:32,ER6)
+       436:                        *(ADATA + ((y + 1) + x * 320)) = color;
+  000005DA 78506BA000200002       MOV.W       R0,@(H'00200002:32,ER5)
+       437:                        *(ADATA + (y + (x - 1) * 320)) = color;
+  000005E2 78206BA000200000       MOV.W       R0,@(H'00200000:32,ER2)
+       438:                        *(ADATA + (y + (x + 1) * 320)) = color;
+  000005EA 78506BA000200280       MOV.W       R0,@(H'00200280:32,ER5)
+  000005F2 5A000000               JMP         @L7089:24
+  000005F6                    L7092:                                
+       439:                    }
+       440:                    else
+       441:                    {
+       442:                        *(BDATA + (y + x       * 320)) = color;
+  000005F6 6F700028               MOV.W       @(H'0028:16,SP),R0
+  000005FA 78506BA000225800       MOV.W       R0,@(H'00225800:32,ER5)
+       443:                        *(BDATA + ((y - 1) + x * 320)) = color;
+  00000602 78606BA000225800       MOV.W       R0,@(H'00225800:32,ER6)
+       444:                        *(BDATA + ((y + 1) + x * 320)) = color;
+  0000060A 78506BA000225802       MOV.W       R0,@(H'00225802:32,ER5)
+       445:                        *(BDATA + (y + (x - 1) * 320)) = color;
+  00000612 78206BA000225800       MOV.W       R0,@(H'00225800:32,ER2)
+       446:                        *(BDATA + (y + (x + 1) * 320)) = color;
+  0000061A 78506BA000225A80       MOV.W       R0,@(H'00225A80:32,ER5)
+  00000622 5A000000               JMP         @L7089:24
+  00000626                    L7087:                                
+       447:                    }
+       448:                }
+       449:            }
+       450:            else
+       451:            {
+       452:                if((x >= 0) && (y >= 0) && (x < 320) && (y < 240))
+  00000626 7A2B0140               CMP.L       #H'0140:16,ER3
+  0000062A 58400000               BHS         L7089:16
+  0000062E 7A2900F0               CMP.L       #H'00F0:16,ER1
+  00000632 58400000               BHS         L7089:16
+       453:                {
+       454:                    if(g_drawbuff_flg)
+  00000636 0F92                   MOV.L       ER1,ER2
+  00000638 1072                   SHLL.L      #2,ER2
+  0000063A 0A92                   ADD.L       ER1,ER2
+  0000063C 03861032               SHLL.L      #6:5,ER2
+  00000640 0FB6                   MOV.L       ER3,ER6
+  00000642 0AA6                   ADD.L       ER2,ER6
+  00000644 1A9E                   SUB.L       #1:3,ER6
+  00000646 1036                   SHLL.L      ER6
+  00000648 0FB5                   MOV.L       ER3,ER5
+  0000064A 0AA5                   ADD.L       ER2,ER5
+  0000064C 1035                   SHLL.L      ER5
+  0000064E 0F90                   MOV.L       ER1,ER0
+  00000650 1B70                   DEC.L       #1,ER0
+  00000652 0F82                   MOV.L       ER0,ER2
+  00000654 1070                   SHLL.L      #2,ER0
+  00000656 0A82                   ADD.L       ER0,ER2
+  00000658 03861032               SHLL.L      #6:5,ER2
+  0000065C 0AB2                   ADD.L       ER3,ER2
+  0000065E 1032                   SHLL.L      ER2
+  00000660 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  00000666 4700                   BEQ         L7096:8
+       455:                    {
+       456:                        *(ADATA + (x + y       * 320)) = color;
+  00000668 6F700028               MOV.W       @(H'0028:16,SP),R0
+  0000066C 78506BA000200000       MOV.W       R0,@(H'00200000:32,ER5)
+       457:                        *(ADATA + ((x - 1) + y * 320)) = color;
+  00000674 78606BA000200000       MOV.W       R0,@(H'00200000:32,ER6)
+       458:                        *(ADATA + ((x + 1) + y * 320)) = color;
+  0000067C 78506BA000200002       MOV.W       R0,@(H'00200002:32,ER5)
+       459:                        *(ADATA + (x + (y - 1) * 320)) = color;
+  00000684 78206BA000200000       MOV.W       R0,@(H'00200000:32,ER2)
+       460:                        *(ADATA + (x + (y + 1) * 320)) = color;
+  0000068C 78506BA000200280       MOV.W       R0,@(H'00200280:32,ER5)
+  00000694 4000                   BRA         L7089:8
+  00000696                    L7096:                                
+       461:                    }
+       462:                    else
+       463:                    {
+       464:                        *(BDATA + (x + y       * 320)) = color;
+  00000696 6F700028               MOV.W       @(H'0028:16,SP),R0
+  0000069A 78506BA000225800       MOV.W       R0,@(H'00225800:32,ER5)
+       465:                        *(BDATA + ((x - 1) + y * 320)) = color;
+  000006A2 78606BA000225800       MOV.W       R0,@(H'00225800:32,ER6)
+       466:                        *(BDATA + ((x + 1) + y * 320)) = color;
+  000006AA 78506BA000225802       MOV.W       R0,@(H'00225802:32,ER5)
+       467:                        *(BDATA + (x + (y - 1) * 320)) = color;
+  000006B2 78206BA000225800       MOV.W       R0,@(H'00225800:32,ER2)
+       468:                        *(BDATA + (x + (y + 1) * 320)) = color;
+  000006BA 78506BA000225A80       MOV.W       R0,@(H'00225A80:32,ER5)
+  000006C2                    L7089:                                
+       469:                    }
+       470:                }
+       471:            }
+       472:            
+       473:            err = err - dy;
+  000006C2 015AC714000A           ADD.W       @(H'000A:16,SP),R4
+       474:            if(err < 0)
+  000006C8 0D44                   MOV.W       R4,R4
+  000006CA 4C00                   BGE         L7098:8
+       475:            {
+       476:                y = y + ystep;
+  000006CC 010A3711               ADD.L       @(12:2,SP),ER1
+       477:                err = err + dx;
+  000006D0 015AC7140008           ADD.W       @(8:16,SP),R4
+  000006D6                    L7098:                                
+  000006D6 0B73                   INC.L       #1,ER3
+  000006D8                    L7084:                                
+  000006D8 6F700004               MOV.W       @(4:16,SP),R0
+  000006DC 17F0                   EXTS.L      ER0
+  000006DE 1F83                   CMP.L       ER0,ER3
+  000006E0 58500000               BLO         L7085:16
+  000006E4 79170010               ADD.W       #H'0010:16,R7
+  000006E8 01006D76               POP.L       ER6
+  000006EC 5435                   RTS/L       (ER2-ER5)
+       478:            }
+       479:        }
+       480:    }
+       481:    
+       482:    void swap(int *x0, int *x1)
+  000006EE                    _swap:                               ; function: swap
+  000006EE 01006DF2               PUSH.L      ER2
+       483:    {
+       484:        int temp;
+       485:        temp = *x0;
+  000006F2 0F82                   MOV.L       ER0,ER2
+  000006F4 6908                   MOV.W       @ER0,E0
+       486:        *x0 = *x1;
+  000006F6 01580102               MOV.W       @ER1,@ER2
+       487:        *x1 = temp;
+  000006FA 6998                   MOV.W       E0,@ER1
+  000006FC 5402                   RTS/L       ER2
+       488:    }
+       489:    
+       490:    /*
+       491:    // --------------------------------------------------------------------
+       492:    // TFT LCD 画面クリア(ソフトウェア転送版)
+       493:    // --------------------------------------------------------------------
+       494:    void LCD_CLR(unsigned int color)
+       495:    {
+       496:        static unsigned long icnt;
+       497:        
+       498:        for(icnt = 0; icnt < 0x00012C00; icnt ++ )
+       499:        {
+       500:            if(g_drawbuff_flg)
+       501:            {
+       502:                *(ADATA + icnt) = color;
+       503:            }
+       504:            else
+       505:            {
+       506:                *(BDATA + icnt) = color;
+       507:            }
+       508:        }
+       509:    }
+       510:    */
+       511:    
+       512:    // --------------------------------------------------------------------
+       513:    // TFT LCD 画面クリア(ハードウェアDMA1転送版)
+       514:    // --------------------------------------------------------------------
+       515:    void LCD_CLR(unsigned int color)
+  000006FE                    _LCD_CLR:                            ; function: LCD_CLR
+  000006FE 1B87                   SUBS.L      #2,SP
+       516:    {
+       517:        unsigned int    *color_p;
+       518:        color_p = &color;
+       519:        
+       520:        DMAC1.DTCR = 0x00012C00 * 2;
+  00000700 69F0                   MOV.W       R0,@SP
+  00000702 01580707               MOV.W       @SP,@SP
+  00000706 7A74000258004000       MOV.L       #H'00025800:32,@H'00FFFC2C:16
+           FC2C               
+       521:        DMAC1.DSAR = color_p;
+  00000710 01006B87FC20           MOV.L       SP,@H'00FFFC20:16
+       522:        if(g_drawbuff_flg)
+  00000716 6B2100000000           MOV.W       @_g_drawbuff_flg:32,R1
+  0000071C 4700                   BEQ         L7104:8
+       523:        {
+       524:            DMAC1.DDAR = ADATA;
+  0000071E 7A74002000004000       MOV.L       #H'00200000:32,@H'00FFFC24:16
+           FC24               
+  00000728 4000                   BRA         L7105:8
+  0000072A                    L7104:                                
+       525:        }
+       526:        else
+       527:        {
+       528:            DMAC1.DDAR = BDATA;
+  0000072A 7A74002258004000       MOV.L       #H'00225800:32,@H'00FFFC24:16
+           FC24               
+  00000734                    L7105:                                
+       529:        }
+       530:        DMAC1.DMDR.BIT.DTE  = 1;
+  00000734 6A18FC347070           BSET.B      #7,@H'00FFFC34:16
+  0000073A                    L7106:                                
+       531:        while(DMAC1.DMDR.BIT.DTIF == 0);
+  0000073A 6A08FC35               MOV.B       @H'00FFFC35:16,R0L
+  0000073E 7708                   BLD.B       #0,R0L
+  00000740 4400                   BCC         L7106:8
+  00000742 0BF7                   INC.L       #2,SP
+  00000744 5470                   RTS
+       532:    }
+       533:    
+       534:    /*
+       535:    // --------------------------------------------------------------------
+       536:    // TFT LCD 画面塗りつぶし(ソフトウェア転送版)
+       537:    // --------------------------------------------------------------------
+       538:    void LCD_PAINT(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned int color)
+       539:    {
+       540:        unsigned long   i, j;
+       541:        
+       542:        for(j = 0; j < h; j++)
+       543:        {
+       544:            for(i = 0; i < w; i++)
+       545:            {
+       546:                if(g_drawbuff_flg)
+       547:                {
+       548:                    *(ADATA + ((x + i) + (y + j) * 320)) = color;
+       549:                }
+       550:                else
+       551:                {
+       552:                    *(BDATA + ((x + i) + (y + j) * 320)) = color;
+       553:                }
+       554:            }
+       555:        }
+       556:    }
+       557:    */
+       558:    
+       559:    // --------------------------------------------------------------------
+       560:    // TFT LCD 画面塗りつぶし(ハードウェアDMA1転送版)
+       561:    // --------------------------------------------------------------------
+       562:    void LCD_PAINT(unsigned int x, unsigned int y, unsigned int w, unsigned int h, unsigned int color)
+  00000746                    _LCD_PAINT:                          ; function: LCD_PAINT
+  00000746 01306DF2               STM.L       (ER2-ER5),@-SP
+  0000074A 01006DF6               PUSH.L      ER6
+  0000074E 1B97                   SUBS.L      #4,SP
+       563:    {
+       564:        unsigned long   j;
+       565:        unsigned int    *color_p;
+       566:        color_p = &color;
+  00000750 0D1B                   MOV.W       R1,E3
+  00000752 6FF80002               MOV.W       E0,@(2:16,SP)
+  00000756 69F0                   MOV.W       R0,@SP
+  00000758 0FF4                   MOV.L       SP,ER4
+  0000075A 7914001C               ADD.W       #H'001C:16,R4
+       567:        
+       568:        for(j = 0; j < h; j++)
+  0000075E 1AA2                   SUB.L       ER2,ER2
+  00000760 0D91                   MOV.W       E1,R1
+  00000762 1771                   EXTU.L      ER1
+  00000764 0F95                   MOV.L       ER1,ER5
+  00000766 0DB1                   MOV.W       E3,R1
+  00000768 1011                   SHLL.W      R1
+  0000076A 1771                   EXTU.L      ER1
+  0000076C 0F96                   MOV.L       ER1,ER6
+       569:        {
+       570:            DMAC1.DTCR = w * 2;
+       571:            DMAC1.DSAR = color_p;
+       572:            if(g_drawbuff_flg)
+       573:            {
+       574:                DMAC1.DDAR = (ADATA + ((x) + (y + j) * 320));
+       575:            }
+       576:            else
+       577:            {
+       578:                DMAC1.DDAR = (BDATA + ((x) + (y + j) * 320));
+  0000076E 0D81                   MOV.W       E0,R1
+  00000770 79080140               MOV.W       #H'0140:16,E0
+  00000774 5281                   MULXU.W     E0,ER1
+  00000776 1770                   EXTU.L      ER0
+  00000778 4001                   BRA/S       L7109:8
+  0000077A 0F93                   MOV.L       ER1,ER3
+  0000077C                    L7110:                                
+  0000077C 01006B86FC2C           MOV.L       ER6,@H'00FFFC2C:16
+  00000782 01006B84FC20           MOV.L       ER4,@H'00FFFC20:16
+  00000788 0FA9                   MOV.L       #2:3,ER1
+  0000078A 0FB0                   MOV.L       ER3,ER0
+  0000078C 01CA5210               MULU.L      ER1,ER0
+  00000790 6B2100000000           MOV.W       @_g_drawbuff_flg:32,R1
+  00000796 4700                   BEQ         L7112:8
+  00000798 7A1000200000           ADD.L       #H'00200000,ER0
+  0000079E 4000                   BRA         L7113:8
+  000007A0                    L7112:                                
+  000007A0 7A1000225800           ADD.L       #H'00225800,ER0
+  000007A6                    L7113:                                
+       579:            }
+       580:            DMAC1.DMDR.BIT.DTE  = 1;
+  000007A6 01006B80FC24           MOV.L       ER0,@H'00FFFC24:16
+  000007AC 6A18FC347070           BSET.B      #7,@H'00FFFC34:16
+  000007B2                    L7114:                                
+       581:            while(DMAC1.DMDR.BIT.DTIF == 0);
+  000007B2 6A08FC35               MOV.B       @H'00FFFC35:16,R0L
+  000007B6 7708                   BLD.B       #0,R0L
+  000007B8 4400                   BCC         L7114:8
+  000007BA 0B72                   INC.L       #1,ER2
+  000007BC 7A080140               MOV.L       #H'0140:16,ER0
+  000007C0                    L7109:                                
+  000007C0 0A83                   ADD.L       ER0,ER3
+  000007C2 1FD2                   CMP.L       ER5,ER2
+  000007C4 4500                   BLO         L7110:8
+  000007C6 0B97                   ADDS.L      #4,SP
+  000007C8 01006D76               POP.L       ER6
+  000007CC 5435                   RTS/L       (ER2-ER5)
+       582:        }
+       583:    }
+       584:    
+       585:    /*
+       586:    // --------------------------------------------------------------------
+       587:    // TFT LCD 画像コピー描画(ソフトウェア転送版)
+       588:    // --------------------------------------------------------------------
+       589:    void LCD_Gcopy(unsigned int p, unsigned int q, unsigned int w, unsigned int h, volatile unsigned int *sorce)
+       590:    {
+       591:        unsigned long   i, j;
+       592:        
+       593:        for(j = 0; j < h; j++)
+       594:        {
+       595:            for(i = 0; i < w; i++)
+       596:            {
+       597:                if(g_drawbuff_flg)
+       598:                {
+       599:                    *(ADATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320)) = *(sorce + ((p + i) + (q + j) * 320));
+       600:                }
+       601:                else
+       602:                {
+       603:                    *(BDATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320)) = *(sorce + ((p + i) + (q + j) * 320));
+       604:                }
+       605:            }
+       606:        }
+       607:    }
+       608:    */
+       609:    
+       610:    // --------------------------------------------------------------------
+       611:    // TFT LCD 画像コピー描画(ハードウェアDMA0転送版)
+       612:    // --------------------------------------------------------------------
+       613:    void LCD_Gcopy(unsigned int p, unsigned int q, unsigned int w, unsigned int h, volatile unsigned int *sorce)
+  000007CE                    _LCD_Gcopy:                          ; function: LCD_Gcopy
+  000007CE 01306DF2               STM.L       (ER2-ER5),@-SP
+  000007D2 01006DF6               PUSH.L      ER6
+       614:    {
+       615:        unsigned long   j;
+       616:        
+       617:        for(j = 0; j < h; j++)
+  000007D6 0D1C                   MOV.W       R1,E4
+  000007D8 0D04                   MOV.W       R0,R4
+  000007DA 1AA2                   SUB.L       ER2,ER2
+  000007DC 0D91                   MOV.W       E1,R1
+  000007DE 1771                   EXTU.L      ER1
+  000007E0 0F95                   MOV.L       ER1,ER5
+  000007E2 79010140               MOV.W       #H'0140:16,R1
+  000007E6 0D80                   MOV.W       E0,R0
+  000007E8 5210                   MULXU.W     R1,ER0
+  000007EA 0D41                   MOV.W       R4,R1
+  000007EC 1771                   EXTU.L      ER1
+  000007EE 0F86                   MOV.L       ER0,ER6
+  000007F0 0A96                   ADD.L       ER1,ER6
+  000007F2 101C                   SHLL.W      E4
+  000007F4 0DC0                   MOV.W       E4,R0
+  000007F6 1770                   EXTU.L      ER0
+  000007F8 0F83                   MOV.L       ER0,ER3
+  000007FA 5A000000               JMP         @L7118:24
+  000007FE                    L7119:                                
+       618:        {
+       619:            DMAC0.DTCR = w * 2;
+  000007FE 01006B83FC0C           MOV.L       ER3,@H'00FFFC0C:16
+       620:            DMAC0.DSAR = (sorce + ((p) + (q + j) * 320));
+  00000804 0FA0                   MOV.L       ER2,ER0
+  00000806 1070                   SHLL.L      #2,ER0
+  00000808 0AA0                   ADD.L       ER2,ER0
+  0000080A 03861030               SHLL.L      #6:5,ER0
+  0000080E 0AE0                   ADD.L       ER6,ER0
+  00000810 1030                   SHLL.L      ER0
+  00000812 010AC7100018           ADD.L       @(H'0018:16,SP),ER0
+  00000818 01006B80FC00           MOV.L       ER0,@H'00FFFC00:16
+       621:            if(g_drawbuff_flg)
+  0000081E 6B2100000000           MOV.W       @_g_drawbuff_flg:32,R1
+  00000824 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  0000082A 1770                   EXTU.L      ER0
+  0000082C 0AA0                   ADD.L       ER2,ER0
+  0000082E 0D11                   MOV.W       R1,R1
+  00000830 4700                   BEQ         L7121:8
+       622:            {
+       623:                DMAC0.DDAR = (ADATA + ((g_LCD_x) + (g_LCD_y + j) * 320));
+  00000832 0F81                   MOV.L       ER0,ER1
+  00000834 1070                   SHLL.L      #2,ER0
+  00000836 0A90                   ADD.L       ER1,ER0
+  00000838 03861030               SHLL.L      #6:5,ER0
+  0000083C 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000842 1771                   EXTU.L      ER1
+  00000844 0A90                   ADD.L       ER1,ER0
+  00000846 1030                   SHLL.L      ER0
+  00000848 7A1000200000           ADD.L       #H'00200000,ER0
+  0000084E 4000                   BRA         L7122:8
+  00000850                    L7121:                                
+       624:            }
+       625:            else
+       626:            {
+       627:                DMAC0.DDAR = (BDATA + ((g_LCD_x) + (g_LCD_y + j) * 320));
+  00000850 0F81                   MOV.L       ER0,ER1
+  00000852 1070                   SHLL.L      #2,ER0
+  00000854 0A90                   ADD.L       ER1,ER0
+  00000856 03861030               SHLL.L      #6:5,ER0
+  0000085A 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000860 1771                   EXTU.L      ER1
+  00000862 0A90                   ADD.L       ER1,ER0
+  00000864 1030                   SHLL.L      ER0
+  00000866 7A1000225800           ADD.L       #H'00225800,ER0
+  0000086C                    L7122:                                
+       628:            }
+       629:            DMAC0.DMDR.BIT.DTE  = 1;
+  0000086C 01006B80FC04           MOV.L       ER0,@H'00FFFC04:16
+  00000872 6A18FC147070           BSET.B      #7,@H'00FFFC14:16
+  00000878                    L7123:                                
+       630:            while(DMAC0.DMDR.BIT.DTIF == 0);
+  00000878 6A08FC15               MOV.B       @H'00FFFC15:16,R0L
+  0000087C 7708                   BLD.B       #0,R0L
+  0000087E 4400                   BCC         L7123:8
+  00000880 0B72                   INC.L       #1,ER2
+  00000882                    L7118:                                
+  00000882 1FD2                   CMP.L       ER5,ER2
+  00000884 58500000               BLO         L7119:16
+  00000888 01006D76               POP.L       ER6
+  0000088C 5435                   RTS/L       (ER2-ER5)
+       631:        }
+       632:    }
+       633:    
+       634:    // --------------------------------------------------------------------
+       635:    // TFT LCD 文字列出力（小さめ文字）
+       636:    // --------------------------------------------------------------------
+       637:    void LCD_textout(char chr[])//, unsigned int color)
+  0000088E                    _LCD_textout:                        ; function: LCD_textout
+  0000088E 01206DF4               STM.L       (ER4-ER6),@-SP
+       638:    {
+       639:        unsigned int i;
+       640:        
+       641:        for(i = 0; i <= 32; i++)
+  00000892 0F84                   MOV.L       ER0,ER4
+  00000894 1955                   SUB.W       R5,R5
+  00000896                    L7127:                                
+       642:        {
+       643:            if(chr[i] == '\0') return;
+  00000896 0D51                   MOV.W       R5,R1
+  00000898 1771                   EXTU.L      ER1
+  0000089A 0F96                   MOV.L       ER1,ER6
+  0000089C 0AC1                   ADD.L       ER4,ER1
+  0000089E 6810                   MOV.B       @ER1,R0H
+  000008A0 4700                   BEQ         L7129:8
+       644:            LCD_CHR_Copy_Smallfont(chr[i]);         // 単純コピー出力を選択(高速)
+  000008A2 0FC0                   MOV.L       ER4,ER0
+  000008A4 0AE0                   ADD.L       ER6,ER0
+  000008A6 6808                   MOV.B       @ER0,R0L
+  000008A8 5500                   BSR         _LCD_CHR_Copy_Smallfont:8
+  000008AA 0B55                   INC.W       #1,R5
+  000008AC 79250020               CMP.W       #H'0020:16,R5
+  000008B0 4300                   BLS         L7127:8
+  000008B2                    L7129:                                
+  000008B2 5426                   RTS/L       (ER4-ER6)
+       645:    //      LCD_CHR_Alpha_Smallfont(chr[i], color); // 色指定アンチエイリアス出力を選択(低速)
+       646:        }
+       647:    }
+       648:    
+       649:    /*
+       650:    // --------------------------------------------------------------------
+       651:    // TFT LCD 文字単出力（小さめ文字・単純コピー出力）(ソフトウェア転送版)
+       652:    // --------------------------------------------------------------------
+       653:    void LCD_CHR_Copy_Smallfont(unsigned char chr)
+       654:    {
+       655:        unsigned long i, j, font_addr;
+       656:        
+       657:        // フォントテーブルデータの座標の参照先を算出
+       658:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 16) * 320) + ((((chr - 0x20) & 0x0000000F) * 10)) + 46080;
+       659:        
+       660:        for(j = 0; j < 16; j++)
+       661:        {
+       662:            for(i = 0; i < 10; i++)
+       663:            {
+       664:                if(g_drawbuff_flg)
+       665:                {
+       666:                    (*(ADATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320))) = *(FONT + font_addr + i + j * 320);
+       667:                }
+       668:                else
+       669:                {
+       670:                    (*(BDATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320))) = *(FONT + font_addr + i + j * 320);
+       671:                }
+       672:            }
+       673:        }
+       674:        g_LCD_x = g_LCD_x  + 10;
+       675:    }
+       676:    */
+       677:    
+       678:    // --------------------------------------------------------------------
+       679:    // TFT LCD 文字単出力（小さめ文字・単純コピー出力）(ハードウェアDMA0転送版)
+       680:    // --------------------------------------------------------------------
+       681:    void LCD_CHR_Copy_Smallfont(unsigned char chr)
+  000008B4                    _LCD_CHR_Copy_Smallfont:             ; function: LCD_CHR_Copy_Smallfont
+  000008B4 01206DF4               STM.L       (ER4-ER6),@-SP
+       682:    {
+       683:        unsigned long j, font_addr;
+       684:        
+       685:        // フォントテーブルデータの座標の参照先を算出
+       686:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 16) * 320) + ((((chr - 0x20) & 0x0000000F) * 10)) + 46080;
+       687:        
+       688:        for(j = 0; j < 16; j++)
+  000008B8 1AC4                   SUB.L       ER4,ER4
+  000008BA 0C89                   MOV.B       R0L,R1L
+  000008BC 1751                   EXTU.W      R1
+  000008BE 79310020               SUB.W       #H'0020:16,R1
+  000008C2 0D19                   MOV.W       R1,E1
+  000008C4 796900F0               AND.W       #H'00F0:16,E1
+  000008C8 11D9                   SHAR.W      #2,E1
+  000008CA 11D9                   SHAR.W      #2,E1
+  000008CC 79001400               MOV.W       #H'1400:16,R0
+  000008D0 01C25009               MULS.W      R0,E1
+  000008D4 7961000F               AND.W       #H'000F:16,R1
+  000008D8 01C650A1               MULS.W      #H'A:4,R1
+  000008DC 0919                   ADD.W       R1,E1
+  000008DE 0D90                   MOV.W       E1,R0
+  000008E0 17F0                   EXTS.L      ER0
+  000008E2 7A18B400               ADD.L       #H'B400:16,ER0
+  000008E6 1030                   SHLL.L      ER0
+  000008E8 7A18F800               ADD.L       #H'F800:16,ER0
+  000008EC 0F86                   MOV.L       ER0,ER6
+  000008EE 7A0500000000           MOV.L       #_g_LCD_x,ER5
+  000008F4                    L7131:                                
+       689:        {
+       690:            DMAC0.DTCR = 10 * 2;
+  000008F4 010D4014FC0C           MOV.L       #H'14:8,@H'00FFFC0C:16
+       691:            DMAC0.DSAR = (FONT + font_addr + j * 320);
+  000008FA 0FC0                   MOV.L       ER4,ER0
+  000008FC 1070                   SHLL.L      #2,ER0
+  000008FE 0AC0                   ADD.L       ER4,ER0
+  00000900 03871030               SHLL.L      #7:5,ER0
+  00000904 0AE0                   ADD.L       ER6,ER0
+  00000906 01006B80FC00           MOV.L       ER0,@H'00FFFC00:16
+       692:            if(g_drawbuff_flg)
+  0000090C 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  00000912 4700                   BEQ         L7133:8
+       693:            {
+       694:                DMAC0.DDAR = (ADATA + ((g_LCD_x) + (g_LCD_y + j) * 320));
+  00000914 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  0000091A 1770                   EXTU.L      ER0
+  0000091C 0AC0                   ADD.L       ER4,ER0
+  0000091E 0F81                   MOV.L       ER0,ER1
+  00000920 1070                   SHLL.L      #2,ER0
+  00000922 0A90                   ADD.L       ER1,ER0
+  00000924 03861030               SHLL.L      #6:5,ER0
+  00000928 6951                   MOV.W       @ER5,R1
+  0000092A 1771                   EXTU.L      ER1
+  0000092C 0A90                   ADD.L       ER1,ER0
+  0000092E 1030                   SHLL.L      ER0
+  00000930 7A1000200000           ADD.L       #H'00200000,ER0
+  00000936 4000                   BRA         L7134:8
+  00000938                    L7133:                                
+       695:            }
+       696:            else
+       697:            {
+       698:                DMAC0.DDAR = (BDATA + ((g_LCD_x) + (g_LCD_y + j) * 320));
+  00000938 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  0000093E 1770                   EXTU.L      ER0
+  00000940 0AC0                   ADD.L       ER4,ER0
+  00000942 0F81                   MOV.L       ER0,ER1
+  00000944 1070                   SHLL.L      #2,ER0
+  00000946 0A90                   ADD.L       ER1,ER0
+  00000948 03861030               SHLL.L      #6:5,ER0
+  0000094C 6951                   MOV.W       @ER5,R1
+  0000094E 1771                   EXTU.L      ER1
+  00000950 0A90                   ADD.L       ER1,ER0
+  00000952 1030                   SHLL.L      ER0
+  00000954 7A1000225800           ADD.L       #H'00225800,ER0
+  0000095A                    L7134:                                
+       699:            }
+       700:            DMAC0.DMDR.BIT.DTE  = 1;
+  0000095A 01006B80FC04           MOV.L       ER0,@H'00FFFC04:16
+  00000960 6A18FC147070           BSET.B      #7,@H'00FFFC14:16
+  00000966                    L7135:                                
+       701:            while(DMAC0.DMDR.BIT.DTIF == 0);
+  00000966 6A08FC15               MOV.B       @H'00FFFC15:16,R0L
+  0000096A 7708                   BLD.B       #0,R0L
+  0000096C 4400                   BCC         L7135:8
+  0000096E 0B74                   INC.L       #1,ER4
+  00000970 7A2C0010               CMP.L       #H'0010:16,ER4
+  00000974 58500000               BLO         L7131:16
+       702:        }
+       703:        g_LCD_x = g_LCD_x  + 10;
+  00000978 015E0510000A           ADD.W       #H'000A:16,@ER5
+  0000097E 5426                   RTS/L       (ER4-ER6)
+       704:    }
+       705:    
+       706:    /*
+       707:    // --------------------------------------------------------------------
+       708:    // TFT LCD 文字単出力（小さめ文字・色指定アンチエイリアス出力）
+       709:    // --------------------------------------------------------------------
+       710:    void LCD_CHR_Alpha_Smallfont(unsigned char chr, unsigned int color)
+       711:    {
+       712:        unsigned long   i, j, font_addr;
+       713:        unsigned long   dst_data, font_data;
+       714:        unsigned long   rd, gd, bd,rs, gs, bs, alpha;
+       715:        
+       716:        // フォントテーブルデータの座標の参照先を算出
+       717:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 16) * 320) + ((((chr - 0x20) & 0x0000000F) * 10)) + 46080;
+       718:        
+       719:        for(j = 0; j < 16; j++)
+       720:        {
+       721:            for(i = 0; i < 10; i++)
+       722:            {
+       723:                if(g_drawbuff_flg)
+       724:                {
+       725:                    dst_data    = (*(ADATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320)));   // 貼り付け先データの該当ピクセルデータの算出
+       726:                }
+       727:                else
+       728:                {
+       729:                    dst_data    = (*(BDATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320)));   // 貼り付け先データの該当ピクセルデータの算出
+       730:                }
+       731:                font_data   = (*(FONT + font_addr + i + j * 320));                      // フォントテーブルデータの該当ピクセルデータの算出(アルファデータ)
+       732:                rd          = ((dst_data >> 11) & 0x001F);                              // 貼り付け先データのR要素の算出
+       733:                gd          = ((dst_data >>  5) & 0x003F);                              // 貼り付け先データのG要素の算出
+       734:                bd          = ((dst_data      ) & 0x001F);                              // 貼り付け先データのB要素の算出
+       735:                rs          = ((color         ) & 0x001F);                              // フォント指定色のR要素の算出
+       736:                gs          = ((color    >>  5) & 0x003F);                              // フォント指定色のG要素の算出
+       737:                bs          = ((color    >> 11) & 0x001F);                              // フォント指定色のB要素の算出
+       738:                alpha       = font_data & 0x1F;                                         // フォントテーブルデータからアルファ量を算出
+       739:                rd          = (rd *  alpha       + rs * (0x1F -  alpha      )) / 0x1F;  // R要素のアルファブレンド
+       740:                gd          = (gd * (alpha << 1) + gs * (0x3F - (alpha << 1))) / 0x3F;  // G要素のアルファブレンド
+       741:                bd          = (bd *  alpha       + bs * (0x1F -  alpha      )) / 0x1F;  // B要素のアルファブレンド
+       742:                dst_data    = (rd << 11) | (gd << 5) | bd;  
+       743:                if(g_drawbuff_flg)
+       744:                {
+       745:                    (*(ADATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320))) = dst_data;
+       746:                }
+       747:                else
+       748:                {
+       749:                    (*(BDATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320))) = dst_data;
+       750:                }
+       751:            }
+       752:        }
+       753:        g_LCD_x = g_LCD_x + 10;
+       754:    }
+       755:    */
+       756:    
+       757:    /*
+       758:    // --------------------------------------------------------------------
+       759:    // TFT LCD 文字単出力（大き目）(ソフトウェア転送版)
+       760:    // --------------------------------------------------------------------
+       761:    void LCD_CHR_copyBN(unsigned char chr)
+       762:    {
+       763:        unsigned long i, j, font_addr;
+       764:        
+       765:        // フォントテーブルデータの座標の参照先を算出
+       766:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 24) * 320) + ((((chr - 0x20) & 0x0000000F) * 16));
+       767:        
+       768:        for(j = 0; j < 24; j++)
+       769:        {
+       770:            for(i = 0; i < 16; i++)
+       771:            {
+       772:                if(g_drawbuff_flg)
+       773:                {
+       774:                    (*(ADATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320))) = *(FONT + font_addr + i + j * 320);
+       775:                }
+       776:                else
+       777:                {
+       778:                    (*(BDATA + ((g_LCD_x + i) + (g_LCD_y + j) * 320))) = *(FONT + font_addr + i + j * 320);
+       779:                }
+       780:            }
+       781:        }
+       782:        g_LCD_x = g_LCD_x  + 16;
+       783:    }
+       784:    */
+       785:    
+       786:    // --------------------------------------------------------------------
+       787:    // TFT LCD 文字単出力（大き目）(ハードウェアDMA0転送版)
+       788:    // --------------------------------------------------------------------
+       789:    void LCD_CHR_copyBN(unsigned char chr)
+  00000980                    _LCD_CHR_copyBN:                     ; function: LCD_CHR_copyBN
+  00000980 01206DF4               STM.L       (ER4-ER6),@-SP
+       790:    {
+       791:        unsigned long j, font_addr;
+       792:        
+       793:        // フォントテーブルデータの座標の参照先を算出
+       794:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 24) * 320) + ((((chr - 0x20) & 0x0000000F) * 16));
+       795:        
+       796:        for(j = 0; j < 24; j++)
+  00000984 1AC4                   SUB.L       ER4,ER4
+  00000986 0C89                   MOV.B       R0L,R1L
+  00000988 1751                   EXTU.W      R1
+  0000098A 79310020               SUB.W       #H'0020:16,R1
+  0000098E 0D19                   MOV.W       R1,E1
+  00000990 796900F0               AND.W       #H'00F0:16,E1
+  00000994 11D9                   SHAR.W      #2,E1
+  00000996 11D9                   SHAR.W      #2,E1
+  00000998 79001E00               MOV.W       #H'1E00:16,R0
+  0000099C 01C25009               MULS.W      R0,E1
+  000009A0 7961000F               AND.W       #H'000F:16,R1
+  000009A4 1021                   SHLL.W      #4,R1
+  000009A6 0919                   ADD.W       R1,E1
+  000009A8 0D90                   MOV.W       E1,R0
+  000009AA 17F0                   EXTS.L      ER0
+  000009AC 1030                   SHLL.L      ER0
+  000009AE 7A18F800               ADD.L       #H'F800:16,ER0
+  000009B2 0F86                   MOV.L       ER0,ER6
+  000009B4 7A0500000000           MOV.L       #_g_LCD_x,ER5
+  000009BA                    L7140:                                
+       797:        {
+       798:            DMAC0.DTCR = 16 * 2;
+  000009BA 010D4020FC0C           MOV.L       #H'20:8,@H'00FFFC0C:16
+       799:            DMAC0.DSAR = (FONT + font_addr + j * 320);
+  000009C0 0FC0                   MOV.L       ER4,ER0
+  000009C2 1070                   SHLL.L      #2,ER0
+  000009C4 0AC0                   ADD.L       ER4,ER0
+  000009C6 03871030               SHLL.L      #7:5,ER0
+  000009CA 0AE0                   ADD.L       ER6,ER0
+  000009CC 01006B80FC00           MOV.L       ER0,@H'00FFFC00:16
+       800:            if(g_drawbuff_flg)
+  000009D2 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  000009D8 4700                   BEQ         L7142:8
+       801:            {
+       802:                DMAC0.DDAR = (ADATA + ((g_LCD_x) + (g_LCD_y + j) * 320));
+  000009DA 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  000009E0 1770                   EXTU.L      ER0
+  000009E2 0AC0                   ADD.L       ER4,ER0
+  000009E4 0F81                   MOV.L       ER0,ER1
+  000009E6 1070                   SHLL.L      #2,ER0
+  000009E8 0A90                   ADD.L       ER1,ER0
+  000009EA 03861030               SHLL.L      #6:5,ER0
+  000009EE 6951                   MOV.W       @ER5,R1
+  000009F0 1771                   EXTU.L      ER1
+  000009F2 0A90                   ADD.L       ER1,ER0
+  000009F4 1030                   SHLL.L      ER0
+  000009F6 7A1000200000           ADD.L       #H'00200000,ER0
+  000009FC 4000                   BRA         L7143:8
+  000009FE                    L7142:                                
+       803:            }
+       804:            else
+       805:            {
+       806:                DMAC0.DDAR = (BDATA + ((g_LCD_x) + (g_LCD_y + j) * 320));
+  000009FE 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000A04 1770                   EXTU.L      ER0
+  00000A06 0AC0                   ADD.L       ER4,ER0
+  00000A08 0F81                   MOV.L       ER0,ER1
+  00000A0A 1070                   SHLL.L      #2,ER0
+  00000A0C 0A90                   ADD.L       ER1,ER0
+  00000A0E 03861030               SHLL.L      #6:5,ER0
+  00000A12 6951                   MOV.W       @ER5,R1
+  00000A14 1771                   EXTU.L      ER1
+  00000A16 0A90                   ADD.L       ER1,ER0
+  00000A18 1030                   SHLL.L      ER0
+  00000A1A 7A1000225800           ADD.L       #H'00225800,ER0
+  00000A20                    L7143:                                
+       807:            }
+       808:            DMAC0.DMDR.BIT.DTE  = 1;
+  00000A20 01006B80FC04           MOV.L       ER0,@H'00FFFC04:16
+  00000A26 6A18FC147070           BSET.B      #7,@H'00FFFC14:16
+  00000A2C                    L7144:                                
+       809:            while(DMAC0.DMDR.BIT.DTIF == 0);
+  00000A2C 6A08FC15               MOV.B       @H'00FFFC15:16,R0L
+  00000A30 7708                   BLD.B       #0,R0L
+  00000A32 4400                   BCC         L7144:8
+  00000A34 0B74                   INC.L       #1,ER4
+  00000A36 7A2C0018               CMP.L       #H'0018:16,ER4
+  00000A3A 58500000               BLO         L7140:16
+       810:        }
+       811:        g_LCD_x = g_LCD_x  + 16;
+  00000A3E 015E05100010           ADD.W       #H'0010:16,@ER5
+  00000A44 5426                   RTS/L       (ER4-ER6)
+       812:    }
+       813:    
+       814:    // --------------------------------------------------------------------
+       815:    // TFT LCD 文字単出力（大き目）(ハードウェアDMA0転送版) 展開FONT対象
+       816:    // --------------------------------------------------------------------
+       817:    void LCD_CHR_copyBNR(unsigned char chr)
+  00000A46                    _LCD_CHR_copyBNR:                    ; function: LCD_CHR_copyBNR
+  00000A46 01206DF4               STM.L       (ER4-ER6),@-SP
+       818:    {
+       819:        unsigned long j, font_addr;
+       820:        
+       821:        // フォントテーブルデータの座標の参照先を算出
+       822:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 24) * 320) + ((((chr - 0x20) & 0x0000000F) * 16));
+       823:        
+       824:        for(j = 0; j < 24; j++)
+  00000A4A 1AC4                   SUB.L       ER4,ER4
+  00000A4C 0C89                   MOV.B       R0L,R1L
+  00000A4E 1751                   EXTU.W      R1
+  00000A50 79310020               SUB.W       #H'0020:16,R1
+  00000A54 0D19                   MOV.W       R1,E1
+  00000A56 796900F0               AND.W       #H'00F0:16,E1
+  00000A5A 11D9                   SHAR.W      #2,E1
+  00000A5C 11D9                   SHAR.W      #2,E1
+  00000A5E 79001E00               MOV.W       #H'1E00:16,R0
+  00000A62 01C25009               MULS.W      R0,E1
+  00000A66 7961000F               AND.W       #H'000F:16,R1
+  00000A6A 1021                   SHLL.W      #4,R1
+  00000A6C 0919                   ADD.W       R1,E1
+  00000A6E 0D90                   MOV.W       E1,R0
+  00000A70 17F0                   EXTS.L      ER0
+  00000A72 1030                   SHLL.L      ER0
+  00000A74 7A100024B000           ADD.L       #H'0024B000,ER0
+  00000A7A 0F86                   MOV.L       ER0,ER6
+  00000A7C 7A0500000000           MOV.L       #_g_LCD_x,ER5
+  00000A82                    L7149:                                
+       825:        {
+       826:            DMAC0.DTCR = 16 * 2;
+  00000A82 010D4020FC0C           MOV.L       #H'20:8,@H'00FFFC0C:16
+       827:            DMAC0.DSAR = (FONTR + font_addr + j * 320);
+  00000A88 0FC0                   MOV.L       ER4,ER0
+  00000A8A 1070                   SHLL.L      #2,ER0
+  00000A8C 0AC0                   ADD.L       ER4,ER0
+  00000A8E 03871030               SHLL.L      #7:5,ER0
+  00000A92 0AE0                   ADD.L       ER6,ER0
+  00000A94 01006B80FC00           MOV.L       ER0,@H'00FFFC00:16
+       828:            if(g_drawbuff_flg)
+  00000A9A 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  00000AA0 4700                   BEQ         L7151:8
+       829:            {
+       830:                DMAC0.DDAR = (ADATA + ((g_LCD_x) + (g_LCD_y + j) * 320));
+  00000AA2 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000AA8 1770                   EXTU.L      ER0
+  00000AAA 0AC0                   ADD.L       ER4,ER0
+  00000AAC 0F81                   MOV.L       ER0,ER1
+  00000AAE 1070                   SHLL.L      #2,ER0
+  00000AB0 0A90                   ADD.L       ER1,ER0
+  00000AB2 03861030               SHLL.L      #6:5,ER0
+  00000AB6 6951                   MOV.W       @ER5,R1
+  00000AB8 1771                   EXTU.L      ER1
+  00000ABA 0A90                   ADD.L       ER1,ER0
+  00000ABC 1030                   SHLL.L      ER0
+  00000ABE 7A1000200000           ADD.L       #H'00200000,ER0
+  00000AC4 4000                   BRA         L7152:8
+  00000AC6                    L7151:                                
+       831:            }
+       832:            else
+       833:            {
+       834:                DMAC0.DDAR = (BDATA + ((g_LCD_x) + (g_LCD_y + j) * 320));
+  00000AC6 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000ACC 1770                   EXTU.L      ER0
+  00000ACE 0AC0                   ADD.L       ER4,ER0
+  00000AD0 0F81                   MOV.L       ER0,ER1
+  00000AD2 1070                   SHLL.L      #2,ER0
+  00000AD4 0A90                   ADD.L       ER1,ER0
+  00000AD6 03861030               SHLL.L      #6:5,ER0
+  00000ADA 6951                   MOV.W       @ER5,R1
+  00000ADC 1771                   EXTU.L      ER1
+  00000ADE 0A90                   ADD.L       ER1,ER0
+  00000AE0 1030                   SHLL.L      ER0
+  00000AE2 7A1000225800           ADD.L       #H'00225800,ER0
+  00000AE8                    L7152:                                
+       835:            }
+       836:            DMAC0.DMDR.BIT.DTE  = 1;
+  00000AE8 01006B80FC04           MOV.L       ER0,@H'00FFFC04:16
+  00000AEE 6A18FC147070           BSET.B      #7,@H'00FFFC14:16
+  00000AF4                    L7153:                                
+       837:            while(DMAC0.DMDR.BIT.DTIF == 0);
+  00000AF4 6A08FC15               MOV.B       @H'00FFFC15:16,R0L
+  00000AF8 7708                   BLD.B       #0,R0L
+  00000AFA 4400                   BCC         L7153:8
+  00000AFC 0B74                   INC.L       #1,ER4
+  00000AFE 7A2C0018               CMP.L       #H'0018:16,ER4
+  00000B02 58500000               BLO         L7149:16
+       838:        }
+       839:        g_LCD_x = g_LCD_x  + 16;
+  00000B06 015E05100010           ADD.W       #H'0010:16,@ER5
+  00000B0C 5426                   RTS/L       (ER4-ER6)
+       840:    }
+       841:    
+       842:    // --------------------------------------------------------------------
+       843:    // TFT LCD 文字単出力（大き目2倍）(ハードウェアDMA2転送版)
+       844:    // --------------------------------------------------------------------
+       845:    void LCD_CHR_copyBN2(unsigned char chr)
+  00000B0E                    _LCD_CHR_copyBN2:                    ; function: LCD_CHR_copyBN2
+  00000B0E 01306DF2               STM.L       (ER2-ER5),@-SP
+  00000B12 01006DF6               PUSH.L      ER6
+       846:    {
+       847:        unsigned long j, font_addr;
+       848:        
+       849:        // フォントテーブルデータの座標の参照先を算出
+       850:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 24) * 320) + ((((chr - 0x20) & 0x0000000F) * 16));
+       851:        
+       852:        for(j = 0; j < 24; j++)
+  00000B16 1AA2                   SUB.L       ER2,ER2
+  00000B18 0C89                   MOV.B       R0L,R1L
+  00000B1A 1751                   EXTU.W      R1
+  00000B1C 79310020               SUB.W       #H'0020:16,R1
+  00000B20 0D19                   MOV.W       R1,E1
+  00000B22 796900F0               AND.W       #H'00F0:16,E1
+  00000B26 11D9                   SHAR.W      #2,E1
+  00000B28 11D9                   SHAR.W      #2,E1
+  00000B2A 79001E00               MOV.W       #H'1E00:16,R0
+  00000B2E 01C25009               MULS.W      R0,E1
+  00000B32 7961000F               AND.W       #H'000F:16,R1
+  00000B36 1021                   SHLL.W      #4,R1
+  00000B38 0919                   ADD.W       R1,E1
+  00000B3A 0D90                   MOV.W       E1,R0
+  00000B3C 17F0                   EXTS.L      ER0
+  00000B3E 1030                   SHLL.L      ER0
+  00000B40 7A18F800               ADD.L       #H'F800:16,ER0
+  00000B44 0F86                   MOV.L       ER0,ER6
+  00000B46 FD18                   MOV.B       #H'18:8,R5L
+  00000B48                    L7158:                                
+       853:        {
+       854:            DMAC2.DTCR = 16 * 2;
+  00000B48 010D4020FC4C           MOV.L       #H'20:8,@H'00FFFC4C:16
+       855:            DMAC2.DSAR = (FONT + font_addr + j * 320);
+  00000B4E 0FA0                   MOV.L       ER2,ER0
+  00000B50 1070                   SHLL.L      #2,ER0
+  00000B52 0AA0                   ADD.L       ER2,ER0
+  00000B54 03871030               SHLL.L      #7:5,ER0
+  00000B58 0AE0                   ADD.L       ER6,ER0
+  00000B5A 0F84                   MOV.L       ER0,ER4
+  00000B5C 01006B80FC40           MOV.L       ER0,@H'00FFFC40:16
+       856:            if(g_drawbuff_flg)
+  00000B62 0FA9                   MOV.L       #2:3,ER1
+  00000B64 0FA0                   MOV.L       ER2,ER0
+  00000B66 01CA5210               MULU.L      ER1,ER0
+  00000B6A 0F83                   MOV.L       ER0,ER3
+  00000B6C 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  00000B72 4700                   BEQ         L7160:8
+       857:            {
+       858:                DMAC2.DDAR = (ADATA + ((g_LCD_x    ) + (g_LCD_y + j * 2    ) * 320));
+  00000B74 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000B7A 1770                   EXTU.L      ER0
+  00000B7C 0AB0                   ADD.L       ER3,ER0
+  00000B7E 0F81                   MOV.L       ER0,ER1
+  00000B80 1070                   SHLL.L      #2,ER0
+  00000B82 0A90                   ADD.L       ER1,ER0
+  00000B84 03861030               SHLL.L      #6:5,ER0
+  00000B88 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000B8E 1771                   EXTU.L      ER1
+  00000B90 0A90                   ADD.L       ER1,ER0
+  00000B92 1030                   SHLL.L      ER0
+  00000B94 7A1000200000           ADD.L       #H'00200000,ER0
+  00000B9A 4000                   BRA         L7161:8
+  00000B9C                    L7160:                                
+       859:            }
+       860:            else
+       861:            {
+       862:                DMAC2.DDAR = (BDATA + ((g_LCD_x    ) + (g_LCD_y + j * 2    ) * 320));
+  00000B9C 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000BA2 1770                   EXTU.L      ER0
+  00000BA4 0AB0                   ADD.L       ER3,ER0
+  00000BA6 0F81                   MOV.L       ER0,ER1
+  00000BA8 1070                   SHLL.L      #2,ER0
+  00000BAA 0A90                   ADD.L       ER1,ER0
+  00000BAC 03861030               SHLL.L      #6:5,ER0
+  00000BB0 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000BB6 1771                   EXTU.L      ER1
+  00000BB8 0A90                   ADD.L       ER1,ER0
+  00000BBA 1030                   SHLL.L      ER0
+  00000BBC 7A1000225800           ADD.L       #H'00225800,ER0
+  00000BC2                    L7161:                                
+       863:            }
+       864:            DMAC2.DMDR.BIT.DTE  = 1;
+  00000BC2 01006B80FC44           MOV.L       ER0,@H'00FFFC44:16
+  00000BC8 6A18FC547070           BSET.B      #7,@H'00FFFC54:16
+  00000BCE                    L7162:                                
+       865:            while(DMAC2.DMDR.BIT.DTIF == 0);
+  00000BCE 6A08FC55               MOV.B       @H'00FFFC55:16,R0L
+  00000BD2 7708                   BLD.B       #0,R0L
+  00000BD4 4400                   BCC         L7162:8
+       866:            
+       867:            
+       868:            DMAC2.DTCR = 16 * 2;
+  00000BD6 010D4020FC4C           MOV.L       #H'20:8,@H'00FFFC4C:16
+       869:            DMAC2.DSAR = (FONT + font_addr + j * 320);
+  00000BDC 01006B84FC40           MOV.L       ER4,@H'00FFFC40:16
+       870:            if(g_drawbuff_flg)
+  00000BE2 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  00000BE8 4700                   BEQ         L7165:8
+       871:            {
+       872:                DMAC2.DDAR = (ADATA + ((g_LCD_x + 1) + (g_LCD_y + j * 2    ) * 320));
+  00000BEA 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000BF0 1770                   EXTU.L      ER0
+  00000BF2 0AB0                   ADD.L       ER3,ER0
+  00000BF4 0F81                   MOV.L       ER0,ER1
+  00000BF6 1070                   SHLL.L      #2,ER0
+  00000BF8 0A90                   ADD.L       ER1,ER0
+  00000BFA 03861030               SHLL.L      #6:5,ER0
+  00000BFE 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000C04 0B51                   INC.W       #1,R1
+  00000C06 1771                   EXTU.L      ER1
+  00000C08 0A90                   ADD.L       ER1,ER0
+  00000C0A 1030                   SHLL.L      ER0
+  00000C0C 7A1000200000           ADD.L       #H'00200000,ER0
+  00000C12 4000                   BRA         L7166:8
+  00000C14                    L7165:                                
+       873:            }
+       874:            else
+       875:            {
+       876:                DMAC2.DDAR = (BDATA + ((g_LCD_x + 1) + (g_LCD_y + j * 2    ) * 320));
+  00000C14 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000C1A 1770                   EXTU.L      ER0
+  00000C1C 0AB0                   ADD.L       ER3,ER0
+  00000C1E 0F81                   MOV.L       ER0,ER1
+  00000C20 1070                   SHLL.L      #2,ER0
+  00000C22 0A90                   ADD.L       ER1,ER0
+  00000C24 03861030               SHLL.L      #6:5,ER0
+  00000C28 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000C2E 0B51                   INC.W       #1,R1
+  00000C30 1771                   EXTU.L      ER1
+  00000C32 0A90                   ADD.L       ER1,ER0
+  00000C34 1030                   SHLL.L      ER0
+  00000C36 7A1000225800           ADD.L       #H'00225800,ER0
+  00000C3C                    L7166:                                
+       877:            }
+       878:            DMAC2.DMDR.BIT.DTE  = 1;
+  00000C3C 01006B80FC44           MOV.L       ER0,@H'00FFFC44:16
+  00000C42 6A18FC547070           BSET.B      #7,@H'00FFFC54:16
+  00000C48                    L7167:                                
+       879:            while(DMAC2.DMDR.BIT.DTIF == 0);
+  00000C48 6A08FC55               MOV.B       @H'00FFFC55:16,R0L
+  00000C4C 7708                   BLD.B       #0,R0L
+  00000C4E 4400                   BCC         L7167:8
+       880:            DMAC2.DTCR = 16 * 2;
+  00000C50 010D4020FC4C           MOV.L       #H'20:8,@H'00FFFC4C:16
+       881:            DMAC2.DSAR = (FONT + font_addr + j * 320);
+  00000C56 01006B84FC40           MOV.L       ER4,@H'00FFFC40:16
+       882:            if(g_drawbuff_flg)
+  00000C5C 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  00000C62 4700                   BEQ         L7170:8
+       883:            {
+       884:                DMAC2.DDAR = (ADATA + ((g_LCD_x    ) + (g_LCD_y + j * 2 + 1) * 320));
+  00000C64 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000C6A 1770                   EXTU.L      ER0
+  00000C6C 0AB0                   ADD.L       ER3,ER0
+  00000C6E 0F81                   MOV.L       ER0,ER1
+  00000C70 1070                   SHLL.L      #2,ER0
+  00000C72 0A90                   ADD.L       ER1,ER0
+  00000C74 03861030               SHLL.L      #6:5,ER0
+  00000C78 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000C7E 1771                   EXTU.L      ER1
+  00000C80 0A90                   ADD.L       ER1,ER0
+  00000C82 1030                   SHLL.L      ER0
+  00000C84 7A1000200280           ADD.L       #H'00200280,ER0
+  00000C8A 4000                   BRA         L7171:8
+  00000C8C                    L7170:                                
+       885:            }
+       886:            else
+       887:            {
+       888:                DMAC2.DDAR = (BDATA + ((g_LCD_x    ) + (g_LCD_y + j * 2 + 1) * 320));
+  00000C8C 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000C92 1770                   EXTU.L      ER0
+  00000C94 0AB0                   ADD.L       ER3,ER0
+  00000C96 0F81                   MOV.L       ER0,ER1
+  00000C98 1070                   SHLL.L      #2,ER0
+  00000C9A 0A90                   ADD.L       ER1,ER0
+  00000C9C 03861030               SHLL.L      #6:5,ER0
+  00000CA0 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000CA6 1771                   EXTU.L      ER1
+  00000CA8 0A90                   ADD.L       ER1,ER0
+  00000CAA 1030                   SHLL.L      ER0
+  00000CAC 7A1000225A80           ADD.L       #H'00225A80,ER0
+  00000CB2                    L7171:                                
+       889:            }
+       890:            DMAC2.DMDR.BIT.DTE  = 1;
+  00000CB2 01006B80FC44           MOV.L       ER0,@H'00FFFC44:16
+  00000CB8 6A18FC547070           BSET.B      #7,@H'00FFFC54:16
+  00000CBE                    L7172:                                
+       891:            while(DMAC2.DMDR.BIT.DTIF == 0);
+  00000CBE 6A08FC55               MOV.B       @H'00FFFC55:16,R0L
+  00000CC2 7708                   BLD.B       #0,R0L
+  00000CC4 4400                   BCC         L7172:8
+       892:            
+       893:            
+       894:            DMAC2.DTCR = 16 * 2;
+  00000CC6 010D4020FC4C           MOV.L       #H'20:8,@H'00FFFC4C:16
+       895:            DMAC2.DSAR = (FONT + font_addr + j * 320);
+  00000CCC 01006B84FC40           MOV.L       ER4,@H'00FFFC40:16
+       896:            if(g_drawbuff_flg)
+  00000CD2 6B2000000000           MOV.W       @_g_drawbuff_flg:32,R0
+  00000CD8 4700                   BEQ         L7175:8
+       897:            {
+       898:                DMAC2.DDAR = (ADATA + ((g_LCD_x + 1) + (g_LCD_y + j * 2 + 1) * 320));
+  00000CDA 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000CE0 1770                   EXTU.L      ER0
+  00000CE2 0AB0                   ADD.L       ER3,ER0
+  00000CE4 0F81                   MOV.L       ER0,ER1
+  00000CE6 1070                   SHLL.L      #2,ER0
+  00000CE8 0A90                   ADD.L       ER1,ER0
+  00000CEA 03861030               SHLL.L      #6:5,ER0
+  00000CEE 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000CF4 0B51                   INC.W       #1,R1
+  00000CF6 1771                   EXTU.L      ER1
+  00000CF8 0A90                   ADD.L       ER1,ER0
+  00000CFA 1030                   SHLL.L      ER0
+  00000CFC 7A1000200280           ADD.L       #H'00200280,ER0
+  00000D02 4000                   BRA         L7176:8
+  00000D04                    L7175:                                
+       899:            }
+       900:            else
+       901:            {
+       902:                DMAC2.DDAR = (BDATA + ((g_LCD_x + 1) + (g_LCD_y + j * 2 + 1) * 320));
+  00000D04 6B2000000000           MOV.W       @_g_LCD_y:32,R0
+  00000D0A 1770                   EXTU.L      ER0
+  00000D0C 0AB0                   ADD.L       ER3,ER0
+  00000D0E 0F81                   MOV.L       ER0,ER1
+  00000D10 1070                   SHLL.L      #2,ER0
+  00000D12 0A90                   ADD.L       ER1,ER0
+  00000D14 03861030               SHLL.L      #6:5,ER0
+  00000D18 6B2100000000           MOV.W       @_g_LCD_x:32,R1
+  00000D1E 0B51                   INC.W       #1,R1
+  00000D20 1771                   EXTU.L      ER1
+  00000D22 0A90                   ADD.L       ER1,ER0
+  00000D24 1030                   SHLL.L      ER0
+  00000D26 7A1000225A80           ADD.L       #H'00225A80,ER0
+  00000D2C                    L7176:                                
+       903:            }
+       904:            DMAC2.DMDR.BIT.DTE  = 1;
+  00000D2C 01006B80FC44           MOV.L       ER0,@H'00FFFC44:16
+  00000D32 6A18FC547070           BSET.B      #7,@H'00FFFC54:16
+  00000D38                    L7177:                                
+       905:            while(DMAC2.DMDR.BIT.DTIF == 0);
+  00000D38 6A08FC55               MOV.B       @H'00FFFC55:16,R0L
+  00000D3C 7708                   BLD.B       #0,R0L
+  00000D3E 4400                   BCC         L7177:8
+  00000D40 0B72                   INC.L       #1,ER2
+  00000D42 1A0D                   DEC.B       R5L
+  00000D44 58600000               BNE         L7158:16
+       906:    
+       907:        }
+       908:        g_LCD_x = g_LCD_x  + 32;
+  00000D48 015E481000000000       ADD.W       #H'0020:16,@_g_LCD_x:32
+           0020               
+  00000D52 01006D76               POP.L       ER6
+  00000D56 5435                   RTS/L       (ER2-ER5)
+       909:    }
+       910:    
+       911:    /*
+       912:    // --------------------------------------------------------------------
+       913:    // TFT LCD 文字列出力（大き目）
+       914:    // --------------------------------------------------------------------
+       915:    void LCD_CHR_drawBN(unsigned char chr[])
+       916:    {
+       917:        unsigned int i;
+       918:        
+       919:        for(i = 0; i <= 19; i++)
+       920:        {
+       921:            if(chr[i] == '\0') return;
+       922:            LCD_CHR_copyBN(chr[i]);
+       923:        }
+       924:    }
+       925:    */
+       926:    
+       927:    // --------------------------------------------------------------------
+       928:    // TFT LCD 整数値出力（小さ目）
+       929:    // --------------------------------------------------------------------
+       930:    void LCD_INT_draw(int num, unsigned int figure, unsigned int dp)
+  00000D58                    _LCD_INT_draw:                       ; function: LCD_INT_draw
+  00000D58 01306DF2               STM.L       (ER2-ER5),@-SP
+  00000D5C 6DF6                   PUSH.W      R6
+  00000D5E 1A67                   SUB.W       #6:3,R7
+       931:    {
+       932:        int i, j, k, l, numw;
+       933:        unsigned char chr[6], temp, sign;
+       934:        
+       935:        if( figure > 8 ) return;
+  00000D60 0D14                   MOV.W       R1,R4
+  00000D62 0D8D                   MOV.W       E0,E5
+  00000D64 0D02                   MOV.W       R0,R2
+  00000D66 79280008               CMP.W       #8:16,E0
+  00000D6A 58200000               BHI         L7183:16
+       936:        
+       937:        if( num < 0)
+  00000D6E 0D22                   MOV.W       R2,R2
+  00000D70 4C00                   BGE         L7185:8
+       938:        {
+       939:            num = (~num) + 1;
+  00000D72 1792                   NEG.W       R2
+       940:            sign = 1;
+  00000D74 4001                   BRA/S       L7186:8
+  00000D76 FE01                   MOV.B       #1:8,R6L
+  00000D78                    L7185:                                
+       941:        }
+       942:        else
+       943:        {
+       944:            sign = 0;
+  00000D78 18EE                   SUB.B       R6L,R6L
+  00000D7A                    L7186:                                
+       945:        }
+       946:        
+       947:        numw = num;
+  00000D7A 0D29                   MOV.W       R2,E1
+       948:        if(dp > 0)
+  00000D7C 0D44                   MOV.W       R4,R4
+  00000D7E 4700                   BEQ         L7188:8
+       949:        {
+       950:            for(i = 1; i <= dp; i ++ )
+  00000D80 4001                   BRA/S       L7189:8
+  00000D82 0F10                   MOV.W       #1:3,R0
+  00000D84                    L7190:                                
+       951:            {
+       952:                numw = numw / 10;
+  00000D84 01D651A9               DIVS.W      #H'A:4,E1
+  00000D88 0B50                   INC.W       #1,R0
+  00000D8A                    L7189:                                
+  00000D8A 1D40                   CMP.W       R4,R0
+  00000D8C 4300                   BLS         L7190:8
+  00000D8E                    L7188:                                
+       953:            }
+       954:        }
+       955:        
+       956:        i = 0;
+  00000D8E 19AA                   SUB.W       E2,E2
+       957:        l = 0;
+       958:        if(numw >= 10)
+  00000D90 7929000A               CMP.W       #H'000A:16,E1
+  00000D94 4C00                   BGE         L7192:8
+  00000D96 0D45                   MOV.W       R4,R5
+  00000D98 0B55                   INC.W       #1,R5
+  00000D9A 19CC                   SUB.W       E4,E4
+  00000D9C                    L7193:                                
+       959:        {
+       960:            do                              // 各桁数値の抽出ループ
+       961:            {
+       962:                temp = num % 10;            // 下位の桁から数字を抽出
+       963:                chr[i ++ ] = temp + '0';    // 数字を文字コードに変換
+       964:                if(i == dp)                 // 小数点位置の場合
+       965:                chr[i ++ ] = '.';           // 小数点を格納
+       966:            } while (( num /= 10 ) != 0);   // 数値の桁数までループ
+       967:        }
+       968:        else
+       969:        {
+       970:            do                              // 各桁数値の抽出ループ
+       971:            {
+       972:                temp = num % 10;            // 下位の桁から数字を抽出
+       973:                chr[i ++ ] = temp + '0';    // 数字を文字コードに変換
+  00000D9C 0D20                   MOV.W       R2,R0
+  00000D9E 17F0                   EXTS.L      ER0
+  00000DA0 01D453A0               DIVXS.W     #H'A:4,ER0
+  00000DA4 0D80                   MOV.W       E0,R0
+  00000DA6 0C81                   MOV.B       R0L,R1H
+  00000DA8 8130                   ADD.B       #H'30:8,R1H
+  00000DAA 0DA0                   MOV.W       E2,R0
+  00000DAC 17F0                   EXTS.L      ER0
+  00000DAE 0AF0                   ADD.L       SP,ER0
+  00000DB0 6881                   MOV.B       R1H,@ER0
+  00000DB2 0B5A                   INC.W       #1,E2
+       974:                if(i == dp)                 // 小数点位置の場合
+  00000DB4 1D4A                   CMP.W       R4,E2
+  00000DB6 4600                   BNE         L7195:8
+       975:                {
+       976:                chr[i ++ ] = '.';           // 小数点を格納
+  00000DB8 0DA0                   MOV.W       E2,R0
+  00000DBA 17F0                   EXTS.L      ER0
+  00000DBC 0AF0                   ADD.L       SP,ER0
+  00000DBE 017D002E               MOV.B       #H'2E:8,@ER0
+  00000DC2 0B5A                   INC.W       #1,E2
+       977:                l = 1;
+  00000DC4 0F1C                   MOV.W       #1:3,E4
+  00000DC6                    L7195:                                
+       978:                }
+       979:                num /= 10;
+  00000DC6 01D651A2               DIVS.W      #H'A:4,R2
+  00000DCA 0DC9                   MOV.W       E4,E1
+  00000DCC 0959                   ADD.W       R5,E1
+  00000DCE 1D9A                   CMP.W       E1,E2
+  00000DD0 4700                   BEQ         L7196:8
+  00000DD2 4000                   BRA         L7193:8
+  00000DD4                    L7192:                                
+  00000DD4 0D20                   MOV.W       R2,R0
+  00000DD6 17F0                   EXTS.L      ER0
+  00000DD8 01D453A0               DIVXS.W     #H'A:4,ER0
+  00000DDC 0D80                   MOV.W       E0,R0
+  00000DDE 0C81                   MOV.B       R0L,R1H
+  00000DE0 8130                   ADD.B       #H'30:8,R1H
+  00000DE2 0DA0                   MOV.W       E2,R0
+  00000DE4 17F0                   EXTS.L      ER0
+  00000DE6 0AF0                   ADD.L       SP,ER0
+  00000DE8 6881                   MOV.B       R1H,@ER0
+  00000DEA 0B5A                   INC.W       #1,E2
+  00000DEC 1D4A                   CMP.W       R4,E2
+  00000DEE 4600                   BNE         L7198:8
+  00000DF0 0DA1                   MOV.W       E2,R1
+  00000DF2 17F1                   EXTS.L      ER1
+  00000DF4 0FF0                   MOV.L       SP,ER0
+  00000DF6 0AF1                   ADD.L       SP,ER1
+  00000DF8 017D012E               MOV.B       #H'2E:8,@ER1
+  00000DFC 0B5A                   INC.W       #1,E2
+  00000DFE                    L7198:                                
+  00000DFE 01D651A2               DIVS.W      #H'A:4,R2
+  00000E02 0D22                   MOV.W       R2,R2
+  00000E04 4600                   BNE         L7192:8
+  00000E06                    L7196:                                
+       980:            } while (i != (dp + 1 + l));        // 数値の桁数までループ
+       981:        }
+       982:        
+       983:        i --;
+  00000E06 1B5A                   DEC.W       #1,E2
+       984:        
+       985:        if((figure - 1) < i)                //表示桁数チェック
+  00000E08 0DD8                   MOV.W       E5,E0
+  00000E0A 1B5D                   DEC.W       #1,E5
+  00000E0C 0DD0                   MOV.W       E5,R0
+  00000E0E 1DAD                   CMP.W       E2,E5
+  00000E10 4500                   BLO         L7183:8
+       986:        {
+       987:            return;
+       988:        }
+       989:        
+       990:        if(i == (figure - 1))               //MAX桁の場合
+  00000E12 1D0A                   CMP.W       R0,E2
+  00000E14 4600                   BNE         L7201:8
+       991:        {
+       992:            i += 1;                         //頭の桁を１つ増やす
+  00000E16 0B5A                   INC.W       #1,E2
+       993:            if(sign == 1)
+  00000E18 0DA0                   MOV.W       E2,R0
+  00000E1A 17F0                   EXTS.L      ER0
+  00000E1C 0AF0                   ADD.L       SP,ER0
+  00000E1E AE01                   CMP.B       #1:8,R6L
+  00000E20 4600                   BNE         L7203:8
+       994:            {
+       995:                chr[i] = '-';               //頭桁に-記号付加
+  00000E22 017D002D               MOV.B       #H'2D:8,@ER0
+  00000E26 4000                   BRA         L7204:8
+  00000E28                    L7203:                                
+       996:            }
+       997:            else
+       998:            {
+       999:                chr[i] = ' ';               //頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+  00000E28 017D0020               MOV.B       #H'20:8,@ER0
+  00000E2C 4000                   BRA         L7204:8
+  00000E2E                    L7201:                                
+      1000:            }
+      1001:        }
+      1002:        else
+      1003:        {                                   //MAX桁以下の場合
+      1004:            for( j = 0; j < ((figure) -i ); j++ )       //最初に頭から不足桁数分のｽﾍﾟｰｽ付加
+  00000E2E 1922                   SUB.W       R2,R2
+  00000E30 0D84                   MOV.W       E0,R4
+  00000E32 19A4                   SUB.W       E2,R4
+  00000E34 0D0C                   MOV.W       R0,E4
+  00000E36 4001                   BRA/S       L7205:8
+  00000E38 19AC                   SUB.W       E2,E4
+  00000E3A                    L7206:                                
+      1005:            {
+      1006:                if(j == ((figure - 1) - i ))//数値頭の±符号処理
+  00000E3A 1DC2                   CMP.W       E4,R2
+  00000E3C 4600                   BNE         L7208:8
+      1007:                {
+      1008:                    if(sign == 1)
+  00000E3E AE01                   CMP.B       #1:8,R6L
+  00000E40 4600                   BNE         L7208:8
+      1009:                    {
+      1010:                        LCD_CHR_Copy_Smallfont('-');    //頭桁に-記号付加
+  00000E42 4001                   BRA/S       L7210:8
+  00000E44 F82D                   MOV.B       #H'2D:8,R0L
+  00000E46                    L7208:                                
+  00000E46 F820                   MOV.B       #H'20:8,R0L
+  00000E48                    L7210:                                
+  00000E48 5E000000               JSR         @_LCD_CHR_Copy_Smallfont:24
+  00000E4C 0B52                   INC.W       #1,R2
+  00000E4E                    L7205:                                
+  00000E4E 1D42                   CMP.W       R4,R2
+  00000E50 4500                   BLO         L7206:8
+  00000E52                    L7204:                                
+      1011:                    }
+      1012:                    else
+      1013:                    {
+      1014:                        LCD_CHR_Copy_Smallfont(' ');    //頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1015:                    }
+      1016:                }
+      1017:                else
+      1018:                {
+      1019:                    LCD_CHR_Copy_Smallfont(' ');    //不足桁数だけスペース表示
+      1020:                }            
+      1021:            }
+      1022:        }
+      1023:        // 数字コード表示ルーチン
+      1024:        for(k = i; k >= 0; k --)            // 上位の桁から順次
+  00000E52 4001                   BRA/S       L7211:8
+  00000E54 0DA2                   MOV.W       E2,R2
+  00000E56                    L7212:                                
+      1025:        {
+      1026:            LCD_CHR_Copy_Smallfont(chr[k]);
+  00000E56 0D20                   MOV.W       R2,R0
+  00000E58 17F0                   EXTS.L      ER0
+  00000E5A 0AF0                   ADD.L       SP,ER0
+  00000E5C 6808                   MOV.B       @ER0,R0L
+  00000E5E 5E000000               JSR         @_LCD_CHR_Copy_Smallfont:24
+  00000E62 1A12                   SUB.W       #1:3,R2
+  00000E64                    L7211:                                
+  00000E64 0D22                   MOV.W       R2,R2
+  00000E66 4C00                   BGE         L7212:8
+  00000E68                    L7183:                                
+  00000E68 0A67                   ADD.W       #6:3,R7
+  00000E6A 6D76                   POP.W       R6
+  00000E6C 5435                   RTS/L       (ER2-ER5)
+      1027:        }
+      1028:    }
+      1029:    
+      1030:    // --------------------------------------------------------------------
+      1031:    // TFT LCD 整数値出力（大き目）
+      1032:    // --------------------------------------------------------------------
+      1033:    void LCD_INT_drawBN(int num, unsigned int figure, unsigned int dp)
+  00000E6E                    _LCD_INT_drawBN:                     ; function: LCD_INT_drawBN
+  00000E6E 01306DF2               STM.L       (ER2-ER5),@-SP
+  00000E72 6DF6                   PUSH.W      R6
+  00000E74 1A67                   SUB.W       #6:3,R7
+      1034:    {
+      1035:        int i, j, k, l, numw;
+      1036:        unsigned char chr[6], temp, sign;
+      1037:        
+      1038:        if( figure > 8 ) return;
+  00000E76 0D14                   MOV.W       R1,R4
+  00000E78 0D8D                   MOV.W       E0,E5
+  00000E7A 0D02                   MOV.W       R0,R2
+  00000E7C 79280008               CMP.W       #8:16,E0
+  00000E80 58200000               BHI         L7215:16
+      1039:        
+      1040:        if( num < 0)
+  00000E84 0D22                   MOV.W       R2,R2
+  00000E86 4C00                   BGE         L7217:8
+      1041:        {
+      1042:            num = (~num) + 1;
+  00000E88 1792                   NEG.W       R2
+      1043:            sign = 1;
+  00000E8A 4001                   BRA/S       L7218:8
+  00000E8C FE01                   MOV.B       #1:8,R6L
+  00000E8E                    L7217:                                
+      1044:        }
+      1045:        else
+      1046:        {
+      1047:            sign = 0;
+  00000E8E 18EE                   SUB.B       R6L,R6L
+  00000E90                    L7218:                                
+      1048:        }
+      1049:        
+      1050:        numw = num;
+  00000E90 0D29                   MOV.W       R2,E1
+      1051:        if(dp > 0)
+  00000E92 0D44                   MOV.W       R4,R4
+  00000E94 4700                   BEQ         L7220:8
+      1052:        {
+      1053:            for(i = 1; i <= dp; i ++ )
+  00000E96 4001                   BRA/S       L7221:8
+  00000E98 0F10                   MOV.W       #1:3,R0
+  00000E9A                    L7222:                                
+      1054:            {
+      1055:                numw = numw / 10;
+  00000E9A 01D651A9               DIVS.W      #H'A:4,E1
+  00000E9E 0B50                   INC.W       #1,R0
+  00000EA0                    L7221:                                
+  00000EA0 1D40                   CMP.W       R4,R0
+  00000EA2 4300                   BLS         L7222:8
+  00000EA4                    L7220:                                
+      1056:            }
+      1057:        }
+      1058:        
+      1059:        i = 0;
+  00000EA4 19AA                   SUB.W       E2,E2
+      1060:        l = 0;
+      1061:        if(numw >= 10)
+  00000EA6 7929000A               CMP.W       #H'000A:16,E1
+  00000EAA 4C00                   BGE         L7224:8
+  00000EAC 0D45                   MOV.W       R4,R5
+  00000EAE 0B55                   INC.W       #1,R5
+  00000EB0 19CC                   SUB.W       E4,E4
+  00000EB2                    L7225:                                
+      1062:        {
+      1063:            do                              // 各桁数値の抽出ループ
+      1064:            {
+      1065:                temp = num % 10;            // 下位の桁から数字を抽出
+      1066:                chr[i ++ ] = temp + '0';    // 数字を文字コードに変換
+      1067:                if(i == dp)                 // 小数点位置の場合
+      1068:                chr[i ++ ] = '.';           // 小数点を格納
+      1069:            } while (( num /= 10 ) != 0);   // 数値の桁数までループ
+      1070:        }
+      1071:        else
+      1072:        {
+      1073:            do                              // 各桁数値の抽出ループ
+      1074:            {
+      1075:                temp = num % 10;            // 下位の桁から数字を抽出
+      1076:                chr[i ++ ] = temp + '0';    // 数字を文字コードに変換
+  00000EB2 0D20                   MOV.W       R2,R0
+  00000EB4 17F0                   EXTS.L      ER0
+  00000EB6 01D453A0               DIVXS.W     #H'A:4,ER0
+  00000EBA 0D80                   MOV.W       E0,R0
+  00000EBC 0C81                   MOV.B       R0L,R1H
+  00000EBE 8130                   ADD.B       #H'30:8,R1H
+  00000EC0 0DA0                   MOV.W       E2,R0
+  00000EC2 17F0                   EXTS.L      ER0
+  00000EC4 0AF0                   ADD.L       SP,ER0
+  00000EC6 6881                   MOV.B       R1H,@ER0
+  00000EC8 0B5A                   INC.W       #1,E2
+      1077:                if(i == dp)                 // 小数点位置の場合
+  00000ECA 1D4A                   CMP.W       R4,E2
+  00000ECC 4600                   BNE         L7227:8
+      1078:                {
+      1079:                chr[i ++ ] = '.';           // 小数点を格納
+  00000ECE 0DA0                   MOV.W       E2,R0
+  00000ED0 17F0                   EXTS.L      ER0
+  00000ED2 0AF0                   ADD.L       SP,ER0
+  00000ED4 017D002E               MOV.B       #H'2E:8,@ER0
+  00000ED8 0B5A                   INC.W       #1,E2
+      1080:                l = 1;
+  00000EDA 0F1C                   MOV.W       #1:3,E4
+  00000EDC                    L7227:                                
+      1081:                }
+      1082:                num /= 10;
+  00000EDC 01D651A2               DIVS.W      #H'A:4,R2
+  00000EE0 0DC9                   MOV.W       E4,E1
+  00000EE2 0959                   ADD.W       R5,E1
+  00000EE4 1D9A                   CMP.W       E1,E2
+  00000EE6 4700                   BEQ         L7228:8
+  00000EE8 4000                   BRA         L7225:8
+  00000EEA                    L7224:                                
+  00000EEA 0D20                   MOV.W       R2,R0
+  00000EEC 17F0                   EXTS.L      ER0
+  00000EEE 01D453A0               DIVXS.W     #H'A:4,ER0
+  00000EF2 0D80                   MOV.W       E0,R0
+  00000EF4 0C81                   MOV.B       R0L,R1H
+  00000EF6 8130                   ADD.B       #H'30:8,R1H
+  00000EF8 0DA0                   MOV.W       E2,R0
+  00000EFA 17F0                   EXTS.L      ER0
+  00000EFC 0AF0                   ADD.L       SP,ER0
+  00000EFE 6881                   MOV.B       R1H,@ER0
+  00000F00 0B5A                   INC.W       #1,E2
+  00000F02 1D4A                   CMP.W       R4,E2
+  00000F04 4600                   BNE         L7230:8
+  00000F06 0DA1                   MOV.W       E2,R1
+  00000F08 17F1                   EXTS.L      ER1
+  00000F0A 0FF0                   MOV.L       SP,ER0
+  00000F0C 0AF1                   ADD.L       SP,ER1
+  00000F0E 017D012E               MOV.B       #H'2E:8,@ER1
+  00000F12 0B5A                   INC.W       #1,E2
+  00000F14                    L7230:                                
+  00000F14 01D651A2               DIVS.W      #H'A:4,R2
+  00000F18 0D22                   MOV.W       R2,R2
+  00000F1A 4600                   BNE         L7224:8
+  00000F1C                    L7228:                                
+      1083:            } while (i != (dp + 1 + l));        // 数値の桁数までループ
+      1084:        }
+      1085:        
+      1086:        i --;
+  00000F1C 1B5A                   DEC.W       #1,E2
+      1087:        
+      1088:        if((figure - 1) < i)                //表示桁数チェック
+  00000F1E 0DD8                   MOV.W       E5,E0
+  00000F20 1B5D                   DEC.W       #1,E5
+  00000F22 0DD0                   MOV.W       E5,R0
+  00000F24 1DAD                   CMP.W       E2,E5
+  00000F26 4500                   BLO         L7215:8
+      1089:        {
+      1090:            return;
+      1091:        }
+      1092:        
+      1093:        if(i == (figure - 1))               //MAX桁の場合
+  00000F28 1D0A                   CMP.W       R0,E2
+  00000F2A 4600                   BNE         L7233:8
+      1094:        {
+      1095:            i += 1;                         //頭の桁を１つ増やす
+  00000F2C 0B5A                   INC.W       #1,E2
+      1096:            if(sign == 1)
+  00000F2E 0DA0                   MOV.W       E2,R0
+  00000F30 17F0                   EXTS.L      ER0
+  00000F32 0AF0                   ADD.L       SP,ER0
+  00000F34 AE01                   CMP.B       #1:8,R6L
+  00000F36 4600                   BNE         L7235:8
+      1097:            {
+      1098:                chr[i] = '-';               //頭桁に-記号付加
+  00000F38 017D002D               MOV.B       #H'2D:8,@ER0
+  00000F3C 4000                   BRA         L7236:8
+  00000F3E                    L7235:                                
+      1099:            }
+      1100:            else
+      1101:            {
+      1102:                chr[i] = ' ';               //頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+  00000F3E 017D0020               MOV.B       #H'20:8,@ER0
+  00000F42 4000                   BRA         L7236:8
+  00000F44                    L7233:                                
+      1103:            }
+      1104:        }
+      1105:        else
+      1106:        {                                   //MAX桁以下の場合
+      1107:            for( j = 0; j < ((figure) -i ); j++ )       //最初に頭から不足桁数分のｽﾍﾟｰｽ付加
+  00000F44 1922                   SUB.W       R2,R2
+  00000F46 0D84                   MOV.W       E0,R4
+  00000F48 19A4                   SUB.W       E2,R4
+  00000F4A 0D0C                   MOV.W       R0,E4
+  00000F4C 4001                   BRA/S       L7237:8
+  00000F4E 19AC                   SUB.W       E2,E4
+  00000F50                    L7238:                                
+      1108:            {
+      1109:                if(j == ((figure - 1) - i ))//数値頭の±符号処理
+  00000F50 1DC2                   CMP.W       E4,R2
+  00000F52 4600                   BNE         L7240:8
+      1110:                {
+      1111:                    if(sign == 1)
+  00000F54 AE01                   CMP.B       #1:8,R6L
+  00000F56 4600                   BNE         L7240:8
+      1112:                    {
+      1113:                        LCD_CHR_copyBN('-');    //頭桁に-記号付加
+  00000F58 4001                   BRA/S       L7242:8
+  00000F5A F82D                   MOV.B       #H'2D:8,R0L
+  00000F5C                    L7240:                                
+  00000F5C F820                   MOV.B       #H'20:8,R0L
+  00000F5E                    L7242:                                
+  00000F5E 5E000000               JSR         @_LCD_CHR_copyBN:24
+  00000F62 0B52                   INC.W       #1,R2
+  00000F64                    L7237:                                
+  00000F64 1D42                   CMP.W       R4,R2
+  00000F66 4500                   BLO         L7238:8
+  00000F68                    L7236:                                
+      1114:                    }
+      1115:                    else
+      1116:                    {
+      1117:                        LCD_CHR_copyBN(' ');    //頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1118:                    }
+      1119:                }
+      1120:                else
+      1121:                {
+      1122:                    LCD_CHR_copyBN(' ');    //不足桁数だけスペース表示
+      1123:                }            
+      1124:            }
+      1125:        }
+      1126:        // 数字コード表示ルーチン
+      1127:        for(k = i; k >= 0; k --)            // 上位の桁から順次
+  00000F68 4001                   BRA/S       L7243:8
+  00000F6A 0DA2                   MOV.W       E2,R2
+  00000F6C                    L7244:                                
+      1128:        {
+      1129:            LCD_CHR_copyBN(chr[k]);
+  00000F6C 0D20                   MOV.W       R2,R0
+  00000F6E 17F0                   EXTS.L      ER0
+  00000F70 0AF0                   ADD.L       SP,ER0
+  00000F72 6808                   MOV.B       @ER0,R0L
+  00000F74 5E000000               JSR         @_LCD_CHR_copyBN:24
+  00000F78 1A12                   SUB.W       #1:3,R2
+  00000F7A                    L7243:                                
+  00000F7A 0D22                   MOV.W       R2,R2
+  00000F7C 4C00                   BGE         L7244:8
+  00000F7E                    L7215:                                
+  00000F7E 0A67                   ADD.W       #6:3,R7
+  00000F80 6D76                   POP.W       R6
+  00000F82 5435                   RTS/L       (ER2-ER5)
+      1130:        }
+      1131:    }
+      1132:    
+      1133:    // --------------------------------------------------------------------
+      1134:    // TFT LCD 整数値出力（大き目）展開FONT対象
+      1135:    // --------------------------------------------------------------------
+      1136:    void LCD_INT_drawBNR(int num, unsigned int figure, unsigned int dp)
+  00000F84                    _LCD_INT_drawBNR:                    ; function: LCD_INT_drawBNR
+  00000F84 01306DF2               STM.L       (ER2-ER5),@-SP
+  00000F88 6DF6                   PUSH.W      R6
+  00000F8A 1A67                   SUB.W       #6:3,R7
+      1137:    {
+      1138:        int i, j, k, l, numw;
+      1139:        unsigned char chr[6], temp, sign;
+      1140:        
+      1141:        if( figure > 8 ) return;
+  00000F8C 0D14                   MOV.W       R1,R4
+  00000F8E 0D8D                   MOV.W       E0,E5
+  00000F90 0D02                   MOV.W       R0,R2
+  00000F92 79280008               CMP.W       #8:16,E0
+  00000F96 58200000               BHI         L7247:16
+      1142:        
+      1143:        if( num < 0)
+  00000F9A 0D22                   MOV.W       R2,R2
+  00000F9C 4C00                   BGE         L7249:8
+      1144:        {
+      1145:            num = (~num) + 1;
+  00000F9E 1792                   NEG.W       R2
+      1146:            sign = 1;
+  00000FA0 4001                   BRA/S       L7250:8
+  00000FA2 FE01                   MOV.B       #1:8,R6L
+  00000FA4                    L7249:                                
+      1147:        }
+      1148:        else
+      1149:        {
+      1150:            sign = 0;
+  00000FA4 18EE                   SUB.B       R6L,R6L
+  00000FA6                    L7250:                                
+      1151:        }
+      1152:        
+      1153:        numw = num;
+  00000FA6 0D29                   MOV.W       R2,E1
+      1154:        if(dp > 0)
+  00000FA8 0D44                   MOV.W       R4,R4
+  00000FAA 4700                   BEQ         L7252:8
+      1155:        {
+      1156:            for(i = 1; i <= dp; i ++ )
+  00000FAC 4001                   BRA/S       L7253:8
+  00000FAE 0F10                   MOV.W       #1:3,R0
+  00000FB0                    L7254:                                
+      1157:            {
+      1158:                numw = numw / 10;
+  00000FB0 01D651A9               DIVS.W      #H'A:4,E1
+  00000FB4 0B50                   INC.W       #1,R0
+  00000FB6                    L7253:                                
+  00000FB6 1D40                   CMP.W       R4,R0
+  00000FB8 4300                   BLS         L7254:8
+  00000FBA                    L7252:                                
+      1159:            }
+      1160:        }
+      1161:        
+      1162:        i = 0;
+  00000FBA 19AA                   SUB.W       E2,E2
+      1163:        l = 0;
+      1164:        if(numw >= 10)
+  00000FBC 7929000A               CMP.W       #H'000A:16,E1
+  00000FC0 4C00                   BGE         L7256:8
+  00000FC2 0D45                   MOV.W       R4,R5
+  00000FC4 0B55                   INC.W       #1,R5
+  00000FC6 19CC                   SUB.W       E4,E4
+  00000FC8                    L7257:                                
+      1165:        {
+      1166:            do                              // 各桁数値の抽出ループ
+      1167:            {
+      1168:                temp = num % 10;            // 下位の桁から数字を抽出
+      1169:                chr[i ++ ] = temp + '0';    // 数字を文字コードに変換
+      1170:                if(i == dp)                 // 小数点位置の場合
+      1171:                chr[i ++ ] = '.';           // 小数点を格納
+      1172:            } while (( num /= 10 ) != 0);   // 数値の桁数までループ
+      1173:        }
+      1174:        else
+      1175:        {
+      1176:            do                              // 各桁数値の抽出ループ
+      1177:            {
+      1178:                temp = num % 10;            // 下位の桁から数字を抽出
+      1179:                chr[i ++ ] = temp + '0';    // 数字を文字コードに変換
+  00000FC8 0D20                   MOV.W       R2,R0
+  00000FCA 17F0                   EXTS.L      ER0
+  00000FCC 01D453A0               DIVXS.W     #H'A:4,ER0
+  00000FD0 0D80                   MOV.W       E0,R0
+  00000FD2 0C81                   MOV.B       R0L,R1H
+  00000FD4 8130                   ADD.B       #H'30:8,R1H
+  00000FD6 0DA0                   MOV.W       E2,R0
+  00000FD8 17F0                   EXTS.L      ER0
+  00000FDA 0AF0                   ADD.L       SP,ER0
+  00000FDC 6881                   MOV.B       R1H,@ER0
+  00000FDE 0B5A                   INC.W       #1,E2
+      1180:                if(i == dp)                 // 小数点位置の場合
+  00000FE0 1D4A                   CMP.W       R4,E2
+  00000FE2 4600                   BNE         L7259:8
+      1181:                {
+      1182:                chr[i ++ ] = '.';           // 小数点を格納
+  00000FE4 0DA0                   MOV.W       E2,R0
+  00000FE6 17F0                   EXTS.L      ER0
+  00000FE8 0AF0                   ADD.L       SP,ER0
+  00000FEA 017D002E               MOV.B       #H'2E:8,@ER0
+  00000FEE 0B5A                   INC.W       #1,E2
+      1183:                l = 1;
+  00000FF0 0F1C                   MOV.W       #1:3,E4
+  00000FF2                    L7259:                                
+      1184:                }
+      1185:                num /= 10;
+  00000FF2 01D651A2               DIVS.W      #H'A:4,R2
+  00000FF6 0DC9                   MOV.W       E4,E1
+  00000FF8 0959                   ADD.W       R5,E1
+  00000FFA 1D9A                   CMP.W       E1,E2
+  00000FFC 4700                   BEQ         L7260:8
+  00000FFE 4000                   BRA         L7257:8
+  00001000                    L7256:                                
+  00001000 0D20                   MOV.W       R2,R0
+  00001002 17F0                   EXTS.L      ER0
+  00001004 01D453A0               DIVXS.W     #H'A:4,ER0
+  00001008 0D80                   MOV.W       E0,R0
+  0000100A 0C81                   MOV.B       R0L,R1H
+  0000100C 8130                   ADD.B       #H'30:8,R1H
+  0000100E 0DA0                   MOV.W       E2,R0
+  00001010 17F0                   EXTS.L      ER0
+  00001012 0AF0                   ADD.L       SP,ER0
+  00001014 6881                   MOV.B       R1H,@ER0
+  00001016 0B5A                   INC.W       #1,E2
+  00001018 1D4A                   CMP.W       R4,E2
+  0000101A 4600                   BNE         L7262:8
+  0000101C 0DA1                   MOV.W       E2,R1
+  0000101E 17F1                   EXTS.L      ER1
+  00001020 0FF0                   MOV.L       SP,ER0
+  00001022 0AF1                   ADD.L       SP,ER1
+  00001024 017D012E               MOV.B       #H'2E:8,@ER1
+  00001028 0B5A                   INC.W       #1,E2
+  0000102A                    L7262:                                
+  0000102A 01D651A2               DIVS.W      #H'A:4,R2
+  0000102E 0D22                   MOV.W       R2,R2
+  00001030 4600                   BNE         L7256:8
+  00001032                    L7260:                                
+      1186:            } while (i != (dp + 1 + l));        // 数値の桁数までループ
+      1187:        }
+      1188:        
+      1189:        i --;
+  00001032 1B5A                   DEC.W       #1,E2
+      1190:        
+      1191:        if((figure - 1) < i)                //表示桁数チェック
+  00001034 0DD8                   MOV.W       E5,E0
+  00001036 1B5D                   DEC.W       #1,E5
+  00001038 0DD0                   MOV.W       E5,R0
+  0000103A 1DAD                   CMP.W       E2,E5
+  0000103C 4500                   BLO         L7247:8
+      1192:        {
+      1193:            return;
+      1194:        }
+      1195:        
+      1196:        if(i == (figure - 1))               //MAX桁の場合
+  0000103E 1D0A                   CMP.W       R0,E2
+  00001040 4600                   BNE         L7265:8
+      1197:        {
+      1198:            i += 1;                         //頭の桁を１つ増やす
+  00001042 0B5A                   INC.W       #1,E2
+      1199:            if(sign == 1)
+  00001044 0DA0                   MOV.W       E2,R0
+  00001046 17F0                   EXTS.L      ER0
+  00001048 0AF0                   ADD.L       SP,ER0
+  0000104A AE01                   CMP.B       #1:8,R6L
+  0000104C 4600                   BNE         L7267:8
+      1200:            {
+      1201:                chr[i] = '-';               //頭桁に-記号付加
+  0000104E 017D002D               MOV.B       #H'2D:8,@ER0
+  00001052 4000                   BRA         L7268:8
+  00001054                    L7267:                                
+      1202:            }
+      1203:            else
+      1204:            {
+      1205:                chr[i] = ' ';               //頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+  00001054 017D0020               MOV.B       #H'20:8,@ER0
+  00001058 4000                   BRA         L7268:8
+  0000105A                    L7265:                                
+      1206:            }
+      1207:        }
+      1208:        else
+      1209:        {                                   //MAX桁以下の場合
+      1210:            for( j = 0; j < ((figure) -i ); j++ )       //最初に頭から不足桁数分のｽﾍﾟｰｽ付加
+  0000105A 1922                   SUB.W       R2,R2
+  0000105C 0D84                   MOV.W       E0,R4
+  0000105E 19A4                   SUB.W       E2,R4
+  00001060 0D0C                   MOV.W       R0,E4
+  00001062 4001                   BRA/S       L7269:8
+  00001064 19AC                   SUB.W       E2,E4
+  00001066                    L7270:                                
+      1211:            {
+      1212:                if(j == ((figure - 1) - i ))//数値頭の±符号処理
+  00001066 1DC2                   CMP.W       E4,R2
+  00001068 4600                   BNE         L7272:8
+      1213:                {
+      1214:                    if(sign == 1)
+  0000106A AE01                   CMP.B       #1:8,R6L
+  0000106C 4600                   BNE         L7272:8
+      1215:                    {
+      1216:                        LCD_CHR_copyBNR('-');   //頭桁に-記号付加
+  0000106E 4001                   BRA/S       L7274:8
+  00001070 F82D                   MOV.B       #H'2D:8,R0L
+  00001072                    L7272:                                
+  00001072 F820                   MOV.B       #H'20:8,R0L
+  00001074                    L7274:                                
+  00001074 5E000000               JSR         @_LCD_CHR_copyBNR:24
+  00001078 0B52                   INC.W       #1,R2
+  0000107A                    L7269:                                
+  0000107A 1D42                   CMP.W       R4,R2
+  0000107C 4500                   BLO         L7270:8
+  0000107E                    L7268:                                
+      1217:                    }
+      1218:                    else
+      1219:                    {
+      1220:                        LCD_CHR_copyBNR(' ');   //頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1221:                    }
+      1222:                }
+      1223:                else
+      1224:                {
+      1225:                    LCD_CHR_copyBNR(' ');   //不足桁数だけスペース表示
+      1226:                }            
+      1227:            }
+      1228:        }
+      1229:        // 数字コード表示ルーチン
+      1230:        for(k = i; k >= 0; k --)            // 上位の桁から順次
+  0000107E 4001                   BRA/S       L7275:8
+  00001080 0DA2                   MOV.W       E2,R2
+  00001082                    L7276:                                
+      1231:        {
+      1232:            LCD_CHR_copyBNR(chr[k]);
+  00001082 0D20                   MOV.W       R2,R0
+  00001084 17F0                   EXTS.L      ER0
+  00001086 0AF0                   ADD.L       SP,ER0
+  00001088 6808                   MOV.B       @ER0,R0L
+  0000108A 5E000000               JSR         @_LCD_CHR_copyBNR:24
+  0000108E 1A12                   SUB.W       #1:3,R2
+  00001090                    L7275:                                
+  00001090 0D22                   MOV.W       R2,R2
+  00001092 4C00                   BGE         L7276:8
+  00001094                    L7247:                                
+  00001094 0A67                   ADD.W       #6:3,R7
+  00001096 6D76                   POP.W       R6
+  00001098 5435                   RTS/L       (ER2-ER5)
+      1233:        }
+      1234:    }
+      1235:    
+      1236:    // --------------------------------------------------------------------
+      1237:    // TFT LCD 整数値出力（大き目2倍）
+      1238:    // --------------------------------------------------------------------
+      1239:    void LCD_INT_drawBN2(int num, unsigned int figure, unsigned int dp)
+  0000109A                    _LCD_INT_drawBN2:                    ; function: LCD_INT_drawBN2
+  0000109A 01306DF2               STM.L       (ER2-ER5),@-SP
+  0000109E 6DF6                   PUSH.W      R6
+  000010A0 1A67                   SUB.W       #6:3,R7
+      1240:    {
+      1241:        int i, j, k, l, numw;
+      1242:        unsigned char chr[6], temp, sign;
+      1243:        
+      1244:        if( figure > 8 ) return;
+  000010A2 0D14                   MOV.W       R1,R4
+  000010A4 0D8D                   MOV.W       E0,E5
+  000010A6 0D02                   MOV.W       R0,R2
+  000010A8 79280008               CMP.W       #8:16,E0
+  000010AC 58200000               BHI         L7279:16
+      1245:        
+      1246:        if( num < 0)
+  000010B0 0D22                   MOV.W       R2,R2
+  000010B2 4C00                   BGE         L7281:8
+      1247:        {
+      1248:            num = (~num) + 1;
+  000010B4 1792                   NEG.W       R2
+      1249:            sign = 1;
+  000010B6 4001                   BRA/S       L7282:8
+  000010B8 FE01                   MOV.B       #1:8,R6L
+  000010BA                    L7281:                                
+      1250:        }
+      1251:        else
+      1252:        {
+      1253:            sign = 0;
+  000010BA 18EE                   SUB.B       R6L,R6L
+  000010BC                    L7282:                                
+      1254:        }
+      1255:        
+      1256:        numw = num;
+  000010BC 0D29                   MOV.W       R2,E1
+      1257:        if(dp > 0)
+  000010BE 0D44                   MOV.W       R4,R4
+  000010C0 4700                   BEQ         L7284:8
+      1258:        {
+      1259:            for(i = 1; i <= dp; i ++ )
+  000010C2 4001                   BRA/S       L7285:8
+  000010C4 0F10                   MOV.W       #1:3,R0
+  000010C6                    L7286:                                
+      1260:            {
+      1261:                numw = numw / 10;
+  000010C6 01D651A9               DIVS.W      #H'A:4,E1
+  000010CA 0B50                   INC.W       #1,R0
+  000010CC                    L7285:                                
+  000010CC 1D40                   CMP.W       R4,R0
+  000010CE 4300                   BLS         L7286:8
+  000010D0                    L7284:                                
+      1262:            }
+      1263:        }
+      1264:        
+      1265:        i = 0;
+  000010D0 19AA                   SUB.W       E2,E2
+      1266:        l = 0;
+      1267:        if(numw >= 10)
+  000010D2 7929000A               CMP.W       #H'000A:16,E1
+  000010D6 4C00                   BGE         L7288:8
+  000010D8 0D45                   MOV.W       R4,R5
+  000010DA 0B55                   INC.W       #1,R5
+  000010DC 19CC                   SUB.W       E4,E4
+  000010DE                    L7289:                                
+      1268:        {
+      1269:            do                              // 各桁数値の抽出ループ
+      1270:            {
+      1271:                temp = num % 10;            // 下位の桁から数字を抽出
+      1272:                chr[i ++ ] = temp + '0';    // 数字を文字コードに変換
+      1273:                if(i == dp)                 // 小数点位置の場合
+      1274:                chr[i ++ ] = '.';           // 小数点を格納
+      1275:            } while (( num /= 10 ) != 0);   // 数値の桁数までループ
+      1276:        }
+      1277:        else
+      1278:        {
+      1279:            do                              // 各桁数値の抽出ループ
+      1280:            {
+      1281:                temp = num % 10;            // 下位の桁から数字を抽出
+      1282:                chr[i ++ ] = temp + '0';    // 数字を文字コードに変換
+  000010DE 0D20                   MOV.W       R2,R0
+  000010E0 17F0                   EXTS.L      ER0
+  000010E2 01D453A0               DIVXS.W     #H'A:4,ER0
+  000010E6 0D80                   MOV.W       E0,R0
+  000010E8 0C81                   MOV.B       R0L,R1H
+  000010EA 8130                   ADD.B       #H'30:8,R1H
+  000010EC 0DA0                   MOV.W       E2,R0
+  000010EE 17F0                   EXTS.L      ER0
+  000010F0 0AF0                   ADD.L       SP,ER0
+  000010F2 6881                   MOV.B       R1H,@ER0
+  000010F4 0B5A                   INC.W       #1,E2
+      1283:                if(i == dp)                 // 小数点位置の場合
+  000010F6 1D4A                   CMP.W       R4,E2
+  000010F8 4600                   BNE         L7291:8
+      1284:                {
+      1285:                chr[i ++ ] = '.';           // 小数点を格納
+  000010FA 0DA0                   MOV.W       E2,R0
+  000010FC 17F0                   EXTS.L      ER0
+  000010FE 0AF0                   ADD.L       SP,ER0
+  00001100 017D002E               MOV.B       #H'2E:8,@ER0
+  00001104 0B5A                   INC.W       #1,E2
+      1286:                l = 1;
+  00001106 0F1C                   MOV.W       #1:3,E4
+  00001108                    L7291:                                
+      1287:                }
+      1288:                num /= 10;
+  00001108 01D651A2               DIVS.W      #H'A:4,R2
+  0000110C 0DC9                   MOV.W       E4,E1
+  0000110E 0959                   ADD.W       R5,E1
+  00001110 1D9A                   CMP.W       E1,E2
+  00001112 4700                   BEQ         L7292:8
+  00001114 4000                   BRA         L7289:8
+  00001116                    L7288:                                
+  00001116 0D20                   MOV.W       R2,R0
+  00001118 17F0                   EXTS.L      ER0
+  0000111A 01D453A0               DIVXS.W     #H'A:4,ER0
+  0000111E 0D80                   MOV.W       E0,R0
+  00001120 0C81                   MOV.B       R0L,R1H
+  00001122 8130                   ADD.B       #H'30:8,R1H
+  00001124 0DA0                   MOV.W       E2,R0
+  00001126 17F0                   EXTS.L      ER0
+  00001128 0AF0                   ADD.L       SP,ER0
+  0000112A 6881                   MOV.B       R1H,@ER0
+  0000112C 0B5A                   INC.W       #1,E2
+  0000112E 1D4A                   CMP.W       R4,E2
+  00001130 4600                   BNE         L7294:8
+  00001132 0DA1                   MOV.W       E2,R1
+  00001134 17F1                   EXTS.L      ER1
+  00001136 0FF0                   MOV.L       SP,ER0
+  00001138 0AF1                   ADD.L       SP,ER1
+  0000113A 017D012E               MOV.B       #H'2E:8,@ER1
+  0000113E 0B5A                   INC.W       #1,E2
+  00001140                    L7294:                                
+  00001140 01D651A2               DIVS.W      #H'A:4,R2
+  00001144 0D22                   MOV.W       R2,R2
+  00001146 4600                   BNE         L7288:8
+  00001148                    L7292:                                
+      1289:            } while (i != (dp + 1 + l));        // 数値の桁数までループ
+      1290:        }
+      1291:        
+      1292:        i --;
+  00001148 1B5A                   DEC.W       #1,E2
+      1293:        
+      1294:        if((figure - 1) < i)                //表示桁数チェック
+  0000114A 0DD8                   MOV.W       E5,E0
+  0000114C 1B5D                   DEC.W       #1,E5
+  0000114E 0DD0                   MOV.W       E5,R0
+  00001150 1DAD                   CMP.W       E2,E5
+  00001152 4500                   BLO         L7279:8
+      1295:        {
+      1296:            return;
+      1297:        }
+      1298:        
+      1299:        if(i == (figure - 1))               //MAX桁の場合
+  00001154 1D0A                   CMP.W       R0,E2
+  00001156 4600                   BNE         L7297:8
+      1300:        {
+      1301:            i += 1;                         //頭の桁を１つ増やす
+  00001158 0B5A                   INC.W       #1,E2
+      1302:            if(sign == 1)
+  0000115A 0DA0                   MOV.W       E2,R0
+  0000115C 17F0                   EXTS.L      ER0
+  0000115E 0AF0                   ADD.L       SP,ER0
+  00001160 AE01                   CMP.B       #1:8,R6L
+  00001162 4600                   BNE         L7299:8
+      1303:            {
+      1304:                chr[i] = '-';               //頭桁に-記号付加
+  00001164 017D002D               MOV.B       #H'2D:8,@ER0
+  00001168 4000                   BRA         L7300:8
+  0000116A                    L7299:                                
+      1305:            }
+      1306:            else
+      1307:            {
+      1308:                chr[i] = ' ';               //頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+  0000116A 017D0020               MOV.B       #H'20:8,@ER0
+  0000116E 4000                   BRA         L7300:8
+  00001170                    L7297:                                
+      1309:            }
+      1310:        }
+      1311:        else
+      1312:        {                                   //MAX桁以下の場合
+      1313:            for( j = 0; j < ((figure) -i ); j++ )       //最初に頭から不足桁数分のｽﾍﾟｰｽ付加
+  00001170 1922                   SUB.W       R2,R2
+  00001172 0D84                   MOV.W       E0,R4
+  00001174 19A4                   SUB.W       E2,R4
+  00001176 0D0C                   MOV.W       R0,E4
+  00001178 4001                   BRA/S       L7301:8
+  0000117A 19AC                   SUB.W       E2,E4
+  0000117C                    L7302:                                
+      1314:            {
+      1315:                if(j == ((figure - 1) - i ))//数値頭の±符号処理
+  0000117C 1DC2                   CMP.W       E4,R2
+  0000117E 4600                   BNE         L7304:8
+      1316:                {
+      1317:                    if(sign == 1)
+  00001180 AE01                   CMP.B       #1:8,R6L
+  00001182 4600                   BNE         L7304:8
+      1318:                    {
+      1319:                        LCD_CHR_copyBN2('-');   //頭桁に-記号付加
+  00001184 4001                   BRA/S       L7306:8
+  00001186 F82D                   MOV.B       #H'2D:8,R0L
+  00001188                    L7304:                                
+  00001188 F820                   MOV.B       #H'20:8,R0L
+  0000118A                    L7306:                                
+  0000118A 5E000000               JSR         @_LCD_CHR_copyBN2:24
+  0000118E 0B52                   INC.W       #1,R2
+  00001190                    L7301:                                
+  00001190 1D42                   CMP.W       R4,R2
+  00001192 4500                   BLO         L7302:8
+  00001194                    L7300:                                
+      1320:                    }
+      1321:                    else
+      1322:                    {
+      1323:                        LCD_CHR_copyBN2(' ');   //頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1324:                    }
+      1325:                }
+      1326:                else
+      1327:                {
+      1328:                    LCD_CHR_copyBN2(' ');   //不足桁数だけスペース表示
+      1329:                }            
+      1330:            }
+      1331:        }
+      1332:        // 数字コード表示ルーチン
+      1333:        for(k = i; k >= 0; k --)            // 上位の桁から順次
+  00001194 4001                   BRA/S       L7307:8
+  00001196 0DA2                   MOV.W       E2,R2
+  00001198                    L7308:                                
+      1334:        {
+      1335:            LCD_CHR_copyBN2(chr[k]);
+  00001198 0D20                   MOV.W       R2,R0
+  0000119A 17F0                   EXTS.L      ER0
+  0000119C 0AF0                   ADD.L       SP,ER0
+  0000119E 6808                   MOV.B       @ER0,R0L
+  000011A0 5E000000               JSR         @_LCD_CHR_copyBN2:24
+  000011A4 1A12                   SUB.W       #1:3,R2
+  000011A6                    L7307:                                
+  000011A6 0D22                   MOV.W       R2,R2
+  000011A8 4C00                   BGE         L7308:8
+  000011AA                    L7279:                                
+  000011AA 0A67                   ADD.W       #6:3,R7
+  000011AC 6D76                   POP.W       R6
+  000011AE 5435                   RTS/L       (ER2-ER5)
+      1336:        }
+      1337:    }
+      1338:    
+      1339:    /*
+      1340:    // --------------------------------------------------------------------
+      1341:    // 
+      1342:    // --------------------------------------------------------------------
+      1343:    void LCD_NUM_drawBN(int num, unsigned int figure)
+      1344:    {
+      1345:        int i, j, k, sign;
+      1346:        unsigned char chr[6], temp;
+      1347:        
+      1348:        if( figure > 8 )
+      1349:        {
+      1350:            return;
+      1351:        }
+      1352:        
+      1353:        if(num < 0)
+      1354:        {
+      1355:            num = (~num) + 1;
+      1356:            sign = -1;
+      1357:        }
+      1358:        else
+      1359:        {
+      1360:            sign = 1;
+      1361:        }
+      1362:        
+      1363:        
+      1364:        i = 0;
+      1365:        do                                  // 各桁数値の抽出ループ
+      1366:        {
+      1367:            temp = num % 10;                // 下位の桁から数字を抽出
+      1368:            chr[i ++] = temp + '0';     // 数字を文字コードに変換
+      1369:        } while (( num /= 10 ) != 0);       // 数値の桁数までループ
+      1370:        i --;
+      1371:            
+      1372:        if((figure - 1) < i)                //表示桁数チェック
+      1373:        {
+      1374:            return;
+      1375:        }
+      1376:        
+      1377:        if(i == (figure - 1))               //MAX桁の場合
+      1378:        {
+      1379:            i += 1;                         //頭の桁を１つ増やす
+      1380:            if(sign == -1)                  //負数の場合
+      1381:            {
+      1382:                chr[i] = '-';               //頭桁に-記号付加
+      1383:            }
+      1384:            else
+      1385:            {                               //正数の場合
+      1386:                chr[i] = ' ';               //頭桁に-ｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1387:        //      chr[i] = '+';               //
+      1388:            }
+      1389:        }
+      1390:        else
+      1391:        {                                   //MAX桁以下の場合
+      1392:            for( j = 0; j < ((figure) -i ); j++ )       //最初に頭から不足桁数分のｽﾍﾟｰｽ付加
+      1393:            {
+      1394:                if(j == ((figure - 1) - i ))//数値頭の±符号処理
+      1395:                {
+      1396:                    if(sign == -1)          //負数の場合
+      1397:                    {
+      1398:                        LCD_CHR_copyBN('-');//頭桁に-記号付加
+      1399:                    }
+      1400:                    else                    //正数の場合
+      1401:                    {
+      1402:                        LCD_CHR_copyBN(' ');//頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1403:        //              LCD_CHR_copyBN('+');//
+      1404:                    }
+      1405:                }
+      1406:                else
+      1407:                {
+      1408:                    LCD_CHR_copyBN(' ');    //不足桁数だけスペース表示
+      1409:                }            
+      1410:            }
+      1411:        }
+      1412:        // 数字コード表示ルーチン
+      1413:        for(k = i; k >= 0; k --)            // 上位の桁から順次
+      1414:        {
+      1415:            LCD_CHR_copyBN(chr[k]);
+      1416:        }
+      1417:        
+      1418:    }
+      1419:    */
+      1420:    
+      1421:    /*
+      1422:    // --------------------------------------------------------------------
+      1423:    // 
+      1424:    // --------------------------------------------------------------------
+      1425:    void LCD_NUM_drawBNF(int num, unsigned int figure, unsigned int f)
+      1426:    {
+      1427:        int i, j, k, sign;
+      1428:        unsigned char chr[6], temp;
+      1429:        
+      1430:        if( figure > 8 )
+      1431:        {
+      1432:            return;
+      1433:        }
+      1434:        
+      1435:        if(num < 0)
+      1436:        {
+      1437:            num = (~num) + 1;
+      1438:            sign = -1;
+      1439:        }
+      1440:        else
+      1441:        {
+      1442:            sign = 1;
+      1443:        }
+      1444:        
+      1445:        
+      1446:        i = 0;
+      1447:        do                                  // 各桁数値の抽出ループ
+      1448:        {
+      1449:            temp = num % 10;                // 下位の桁から数字を抽出
+      1450:            chr[i ++] = temp + '0';     // 数字を文字コードに変換
+      1451:        } while (( num /= 10 ) != 0);       // 数値の桁数までループ
+      1452:        i --;
+      1453:            
+      1454:        if((figure - 1) < i)                //表示桁数チェック
+      1455:        {
+      1456:            return;
+      1457:        }
+      1458:        
+      1459:        if(i == (figure - 1))               //MAX桁の場合
+      1460:        {
+      1461:            i += 1;                         //頭の桁を１つ増やす
+      1462:            if(sign == -1)                  //負数の場合
+      1463:            {
+      1464:                chr[i] = '-';               //頭桁に-記号付加
+      1465:            }
+      1466:            else
+      1467:            {                               //正数の場合
+      1468:                chr[i] = ' ';               //頭桁に-ｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1469:        //      chr[i] = '+';               //
+      1470:            }
+      1471:        }
+      1472:        else
+      1473:        {                                   //MAX桁以下の場合
+      1474:            for( j = 0; j < ((figure) -i ); j++ )       //最初に頭から不足桁数分のｽﾍﾟｰｽ付加
+      1475:            {
+      1476:                if(j == ((figure - 1) - i ))//数値頭の±符号処理
+      1477:                {
+      1478:                    if(sign == -1)          //負数の場合
+      1479:                    {
+      1480:                        LCD_CHR_copyBN('-');//頭桁に-記号付加
+      1481:                    }
+      1482:                    else                    //正数の場合
+      1483:                    {
+      1484:                        LCD_CHR_copyBN(' ');//頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1485:        //              LCD_CHR_copyBN('+');//
+      1486:                    }
+      1487:                }
+      1488:                else
+      1489:                {
+      1490:                    LCD_CHR_copyBN(' ');    //不足桁数だけスペース表示
+      1491:                }            
+      1492:            }
+      1493:        }
+      1494:        // 数字コード表示ルーチン
+      1495:        for(k = i; k >= 0; k --)            // 上位の桁から順次
+      1496:        {
+      1497:            if(k == f)
+      1498:            {
+      1499:                if(f != 0)
+      1500:                {
+      1501:                    LCD_CHR_copyBN('.');
+      1502:                    LCD_CHR_copyBN(chr[k]);
+      1503:                }
+      1504:            }
+      1505:            else
+      1506:            {
+      1507:                LCD_CHR_copyBN(chr[k]);
+      1508:            }
+      1509:        }
+      1510:        
+      1511:    }
+      1512:    */
+      1513:    
+      1514:    /*
+      1515:    // --------------------------------------------------------------------
+      1516:    // 
+      1517:    // --------------------------------------------------------------------
+      1518:    void LCD_CHR_copyBN2(unsigned char chr)
+      1519:    {
+      1520:        unsigned long i, j, font_addr;
+      1521:        
+      1522:        // フォントテーブルデータの座標の参照先を算出
+      1523:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 24) * 320) + ((((chr - 0x20) & 0x0000000F) * 16));
+      1524:        
+      1525:        for(j = 0; j < 24; j ++)
+      1526:        {
+      1527:            for(i = 0; i < 16; i ++)
+      1528:            {
+      1529:                if(g_drawbuff_flg)
+      1530:                {
+      1531:                    (*(ADATA + ((g_LCD_x + i * 2    ) + (g_LCD_y + j * 2    ) * 320))) = *(FONT + font_addr + i + j * 320);
+      1532:                    (*(ADATA + ((g_LCD_x + i * 2 + 1) + (g_LCD_y + j * 2    ) * 320))) = *(FONT + font_addr + i + j * 320);
+      1533:                    (*(ADATA + ((g_LCD_x + i * 2    ) + (g_LCD_y + j * 2 + 1) * 320))) = *(FONT + font_addr + i + j * 320);
+      1534:                    (*(ADATA + ((g_LCD_x + i * 2 + 1) + (g_LCD_y + j * 2 + 1) * 320))) = *(FONT + font_addr + i + j * 320);
+      1535:                }
+      1536:                else
+      1537:                {
+      1538:                    (*(BDATA + ((g_LCD_x + i * 2    ) + (g_LCD_y + j * 2    ) * 320))) = *(FONT + font_addr + i + j * 320);
+      1539:                    (*(BDATA + ((g_LCD_x + i * 2 + 1) + (g_LCD_y + j * 2    ) * 320))) = *(FONT + font_addr + i + j * 320);
+      1540:                    (*(BDATA + ((g_LCD_x + i * 2    ) + (g_LCD_y + j * 2 + 1) * 320))) = *(FONT + font_addr + i + j * 320);
+      1541:                    (*(BDATA + ((g_LCD_x + i * 2 + 1) + (g_LCD_y + j * 2 + 1) * 320))) = *(FONT + font_addr + i + j * 320);
+      1542:                }
+      1543:            }
+      1544:        }
+      1545:        g_LCD_x = g_LCD_x  + 32;
+      1546:    }
+      1547:    */
+      1548:    
+      1549:    /*
+      1550:    // --------------------------------------------------------------------
+      1551:    // 
+      1552:    // --------------------------------------------------------------------
+      1553:    void LCD_CHR_drawBN2(unsigned char chr[])
+      1554:    {
+      1555:        unsigned int i;
+      1556:        
+      1557:        for(i = 0; i <= 19; i++)
+      1558:        {
+      1559:            if(chr[i] == '\0') return;
+      1560:            LCD_CHR_copyBN2(chr[i]);
+      1561:        }
+      1562:    }
+      1563:    */
+      1564:    
+      1565:    /*
+      1566:    // --------------------------------------------------------------------
+      1567:    // 
+      1568:    // --------------------------------------------------------------------
+      1569:    void LCD_NUM_drawBN2(int num, unsigned int figure)
+      1570:    {
+      1571:        int i, j, k, sign;
+      1572:        unsigned char chr[6], temp;
+      1573:        
+      1574:        if( figure > 8 )
+      1575:        {
+      1576:            return;
+      1577:        }
+      1578:        
+      1579:        if(num < 0)
+      1580:        {
+      1581:            num = (~num) + 1;
+      1582:            sign = -1;
+      1583:        }
+      1584:        else
+      1585:        {
+      1586:            sign = 1;
+      1587:        }
+      1588:        
+      1589:        
+      1590:        i = 0;
+      1591:        do                                  // 各桁数値の抽出ループ
+      1592:        {
+      1593:            temp = num % 10;                // 下位の桁から数字を抽出
+      1594:            chr[i ++] = temp + '0';     // 数字を文字コードに変換
+      1595:        } while (( num /= 10 ) != 0);       // 数値の桁数までループ
+      1596:        i --;
+      1597:            
+      1598:        if((figure - 1) < i)                //表示桁数チェック
+      1599:        {
+      1600:            return;
+      1601:        }
+      1602:        
+      1603:        if(i == (figure - 1))               //MAX桁の場合
+      1604:        {
+      1605:            i += 1;                         //頭の桁を１つ増やす
+      1606:            if(sign == -1)                  //負数の場合
+      1607:            {
+      1608:                chr[i] = '-';               //頭桁に-記号付加
+      1609:            }
+      1610:            else
+      1611:            {                               //正数の場合
+      1612:                chr[i] = ' ';               //頭桁に-ｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1613:        //      chr[i] = '+';               //
+      1614:            }
+      1615:        }
+      1616:        else
+      1617:        {                                   //MAX桁以下の場合
+      1618:            for( j = 0; j < ((figure) -i ); j++ )       //最初に頭から不足桁数分のｽﾍﾟｰｽ付加
+      1619:            {
+      1620:                if(j == ((figure - 1) - i ))//数値頭の±符号処理
+      1621:                {
+      1622:                    if(sign == -1)          //負数の場合
+      1623:                    {
+      1624:                        LCD_CHR_copyBN2('-');//頭桁に-記号付加
+      1625:                    }
+      1626:                    else                    //正数の場合
+      1627:                    {
+      1628:                        LCD_CHR_copyBN2(' ');//頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1629:        //              LCD_CHR_copyBN2('+');//
+      1630:                    }
+      1631:                }
+      1632:                else
+      1633:                {
+      1634:                    LCD_CHR_copyBN2(' ');   //不足桁数だけスペース表示
+      1635:                }            
+      1636:            }
+      1637:        }
+      1638:        // 数字コード表示ルーチン
+      1639:        for(k = i; k >= 0; k --)            // 上位の桁から順次
+      1640:        {
+      1641:            LCD_CHR_copyBN2(chr[k]);
+      1642:        }
+      1643:    }
+      1644:    */
+      1645:    
+      1646:    /*
+      1647:    // --------------------------------------------------------------------
+      1648:    // 
+      1649:    // --------------------------------------------------------------------
+      1650:    void LCD_NUM_drawBN2F(int num, unsigned int figure, unsigned int f)
+      1651:    {
+      1652:        int i, j, k, sign;
+      1653:        unsigned char chr[6], temp;
+      1654:        
+      1655:        if( figure > 8 )
+      1656:        {
+      1657:            return;
+      1658:        }
+      1659:        
+      1660:        if(num < 0)
+      1661:        {
+      1662:            num = (~num) + 1;
+      1663:            sign = -1;
+      1664:        }
+      1665:        else
+      1666:        {
+      1667:            sign = 1;
+      1668:        }
+      1669:        
+      1670:        
+      1671:        i = 0;
+      1672:        do                                  // 各桁数値の抽出ループ
+      1673:        {
+      1674:            temp = num % 10;                // 下位の桁から数字を抽出
+      1675:            chr[i ++] = temp + '0';     // 数字を文字コードに変換
+      1676:        } while (( num /= 10 ) != 0);       // 数値の桁数までループ
+      1677:        i --;
+      1678:            
+      1679:        if((figure - 1) < i)                //表示桁数チェック
+      1680:        {
+      1681:            return;
+      1682:        }
+      1683:        
+      1684:        if(i == (figure - 1))               //MAX桁の場合
+      1685:        {
+      1686:            i += 1;                         //頭の桁を１つ増やす
+      1687:            if(sign == -1)                  //負数の場合
+      1688:            {
+      1689:                chr[i] = '-';               //頭桁に-記号付加
+      1690:            }
+      1691:            else
+      1692:            {                               //正数の場合
+      1693:                chr[i] = ' ';               //頭桁に-ｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1694:        //      chr[i] = '+';               //
+      1695:            }
+      1696:        }
+      1697:        else
+      1698:        {                                   //MAX桁以下の場合
+      1699:            for( j = 0; j < ((figure) -i ); j++ )       //最初に頭から不足桁数分のｽﾍﾟｰｽ付加
+      1700:            {
+      1701:                if(j == ((figure - 1) - i ))//数値頭の±符号処理
+      1702:                {
+      1703:                    if(sign == -1)          //負数の場合
+      1704:                    {
+      1705:                        LCD_CHR_copyBN2('-');//頭桁に-記号付加
+      1706:                    }
+      1707:                    else                    //正数の場合
+      1708:                    {
+      1709:                        LCD_CHR_copyBN2(' ');//頭桁にｽﾍﾟｰｽ記号付加(+記号は付けない)
+      1710:        //              LCD_CHR_copyBN2('+');//
+      1711:                    }
+      1712:                }
+      1713:                else
+      1714:                {
+      1715:                    LCD_CHR_copyBN2(' ');   //不足桁数だけスペース表示
+      1716:                }            
+      1717:            }
+      1718:        }
+      1719:        // 数字コード表示ルーチン
+      1720:        for(k = i; k >= 0; k --)            // 上位の桁から順次
+      1721:        {
+      1722:            if(k == f)
+      1723:            {
+      1724:                if(f != 0)
+      1725:                {
+      1726:                    LCD_CHR_copyBN2('.');
+      1727:                    LCD_CHR_copyBN2(chr[k]);
+      1728:                }
+      1729:            }
+      1730:            else
+      1731:            {
+      1732:                LCD_CHR_copyBN2(chr[k]);
+      1733:            }
+      1734:        }
+      1735:        
+      1736:    }
+      1737:    */
+      1738:    
+      1739:    /*
+      1740:    // --------------------------------------------------------------------
+      1741:    // 
+      1742:    // --------------------------------------------------------------------
+      1743:    void LCD_CHR_copyB(unsigned int x, unsigned int y, unsigned char chr, unsigned int color)
+      1744:    {
+      1745:        unsigned long   i, j, font_addr;
+      1746:        unsigned long   dst_data, font_data;
+      1747:        unsigned long   rd, gd, bd,rs, gs, bs, alpha;
+      1748:        
+      1749:        // フォントテーブルデータの座標の参照先を算出
+      1750:        font_addr = (((((chr - 0x20) & 0x000000F0) >> 4) * 24) * 320) + ((((chr - 0x20) & 0x0000000F) * 16));
+      1751:        
+      1752:        for(j = 0; j < 24; j++)
+      1753:        {
+      1754:            for(i = 0; i < 16; i++)
+      1755:            {
+      1756:                if(DrawBuff_flg)
+      1757:                {
+      1758:                    dst_data    = (*(ADATA + ((x + i) + (y + j) * 320)));               // 貼り付け先データの該当ピクセルデータの算出
+      1759:                }
+      1760:                else
+      1761:                {
+      1762:                    dst_data    = (*(BDATA + ((x + i) + (y + j) * 320)));               // 貼り付け先データの該当ピクセルデータの算出
+      1763:                }
+      1764:                font_data   = (*(FONT +  + i + j * 320));                               // フォントテーブルデータの該当ピクセルデータの算出(アルファデータ)
+      1765:                rd          = ((dst_data >> 11) & 0x001F);                              // 貼り付け先データのR要素の算出
+      1766:                gd          = ((dst_data >>  5) & 0x003F);                              // 貼り付け先データのG要素の算出
+      1767:                bd          = ((dst_data      ) & 0x001F);                              // 貼り付け先データのB要素の算出
+      1768:                rs          = ((color         ) & 0x001F);                              // フォント指定色のR要素の算出
+      1769:                gs          = ((color    >>  5) & 0x003F);                              // フォント指定色のG要素の算出
+      1770:                bs          = ((color    >> 11) & 0x001F);                              // フォント指定色のB要素の算出
+      1771:                alpha       = font_data & 0x1F;                                         // フォントテーブルデータからアルファ量を算出
+      1772:                rd          = (rd *  alpha       + rs * (0x1F -  alpha      )) / 0x1F;  // R要素のアルファブレンド
+      1773:                gd          = (gd * (alpha << 1) + gs * (0x3F - (alpha << 1))) / 0x3F;  // G要素のアルファブレンド
+      1774:                bd          = (bd *  alpha       + bs * (0x1F -  alpha      )) / 0x1F;  // B要素のアルファブレンド
+      1775:                dst_data    = (rd << 11) | (gd << 5) | bd;  
+      1776:                if(DrawBuff_flg)
+      1777:                {
+      1778:                    (*(ADATA + ((x + i) + (y + j) * 320))) = dst_data;
+      1779:                }
+      1780:                else
+      1781:                {
+      1782:                    (*(BDATA + ((x + i) + (y + j) * 320))) = dst_data;
+      1783:                }
+      1784:            }
+      1785:        }
+      1786:    }
+      1787:    */
+      1788:    
+      1789:    /*
+      1790:    // --------------------------------------------------------------------
+      1791:    // 
+      1792:    // --------------------------------------------------------------------
+      1793:    void LCD_CHR_drawB(unsigned int x, unsigned int y, unsigned char chr[], unsigned int color)
+      1794:    {
+      1795:        unsigned int i;
+      1796:        
+      1797:        for(i = 0; i <= 19; i++)
+      1798:        {
+      1799:            if(chr[i] == '\0') return;
+      1800:            LCD_CHR_copyB(x + i * 16, y, chr[i], color);
+      1801:        }
+      1802:    }
+      1803:    */
+B                                                                  ; section
+  00000000                    __$y$23:                             ; static: y
+  00000000 00000004               .RES.L      1
+  00000004                    __$z$24:                             ; static: z
+  00000004 00000004               .RES.L      1
+  00000008                    __$y$27:                             ; static: y
+  00000008 00000004               .RES.L      1
+  0000000C                    __$z$28:                             ; static: z
+  0000000C 00000004               .RES.L      1
+  00000010                    __$icnt$31:                          ; static: icnt
+  00000010 00000004               .RES.L      1
+  00000014                    _g_LCD_x:                            ; static: g_LCD_x
+  00000014 00000002               .RES.W      1
+  00000016                    _g_LCD_y:                            ; static: g_LCD_y
+  00000016 00000002               .RES.W      1
+  00000018                    _g_drawbuff_flg:                     ; static: g_drawbuff_flg
+  00000018 00000002               .RES.W      1
+  0000001A                    _g_oneshot_flg:                      ; static: g_oneshot_flg
+  0000001A 00000002               .RES.W      1
+
+

@@ -1,0 +1,1129 @@
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:33:05 PAGE   1
+
+******* STACK FRAME INFORMATION ********
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\iic.c
+
+Function (File C:\WorkSpa, Line    50): Init_IIC
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line    75): mtrs_start
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000002 Byte(s)
+Total Frame Size        : 0x00000006 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   116): mrcv_start
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000004 Byte(s)
+Total Frame Size        : 0x00000008 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   156): mrandrd_start
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000008 Byte(s)
+Total Frame Size        : 0x0000000c Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   198): iici0_interrupt
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   226): receive_stop_condition
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   255): master_transfer
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   322): master_receive
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000004 Byte(s)
+Total Frame Size        : 0x00000008 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   404): master_randomread
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000004 Byte(s)
+Total Frame Size        : 0x00000008 Byte(s)
+
+Used Runtime Library Name
+
+
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:33:05 PAGE   1
+
+************ OBJECT LISTING ************
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\iic.c
+
+SCT OFFSET CODE               LABEL     INSTRUCTION OPERAND    COMMENT
+
+P                                                                  ; section
+         1:    // --------------------------------------------------------------------
+         2:    // Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+         3:    //
+         4:    // This file is part of FullMoni firmwere.
+         5:    //
+         6:    // FullMoni is free software: you can redistribute it and/or modify
+         7:    // it under the terms of the GNU General Public License as published by
+         8:    // the Free Software Foundation, either version 3 of the License, or
+         9:    // (at your option ) any later version.
+        10:    //
+        11:    // FullMoni is distributed in the hope that it will be useful,
+        12:    // but WITHIOUT ANY WARRANTY; without even the implied warranty of
+        13:    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   See the
+        14:    // GNU General Public License for more details.
+        15:    //
+        16:    // You should have received a copy of the GNU General Public License
+        17:    // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
+        18:    //
+        19:    // filename     :   i2cEEPROM.c
+        20:    // brief        :   FullMoni rev.B シリアルフラッシュROM管理
+        21:    // author       :   Tomoya Sato
+        22:    // update       :   2013/03/31
+        23:    // version      :   1.02
+        24:    // --------------------------------------------------------------------
+        25:    
+        26:    // --------------------------------------------------------------------
+        27:    // ユーザーヘッダファイル
+        28:    // --------------------------------------------------------------------
+        29:    #include <machine.h>
+        30:    #include "iodefine.h"
+        31:    #include "iic.h"
+        32:    
+        33:    // --------------------------------------------------------------------
+        34:    // グローバル変数宣言
+        35:    // --------------------------------------------------------------------
+        36:    unsigned char  iic_mode;                            /* IIC mode                         */
+        37:    unsigned short mt_cnt;                              /* IIC master transmit data counter */
+        38:    unsigned short mr_cnt;                              /* IIC master receive data counter  */
+        39:    unsigned char  randrd_cnt;
+        40:    unsigned short mt_num;                              /* IIC master transmit data number  */
+        41:    unsigned short mr_num;                              /* IIC master receive data number   */
+        42:    unsigned char  *mt_data;
+        43:    unsigned char  *mr_data;
+        44:    unsigned char  MemAddress;
+        45:    unsigned char  mt_addr;
+        46:    
+        47:    // --------------------------------------------------------------------
+        48:    // IICバス初期化
+        49:    // --------------------------------------------------------------------
+        50:    void Init_IIC(void)
+  00000000                    _Init_IIC:                           ; function: Init_IIC
+        51:    {
+        52:        unsigned char  tmp;
+        53:        
+        54:    //  P1.ICR.BIT.B7 = 1;                              /* input buffers are valid          */
+        55:    //  P1.ICR.BIT.B6 = 1;                              /* P17:SCL0, P16:SDA0               */
+        56:        
+        57:        IIC20.ICCRA.BIT.ICE = 1;                        /* IIC transfer operations : Enable */
+  00000000 6A18FEB07070           BSET.B      #7,@H'00FFFEB0:16
+        58:        IIC20.ICMR.BIT.WAIT = 0;                        /* WAIT=0                           */
+  00000006 6A18FEB27260           BCLR.B      #6,@H'00FFFEB2:16
+        59:        IIC20.SAR.BYTE = SLAVE_ADDR;                    /* Slave address                    */
+  0000000C 017D40A0FEB5           MOV.B       #H'A0:8,@H'00FFFEB5:16
+        60:    //  IIC20.ICCRA.BYTE = 0x8D;                        /* transfer rate : 20MHz,100kbps    */
+        61:        IIC20.ICCRA.BYTE = 0x8F;                        /* transfer rate : 24MHz,93.75kbps  */
+  00000012 017D408FFEB0           MOV.B       #H'8F:8,@H'00FFFEB0:16
+        62:        IIC20.ICIER.BYTE = 0xBC;                        /* Enable Interrupt source, Ack=1   */
+  00000018 017D40BCFEB3           MOV.B       #H'BC:8,@H'00FFFEB3:16
+        63:        tmp = IIC20.ICSR.BYTE;
+  0000001E 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+        64:        IIC20.ICSR.BYTE = 0x00;                         /* all status clear                 */
+  00000022 6AD0FEB4               MOV.B       #0:4,@H'00FFFEB4:16
+        65:        
+        66:        mt_cnt = 0;
+  00000026 6BF000000000           MOV.W       #0:4,@_mt_cnt:32
+        67:        mr_cnt = 0;
+  0000002C 6BF000000000           MOV.W       #0:4,@_mr_cnt:32
+        68:        randrd_cnt = 0;
+  00000032 6AF000000000           MOV.B       #0:4,@_randrd_cnt:32
+        69:        iic_mode = MODE_IDLE;                           /* Master transfer mode             */
+  00000038 6AF000000000           MOV.B       #0:4,@_iic_mode:32
+  0000003E 5470                   RTS
+        70:    }
+        71:    
+        72:    // --------------------------------------------------------------------
+        73:    // マスタ ページライト 開始
+        74:    // --------------------------------------------------------------------
+        75:    unsigned char mtrs_start(const unsigned char *dtadd, unsigned char mtbuf,unsigned short dtnum)
+  00000040                    _mtrs_start:                         ; function: mtrs_start
+  00000040 6DF3                   PUSH.W      R3
+        76:    {
+        77:        unsigned char  rtn;
+        78:        
+        79:        rtn = 0;
+  00000042 0C9B                   MOV.B       R1L,R3L
+  00000044 1899                   SUB.B       R1L,R1L
+        80:        set_imask_exr(6);                               /* Disable interrupt                */
+  00000046 0211                   STC.B       EXR,R1H
+  00000048 E1F8                   AND.B       #H'F8:8,R1H
+  0000004A C106                   OR.B        #6:8,R1H
+  0000004C 0311                   LDC.B       R1H,EXR
+        81:        
+        82:        if ( iic_mode != MODE_IDLE )                    /* Mode check                       */
+  0000004E 6A2300000000           MOV.B       @_iic_mode:32,R3H
+  00000054 4700                   BEQ         L6841:8
+        83:        {
+        84:            rtn = 1;
+  00000056 4001                   BRA/S       L6842:8
+  00000058 F901                   MOV.B       #1:8,R1L
+  0000005A                    L6841:                                
+        85:        }                                               /* Bus Free (BBSY = 0)?             */
+        86:        else if ( IIC20.ICCRB.BIT.BBSY != 0 )           /* Bus condition check              */
+  0000005A 6A01FEB1               MOV.B       @H'00FFFEB1:16,R1H
+  0000005E 4A00                   BPL         L6844:8
+        87:        {
+        88:            rtn = 2;
+  00000060 4001                   BRA/S       L6842:8
+  00000062 F902                   MOV.B       #2:8,R1L
+  00000064                    L6844:                                
+        89:        }                                               /* Bus Free (BBSY=0)?               */
+        90:        else if ( dtnum == 0 )
+  00000064 0D99                   MOV.W       E1,E1
+  00000066 4600                   BNE         L6846:8
+        91:        {
+        92:            rtn = 3;                                    /* ERR: number of data is "0"       */
+  00000068 4001                   BRA/S       L6842:8
+  0000006A F903                   MOV.B       #3:8,R1L
+  0000006C                    L6846:                                
+        93:        }
+        94:        else
+        95:        {
+        96:            iic_mode = MODE_MT;                         /* Set transfer/receive mode        */
+  0000006C 6AF400000000           MOV.B       #4:4,@_iic_mode:32
+        97:            mt_addr = mtbuf;
+  00000072 6AAB00000000           MOV.B       R3L,@_mt_addr:32
+        98:            mt_data = (unsigned char *)dtadd;           /* Top address of transfer data     */
+  00000078 01006BA000000000       MOV.L       ER0,@_mt_data:32
+        99:            mt_num = dtnum;                             /* number of transfer data          */
+  00000080 6BA900000000           MOV.W       E1,@_mt_num:32
+       100:            mt_cnt = 0;
+  00000086 6BF000000000           MOV.W       #0:4,@_mt_cnt:32
+       101:            
+       102:            IIC20.ICIER.BIT.TIE = 0;                    /* Disable interrupt                */
+  0000008C 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+       103:            IIC20.ICCRA.BYTE |= 0x30u;                  /* Master transmit                  */
+  00000092 6A08FEB0               MOV.B       @H'00FFFEB0:16,R0L
+  00000096 C830                   OR.B        #H'30:8,R0L
+  00000098 6A88FEB0               MOV.B       R0L,@H'00FFFEB0:16
+       104:            IIC20.ICCRB.BYTE = 0xBD;                    /* Generate start condition         */
+  0000009C 017D40BDFEB1           MOV.B       #H'BD:8,@H'00FFFEB1:16
+       105:            IIC20.ICIER.BIT.TIE = 1;                    /* Enable interrupt                 */
+  000000A2 6A18FEB37070           BSET.B      #7,@H'00FFFEB3:16
+  000000A8                    L6842:                                
+       106:        }
+       107:        
+       108:        set_imask_exr(0);                               /* Enable interrupt                 */
+  000000A8 0210                   STC.B       EXR,R0H
+  000000AA E0F8                   AND.B       #H'F8:8,R0H
+  000000AC C000                   OR.B        #0:8,R0H
+  000000AE 0310                   LDC.B       R0H,EXR
+       109:        
+       110:        return rtn;
+  000000B0 0C98                   MOV.B       R1L,R0L
+  000000B2 6D73                   POP.W       R3
+  000000B4 5470                   RTS
+       111:    }
+       112:    
+       113:    // --------------------------------------------------------------------
+       114:    // マスタ受信 開始
+       115:    // --------------------------------------------------------------------
+       116:    unsigned char mrcv_start(const unsigned char *dtadd, unsigned short dtnum)
+  000000B6                    _mrcv_start:                         ; function: mrcv_start
+  000000B6 01006DF2               PUSH.L      ER2
+       117:    {
+       118:        unsigned char  rtn;
+       119:        
+       120:        rtn = 0;
+  000000BA 0D19                   MOV.W       R1,E1
+  000000BC 0F82                   MOV.L       ER0,ER2
+  000000BE 1811                   SUB.B       R1H,R1H
+       121:        set_imask_exr(6);                               /* Disable interrupt                */
+  000000C0 0218                   STC.B       EXR,R0L
+  000000C2 E8F8                   AND.B       #H'F8:8,R0L
+  000000C4 C806                   OR.B        #6:8,R0L
+  000000C6 0318                   LDC.B       R0L,EXR
+       122:        
+       123:        if ( iic_mode != MODE_IDLE )                    /* Mode check                       */
+  000000C8 6A2900000000           MOV.B       @_iic_mode:32,R1L
+  000000CE 4700                   BEQ         L6850:8
+       124:        {
+       125:            rtn = 1;
+  000000D0 4001                   BRA/S       L6851:8
+  000000D2 F101                   MOV.B       #1:8,R1H
+  000000D4                    L6850:                                
+       126:        }                                               /* Bus Free (BBSY = 0)?             */
+       127:        else if ( IIC20.ICCRB.BIT.BBSY != 0 )           /* Bus condition check              */
+  000000D4 6A00FEB1               MOV.B       @H'00FFFEB1:16,R0H
+  000000D8 4A00                   BPL         L6853:8
+       128:        {
+       129:            rtn = 2;
+  000000DA 4001                   BRA/S       L6851:8
+  000000DC F102                   MOV.B       #2:8,R1H
+  000000DE                    L6853:                                
+       130:        }                                               /* Bus Free (BBSY=0)?               */
+       131:        else if ( dtnum == 0 )
+  000000DE 0D99                   MOV.W       E1,E1
+  000000E0 4600                   BNE         L6855:8
+       132:        {
+       133:            rtn = 3;                                    /* ERR: number of data is "0"       */
+  000000E2 4001                   BRA/S       L6851:8
+  000000E4 F103                   MOV.B       #3:8,R1H
+  000000E6                    L6855:                                
+       134:        }
+       135:        else
+       136:        {
+       137:            iic_mode = MODE_MR;                         /* Set transfer/receive mode        */
+  000000E6 6AF300000000           MOV.B       #3:4,@_iic_mode:32
+       138:            mr_data = (unsigned char *)dtadd;           /* Top address of receive data      */
+  000000EC 01006BA200000000       MOV.L       ER2,@_mr_data:32
+       139:            mr_num = dtnum;                             /* number of receive data           */
+  000000F4 6BA900000000           MOV.W       E1,@_mr_num:32
+       140:            mr_cnt = 0;
+  000000FA 6BF000000000           MOV.W       #0:4,@_mr_cnt:32
+       141:            
+       142:            IIC20.ICIER.BIT.TIE = 0;                    /* Disable interrupt                */
+  00000100 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+       143:            IIC20.ICCRA.BYTE |= 0x30u;                  /* Master transmit                  */
+  00000106 6A08FEB0               MOV.B       @H'00FFFEB0:16,R0L
+  0000010A C830                   OR.B        #H'30:8,R0L
+  0000010C 6A88FEB0               MOV.B       R0L,@H'00FFFEB0:16
+       144:            IIC20.ICCRB.BYTE = 0xBD;                    /* Generate start condition         */
+  00000110 017D40BDFEB1           MOV.B       #H'BD:8,@H'00FFFEB1:16
+       145:            IIC20.ICIER.BIT.TIE = 1;                    /* Enable interrupt                 */
+  00000116 6A18FEB37070           BSET.B      #7,@H'00FFFEB3:16
+  0000011C                    L6851:                                
+       146:        }
+       147:        
+       148:        set_imask_exr(0);                               /* Enable interrupt                 */
+  0000011C 0210                   STC.B       EXR,R0H
+  0000011E E0F8                   AND.B       #H'F8:8,R0H
+  00000120 C000                   OR.B        #0:8,R0H
+  00000122 0310                   LDC.B       R0H,EXR
+       149:        
+       150:        return rtn;
+  00000124 0C18                   MOV.B       R1H,R0L
+  00000126 5402                   RTS/L       ER2
+       151:    }
+       152:    
+       153:    // --------------------------------------------------------------------
+       154:    // シーケンシャルランダムリード 開始
+       155:    // --------------------------------------------------------------------
+       156:    unsigned char mrandrd_start(const unsigned char *mrbuf, unsigned char mtbuf, unsigned short dtnum)
+  00000128                    _mrandrd_start:                      ; function: mrandrd_start
+  00000128 01106DF2               STM.L       (ER2-ER3),@-SP
+       157:    {
+       158:        unsigned char  rtn;
+       159:        
+       160:        rtn = 0;
+  0000012C 0C9B                   MOV.B       R1L,R3L
+  0000012E 0F82                   MOV.L       ER0,ER2
+  00000130 1899                   SUB.B       R1L,R1L
+       161:        set_imask_exr(6);                               /* Disable interrupt                */
+  00000132 0210                   STC.B       EXR,R0H
+  00000134 E0F8                   AND.B       #H'F8:8,R0H
+  00000136 C006                   OR.B        #6:8,R0H
+  00000138 0310                   LDC.B       R0H,EXR
+       162:        
+       163:        if ( iic_mode != MODE_IDLE )                    /* Mode check                       */
+  0000013A 6A2300000000           MOV.B       @_iic_mode:32,R3H
+  00000140 4700                   BEQ         L6859:8
+       164:        {
+       165:            rtn = 1;
+  00000142 4001                   BRA/S       L6860:8
+  00000144 F901                   MOV.B       #1:8,R1L
+  00000146                    L6859:                                
+       166:        }                                               /* Bus Free (BBSY = 0)?             */
+       167:        else if ( IIC20.ICCRB.BIT.BBSY != 0 )           /* Bus condition check              */
+  00000146 6A01FEB1               MOV.B       @H'00FFFEB1:16,R1H
+  0000014A 4A00                   BPL         L6862:8
+       168:        {
+       169:            rtn = 2;
+  0000014C 4001                   BRA/S       L6860:8
+  0000014E F902                   MOV.B       #2:8,R1L
+  00000150                    L6862:                                
+       170:        }                                               /* Bus Free (BBSY=0)?               */
+       171:        else if ( dtnum == 0 )
+  00000150 0D99                   MOV.W       E1,E1
+  00000152 4600                   BNE         L6864:8
+       172:        {
+       173:            rtn = 3;                                    /* ERR: number of data is "0"       */
+  00000154 4001                   BRA/S       L6860:8
+  00000156 F903                   MOV.B       #3:8,R1L
+  00000158                    L6864:                                
+       174:        }
+       175:        else
+       176:        {
+       177:            iic_mode = MODE_MR_RAND;
+  00000158 6AF500000000           MOV.B       #5:4,@_iic_mode:32
+       178:            MemAddress = mtbuf;
+  0000015E 6AAB00000000           MOV.B       R3L,@_MemAddress:32
+       179:            mt_data = &MemAddress;
+  00000164 7A74000000004800       MOV.L       #_MemAddress:32,@_mt_data:32
+           00000000           
+       180:            mr_data = (unsigned char *)mrbuf;           /* Top address of receive data      */
+  00000170 01006BA200000000       MOV.L       ER2,@_mr_data:32
+       181:            mr_num = dtnum;                             /* number of receive data           */
+  00000178 6BA900000000           MOV.W       E1,@_mr_num:32
+       182:            randrd_cnt = 0;
+  0000017E 6AF000000000           MOV.B       #0:4,@_randrd_cnt:32
+       183:    
+       184:            IIC20.ICIER.BIT.TIE = 0;                    /* Disable interrupt                */
+  00000184 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+       185:            IIC20.ICCRA.BYTE |= 0x30u;                  /* Master transmit                  */
+  0000018A 6A08FEB0               MOV.B       @H'00FFFEB0:16,R0L
+  0000018E C830                   OR.B        #H'30:8,R0L
+  00000190 6A88FEB0               MOV.B       R0L,@H'00FFFEB0:16
+       186:            IIC20.ICCRB.BYTE = 0xBD;                    /* Generate start condition         */
+  00000194 017D40BDFEB1           MOV.B       #H'BD:8,@H'00FFFEB1:16
+       187:            IIC20.ICIER.BIT.TIE = 1;                    /* Enable interrupt                 */
+  0000019A 6A18FEB37070           BSET.B      #7,@H'00FFFEB3:16
+  000001A0                    L6860:                                
+       188:        }
+       189:        
+       190:        set_imask_exr(0);                               /* Enable interrupt                 */
+  000001A0 0210                   STC.B       EXR,R0H
+  000001A2 E0F8                   AND.B       #H'F8:8,R0H
+  000001A4 C000                   OR.B        #0:8,R0H
+  000001A6 0310                   LDC.B       R0H,EXR
+       191:        
+       192:        return rtn;
+  000001A8 0C98                   MOV.B       R1L,R0L
+  000001AA 5413                   RTS/L       (ER2-ER3)
+       193:    }
+       194:    
+       195:    // --------------------------------------------------------------------
+       196:    // IIC2 ch0 割り込みハンドラ
+       197:    // --------------------------------------------------------------------
+       198:    void iici0_interrupt(void)
+  000001AC                    _iici0_interrupt:                    ; function: iici0_interrupt
+       199:    {
+       200:        if ( IIC20.ICSR.BIT.STOP == 1 )
+  000001AC 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+  000001B0 7738                   BLD.B       #3,R0L
+  000001B2 4500                   BCS         _receive_stop_condition:8
+       201:        {
+       202:            receive_stop_condition();
+       203:        }
+       204:        else
+       205:        {
+       206:            switch ( iic_mode )                         /* mode check                       */
+  000001B4 6A2800000000           MOV.B       @_iic_mode:32,R0L
+  000001BA A804                   CMP.B       #4:8,R0L
+  000001BC 4700                   BEQ         L6867:8
+  000001BE A803                   CMP.B       #3:8,R0L
+  000001C0 58700000               BEQ         _master_receive:16
+  000001C4 A805                   CMP.B       #5:8,R0L
+  000001C6 4600                   BNE         L6866:8
+  000001C8 5A000000               JMP         @_master_randomread:24
+       207:            {
+       208:                case MODE_MT:
+       209:                    master_transfer();                  /* Master transfer                  */
+       210:                    break;
+       211:                case MODE_MR:
+       212:                    master_receive();                   /* Master receive                   */
+       213:                    break;
+       214:                case MODE_MR_RAND:
+       215:                    master_randomread();                /* Random read                      */
+  000001CC 5A000000               JMP         @_master_receive:24
+  000001D0                    L6867:                                
+  000001D0 5E000000               JSR         @_master_transfer:24
+  000001D4                    L6866:                                
+  000001D4 5470                   RTS
+       216:                    break;
+       217:                default:
+       218:                    break;
+       219:            }
+       220:        }
+       221:    }
+       222:    
+       223:    // --------------------------------------------------------------------
+       224:    // 受信 ストップコンディション
+       225:    // --------------------------------------------------------------------
+       226:    void receive_stop_condition(void)
+  000001D6                    _receive_stop_condition:             ; function: receive_stop_condition
+       227:    {
+       228:        unsigned char  tmp;
+       229:    
+       230:        if( (iic_mode==MODE_MR)                         /* Check mode                       */
+  000001D6 6A2800000000           MOV.B       @_iic_mode:32,R0L
+  000001DC A803                   CMP.B       #3:8,R0L
+  000001DE 4700                   BEQ         L6883:8
+       231:             && ((mr_cnt-2)==mr_num))                   /* Check Nack                       */
+       232:        {
+       233:            mr_data[mr_cnt - 3] = IIC20.ICDRR;          /* Store the received data          */
+       234:        }
+       235:        else if( (iic_mode==MODE_MR_RAND)               /* Check mode                       */
+  000001E0 A805                   CMP.B       #5:8,R0L
+  000001E2 4600                   BNE         L6884:8
+  000001E4 6A2800000000           MOV.B       @_randrd_cnt:32,R0L
+  000001EA 1750                   EXTU.W      R0
+  000001EC 0D08                   MOV.W       R0,E0
+  000001EE 1A50                   SUB.W       #5:3,R0
+  000001F0 6B30000000001D00       CMP.W       @_mr_num:32,R0
+  000001F8 4600                   BNE         L6884:8
+       236:             && ((randrd_cnt-5)==mr_num))               /* Check Nack                       */
+       237:        {
+       238:            mr_data[randrd_cnt - 3] = IIC20.ICDRR;      /* Store the received data          */
+  000001FA 6A09FEB7               MOV.B       @H'00FFFEB7:16,R1L
+  000001FE 0D80                   MOV.W       E0,R0
+  00000200 17F0                   EXTS.L      ER0
+  00000202 010A481000000000       ADD.L       @_mr_data:32,ER0
+  0000020A 6E89FFFD               MOV.B       R1L,@(H'FFFFFFFD:16,ER0)
+  0000020E 4000                   BRA         L6884:8
+  00000210                    L6883:                                
+  00000210 6B2000000000           MOV.W       @_mr_cnt:32,R0
+  00000216 0D08                   MOV.W       R0,E0
+  00000218 1BD0                   DEC.W       #2,R0
+  0000021A 6B30000000001D00       CMP.W       @_mr_num:32,R0
+  00000222 4600                   BNE         L6884:8
+  00000224 6A09FEB7               MOV.B       @H'00FFFEB7:16,R1L
+  00000228 0D80                   MOV.W       E0,R0
+  0000022A 1A30                   SUB.W       #3:3,R0
+  0000022C 1770                   EXTU.L      ER0
+  0000022E 010A481000000000       ADD.L       @_mr_data:32,ER0
+  00000236 6889                   MOV.B       R1L,@ER0
+  00000238                    L6884:                                
+       239:    //      mr_data[0] = IIC20.ICDRR;                   /* Store the received data          */
+       240:        }
+       241:        
+       242:        IIC20.ICCRA.BIT.RCVD = 0;                       /* Enables next reception           */
+  00000238 6A18FEB07260           BCLR.B      #6,@H'00FFFEB0:16
+       243:        IIC20.ICCRA.BYTE &= 0xCFu;                      /* MST,TRS=00,  slave receive mode  */
+  0000023E 6A08FEB0               MOV.B       @H'00FFFEB0:16,R0L
+  00000242 E8CF                   AND.B       #H'CF:8,R0L
+  00000244 6A88FEB0               MOV.B       R0L,@H'00FFFEB0:16
+       244:        
+       245:        tmp = IIC20.ICSR.BYTE;
+  00000248 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       246:        IIC20.ICSR.BYTE = 0x00;                         /* all status clear                 */
+  0000024C 6AD0FEB4               MOV.B       #0:4,@H'00FFFEB4:16
+       247:        
+       248:        IIC20.ICIER.BYTE = 0xBC;                        /* Enable Interrupt source, Ack=1   */
+  00000250 017D40BCFEB3           MOV.B       #H'BC:8,@H'00FFFEB3:16
+       249:        iic_mode = MODE_IDLE;                           /* Slave receive mode               */
+  00000256 1888                   SUB.B       R0L,R0L
+  00000258 6AA800000000           MOV.B       R0L,@_iic_mode:32
+  0000025E 5470                   RTS
+       250:    }
+       251:    
+       252:    // --------------------------------------------------------------------
+       253:    // マスタ ページライト処理
+       254:    // --------------------------------------------------------------------
+       255:    void master_transfer(void)
+  00000260                    _master_transfer:                    ; function: master_transfer
+       256:    {
+       257:        unsigned char  tmp;
+       258:    
+       259:        if ( IIC20.ICSR.BIT.NACKF == 1 )                /* No acknowledge detection         */
+  00000260 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+  00000264 7748                   BLD.B       #4,R0L
+  00000266 4400                   BCC         L6891:8
+       260:        {
+       261:            IIC20.ICIER.BIT.TIE = 0;                    /* Transmit interrupt disable       */
+  00000268 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+       262:            IIC20.ICIER.BIT.TEIE = 0;                   /* Transmit end interrupt disable   */
+  0000026E 6A18FEB37260           BCLR.B      #6,@H'00FFFEB3:16
+  00000274                    L6892:                                
+       263:    
+       264:            while ( IIC20.ICCRB.BIT.SCLO != 0 );        /* SCL = Low?                       */
+  00000274 6A08FEB1               MOV.B       @H'00FFFEB1:16,R0L
+  00000278 7738                   BLD.B       #3,R0L
+  0000027A 4500                   BCS         L6892:8
+       265:            tmp = IIC20.ICSR.BYTE;                      /* status clear                     */
+  0000027C 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       266:            IIC20.ICSR.BIT.NACKF = 0;
+  00000280 6A18FEB47240           BCLR.B      #4,@H'00FFFEB4:16
+       267:            IIC20.ICSR.BIT.TDRE = 0;
+  00000286 6A18FEB47270           BCLR.B      #7,@H'00FFFEB4:16
+       268:            IIC20.ICSR.BIT.TEND = 0;
+  0000028C 6A18FEB47260           BCLR.B      #6,@H'00FFFEB4:16
+  00000292 5A000000               JMP         @L6894:24
+  00000296                    L6891:                                
+       269:            
+       270:            IIC20.ICCRB.BYTE = 0x3D;                    /* Generate stop condition          */
+       271:            mt_cnt++;
+       272:        }
+       273:        else if ( mt_cnt == 0 )
+  00000296 6B2800000000           MOV.W       @_mt_cnt:32,E0
+  0000029C 4600                   BNE         L6896:8
+       274:        {
+       275:            IIC20.ICDRT = MT_ID;                        /* Transmit "Slave address+W(0)"    */
+  0000029E 017D40A0FEB6           MOV.B       #H'A0:8,@H'00FFFEB6:16
+  000002A4 4000                   BRA         L6897:8
+  000002A6                    L6896:                                
+       276:            IIC20.ICIER.BIT.TIE = 0;                    /* Transmit interrupt disable       */
+       277:            IIC20.ICIER.BIT.TEIE = 1;                   /* Transmit end interrupt enable    */
+       278:            mt_cnt++;
+       279:        }
+       280:        else if ( mt_cnt == (mt_num + 1))
+  000002A6 7A0100000000           MOV.L       #_mt_data,ER1
+  000002AC 6B2000000000           MOV.W       @_mt_num:32,R0
+  000002B2 0B50                   INC.W       #1,R0
+  000002B4 1D08                   CMP.W       R0,E0
+  000002B6 4600                   BNE         L6899:8
+       281:        {
+       282:            IIC20.ICDRT = mt_data[mt_cnt - 2];          /* Transmit last data               */
+  000002B8 0D80                   MOV.W       E0,R0
+  000002BA 1BD0                   DEC.W       #2,R0
+  000002BC 1770                   EXTU.L      ER0
+  000002BE 010A0110               ADD.L       @ER1,ER0
+  000002C2 6809                   MOV.B       @ER0,R1L
+  000002C4 6A89FEB6               MOV.B       R1L,@H'00FFFEB6:16
+  000002C8                    L6897:                                
+  000002C8 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+  000002CE 6A18FEB37060           BSET.B      #6,@H'00FFFEB3:16
+  000002D4 5A000000               JMP         @L6900:24
+  000002D8                    L6899:                                
+       283:            IIC20.ICIER.BIT.TIE = 0;                    /* Transmit interrupt disable       */
+       284:            IIC20.ICIER.BIT.TEIE = 1;                   /* Transmit end interrupt enable    */
+       285:            mt_cnt++;
+       286:        }
+       287:        else if ( mt_cnt == 1 )
+  000002D8 1F18                   CMP.W       #1:3,E0
+  000002DA 4600                   BNE         L6902:8
+       288:        {
+       289:            IIC20.ICDRT = mt_addr;                      /* Transmit start address           */
+  000002DC 0178484000000000       MOV.B       @_mt_addr:32,@H'00FFFEB6:16
+           FEB6               
+  000002E6 4000                   BRA         L6903:8
+  000002E8                    L6902:                                
+       290:            IIC20.ICIER.BIT.TIE = 1;                    /* Transmit interrupt enable        */
+       291:            IIC20.ICIER.BIT.TEIE = 0;                   /* Transmit end interrupt disable   */
+       292:            mt_cnt++;
+       293:        }
+       294:        else if ( mt_cnt == 2 )
+  000002E8 1F28                   CMP.W       #2:3,E0
+  000002EA 4600                   BNE         L6905:8
+       295:        {
+       296:            IIC20.ICDRT = mt_data[mt_cnt - 2];          /* Transmit data                    */
+  000002EC 0D80                   MOV.W       E0,R0
+  000002EE 1BD0                   DEC.W       #2,R0
+  000002F0 1770                   EXTU.L      ER0
+  000002F2 010A0110               ADD.L       @ER1,ER0
+  000002F6 6809                   MOV.B       @ER0,R1L
+  000002F8 6A89FEB6               MOV.B       R1L,@H'00FFFEB6:16
+  000002FC                    L6903:                                
+  000002FC 6A18FEB37070           BSET.B      #7,@H'00FFFEB3:16
+  00000302 6A18FEB37260           BCLR.B      #6,@H'00FFFEB3:16
+  00000308 4000                   BRA         L6900:8
+  0000030A                    L6905:                                
+       297:            IIC20.ICIER.BIT.TIE = 1;                    /* Transmit interrupt enable        */
+       298:            IIC20.ICIER.BIT.TEIE = 0;                   /* Transmit end interrupt disable   */
+       299:            mt_cnt++;
+       300:        }
+       301:        else if ( mt_cnt < (mt_num + 1))
+  0000030A 1D08                   CMP.W       R0,E0
+  0000030C 4400                   BHS         L6907:8
+       302:        {
+       303:            IIC20.ICDRT = mt_data[mt_cnt - 2];          /* Transmit data                    */
+  0000030E 0D80                   MOV.W       E0,R0
+  00000310 1BD0                   DEC.W       #2,R0
+  00000312 1770                   EXTU.L      ER0
+  00000314 010A0110               ADD.L       @ER1,ER0
+  00000318 6809                   MOV.B       @ER0,R1L
+  0000031A 6A89FEB6               MOV.B       R1L,@H'00FFFEB6:16
+  0000031E 4000                   BRA         L6900:8
+  00000320                    L6907:                                
+       304:            mt_cnt++;
+       305:        }
+       306:        else
+       307:        {
+       308:            IIC20.ICIER.BIT.TEIE = 0;                   /* Transmit end interrupt disable   */
+  00000320 6A18FEB37260           BCLR.B      #6,@H'00FFFEB3:16
+  00000326                    L6908:                                
+       309:            
+       310:            while ( IIC20.ICCRB.BIT.SCLO != 0 );        /* SCL=Low?                         */
+  00000326 6A08FEB1               MOV.B       @H'00FFFEB1:16,R0L
+  0000032A 7738                   BLD.B       #3,R0L
+  0000032C 4500                   BCS         L6908:8
+       311:            tmp = IIC20.ICSR.BYTE;                      /* Status clear                     */
+  0000032E 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       312:            IIC20.ICSR.BIT.TEND = 0;
+  00000332 6A18FEB47260           BCLR.B      #6,@H'00FFFEB4:16
+       313:            IIC20.ICSR.BIT.STOP = 0;
+  00000338 6A18FEB47230           BCLR.B      #3,@H'00FFFEB4:16
+  0000033E                    L6894:                                
+  0000033E 017D403DFEB1           MOV.B       #H'3D:8,@H'00FFFEB1:16
+  00000344                    L6900:                                
+  00000344 6B38000000000A10       ADD.W       #1:3,@_mt_cnt:32
+  0000034C 5470                   RTS
+       314:            IIC20.ICCRB.BYTE = 0x3D;                    /* Generate stop condition          */
+       315:            mt_cnt++;
+       316:        }
+       317:    }
+       318:    
+       319:    // --------------------------------------------------------------------
+       320:    // マスタ受信処理
+       321:    // --------------------------------------------------------------------
+       322:    void master_receive(void)
+  0000034E                    _master_receive:                     ; function: master_receive
+  0000034E 01006DF2               PUSH.L      ER2
+       323:    {
+       324:        unsigned char  tmp;
+       325:    
+       326:        if ( mr_cnt == 1 )
+  00000352 7A0200000000           MOV.L       #_mr_cnt,ER2
+  00000358 6920                   MOV.W       @ER2,R0
+  0000035A 1F10                   CMP.W       #1:3,R0
+  0000035C 58600000               BNE         L6913:16
+       327:        {
+       328:            if ( IIC20.ICSR.BIT.NACKF == 1 )            /* No acknowledge detection         */
+  00000360 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+  00000364 7748                   BLD.B       #4,R0L
+  00000366 4400                   BCC         L6915:8
+       329:            {
+       330:                IIC20.ICIER.BIT.TIE = 0;                /* Transmit interrupt disable       */
+  00000368 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+       331:                IIC20.ICIER.BIT.TEIE = 0;               /* Transmit end interrupt disable   */
+  0000036E 6A18FEB37260           BCLR.B      #6,@H'00FFFEB3:16
+  00000374                    L6916:                                
+       332:                
+       333:                while ( IIC20.ICCRB.BIT.SCLO != 0 );    /* SCL = Low?                       */
+  00000374 6A08FEB1               MOV.B       @H'00FFFEB1:16,R0L
+  00000378 7738                   BLD.B       #3,R0L
+  0000037A 4500                   BCS         L6916:8
+       334:                tmp = IIC20.ICSR.BYTE;                  /* status clear                     */
+  0000037C 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       335:                IIC20.ICSR.BIT.NACKF = 0;
+  00000380 6A18FEB47240           BCLR.B      #4,@H'00FFFEB4:16
+       336:                IIC20.ICSR.BIT.TDRE = 0;
+  00000386 6A18FEB47270           BCLR.B      #7,@H'00FFFEB4:16
+       337:                IIC20.ICSR.BIT.TEND = 0;
+  0000038C 6A18FEB47260           BCLR.B      #6,@H'00FFFEB4:16
+  00000392 5A000000               JMP         @L6918:24
+  00000396                    L6915:                                
+       338:                IIC20.ICCRB.BYTE = 0x3D;                /* Generate stop condition          */
+       339:                mr_cnt++;
+       340:            }
+       341:            else
+       342:            {
+       343:                IIC20.ICIER.BIT.TEIE = 0;               /* Transmit end interrupt disable   */
+  00000396 6A18FEB37260           BCLR.B      #6,@H'00FFFEB3:16
+       344:                IIC20.ICIER.BIT.RIE = 1;                /* Receive interrupt enable         */
+  0000039C 6A18FEB37050           BSET.B      #5,@H'00FFFEB3:16
+       345:                
+       346:                IIC20.ICCRA.BIT.RCVD = 1;               /* Disable continuous receive       */
+  000003A2 6A18FEB07060           BSET.B      #6,@H'00FFFEB0:16
+       347:                
+       348:                tmp = IIC20.ICSR.BYTE;                  /* status clear                     */
+  000003A8 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       349:                IIC20.ICSR.BIT.TEND = 0;
+  000003AC 6A18FEB47260           BCLR.B      #6,@H'00FFFEB4:16
+       350:                
+       351:                IIC20.ICCRA.BIT.TRS = 0;                /* Set receive mode                 */
+  000003B2 6A18FEB07240           BCLR.B      #4,@H'00FFFEB0:16
+       352:                
+       353:                tmp = IIC20.ICSR.BYTE;                  /* status clear                     */
+  000003B8 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       354:                IIC20.ICSR.BIT.TDRE = 0;
+  000003BC 6A18FEB47270           BCLR.B      #7,@H'00FFFEB4:16
+       355:                
+       356:                if ( mr_num == 1 )
+  000003C2 6B38000000001F10       CMP.W       #1:3,@_mr_num:32
+  000003CA 4600                   BNE         L6920:8
+       357:                {
+       358:                    IIC20.ICIER.BIT.ACKBT = 1;          /* Set acknowledge of the final byte*/
+  000003CC 6A18FEB37000           BSET.B      #0,@H'00FFFEB3:16
+  000003D2 4000                   BRA         L6921:8
+  000003D4                    L6920:                                
+       359:                }
+       360:                else
+       361:                {
+       362:                    IIC20.ICIER.BIT.ACKBT = 0;          /* Set acknowledge                  */
+  000003D4 6A18FEB37200           BCLR.B      #0,@H'00FFFEB3:16
+  000003DA                    L6921:                                
+       363:                }
+       364:                
+       365:                tmp = IIC20.ICDRR;                      /* Dummy read                       */
+  000003DA 6A08FEB7               MOV.B       @H'00FFFEB7:16,R0L
+  000003DE 4000                   BRA         L6922:8
+  000003E0                    L6913:                                
+       366:                mr_cnt++;
+       367:            }
+       368:        }
+       369:        else if ( mr_cnt == 0 )
+  000003E0 0D00                   MOV.W       R0,R0
+  000003E2 4600                   BNE         L6924:8
+       370:        {
+       371:            IIC20.ICDRT = MR_ID;                        /* Transmit "Slave address+R(1)"    */
+  000003E4 017D40A1FEB6           MOV.B       #H'A1:8,@H'00FFFEB6:16
+       372:            IIC20.ICIER.BIT.TIE = 0;                    /* Transmit interrupt disable       */
+  000003EA 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+       373:            IIC20.ICIER.BIT.TEIE = 1;                   /* Transmit end interrupt enable    */
+  000003F0 6A18FEB37060           BSET.B      #6,@H'00FFFEB3:16
+  000003F6 4000                   BRA         L6922:8
+  000003F8                    L6924:                                
+       374:            mr_cnt++;
+       375:        }
+       376:        else if ( mr_cnt < mr_num )
+  000003F8 6B2800000000           MOV.W       @_mr_num:32,E0
+  000003FE 1D80                   CMP.W       E0,R0
+  00000400 4500                   BLO         L6926:8
+       377:        {
+       378:            mr_data[mr_cnt - 2] = IIC20.ICDRR;          /* Store the received data          */
+       379:            mr_cnt++;
+       380:        }
+       381:        else if ( mr_cnt == mr_num )
+  00000402 1D80                   CMP.W       E0,R0
+  00000404 4600                   BNE         L6928:8
+       382:        {
+       383:            IIC20.ICIER.BIT.ACKBT = 1;                  /* Set acknowledge of the final byte*/
+  00000406 6A18FEB37000           BSET.B      #0,@H'00FFFEB3:16
+       384:            IIC20.ICCRA.BIT.RCVD = 1;                   /* Disable continuous receive       */
+  0000040C 6A18FEB07060           BSET.B      #6,@H'00FFFEB0:16
+  00000412 4000                   BRA         L6926:8
+  00000414                    L6928:                                
+       385:            
+       386:            mr_data[mr_cnt - 2] = IIC20.ICDRR;          /* Store the received data          */
+       387:            mr_cnt++;
+       388:        }
+       389:        else                                            /* mr_cnt > mr_num                  */
+       390:        {
+       391:            IIC20.ICIER.BIT.RIE = 0;                    /* Receive interrupt disable        */
+  00000414 6A18FEB37250           BCLR.B      #5,@H'00FFFEB3:16
+  0000041A                    L6929:                                
+       392:            
+       393:            while ( IIC20.ICCRB.BIT.SCLO != 0 );        /* SCL=Low?                         */
+  0000041A 6A08FEB1               MOV.B       @H'00FFFEB1:16,R0L
+  0000041E 7738                   BLD.B       #3,R0L
+  00000420 4500                   BCS         L6929:8
+       394:            tmp = IIC20.ICSR.BYTE;                      /* Status clear                     */
+  00000422 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       395:            IIC20.ICSR.BIT.STOP = 0;
+  00000426 6A18FEB47230           BCLR.B      #3,@H'00FFFEB4:16
+  0000042C                    L6918:                                
+  0000042C 017D403DFEB1           MOV.B       #H'3D:8,@H'00FFFEB1:16
+  00000432 4000                   BRA         L6922:8
+  00000434                    L6926:                                
+  00000434 6A09FEB7               MOV.B       @H'00FFFEB7:16,R1L
+  00000438 6920                   MOV.W       @ER2,R0
+  0000043A 1BD0                   DEC.W       #2,R0
+  0000043C 1770                   EXTU.L      ER0
+  0000043E 010A481000000000       ADD.L       @_mr_data:32,ER0
+  00000446 6889                   MOV.B       R1L,@ER0
+  00000448                    L6922:                                
+  00000448 7DA00A10               ADD.W       #1:3,@ER2
+  0000044C 5402                   RTS/L       ER2
+       396:            IIC20.ICCRB.BYTE = 0x3D;                    /* Generate stop condition          */
+       397:            mr_cnt++;
+       398:        }
+       399:    }
+       400:    
+       401:    // --------------------------------------------------------------------
+       402:    // シーケンシャルランダムリード処理
+       403:    // --------------------------------------------------------------------
+       404:    void master_randomread(void)
+  0000044E                    _master_randomread:                  ; function: master_randomread
+  0000044E 01006DF2               PUSH.L      ER2
+       405:    {
+       406:        unsigned char  tmp;
+       407:    
+       408:        if ( randrd_cnt == 4 )
+  00000452 7A0200000000           MOV.L       #_randrd_cnt,ER2
+  00000458 6828                   MOV.B       @ER2,R0L
+  0000045A A804                   CMP.B       #4:8,R0L
+  0000045C 58600000               BNE         L6934:16
+       409:        {
+       410:            if ( IIC20.ICSR.BIT.NACKF == 1 )                /* No acknowledge detection         */
+  00000460 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+  00000464 7748                   BLD.B       #4,R0L
+  00000466 4400                   BCC         L6936:8
+       411:            {
+       412:                IIC20.ICIER.BIT.TIE = 0;                    /* Transmit interrupt disable       */
+  00000468 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+       413:                IIC20.ICIER.BIT.TEIE = 0;                   /* Transmit end interrupt disable   */
+  0000046E 6A18FEB37260           BCLR.B      #6,@H'00FFFEB3:16
+       414:                
+       415:                tmp = IIC20.ICSR.BYTE;                      /* status clear                     */
+  00000474 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       416:                IIC20.ICSR.BIT.NACKF = 0;
+  00000478 6A18FEB47240           BCLR.B      #4,@H'00FFFEB4:16
+       417:                IIC20.ICSR.BIT.TDRE = 0;
+  0000047E 6A18FEB47270           BCLR.B      #7,@H'00FFFEB4:16
+       418:                IIC20.ICSR.BIT.TEND = 0;
+  00000484 6A18FEB47260           BCLR.B      #6,@H'00FFFEB4:16
+  0000048A                    L6937:                                
+       419:                while ( IIC20.ICCRB.BIT.SCLO != 0 );        /* SCL=Low?                         */
+  0000048A 6A08FEB1               MOV.B       @H'00FFFEB1:16,R0L
+  0000048E 7738                   BLD.B       #3,R0L
+  00000490 58400000               BCC         L6938:16
+  00000494 4000                   BRA         L6937:8
+  00000496                    L6936:                                
+       420:                IIC20.ICCRB.BYTE = 0x3D;                    /* Generate stop condition          */
+       421:                randrd_cnt++;
+       422:            }
+       423:            else
+       424:            {
+       425:                while ( IIC20.ICCRB.BIT.SCLO != 0 );    /* SCL = Low?                       */
+  00000496 6A08FEB1               MOV.B       @H'00FFFEB1:16,R0L
+  0000049A 7738                   BLD.B       #3,R0L
+  0000049C 4500                   BCS         L6936:8
+       426:                
+       427:                IIC20.ICIER.BIT.TEIE = 0;                   /* Transmit end interrupt disable   */
+  0000049E 6A18FEB37260           BCLR.B      #6,@H'00FFFEB3:16
+       428:                IIC20.ICIER.BIT.RIE = 1;                    /* Receive interrupt enable         */
+  000004A4 6A18FEB37050           BSET.B      #5,@H'00FFFEB3:16
+       429:                
+       430:                IIC20.ICCRA.BIT.RCVD = 1;                   /* Disable continuous receive       */
+  000004AA 6A18FEB07060           BSET.B      #6,@H'00FFFEB0:16
+       431:                
+       432:                tmp = IIC20.ICSR.BYTE;                      /* status clear                     */
+  000004B0 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       433:                IIC20.ICSR.BIT.TEND = 0;
+  000004B4 6A18FEB47260           BCLR.B      #6,@H'00FFFEB4:16
+       434:                
+       435:                IIC20.ICCRA.BIT.TRS = 0;                    /* Set receive mode                 */
+  000004BA 6A18FEB07240           BCLR.B      #4,@H'00FFFEB0:16
+       436:                
+       437:                tmp = IIC20.ICSR.BYTE;                      /* status clear                     */
+  000004C0 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       438:                IIC20.ICSR.BIT.TDRE = 0;
+  000004C4 6A18FEB47270           BCLR.B      #7,@H'00FFFEB4:16
+       439:                
+       440:                if ( mr_num == 1 )
+  000004CA 6B38000000001F10       CMP.W       #1:3,@_mr_num:32
+  000004D2 4600                   BNE         L6941:8
+       441:                {
+       442:                    IIC20.ICIER.BIT.ACKBT = 1;              /* Set acknowledge of the final byte*/
+  000004D4 6A18FEB37000           BSET.B      #0,@H'00FFFEB3:16
+  000004DA 4000                   BRA         L6942:8
+  000004DC                    L6941:                                
+       443:                }
+       444:                else
+       445:                {
+       446:                    IIC20.ICIER.BIT.ACKBT = 0;              /* Set acknowledge                  */
+  000004DC 6A18FEB37200           BCLR.B      #0,@H'00FFFEB3:16
+  000004E2                    L6942:                                
+       447:                }
+       448:                
+       449:                tmp = IIC20.ICDRR;                          /* Dummy read                       */
+  000004E2 6A08FEB7               MOV.B       @H'00FFFEB7:16,R0L
+  000004E6 5A000000               JMP         @L6943:24
+  000004EA                    L6934:                                
+       450:                randrd_cnt++;
+       451:            }
+       452:        }
+       453:        else if ( randrd_cnt == 0 )
+  000004EA 0C88                   MOV.B       R0L,R0L
+  000004EC 4600                   BNE         L6945:8
+       454:        {
+       455:            IIC20.ICDRT = MT_ID;                        /* Transmit "Slave address+W(0)"    */
+  000004EE 017D40A0FEB6           MOV.B       #H'A0:8,@H'00FFFEB6:16
+  000004F4 4000                   BRA         L6946:8
+  000004F6                    L6945:                                
+       456:            IIC20.ICIER.BIT.TIE = 0;                    /* Transmit interrupt disable       */
+       457:            IIC20.ICIER.BIT.TEIE = 1;                   /* Transmit end interrupt enable    */
+       458:            randrd_cnt++;
+       459:        }
+       460:        else if ( randrd_cnt == 1 )
+  000004F6 A801                   CMP.B       #1:8,R0L
+  000004F8 4600                   BNE         L6948:8
+       461:        {
+       462:            IIC20.ICDRT = mt_data[0];                   /* Transmit last data               */
+  000004FA 01006B2100000000       MOV.L       @_mt_data:32,ER1
+  00000502 6818                   MOV.B       @ER1,R0L
+  00000504 6A88FEB6               MOV.B       R0L,@H'00FFFEB6:16
+  00000508 5A000000               JMP         @L6943:24
+  0000050C                    L6948:                                
+       463:            randrd_cnt++;
+       464:        }
+       465:        else if ( randrd_cnt == 2 )
+  0000050C A802                   CMP.B       #2:8,R0L
+  0000050E 4600                   BNE         L6950:8
+       466:        {
+       467:            IIC20.ICIER.BIT.TIE = 1;                    /* Enable interrupt                 */
+  00000510 6A18FEB37070           BSET.B      #7,@H'00FFFEB3:16
+       468:            IIC20.ICIER.BIT.TEIE = 0;                   /* Transmit end interrupt disable   */
+  00000516 6A18FEB37260           BCLR.B      #6,@H'00FFFEB3:16
+       469:            
+       470:            tmp = IIC20.ICSR.BYTE;                      /* status clear                     */
+  0000051C 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       471:            IIC20.ICSR.BIT.TEND = 0;
+  00000520 6A18FEB47260           BCLR.B      #6,@H'00FFFEB4:16
+  00000526                    L6951:                                
+       472:            
+       473:            while ( IIC20.ICCRB.BIT.SCLO != 0 );        /* SCL=Low?                         */
+  00000526 6A08FEB1               MOV.B       @H'00FFFEB1:16,R0L
+  0000052A 7738                   BLD.B       #3,R0L
+  0000052C 4500                   BCS         L6951:8
+       474:            IIC20.ICCRB.BYTE = 0xBD;                    /* Generate start condition         */
+  0000052E 017D40BDFEB1           MOV.B       #H'BD:8,@H'00FFFEB1:16
+  00000534 5A000000               JMP         @L6943:24
+  00000538                    L6950:                                
+       475:            randrd_cnt++;
+       476:        }
+       477:        else if ( randrd_cnt == 3 )
+  00000538 A803                   CMP.B       #3:8,R0L
+  0000053A 4600                   BNE         L6954:8
+       478:        {
+       479:            IIC20.ICDRT = MR_ID;                        /* Transmit "Slave address+R(1)"    */
+  0000053C 017D40A1FEB6           MOV.B       #H'A1:8,@H'00FFFEB6:16
+  00000542                    L6946:                                
+  00000542 6A18FEB37270           BCLR.B      #7,@H'00FFFEB3:16
+  00000548 6A18FEB37060           BSET.B      #6,@H'00FFFEB3:16
+  0000054E 4000                   BRA         L6943:8
+  00000550                    L6954:                                
+       480:            IIC20.ICIER.BIT.TIE = 0;                    /* Transmit interrupt disable       */
+       481:            IIC20.ICIER.BIT.TEIE = 1;                   /* Transmit end interrupt enable    */
+       482:            randrd_cnt++;
+       483:        }
+       484:        else if ( randrd_cnt < (mr_num + 3) )
+  00000550 1750                   EXTU.W      R0
+  00000552 6B2800000000           MOV.W       @_mr_num:32,E0
+  00000558 0A38                   ADD.W       #3:3,E0
+  0000055A 1D80                   CMP.W       E0,R0
+  0000055C 4500                   BLO         L6956:8
+       485:        {
+       486:            mr_data[randrd_cnt - 5] = IIC20.ICDRR;      /* Store the received data          */
+       487:            randrd_cnt++;
+       488:        }
+       489:        else if ( randrd_cnt == (mr_num + 3) )
+  0000055E 1D80                   CMP.W       E0,R0
+  00000560 4600                   BNE         L6958:8
+       490:        {
+       491:            IIC20.ICIER.BIT.ACKBT = 1;                  /* Set acknowledge of the final byte*/
+  00000562 6A18FEB37000           BSET.B      #0,@H'00FFFEB3:16
+       492:            IIC20.ICCRA.BIT.RCVD = 1;                   /* Disable continuous receive       */
+  00000568 6A18FEB07060           BSET.B      #6,@H'00FFFEB0:16
+  0000056E 4000                   BRA         L6956:8
+  00000570                    L6958:                                
+       493:            
+       494:            mr_data[randrd_cnt - 5] = IIC20.ICDRR;      /* Store the received data          */
+       495:            randrd_cnt++;
+       496:        }
+       497:        else                                            /* randrd_cnt > (mr_num + 4)        */
+       498:        {
+       499:            IIC20.ICIER.BIT.RIE = 0;                    /* Receive interrupt disable        */
+  00000570 6A18FEB37250           BCLR.B      #5,@H'00FFFEB3:16
+  00000576                    L6959:                                
+       500:    
+       501:            while ( IIC20.ICCRB.BIT.SCLO != 0 );        /* SCL=Low?                         */
+  00000576 6A08FEB1               MOV.B       @H'00FFFEB1:16,R0L
+  0000057A 7738                   BLD.B       #3,R0L
+  0000057C 4500                   BCS         L6959:8
+       502:            tmp = IIC20.ICSR.BYTE;                      /* Status clear                     */
+  0000057E 6A08FEB4               MOV.B       @H'00FFFEB4:16,R0L
+       503:            IIC20.ICSR.BIT.STOP = 0;
+  00000582 6A18FEB47230           BCLR.B      #3,@H'00FFFEB4:16
+  00000588                    L6938:                                
+  00000588 017D403DFEB1           MOV.B       #H'3D:8,@H'00FFFEB1:16
+  0000058E 4000                   BRA         L6943:8
+  00000590                    L6956:                                
+  00000590 6A01FEB7               MOV.B       @H'00FFFEB7:16,R1H
+  00000594 6828                   MOV.B       @ER2,R0L
+  00000596 1750                   EXTU.W      R0
+  00000598 17F0                   EXTS.L      ER0
+  0000059A 010A481000000000       ADD.L       @_mr_data:32,ER0
+  000005A2 6E81FFFB               MOV.B       R1H,@(H'FFFFFFFB:16,ER0)
+  000005A6                    L6943:                                
+  000005A6 7D208001               ADD.B       #1:8,@ER2
+  000005AA 5402                   RTS/L       ER2
+       504:            IIC20.ICCRB.BYTE = 0x3D;                    /* Generate stop condition          */
+       505:            randrd_cnt++;
+       506:        }
+       507:    }
+B                                                                  ; section
+  00000000                    _mt_cnt:                             ; static: mt_cnt
+  00000000 00000002               .RES.W      1
+  00000002                    _mr_cnt:                             ; static: mr_cnt
+  00000002 00000002               .RES.W      1
+  00000004                    _mt_num:                             ; static: mt_num
+  00000004 00000002               .RES.W      1
+  00000006                    _mr_num:                             ; static: mr_num
+  00000006 00000002               .RES.W      1
+  00000008                    _mt_data:                            ; static: mt_data
+  00000008 00000004               .RES.L      1
+  0000000C                    _mr_data:                            ; static: mr_data
+  0000000C 00000004               .RES.L      1
+  00000010                    _iic_mode:                           ; static: iic_mode
+  00000010 00000001               .RES.B      1
+  00000011                    _randrd_cnt:                         ; static: randrd_cnt
+  00000011 00000001               .RES.B      1
+  00000012                    _MemAddress:                         ; static: MemAddress
+  00000012 00000001               .RES.B      1
+  00000013                    _mt_addr:                            ; static: mt_addr
+  00000013 00000001               .RES.B      1
+
+

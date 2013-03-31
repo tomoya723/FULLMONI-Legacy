@@ -19,8 +19,8 @@
 // filename		:	dataregister.c
 // brief		:	FullMoni rev.B データ管理
 // author		:	Tomoya Sato
-// update		:	2013/03/20
-// version		:	1.01
+// update		:	2013/03/31
+// version		:	1.02
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -155,14 +155,14 @@ void Init_Haltech2_data(void)
 	g_Haltech2_data.Lambda					= 1000;
 	g_Haltech2_data.GroundSpeed				=  200;
 	g_Haltech2_data.Gear					=    1;
-	g_Haltech2_data.InletAirTemp2			=  200;
 	g_Haltech2_data.BatteryVoltage			= 1250;
+	g_Haltech2_data.InletAirTemp2			= 2931;
 	g_Haltech2_data.BaroPressure			=  980;
 	g_Haltech2_data.EGT						= 1100;
-	g_Haltech2_data.OilTemp					= 1200;
-	g_Haltech2_data.EngineTemp				=  800;
-	g_Haltech2_data.InletAirTemp1			=  200;
+	g_Haltech2_data.EngineTemp				= 3531;
+	g_Haltech2_data.InletAirTemp1			= 2931;
 	g_Haltech2_data.FuelTemp				=  700;
+	g_Haltech2_data.OilTemp					= 1200;
 }
 // --------------------------------------------------------------------
 // Freedom Ver3.XXデータ初期化
@@ -194,6 +194,7 @@ unsigned int rev_data_select(unsigned char rev_data_select)
 		default:
 		case  0:	return g_MoTeC1_data.RPM;					break;
 		case  1:	return g_Haltech1_data.RPM;					break;
+		case  2:	return g_Haltech2_data.RPM;					break;
 	}
 }
 
@@ -256,13 +257,14 @@ unsigned int num_data_select(unsigned char num_data_select)
 		case 34:	return g_Haltech2_data.Lambda;				break;
 		case 35:	return g_Haltech2_data.GroundSpeed;			break;
 		case 36:	return g_Haltech2_data.Gear;				break;
-		case 37:	return g_Haltech2_data.InletAirTemp2;		break;
-		case 38:	return g_Haltech2_data.BatteryVoltage;		break;
+		case 37:	return g_Haltech2_data.BatteryVoltage;		break;
+		case 38:	return g_Haltech2_data.InletAirTemp2;		break;
 		case 39:	return g_Haltech2_data.BaroPressure;		break;
 		case 40:	return g_Haltech2_data.EGT;					break;
-		case 41:	return g_Haltech2_data.OilTemp;				break;
-		case 42:	return g_Haltech2_data.EngineTemp;			break;
-		case 43:	return g_Haltech2_data.InletAirTemp1;		break;
+		case 41:	return g_Haltech2_data.EngineTemp;			break;
+		case 42:	return g_Haltech2_data.InletAirTemp1;		break;
+		case 43:	return g_Haltech2_data.FuelTemp;			break;
+		case 44:	return g_Haltech2_data.OilTemp;				break;
 	}
 }
 
@@ -339,13 +341,14 @@ void num_data_select_draw(unsigned char num_data_select_draw)
 		case 34:	LCD_textout("< Haltech2.Lambda          >");	break;
 		case 35:	LCD_textout("< Haltech2.GroundSpeed     >");	break;
 		case 36:	LCD_textout("< Haltech2.Gear            >");	break;
-		case 37:	LCD_textout("< Haltech2.InletAirTemp2   >");	break;
-		case 38:	LCD_textout("< Haltech2.BatteryVoltage  >");	break;
+		case 37:	LCD_textout("< Haltech2.BatteryVoltage  >");	break;
+		case 38:	LCD_textout("< Haltech2.InletAirTemp2   >");	break;
 		case 39:	LCD_textout("< Haltech2.BaroPressure    >");	break;
 		case 40:	LCD_textout("< Haltech2.EGT             >");	break;
-		case 41:	LCD_textout("< Haltech2.OilTemp         >");	break;
-		case 42:	LCD_textout("< Haltech2.EngineTemp      >");	break;
-		case 43:	LCD_textout("< Haltech2.InletAirTemp1   >");	break;
+		case 41:	LCD_textout("< Haltech2.EngineTemp      >");	break;
+		case 42:	LCD_textout("< Haltech2.InletAirTemp1   >");	break;
+		case 43:	LCD_textout("< Haltech2.FuelTemp        >");	break;
+		case 44:	LCD_textout("< Haltech2.OilTemp         >");	break;
 	}
 }
 

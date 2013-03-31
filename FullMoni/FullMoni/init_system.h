@@ -19,8 +19,8 @@
 // filename		:	init_system.h
 // brief		:	FullMoni rev.B ÉVÉXÉeÉÄèâä˙âªä«óù
 // author		:	Tomoya Sato
-// update		:	2013/03/20
-// version		:	1.01
+// update		:	2013/03/31
+// version		:	1.02
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -61,9 +61,9 @@ extern volatile unsigned int	Onetime_Peakclear_cnt;
 // --------------------------------------------------------------------
 #define COLOR_WHITE		0xFFFF
 #define COLOR_BLACK		0x0000
-#define COLOR_RED		0x001F
-#define COLOR_YELLOW	0x07E0
-#define COLOR_BLUE		0xF800
+#define COLOR_RED		0xF800
+#define COLOR_GREEN		0x07E0
+#define COLOR_BLUE		0x001F
 
 #define Beep_OneShotMin() g_beep_oneshotmin_flg = 1
 #define Beep_OneShotMax() g_beep_oneshotmax_flg = 1

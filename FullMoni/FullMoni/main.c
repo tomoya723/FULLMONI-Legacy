@@ -19,8 +19,8 @@
 // filename		:	main.c
 // brief		:	FullMoni rev.B メインルーチン
 // author		:	Tomoya Sato
-// update		:	2013/03/20
-// version		:	1.01
+// update		:	2013/03/31
+// version		:	1.02
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -52,7 +52,7 @@ void abort(void);
 // --------------------------------------------------------------------
 // グローバル変数宣言
 // --------------------------------------------------------------------
-volatile char version[5] = "v1.01";
+volatile char version[5] = "v1.02";
 
 // --------------------------------------------------------------------
 // グローバル構造体宣言
@@ -274,10 +274,10 @@ void Int_CAN2515(void)
 							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
 							break;
 				case 0x372:
-							g_Haltech2_data.InletAirTemp2		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_Haltech2_data.BatteryVoltage		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_Haltech2_data.BaroPressure		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+							g_Haltech2_data.BatteryVoltage		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_Haltech2_data.InletAirTemp2		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_Haltech2_data.BaroPressure		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
 							break;
 				case 0x373:
 							g_Haltech2_data.EGT					= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
@@ -286,10 +286,10 @@ void Int_CAN2515(void)
 							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
 							break;
 				case 0x3E0:
-							g_Haltech2_data.OilTemp				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_Haltech2_data.EngineTemp			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_Haltech2_data.InletAirTemp1		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							g_Haltech2_data.FuelTemp			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+							g_Haltech2_data.EngineTemp			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_Haltech2_data.InletAirTemp1		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_Haltech2_data.FuelTemp			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_Haltech2_data.OilTemp				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
 							default: break;
 			}
 		}
@@ -397,10 +397,10 @@ void Int_CAN2515(void)
 							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
 							break;
 				case 0x372:
-							g_Haltech2_data.InletAirTemp2		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_Haltech2_data.BatteryVoltage		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_Haltech2_data.BaroPressure		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+							g_Haltech2_data.BatteryVoltage		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_Haltech2_data.InletAirTemp2		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_Haltech2_data.BaroPressure		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
 							break;
 				case 0x373:
 							g_Haltech2_data.EGT					= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
@@ -409,10 +409,10 @@ void Int_CAN2515(void)
 							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
 							break;
 				case 0x3E0:
-							g_Haltech2_data.OilTemp				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_Haltech2_data.EngineTemp			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_Haltech2_data.InletAirTemp1		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							g_Haltech2_data.FuelTemp			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+							g_Haltech2_data.EngineTemp			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_Haltech2_data.InletAirTemp1		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_Haltech2_data.FuelTemp			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_Haltech2_data.OilTemp				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
 							default: break;
 			}
 		}
@@ -420,6 +420,8 @@ void Int_CAN2515(void)
 	
 	CANWriteReg(CANINTF, 0x00);
 }
+
+volatile unsigned long dmy;
 
 // --------------------------------------------------------------------
 // 定期割り込みルーチン 50mSec毎
@@ -548,25 +550,10 @@ void Int_50msFunc(void)
 		//
 	}
 	
-//	// --------------------------------------------------------------------
-//	// LEDオン/オフ処理
-//	// --------------------------------------------------------------------
-//	if((backlight_dimmer_flg == 0) && ((g_led_o_max_flg) || (g_led_o_min_flg))) { PM.DR.BIT.B0 = 1; } else { PM.DR.BIT.B0 = 0; }
-//	if((backlight_dimmer_flg == 0) && ((g_led_r_max_flg) || (g_led_r_min_flg))) { PB.DR.BIT.B3 = 1; } else { PB.DR.BIT.B3 = 0; }
-	
 	// --------------------------------------------------------------------
 	// EXDMA転送時間待機
 	// --------------------------------------------------------------------
-	for(i = 0; i <= 60000; i++);
-	
-//	// --------------------------------------------------------------------
-//	// LED減光処理
-//	// --------------------------------------------------------------------
-//	if(backlight_dimmer_flg)
-//	{
-//		if(g_led_o_min_flg) PM.DR.BIT.B0 = 0;
-//		if(g_led_r_min_flg) PB.DR.BIT.B3 = 0;
-//	}
+	for(i = 0; i <= 60000; i++)	dmy = i;
 }
 
 

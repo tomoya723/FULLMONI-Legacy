@@ -3,7 +3,8 @@
 -object="C:\WorkSpace\FullMoni\FullMoni\Debug\sbrk.obj"
 -outcode=sjis
 -debug
--nolist
+-list="C:\WorkSpace\FullMoni\FullMoni\Debug\sbrk.lst"
+-show=object,nostatistics,allocation,tab=4
 -chgincpath
 "C:\WorkSpace\FullMoni\FullMoni\sbrk.c"
 -nologo

@@ -3,7 +3,8 @@
 -object="C:\WorkSpace\FullMoni\FullMoni\Debug\init_system.obj"
 -outcode=sjis
 -debug
--nolist
+-list="C:\WorkSpace\FullMoni\FullMoni\Debug\init_system.lst"
+-show=object,nostatistics,allocation,tab=4
 -chgincpath
 "C:\WorkSpace\FullMoni\FullMoni\init_system.c"
 -nologo

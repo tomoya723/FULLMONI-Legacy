@@ -19,8 +19,8 @@
 // filename		:	state_control.c
 // brief		:	FullMoni rev.B ƒXƒe[ƒgŠÇ—
 // author		:	Tomoya Sato
-// update		:	2013/03/20
-// version		:	1.01
+// update		:	2013/03/31
+// version		:	1.02
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -81,11 +81,11 @@ void state_control(void)
 									case   1:	A002();	break;
 									case 999:	A990();	break;
 								}
+								break;
 		case S002:	funcS002();
 								switch(E002())
 								{
 									case   1:	A100();	break;
-									case 999:	A990();	break;
 								}
 								break;
 		case S010:	funcS010();
@@ -2438,8 +2438,8 @@ void funcS130(void)
 	LCD_line ( 114, 192, 314, 192, 0xCE59);
 	LCD_line ( 114, 209, 314, 209, 0xCE59);
 	//‹ó”R”äŒrü
-	LCD_line2( 114,  95, 314,  95, 0x865F);	// 14.7
-	LCD_line2( 114, 132, 314, 132, 0xFE50);	// 12.5
+	LCD_line2( 114,  95, 314,  95, 0xFE50);	// 14.7
+	LCD_line2( 114, 132, 314, 132, 0x865F);	// 12.5
 	
 	// --------------------------------------------------------------------
 	// ”’lZo
@@ -3164,19 +3164,19 @@ static void Preset_load_Haltech2(void)
 	g_e2p_data.E2P_3.afr_bias					=      0;
 	g_e2p_data.E2P_3.afr_dp						=      1;
 	g_e2p_data.E2P_3.afr_label					=      1;
-	g_e2p_data.E2P_4.num1_data_select			=     42;
+	g_e2p_data.E2P_4.num1_data_select			=     41;
 	g_e2p_data.E2P_4.num1_gain					=   1000;
-	g_e2p_data.E2P_4.num1_bias					=      0;
+	g_e2p_data.E2P_4.num1_bias					=  -2731;
 	g_e2p_data.E2P_4.num1_dp					=      1;
 	g_e2p_data.E2P_4.num1_label					=      3;
 	g_e2p_data.E2P_4.num1_unit					=      1;
-	g_e2p_data.E2P_4.num2_data_select			=     43;
+	g_e2p_data.E2P_4.num2_data_select			=     42;
 	g_e2p_data.E2P_4.num2_gain					=   1000;
-	g_e2p_data.E2P_4.num2_bias					=      0;
+	g_e2p_data.E2P_4.num2_bias					=  -2731;
 	g_e2p_data.E2P_4.num2_dp					=      1;
 	g_e2p_data.E2P_4.num2_label					=      5;
 	g_e2p_data.E2P_4.num2_unit					=      1;
-	g_e2p_data.E2P_5.num3_data_select			=     38;
+	g_e2p_data.E2P_5.num3_data_select			=     37;
 	g_e2p_data.E2P_5.num3_gain					=   1000;
 	g_e2p_data.E2P_5.num3_bias					=      0;
 	g_e2p_data.E2P_5.num3_dp					=      2;

@@ -19,8 +19,8 @@
 // filename		:	dataregister.h
 // brief		:	FullMoni rev.B データ管理
 // author		:	Tomoya Sato
-// update		:	2013/03/20
-// version		:	1.01
+// update		:	2013/03/31
+// version		:	1.02
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -32,7 +32,7 @@
 // --------------------------------------------------------------------
 // define宣言
 // --------------------------------------------------------------------
-#define num_data_select_value	43
+#define num_data_select_value	44
 #define rev_data_select_value	2
 #define afr_data_select_value	2
 #define num_dp_value			3
@@ -111,14 +111,14 @@ typedef struct {
 	unsigned int Lambda;				/* ラムダ値				*/
 	unsigned int GroundSpeed;			/* 車速					*/
 	unsigned int Gear;					/* ギアポジション		*/
-	unsigned int InletAirTemp2;			/* 吸気温2				*/
 	unsigned int BatteryVoltage;		/* バッテリー電圧		*/
+	unsigned int InletAirTemp2;			/* 吸気温2				*/
 	unsigned int BaroPressure;			/* 大気圧				*/
 	unsigned int EGT;					/* 排気温				*/
-	unsigned int OilTemp;				/* 油温					*/
 	unsigned int EngineTemp;			/* エンジン温度			*/
 	unsigned int InletAirTemp1;			/* 吸気温1				*/
 	unsigned int FuelTemp;				/* 燃温					*/
+	unsigned int OilTemp;				/* 油温					*/
 } Haltech2_data_t;
 
 // --------------------------------------------------------------------

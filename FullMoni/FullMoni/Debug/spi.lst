@@ -1,0 +1,277 @@
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:33:11 PAGE   1
+
+******* STACK FRAME INFORMATION ********
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\spi.c
+
+Function (File C:\WorkSpa, Line    40): Init_SPI
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line    76): SPI_Set_BaudRate
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   130): SPI_TxRx
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:33:11 PAGE   1
+
+************ OBJECT LISTING ************
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\spi.c
+
+SCT OFFSET CODE               LABEL     INSTRUCTION OPERAND    COMMENT
+
+P                                                                  ; section
+         1:    // --------------------------------------------------------------------
+         2:    // Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+         3:    //
+         4:    // This file is part of FullMoni firmwere.
+         5:    //
+         6:    // FullMoni is free software: you can redistribute it and/or modify
+         7:    // it under the terms of the GNU General Public License as published by
+         8:    // the Free Software Foundation, either version 3 of the License, or
+         9:    // (at your option ) any later version.
+        10:    //
+        11:    // FullMoni is distributed in the hope that it will be useful,
+        12:    // but WITHIOUT ANY WARRANTY; without even the implied warranty of
+        13:    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   See the
+        14:    // GNU General Public License for more details.
+        15:    //
+        16:    // You should have received a copy of the GNU General Public License
+        17:    // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
+        18:    //
+        19:    // filename     :   spi.c
+        20:    // brief        :   FullMoni rev.B SPI通信処理
+        21:    // author       :   Tomoya Sato
+        22:    // update       :   2013/03/31
+        23:    // version      :   1.02
+        24:    // --------------------------------------------------------------------
+        25:    
+        26:    // --------------------------------------------------------------------
+        27:    // ユーザーヘッダファイル
+        28:    // --------------------------------------------------------------------
+        29:    #include "iodefine.h"
+        30:    #include "spi.h"
+        31:    
+        32:    // --------------------------------------------------------------------
+        33:    // 初期ボーレート
+        34:    // --------------------------------------------------------------------
+        35:    #define SPI_INITIAL_BAUD_RATE 6000 // kbps
+        36:    
+        37:    // --------------------------------------------------------------------
+        38:    // Initialize SPI (SCI0)
+        39:    // --------------------------------------------------------------------
+        40:    void Init_SPI(void)
+  00000000                    _Init_SPI:                           ; function: Init_SPI
+        41:    {
+        42:        //----------------------------
+        43:        // Disable Interrupt
+        44:        //----------------------------
+        45:        INTC.IPRK.BIT._SCI0 = 0;
+  00000000 1888                   SUB.B       R0L,R0L
+  00000002 6A18FD55F870           BFST        R0L,#H'70,@H'00FFFD55:16
+        46:        //------------------------
+        47:        // Start SCI0 System Clock
+        48:        //------------------------
+        49:    //  MSTP.CRB.BIT._SCI0 = 0;
+        50:        //----------------------------
+        51:        // P22 : TxD0 MOSI(MCP2515)
+        52:        // P21 : RxD0 MISO(MCP2515)
+        53:        // P20 : SCK0 SCK (MCP2515)
+        54:        //----------------------------
+        55:        SCI0.SCR.BIT.TE = 0;
+  00000008 7F827250               BCLR.B      #5,@H'00FFFF82:8
+        56:        SCI0.SCR.BIT.RE = 0;
+  0000000C 7F827240               BCLR.B      #4,@H'00FFFF82:8
+        57:        //----------------------------
+        58:        // Clocked Serial Mode
+        59:        //----------------------------
+        60:        SCI0.SMR.BYTE     = 0x80; // 10000000
+  00000010 F880                   MOV.B       #H'80:8,R0L
+  00000012 3880                   MOV.B       R0L,@H'00FFFF80:8
+        61:        SCI0.SCMR.BIT.SDIR = 1; // MSB first
+  00000014 7F867030               BSET.B      #3,@H'00FFFF86:8
+        62:        //----------------------------
+        63:        //Baud Rate
+        64:        //----------------------------
+        65:        SPI_Set_BaudRate(SPI_INITIAL_BAUD_RATE);
+  00000018 79001770               MOV.W       #H'1770:16,R0
+  0000001C 5500                   BSR         _SPI_Set_BaudRate:8
+        66:        //----------------------------
+        67:        // Set TE & RE
+        68:        //----------------------------
+        69:        SCI0.SCR.BIT.TE = 1;
+  0000001E 7F827050               BSET.B      #5,@H'00FFFF82:8
+        70:        SCI0.SCR.BIT.RE = 1;
+  00000022 7F827040               BSET.B      #4,@H'00FFFF82:8
+  00000026 5470                   RTS
+        71:    }
+        72:    
+        73:    // --------------------------------------------------------------------
+        74:    // Set SPI Baud Rate
+        75:    // --------------------------------------------------------------------
+        76:    void SPI_Set_BaudRate(unsigned int kbps)
+  00000028                    _SPI_Set_BaudRate:                   ; function: SPI_Set_BaudRate
+  00000028                    L6777:                                
+        77:    {
+        78:    //  unsigned short brr;
+        79:        unsigned long i;
+        80:    
+        81:        //--------------
+        82:        // Wait for Tx
+        83:        //--------------
+        84:        while(SCI0.SSR.BIT.TDRE == 0);  // Wait for TDRE = 1
+  00000028 2884                   MOV.B       @H'00FFFF84:8,R0L
+  0000002A 4A00                   BPL         L6777:8
+  0000002C                    L6778:                                
+        85:        while(SCI0.SSR.BIT.TEND == 0);  // Wait for TEND = 1
+  0000002C 2884                   MOV.B       @H'00FFFF84:8,R0L
+  0000002E 7728                   BLD.B       #2,R0L
+  00000030 4400                   BCC         L6778:8
+        86:        
+        87:        //----------------
+        88:        // Clear TE & RE
+        89:        //----------------
+        90:        SCI0.SCR.BIT.TE = 0;
+  00000032 7F827250               BCLR.B      #5,@H'00FFFF82:8
+        91:        SCI0.SCR.BIT.RE = 0;
+  00000036 7F827240               BCLR.B      #4,@H'00FFFF82:8
+        92:        
+        93:        for(i = 0; i < 100000; i++);    // Wait for 1bit period
+  0000003A 7A01000186A0           MOV.L       #H'000186A0,ER1
+  00000040 0F90                   MOV.L       ER1,ER0
+  00000042                    L6780:                                
+  00000042 1B70                   DEC.L       #1,ER0
+  00000044 4600                   BNE         L6780:8
+        94:        
+        95:        //---------------
+        96:        // Clear Flags
+        97:        //---------------
+        98:        SCI0.SSR.BIT.RDRF = 0;
+  00000046 7F847260               BCLR.B      #6,@H'00FFFF84:8
+        99:        SCI0.SSR.BIT.ORER = 0;
+  0000004A 7F847250               BCLR.B      #5,@H'00FFFF84:8
+       100:        SCI0.SSR.BIT.FER  = 0;
+  0000004E 7F847240               BCLR.B      #4,@H'00FFFF84:8
+       101:        SCI0.SSR.BIT.PER  = 0;
+  00000052 7F847230               BCLR.B      #3,@H'00FFFF84:8
+       102:        //----------------------------
+       103:        // Set Baud Rate
+       104:        //   PCLK = 24MHz
+       105:        //   CKS  = 0
+       106:        //   BRR = 24 * 1000 * 1000 / (8 * (2^0-1) * 1000 * kbps) - 1
+       107:        //----------------------------
+       108:    //  brr = (6000 / (unsigned short) kbps) - 1; //(24 * 1000) / (8 / 2 * kbps) - 1;
+       109:    //  if(brr <   0) brr = 0;
+       110:    //  if(brr > 255) brr = 255;
+       111:        //
+       112:        SCI0.SCR.BIT.CKE = 0;
+  00000056 1888                   SUB.B       R0L,R0L
+  00000058 7F82F803               BFST        R0L,#3,@H'00FFFF82:8
+       113:        SCI0.SMR.BIT.CKS = 0;
+  0000005C 1888                   SUB.B       R0L,R0L
+  0000005E 7F80F803               BFST        R0L,#3,@H'00FFFF80:8
+       114:    //  SCI0.BRR = (unsigned char) brr;
+       115:        SCI0.BRR = 0;
+  00000062 1888                   SUB.B       R0L,R0L
+  00000064 3881                   MOV.B       R0L,@H'00FFFF81:8
+  00000066                    L6782:                                
+       116:        //----------------------------
+       117:        // Wait for 1bit period
+       118:        //----------------------------
+       119:        for(i = 0; i < 100000; i++);
+  00000066 1B71                   DEC.L       #1,ER1
+  00000068 4600                   BNE         L6782:8
+  0000006A 5470                   RTS
+       120:        //----------------
+       121:        // Set TE & RE
+       122:        //----------------
+       123:    //  SCI0.SCR.BIT.TE = 1;
+       124:    //  SCI0.SCR.BIT.RE = 1;
+       125:    }
+       126:    
+       127:    // --------------------------------------------------------------------
+       128:    // SPI Tx and Rx a Byte
+       129:    // --------------------------------------------------------------------
+       130:    unsigned char SPI_TxRx(unsigned int byte_tx)
+  0000006C                    _SPI_TxRx:                           ; function: SPI_TxRx
+  0000006C                    L6784:                                
+       131:    {
+       132:        unsigned char byte_rx;
+       133:        
+       134:        // Tx
+       135:        while(SCI0.SSR.BIT.TDRE == 0);      // Wait for TDRE = 1
+  0000006C 2984                   MOV.B       @H'00FFFF84:8,R1L
+  0000006E 4A00                   BPL         L6784:8
+       136:    
+       137:        SCI0.TDR = byte_tx;                 // Set TDR
+  00000070 3883                   MOV.B       R0L,@H'00FFFF83:8
+       138:                                            // Clear TDRE
+       139:        SCI0.SSR.BIT.TDRE = 0;              // read 1 and write 0
+  00000072 7F847270               BCLR.B      #7,@H'00FFFF84:8
+  00000076                    L6786:                                
+       140:    
+       141:        while(SCI0.SSR.BIT.TEND == 0);      // Wait for TEND = 1
+  00000076 2884                   MOV.B       @H'00FFFF84:8,R0L
+  00000078 7728                   BLD.B       #2,R0L
+  0000007A 4400                   BCC         L6786:8
+       142:                                            // Clear TEND
+       143:        SCI0.SSR.BIT.TEND = 0;              // read 1 and write 0
+  0000007C 7F847220               BCLR.B      #2,@H'00FFFF84:8
+  00000080                    L6788:                                
+       144:        
+       145:        // Rx
+       146:        while(SCI0.SSR.BIT.RDRF == 0);      // Wait for RDRF = 1
+  00000080 2884                   MOV.B       @H'00FFFF84:8,R0L
+  00000082 7768                   BLD.B       #6,R0L
+  00000084 4400                   BCC         L6788:8
+       147:        if(SCI0.SSR.BIT.ORER) SCI0.SSR.BIT.ORER = 0;    // If Over Run found, Clear ORER
+  00000086 2884                   MOV.B       @H'00FFFF84:8,R0L
+  00000088 7758                   BLD.B       #5,R0L
+  0000008A 4400                   BCC         L6791:8
+  0000008C 7F847250               BCLR.B      #5,@H'00FFFF84:8
+  00000090                    L6791:                                
+       148:        byte_rx = SCI0.RDR;                 // Get RDR
+  00000090 2885                   MOV.B       @H'00FFFF85:8,R0L
+       149:                                            // Clear RDRF
+       150:        SCI0.SSR.BIT.RDRF = 0;              // read 1 and write 0
+  00000092 7F847260               BCLR.B      #6,@H'00FFFF84:8
+  00000096 5470                   RTS
+       151:    
+       152:        return byte_rx;
+       153:    }
+
+

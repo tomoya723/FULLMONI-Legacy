@@ -3,7 +3,8 @@
 -object="C:\WorkSpace\FullMoni\FullMoni\Debug\dbsct.obj"
 -outcode=sjis
 -debug
--nolist
+-list="C:\WorkSpace\FullMoni\FullMoni\Debug\dbsct.lst"
+-show=object,nostatistics,allocation,tab=4
 -chgincpath
 "C:\WorkSpace\FullMoni\FullMoni\dbsct.c"
 -nologo

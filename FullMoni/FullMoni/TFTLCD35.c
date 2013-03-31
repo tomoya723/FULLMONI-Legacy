@@ -19,8 +19,8 @@
 // filename		:	TFTLCD35.c
 // brief		:	FullMoni rev.B TFTâtèªä«óù
 // author		:	Tomoya Sato
-// update		:	2013/03/20
-// version		:	1.01
+// update		:	2013/03/31
+// version		:	1.02
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -99,8 +99,8 @@ void Init_TFTLCD()
 	write_data(0x0000);		// Page 49 of SSD2119 datasheet
 	
 	write_comm(0x0001);		// Driver Output Control
-//	write_data(0x32EF);		// Page 36-39 of SSD2119 datasheet
-	write_data(0x7AEF);		// Page 36-39 of SSD2119 datasheet
+	write_data(0x32EF);		// Page 36-39 of SSD2119 datasheet
+//	write_data(0x7AEF);		// Page 36-39 of SSD2119 datasheet
 	
 	write_comm(0x0002);		// LCD Driving Waveform Control
 	write_data(0x0600);		// Page 40-42 of SSD2119 datasheet
@@ -109,8 +109,8 @@ void Init_TFTLCD()
 	write_data(0x6A38);		// Page 43-44 of SSD2119 datasheet
 	
 	write_comm(0x0011);		// Entry Mode
-	write_data(0x6870);		// Page 50-52 of SSD2119 datasheet
-//	write_data(0x6860);		// Page 50-52 of SSD2119 datasheet	// ç∂âEîΩì]ëŒçÙ
+//	write_data(0x6870);		// Page 50-52 of SSD2119 datasheet
+	write_data(0x6860);		// Page 50-52 of SSD2119 datasheet	// ç∂âEîΩì]ëŒçÙ
 	
 	write_comm(0X000F);		// Gate Scan Position
 	write_data(0x0000);		// Page 49 of SSD2119 datasheet
@@ -191,10 +191,6 @@ void Init_TFTLCD()
 // --------------------------------------------------------------------
 void Display_Home()
 {
-	long i;
-	
-	for(i = 0; i <= 1000; i++);	// 50msäÑÇËçûÇ›à¿íËÇÃà◊É_É~Å[
-	
 	write_comm(0x004E);		// RAM address set
 	write_data(0x0000);		// Page 58 of SSD2119 datasheet
 	write_comm(0x004F);		// RAM address set
@@ -288,9 +284,9 @@ void FONT_open(void)
 	
 	for(icnt = 0; icnt < 0x00012C00; icnt ++ )
 	{
-//		*(FONTR + icnt) = *(FONT + icnt) & 0xF800;	// îíï∂éöÅ®ê¬ï∂éöÇ≈ì]ëó
+		*(FONTR + icnt) = *(FONT + icnt) & 0xF800;	// îíï∂éöÅ®ê‘ï∂éöÇ≈ì]ëó
 //		*(FONTR + icnt) = *(FONT + icnt) & 0x07E0;	// îíï∂éöÅ®óŒï∂éöÇ≈ì]ëó
-		*(FONTR + icnt) = *(FONT + icnt) & 0x001F;	// îíï∂éöÅ®ê‘ï∂éöÇ≈ì]ëó
+//		*(FONTR + icnt) = *(FONT + icnt) & 0x001F;	// îíï∂éöÅ®ê¬ï∂éöÇ≈ì]ëó
 	}
 }
 

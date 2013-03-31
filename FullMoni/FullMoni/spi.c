@@ -19,8 +19,8 @@
 // filename		:	spi.c
 // brief		:	FullMoni rev.B SPI通信処理
 // author		:	Tomoya Sato
-// update		:	2013/03/20
-// version		:	1.01
+// update		:	2013/03/31
+// version		:	1.02
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -32,7 +32,7 @@
 // --------------------------------------------------------------------
 // 初期ボーレート
 // --------------------------------------------------------------------
-#define SPI_INITIAL_BAUD_RATE 700 // kbps
+#define SPI_INITIAL_BAUD_RATE 6000 // kbps
 
 // --------------------------------------------------------------------
 // Initialize SPI (SCI0)
@@ -75,7 +75,7 @@ void Init_SPI(void)
 // --------------------------------------------------------------------
 void SPI_Set_BaudRate(unsigned int kbps)
 {
-	unsigned short brr;
+//	unsigned short brr;
 	unsigned long i;
 
 	//--------------
@@ -105,13 +105,14 @@ void SPI_Set_BaudRate(unsigned int kbps)
 	//   CKS  = 0
 	//   BRR = 24 * 1000 * 1000 / (8 * (2^0-1) * 1000 * kbps) - 1
 	//----------------------------
-	brr = (6000 / (unsigned short) kbps) - 1; //(24 * 1000) / (8 / 2 * kbps) - 1;
-	if(brr <   0) brr = 0;
-	if(brr > 255) brr = 255;
+//	brr = (6000 / (unsigned short) kbps) - 1; //(24 * 1000) / (8 / 2 * kbps) - 1;
+//	if(brr <   0) brr = 0;
+//	if(brr > 255) brr = 255;
 	//
 	SCI0.SCR.BIT.CKE = 0;
 	SCI0.SMR.BIT.CKS = 0;
-	SCI0.BRR = (unsigned char) brr;
+//	SCI0.BRR = (unsigned char) brr;
+	SCI0.BRR = 0;
 	//----------------------------
 	// Wait for 1bit period
 	//----------------------------

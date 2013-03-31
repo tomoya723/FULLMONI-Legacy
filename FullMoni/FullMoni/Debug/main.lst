@@ -1,0 +1,1910 @@
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:49:41 PAGE   1
+
+******* STACK FRAME INFORMATION ********
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\main.c
+
+Function (File C:\WorkSpa, Line    69): main
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   156): Int_CAN2515
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x0000000e Byte(s)
+Temporary Size          : 0x00000002 Byte(s)
+Register Save Area Size : 0x0000000c Byte(s)
+Total Frame Size        : 0x00000020 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   429): Int_50msFunc
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000014 Byte(s)
+Total Frame Size        : 0x00000018 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   731): Int_LEDonoff
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:49:41 PAGE   1
+
+************ OBJECT LISTING ************
+
+FILE NAME: C:\WorkSpace\FullMoni\FullMoni\main.c
+
+SCT OFFSET CODE               LABEL     INSTRUCTION OPERAND    COMMENT
+
+P                                                                  ; section
+         1:    // --------------------------------------------------------------------
+         2:    // Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+         3:    //
+         4:    // This file is part of FullMoni firmwere.
+         5:    //
+         6:    // FullMoni is free software: you can redistribute it and/or modify
+         7:    // it under the terms of the GNU General Public License as published by
+         8:    // the Free Software Foundation, either version 3 of the License, or
+         9:    // (at your option ) any later version.
+        10:    //
+        11:    // FullMoni is distributed in the hope that it will be useful,
+        12:    // but WITHIOUT ANY WARRANTY; without even the implied warranty of
+        13:    // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.   See the
+        14:    // GNU General Public License for more details.
+        15:    //
+        16:    // You should have received a copy of the GNU General Public License
+        17:    // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
+        18:    //
+        19:    // filename     :   main.c
+        20:    // brief        :   FullMoni rev.B メインルーチン
+        21:    // author       :   Tomoya Sato
+        22:    // update       :   2013/03/31
+        23:    // version      :   1.02
+        24:    // --------------------------------------------------------------------
+        25:    
+        26:    // --------------------------------------------------------------------
+        27:    // プロトタイプ宣言
+        28:    // --------------------------------------------------------------------
+        29:    void main(void);
+        30:    #ifdef __cplusplus
+        31:    extern "C" {
+        32:    void abort(void);
+        33:    }
+        34:    #endif
+        35:    
+        36:    // --------------------------------------------------------------------
+        37:    // システムヘッダファイル
+        38:    // --------------------------------------------------------------------
+        39:    #include <machine.h>
+        40:    
+        41:    // --------------------------------------------------------------------
+        42:    // ユーザーヘッダファイル
+        43:    // --------------------------------------------------------------------
+        44:    #include "dataregister.h"
+        45:    #include "iodefine.h"
+        46:    #include "init_system.h"
+        47:    #include "TFTLCD35.h"
+        48:    #include "CAN2515.h"
+        49:    #include "spi.h"
+        50:    #include "state_control.h"
+        51:    
+        52:    // --------------------------------------------------------------------
+        53:    // グローバル変数宣言
+        54:    // --------------------------------------------------------------------
+        55:    volatile char version[5] = "v1.02";
+        56:    
+        57:    // --------------------------------------------------------------------
+        58:    // グローバル構造体宣言
+        59:    // --------------------------------------------------------------------
+        60:    volatile e2p_data_t         g_e2p_data;
+        61:    volatile MoTeC1_data_t      g_MoTeC1_data;
+        62:    volatile Haltech1_data_t    g_Haltech1_data;
+        63:    volatile Haltech2_data_t    g_Haltech2_data;
+        64:    volatile Freedom2_data_t    g_Freedom2_data;
+        65:    
+        66:    // --------------------------------------------------------------------
+        67:    // メインルーチン
+        68:    // --------------------------------------------------------------------
+        69:    void main(void)
+  00000000                    _main:                               ; function: main
+        70:    {
+        71:        // --------------------------------------------------------------------
+        72:        // 各種機能初期化
+        73:        // --------------------------------------------------------------------
+        74:        Init_CPG();
+  00000000 5E000000               JSR         @_Init_CPG:24
+        75:        Init_INTC();
+  00000004 5E000000               JSR         @_Init_INTC:24
+        76:        Init_MSTP();
+  00000008 5E000000               JSR         @_Init_MSTP:24
+        77:        Init_GPIO();
+  0000000C 5E000000               JSR         @_Init_GPIO:24
+        78:        Init_BSC();
+  00000010 5E000000               JSR         @_Init_BSC:24
+        79:        Init_EXDMAC();
+  00000014 5E000000               JSR         @_Init_EXDMAC:24
+        80:        Init_DMAC();
+  00000018 5E000000               JSR         @_Init_DMAC:24
+        81:        Init_TPU();
+  0000001C 5E000000               JSR         @_Init_TPU:24
+        82:        Init_UART();
+  00000020 5E000000               JSR         @_Init_UART:24
+        83:        Init_TFTLCD();
+  00000024 5E000000               JSR         @_Init_TFTLCD:24
+        84:        Init_SPI();
+  00000028 5E000000               JSR         @_Init_SPI:24
+        85:    //  Init_CAN();     //モデル別対応の為state_controlで実行
+        86:        Init_ADS7843();
+  0000002C 5E000000               JSR         @_Init_ADS7843:24
+        87:        Init_IIC();
+  00000030 5E000000               JSR         @_Init_IIC:24
+        88:        
+        89:        // --------------------------------------------------------------------
+        90:        // データ初期化
+        91:        // --------------------------------------------------------------------
+        92:        Init_MoTeC1_data();
+  00000034 5E000000               JSR         @_Init_MoTeC1_data:24
+        93:        Init_Haltech1_data();
+  00000038 5E000000               JSR         @_Init_Haltech1_data:24
+        94:        Init_Haltech2_data();
+  0000003C 5E000000               JSR         @_Init_Haltech2_data:24
+        95:        Init_Freedom2_data();
+  00000040 5E000000               JSR         @_Init_Freedom2_data:24
+        96:        
+        97:        // --------------------------------------------------------------------
+        98:        // FONTデータ展開(Flash→内部RAM)
+        99:        // --------------------------------------------------------------------
+       100:        FONT_open();
+  00000044 5E000000               JSR         @_FONT_open:24
+       101:        
+       102:        // --------------------------------------------------------------------
+       103:        // 初期ステート定義
+       104:        // --------------------------------------------------------------------
+       105:        A001();
+  00000048 5E000000               JSR         @_A001:24
+  0000004C                    L7673:                                
+       106:        
+       107:        // --------------------------------------------------------------------
+       108:        // メインループ
+       109:        // --------------------------------------------------------------------
+       110:        while(1)
+       111:        {
+       112:            state_control();        // 状態別処理実行
+  0000004C 5E000000               JSR         @_state_control:24
+  00000050 4000                   BRA         L7673:8
+       113:        }
+       114:    }
+       115:    
+       116:    // --------------------------------------------------------------------
+       117:    // インライン関数宣言
+       118:    // --------------------------------------------------------------------
+       119:    #pragma inline (Touch_Decision)
+       120:    #pragma inline (Beep_OneShotMin_control)
+       121:    #pragma inline (Beep_OneShotMax_control)
+       122:    #pragma inline (Beep_TwoShotMin_control)
+       123:    
+       124:    // --------------------------------------------------------------------
+       125:    // インライン関数プロトタイプ宣言
+       126:    // --------------------------------------------------------------------
+       127:    static void Touch_Decision(void);
+       128:    static void Beep_OneShotMin_control(void);
+       129:    static void Beep_OneShotMax_control(void);
+       130:    static void Beep_TwoShotMin_control(void);
+       131:    
+       132:    // --------------------------------------------------------------------
+       133:    // グローバル変数宣言
+       134:    // --------------------------------------------------------------------
+       135:    volatile long           g_int50mscnt;
+       136:    volatile unsigned int   touch_done_flg;
+       137:    volatile unsigned int   touch_drag_flg;
+       138:    volatile unsigned int   g_PressX, g_PressY;
+       139:    volatile unsigned int   g_DragX, g_DragY;
+       140:    volatile unsigned int   g_refresh_done;
+       141:    volatile unsigned int   g_led_o_max_flg;
+       142:    volatile unsigned int   g_led_o_min_flg;
+       143:    volatile unsigned int   g_led_r_max_flg;
+       144:    volatile unsigned int   g_led_r_min_flg;
+       145:    static unsigned int     touch_cnt;
+       146:    static unsigned int     Beep_OneShotMin_cnt;
+       147:    static unsigned int     Beep_OneShotMax_cnt;
+       148:    static unsigned int     Beep_TwoShotMin_cnt;
+       149:    static unsigned int     master_warning_cnt;
+       150:    static unsigned int     g_shift_timing_cnt;
+       151:    static unsigned int     LEDonoff_cnt;
+       152:    
+       153:    // --------------------------------------------------------------------
+       154:    // MCP2515 CAN IRQ 外部割り込み
+       155:    // --------------------------------------------------------------------
+       156:    void Int_CAN2515(void)
+  00000052                    _Int_CAN2515:                        ; function: Int_CAN2515
+  00000052 01206DF4               STM.L       (ER4-ER6),@-SP
+  00000056 79370010               SUB.W       #H'0010:16,R7
+       157:    {
+       158:        // --------------------------------------------------------------------
+       159:        // ローカル変数宣言
+       160:        // --------------------------------------------------------------------
+       161:        unsigned char CAN_rcv_INTF, can_rcv[14];
+       162:        signed short msgID;
+       163:        
+       164:        // --------------------------------------------------------------------
+       165:        // 割り込みフラグクリア
+       166:        // --------------------------------------------------------------------
+       167:        INTC.ISR.BIT.IRQ3F = 0;
+  0000005A 7A0600000000           MOV.L       #_Onetime_Peakclear_cnt,ER6
+  00000060 7F377230               BCLR.B      #3,@H'00FFFF37:8
+       168:        
+       169:        // --------------------------------------------------------------------
+       170:        // MCP2515割り込み要因別処理
+       171:        // --------------------------------------------------------------------
+       172:        CAN_rcv_INTF = CANReadReg(CANINTF);
+  00000064 79002C03               MOV.W       #H'2C03:16,R0
+  00000068 5E000000               JSR         @_CANRegRead2B:24
+  0000006C 0C8D                   MOV.B       R0L,R5L
+       173:        
+       174:        if((CAN_rcv_INTF & 0x02) == 0x02)
+  0000006E 7318                   BTST.B      #1,R0L
+  00000070 58700000               BEQ         L7680:16
+       175:        {
+       176:            CANRxB1Read(&can_rcv[1], 8);
+  00000074 0FF1                   MOV.L       SP,ER1
+  00000076 0A31                   ADD.W       #3:3,R1
+  00000078 017D170D               MOV.B       #H'0D:8,@(1:2,SP)
+  0000007C 79000194               MOV.W       #H'0194:16,R0
+  00000080 5E000000               JSR         @_CANTxRxBufRW:24
+       177:            
+       178:            msgID = MAKE_SID(can_rcv[1], can_rcv[2]);       // ID作成
+  00000084 6E790003               MOV.B       @(3:16,SP),R1L
+  00000088 1751                   EXTU.W      R1
+  0000008A 03831011               SHLL.W      #3:5,R1
+  0000008E 6E780004               MOV.B       @(4:16,SP),R0L
+  00000092 1750                   EXTU.W      R0
+  00000094 11D0                   SHAR.W      #2,R0
+  00000096 11D0                   SHAR.W      #2,R0
+  00000098 1190                   SHAR.W      R0
+  0000009A 6410                   OR.W        R1,R0
+       179:            
+       180:            if(Onetime_Peakclear_cnt > 0) Onetime_Peakclear_cnt --;
+  0000009C 6968                   MOV.W       @ER6,E0
+  0000009E 4700                   BEQ         L7718:8
+  000000A0 7DE01A10               SUB.W       #1:3,@ER6
+  000000A4                    L7718:                                
+       181:            
+       182:            if      (g_e2p_data.E2P_1.model == MoTeC1)
+  000000A4 6A2900000000           MOV.B       @(_g_e2p_data+2):32,R1L
+  000000AA 58600000               BNE         L7720:16
+       183:            {
+       184:                switch(msgID)
+  000000AE 0D01                   MOV.W       R0,R1
+  000000B0 E800                   AND.B       #0:8,R0L
+  000000B2 0D00                   MOV.W       R0,R0
+  000000B4 58600000               BNE         L7680:16
+  000000B8 A910                   CMP.B       #H'10:8,R1L
+  000000BA 58700000               BEQ         L7676:16
+  000000BE A911                   CMP.B       #H'11:8,R1L
+  000000C0 58700000               BEQ         L7677:16
+  000000C4 A912                   CMP.B       #H'12:8,R1L
+  000000C6 4700                   BEQ         L7678:8
+  000000C8 A913                   CMP.B       #H'13:8,R1L
+  000000CA 58600000               BNE         L7680:16
+       185:                {
+       186:                    case 0x010:
+       187:                                g_MoTeC1_data.RPM                   = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       188:                                g_MoTeC1_data.GroundSpeed           = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       189:                                g_MoTeC1_data.OilPressure           = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       190:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       191:                                break;
+       192:                    case 0x011:
+       193:                                g_MoTeC1_data.EngineTemp            = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       194:                                g_MoTeC1_data.FuelPressure          = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       195:                                g_MoTeC1_data.BatteryVoltage        = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       196:                                g_MoTeC1_data.ThrottlePosition      = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       197:                                break;
+       198:                    case 0x012:
+       199:                                g_MoTeC1_data.ManifoldPressure      = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       200:                                g_MoTeC1_data.InletAirTemp          = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       201:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       202:                                g_MoTeC1_data.Lambda                = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       203:                                break;
+       204:                    case 0x013:
+       205:                                g_MoTeC1_data.IgnitionAdvance       = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+  000000CE 6E710008               MOV.B       @(8:16,SP),R1H
+  000000D2 1899                   SUB.B       R1L,R1L
+  000000D4 6E780009               MOV.B       @(9:16,SP),R0L
+  000000D8 1750                   EXTU.W      R0
+  000000DA 0901                   ADD.W       R0,R1
+  000000DC 7A0400000000           MOV.L       #_g_MoTeC1_data,ER4
+  000000E2 6FC10014               MOV.W       R1,@(H'0014:16,ER4)
+       206:                                g_MoTeC1_data.Gear                  = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+  000000E6 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000000EA 1899                   SUB.B       R1L,R1L
+  000000EC 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000000F0 0901                   ADD.W       R0,R1
+  000000F2 6FC10016               MOV.W       R1,@(H'0016:16,ER4)
+       207:                                g_MoTeC1_data.InjectorDuty          = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+  000000F6 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  000000FA 1899                   SUB.B       R1L,R1L
+  000000FC 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000100 0901                   ADD.W       R0,R1
+  00000102 6FC10018               MOV.W       R1,@(H'0018:16,ER4)
+  00000106 5A000000               JMP         @L7680:24
+  0000010A                    L7678:                                
+  0000010A 6E710008               MOV.B       @(8:16,SP),R1H
+  0000010E 1899                   SUB.B       R1L,R1L
+  00000110 6E780009               MOV.B       @(9:16,SP),R0L
+  00000114 1750                   EXTU.W      R0
+  00000116 0901                   ADD.W       R0,R1
+  00000118 7A0400000000           MOV.L       #_g_MoTeC1_data,ER4
+  0000011E 6FC1000E               MOV.W       R1,@(H'000E:16,ER4)
+  00000122 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  00000126 1899                   SUB.B       R1L,R1L
+  00000128 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  0000012C 0901                   ADD.W       R0,R1
+  0000012E 6FC10010               MOV.W       R1,@(H'0010:16,ER4)
+  00000132 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  00000136 1899                   SUB.B       R1L,R1L
+  00000138 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  0000013C 0901                   ADD.W       R0,R1
+  0000013E 6FC10012               MOV.W       R1,@(H'0012:16,ER4)
+  00000142 5A000000               JMP         @L7680:24
+  00000146                    L7677:                                
+  00000146 6E710008               MOV.B       @(8:16,SP),R1H
+  0000014A 1899                   SUB.B       R1L,R1L
+  0000014C 6E780009               MOV.B       @(9:16,SP),R0L
+  00000150 1750                   EXTU.W      R0
+  00000152 0901                   ADD.W       R0,R1
+  00000154 7A0400000000           MOV.L       #_g_MoTeC1_data,ER4
+  0000015A 6FC10006               MOV.W       R1,@(6:16,ER4)
+  0000015E 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  00000162 1899                   SUB.B       R1L,R1L
+  00000164 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000168 0901                   ADD.W       R0,R1
+  0000016A 6FC10008               MOV.W       R1,@(8:16,ER4)
+  0000016E 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  00000172 1899                   SUB.B       R1L,R1L
+  00000174 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000178 0901                   ADD.W       R0,R1
+  0000017A 6FC1000A               MOV.W       R1,@(H'000A:16,ER4)
+  0000017E 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  00000182 1899                   SUB.B       R1L,R1L
+  00000184 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  00000188 0901                   ADD.W       R0,R1
+  0000018A 6FC1000C               MOV.W       R1,@(H'000C:16,ER4)
+  0000018E 5A000000               JMP         @L7680:24
+  00000192                    L7676:                                
+  00000192 6E710008               MOV.B       @(8:16,SP),R1H
+  00000196 1899                   SUB.B       R1L,R1L
+  00000198 6E780009               MOV.B       @(9:16,SP),R0L
+  0000019C 1750                   EXTU.W      R0
+  0000019E 0901                   ADD.W       R0,R1
+  000001A0 7A0400000000           MOV.L       #_g_MoTeC1_data,ER4
+  000001A6 69C1                   MOV.W       R1,@ER4
+  000001A8 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000001AC 1899                   SUB.B       R1L,R1L
+  000001AE 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000001B2 0901                   ADD.W       R0,R1
+  000001B4 6FC10002               MOV.W       R1,@(2:16,ER4)
+  000001B8 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  000001BC 1899                   SUB.B       R1L,R1L
+  000001BE 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  000001C2 0901                   ADD.W       R0,R1
+  000001C4 6FC10004               MOV.W       R1,@(4:16,ER4)
+  000001C8 5A000000               JMP         @L7680:24
+  000001CC                    L7720:                                
+       208:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       209:                                default: break;
+       210:                }
+       211:            }
+       212:            else if (g_e2p_data.E2P_1.model == Haltech1)
+  000001CC 6A3800000000A002       CMP.B       #2:8,@(_g_e2p_data+2):32
+  000001D4 58600000               BNE         L7730:16
+       213:            {
+       214:                switch(msgID)
+  000001D8 0D01                   MOV.W       R0,R1
+  000001DA E800                   AND.B       #0:8,R0L
+  000001DC 0D00                   MOV.W       R0,R0
+  000001DE 58600000               BNE         L7680:16
+  000001E2 A910                   CMP.B       #H'10:8,R1L
+  000001E4 58700000               BEQ         L7681:16
+  000001E8 A911                   CMP.B       #H'11:8,R1L
+  000001EA 58700000               BEQ         L7682:16
+  000001EE A912                   CMP.B       #H'12:8,R1L
+  000001F0 4700                   BEQ         L7683:8
+  000001F2 A913                   CMP.B       #H'13:8,R1L
+  000001F4 58600000               BNE         L7680:16
+       215:                {
+       216:                    case 0x010:
+       217:                                g_Haltech1_data.RPM                 = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       218:                                g_Haltech1_data.GroundSpeed         = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       219:                                g_Haltech1_data.OilPressure         = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       220:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       221:                                break;
+       222:                    case 0x011:
+       223:                                g_Haltech1_data.EngineTemp          = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       224:                                g_Haltech1_data.FuelPressure        = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       225:                                g_Haltech1_data.BatteryVoltage      = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       226:                                g_Haltech1_data.ThrottlePosition    = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       227:                                break;
+       228:                    case 0x012:
+       229:                                g_Haltech1_data.ManifoldPressure    = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       230:                                g_Haltech1_data.InletAirTemp        = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       231:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       232:                                g_Haltech1_data.Lambda              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       233:                                break;
+       234:                    case 0x013:
+       235:                                g_Haltech1_data.IgnitionAdvance     = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+  000001F8 6E710008               MOV.B       @(8:16,SP),R1H
+  000001FC 1899                   SUB.B       R1L,R1L
+  000001FE 6E780009               MOV.B       @(9:16,SP),R0L
+  00000202 1750                   EXTU.W      R0
+  00000204 0901                   ADD.W       R0,R1
+  00000206 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000014):32
+       236:                                g_Haltech1_data.Gear                = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+  0000020C 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  00000210 1899                   SUB.B       R1L,R1L
+  00000212 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000216 0901                   ADD.W       R0,R1
+  00000218 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000016):32
+       237:                                g_Haltech1_data.InjectorDuty        = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+  0000021E 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  00000222 1899                   SUB.B       R1L,R1L
+  00000224 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000228 0901                   ADD.W       R0,R1
+  0000022A 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000018):32
+  00000230 5A000000               JMP         @L7680:24
+  00000234                    L7683:                                
+  00000234 6E710008               MOV.B       @(8:16,SP),R1H
+  00000238 1899                   SUB.B       R1L,R1L
+  0000023A 6E780009               MOV.B       @(9:16,SP),R0L
+  0000023E 1750                   EXTU.W      R0
+  00000240 0901                   ADD.W       R0,R1
+  00000242 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'0000000E):32
+  00000248 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  0000024C 1899                   SUB.B       R1L,R1L
+  0000024E 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000252 0901                   ADD.W       R0,R1
+  00000254 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000010):32
+  0000025A 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  0000025E 1899                   SUB.B       R1L,R1L
+  00000260 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  00000264 0901                   ADD.W       R0,R1
+  00000266 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000012):32
+  0000026C 5A000000               JMP         @L7680:24
+  00000270                    L7682:                                
+  00000270 6E710008               MOV.B       @(8:16,SP),R1H
+  00000274 1899                   SUB.B       R1L,R1L
+  00000276 6E780009               MOV.B       @(9:16,SP),R0L
+  0000027A 1750                   EXTU.W      R0
+  0000027C 0901                   ADD.W       R0,R1
+  0000027E 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+6):32
+  00000284 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  00000288 1899                   SUB.B       R1L,R1L
+  0000028A 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  0000028E 0901                   ADD.W       R0,R1
+  00000290 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+8):32
+  00000296 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  0000029A 1899                   SUB.B       R1L,R1L
+  0000029C 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  000002A0 0901                   ADD.W       R0,R1
+  000002A2 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'0000000A):32
+  000002A8 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  000002AC 1899                   SUB.B       R1L,R1L
+  000002AE 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  000002B2 0901                   ADD.W       R0,R1
+  000002B4 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'0000000C):32
+  000002BA 5A000000               JMP         @L7680:24
+  000002BE                    L7681:                                
+  000002BE 6E710008               MOV.B       @(8:16,SP),R1H
+  000002C2 1899                   SUB.B       R1L,R1L
+  000002C4 6E780009               MOV.B       @(9:16,SP),R0L
+  000002C8 1750                   EXTU.W      R0
+  000002CA 0901                   ADD.W       R0,R1
+  000002CC 6BA100000000           MOV.W       R1,@_g_Haltech1_data:32
+  000002D2 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000002D6 1899                   SUB.B       R1L,R1L
+  000002D8 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000002DC 0901                   ADD.W       R0,R1
+  000002DE 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+2):32
+  000002E4 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  000002E8 1899                   SUB.B       R1L,R1L
+  000002EA 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  000002EE 0901                   ADD.W       R0,R1
+  000002F0 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+4):32
+  000002F6 5A000000               JMP         @L7680:24
+  000002FA                    L7730:                                
+       238:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       239:                                default: break;
+       240:                }
+       241:            }
+       242:            else if (g_e2p_data.E2P_1.model == Haltech2)
+  000002FA 6A3800000000A003       CMP.B       #3:8,@(_g_e2p_data+2):32
+  00000302 58600000               BNE         L7680:16
+       243:            {
+       244:                switch(msgID)
+  00000306 79200360               CMP.W       #H'0360:16,R0
+  0000030A 58700000               BEQ         L7686:16
+  0000030E 79200361               CMP.W       #H'0361:16,R0
+  00000312 58700000               BEQ         L7687:16
+  00000316 79200362               CMP.W       #H'0362:16,R0
+  0000031A 58700000               BEQ         L7688:16
+  0000031E 79200368               CMP.W       #H'0368:16,R0
+  00000322 58700000               BEQ         L7689:16
+  00000326 79200370               CMP.W       #H'0370:16,R0
+  0000032A 58700000               BEQ         L7690:16
+  0000032E 79200372               CMP.W       #H'0372:16,R0
+  00000332 58700000               BEQ         L7691:16
+  00000336 79200373               CMP.W       #H'0373:16,R0
+  0000033A 4700                   BEQ         L7692:8
+  0000033C 792003E0               CMP.W       #H'03E0:16,R0
+  00000340 58600000               BNE         L7680:16
+       245:                {
+       246:                    case 0x360:
+       247:                                g_Haltech2_data.RPM                 = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       248:                                g_Haltech2_data.ManifoldPressure    = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       249:                                g_Haltech2_data.ThrottlePosition    = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       250:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       251:                                break;
+       252:                    case 0x361:
+       253:                                g_Haltech2_data.FuelPressure        = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       254:                                g_Haltech2_data.OilPressure         = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       255:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       256:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       257:                                break;
+       258:                    case 0x362:
+       259:                                g_Haltech2_data.InjectorDuty        = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       260:                                // N/A                              = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       261:                                g_Haltech2_data.IgnitionAdvance1    = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       262:                                g_Haltech2_data.IgnitionAdvance2    = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       263:                                break;
+       264:                    case 0x368:
+       265:                                g_Haltech2_data.Lambda              = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       266:                                // N/A                              = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       267:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       268:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       269:                                break;
+       270:                    case 0x370:
+       271:                                g_Haltech2_data.GroundSpeed         = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       272:                                g_Haltech2_data.Gear                = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       273:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       274:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       275:                                break;
+       276:                    case 0x372:
+       277:                                g_Haltech2_data.BatteryVoltage      = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       278:                                g_Haltech2_data.InletAirTemp2       = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       279:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       280:                                g_Haltech2_data.BaroPressure        = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       281:                                break;
+       282:                    case 0x373:
+       283:                                g_Haltech2_data.EGT                 = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       284:                                // N/A                              = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       285:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       286:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       287:                                break;
+       288:                    case 0x3E0:
+       289:                                g_Haltech2_data.EngineTemp          = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+  00000344 6E710008               MOV.B       @(8:16,SP),R1H
+  00000348 1899                   SUB.B       R1L,R1L
+  0000034A 6E780009               MOV.B       @(9:16,SP),R0L
+  0000034E 1750                   EXTU.W      R0
+  00000350 0901                   ADD.W       R0,R1
+  00000352 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000001E):32
+       290:                                g_Haltech2_data.InletAirTemp1       = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+  00000358 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  0000035C 1899                   SUB.B       R1L,R1L
+  0000035E 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000362 0901                   ADD.W       R0,R1
+  00000364 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000020):32
+       291:                                g_Haltech2_data.FuelTemp            = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+  0000036A 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  0000036E 1899                   SUB.B       R1L,R1L
+  00000370 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000374 0901                   ADD.W       R0,R1
+  00000376 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000022):32
+       292:                                g_Haltech2_data.OilTemp             = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+  0000037C 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  00000380 1899                   SUB.B       R1L,R1L
+  00000382 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  00000386 0901                   ADD.W       R0,R1
+  00000388 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000024):32
+  0000038E 5A000000               JMP         @L7680:24
+  00000392                    L7692:                                
+  00000392 6E710008               MOV.B       @(8:16,SP),R1H
+  00000396 1899                   SUB.B       R1L,R1L
+  00000398 6E780009               MOV.B       @(9:16,SP),R0L
+  0000039C 1750                   EXTU.W      R0
+  0000039E 0910                   ADD.W       R1,R0
+  000003A0 6BA000000000           MOV.W       R0,@(_g_Haltech2_data+H'0000001C):32
+  000003A6 5A000000               JMP         @L7680:24
+  000003AA                    L7691:                                
+  000003AA 6E710008               MOV.B       @(8:16,SP),R1H
+  000003AE 1899                   SUB.B       R1L,R1L
+  000003B0 6E780009               MOV.B       @(9:16,SP),R0L
+  000003B4 1750                   EXTU.W      R0
+  000003B6 0901                   ADD.W       R0,R1
+  000003B8 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000016):32
+  000003BE 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000003C2 1899                   SUB.B       R1L,R1L
+  000003C4 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000003C8 0901                   ADD.W       R0,R1
+  000003CA 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000018):32
+  000003D0 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  000003D4 1899                   SUB.B       R1L,R1L
+  000003D6 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  000003DA 0901                   ADD.W       R0,R1
+  000003DC 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000001A):32
+  000003E2 5A000000               JMP         @L7680:24
+  000003E6                    L7690:                                
+  000003E6 6E710008               MOV.B       @(8:16,SP),R1H
+  000003EA 1899                   SUB.B       R1L,R1L
+  000003EC 6E780009               MOV.B       @(9:16,SP),R0L
+  000003F0 1750                   EXTU.W      R0
+  000003F2 0901                   ADD.W       R0,R1
+  000003F4 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000012):32
+  000003FA 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000003FE 1899                   SUB.B       R1L,R1L
+  00000400 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000404 0901                   ADD.W       R0,R1
+  00000406 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000014):32
+  0000040C 5A000000               JMP         @L7680:24
+  00000410                    L7689:                                
+  00000410 6E710008               MOV.B       @(8:16,SP),R1H
+  00000414 1899                   SUB.B       R1L,R1L
+  00000416 6E780009               MOV.B       @(9:16,SP),R0L
+  0000041A 1750                   EXTU.W      R0
+  0000041C 0910                   ADD.W       R1,R0
+  0000041E 6BA000000000           MOV.W       R0,@(_g_Haltech2_data+H'00000010):32
+  00000424 5A000000               JMP         @L7680:24
+  00000428                    L7688:                                
+  00000428 6E710008               MOV.B       @(8:16,SP),R1H
+  0000042C 1899                   SUB.B       R1L,R1L
+  0000042E 6E780009               MOV.B       @(9:16,SP),R0L
+  00000432 1750                   EXTU.W      R0
+  00000434 0901                   ADD.W       R0,R1
+  00000436 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000000A):32
+  0000043C 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  00000440 1899                   SUB.B       R1L,R1L
+  00000442 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000446 0901                   ADD.W       R0,R1
+  00000448 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000000C):32
+  0000044E 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  00000452 1899                   SUB.B       R1L,R1L
+  00000454 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  00000458 0901                   ADD.W       R0,R1
+  0000045A 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000000E):32
+  00000460 4000                   BRA         L7680:8
+  00000462                    L7687:                                
+  00000462 6E710008               MOV.B       @(8:16,SP),R1H
+  00000466 1899                   SUB.B       R1L,R1L
+  00000468 6E780009               MOV.B       @(9:16,SP),R0L
+  0000046C 1750                   EXTU.W      R0
+  0000046E 0901                   ADD.W       R0,R1
+  00000470 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+6):32
+  00000476 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  0000047A 1899                   SUB.B       R1L,R1L
+  0000047C 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000480 0901                   ADD.W       R0,R1
+  00000482 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+8):32
+  00000488 4000                   BRA         L7680:8
+  0000048A                    L7686:                                
+  0000048A 6E710008               MOV.B       @(8:16,SP),R1H
+  0000048E 1899                   SUB.B       R1L,R1L
+  00000490 6E780009               MOV.B       @(9:16,SP),R0L
+  00000494 1750                   EXTU.W      R0
+  00000496 0901                   ADD.W       R0,R1
+  00000498 6BA100000000           MOV.W       R1,@_g_Haltech2_data:32
+  0000049E 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000004A2 1899                   SUB.B       R1L,R1L
+  000004A4 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000004A8 0901                   ADD.W       R0,R1
+  000004AA 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+2):32
+  000004B0 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  000004B4 1899                   SUB.B       R1L,R1L
+  000004B6 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  000004BA 0901                   ADD.W       R0,R1
+  000004BC 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+4):32
+  000004C2                    L7680:                                
+       293:                                default: break;
+       294:                }
+       295:            }
+       296:        }
+       297:        if((CAN_rcv_INTF & 0x01) == 0x01)
+  000004C2 730D                   BTST.B      #0,R5L
+  000004C4 58700000               BEQ         L7699:16
+       298:        {
+       299:            CANRxB0Read(&can_rcv[1], 8);
+  000004C8 0FF1                   MOV.L       SP,ER1
+  000004CA 0A31                   ADD.W       #3:3,R1
+  000004CC 017D170D               MOV.B       #H'0D:8,@(1:2,SP)
+  000004D0 79000190               MOV.W       #H'0190:16,R0
+  000004D4 5E000000               JSR         @_CANTxRxBufRW:24
+       300:            
+       301:            if(Onetime_Peakclear_cnt > 0) Onetime_Peakclear_cnt --;
+  000004D8 6960                   MOV.W       @ER6,R0
+  000004DA 4700                   BEQ         L7758:8
+  000004DC 7DE01A10               SUB.W       #1:3,@ER6
+  000004E0                    L7758:                                
+       302:            
+       303:            msgID = MAKE_SID(can_rcv[1], can_rcv[2]);       // ID作成
+  000004E0 6E790003               MOV.B       @(3:16,SP),R1L
+  000004E4 1751                   EXTU.W      R1
+  000004E6 03831011               SHLL.W      #3:5,R1
+  000004EA 6E780004               MOV.B       @(4:16,SP),R0L
+  000004EE 1750                   EXTU.W      R0
+  000004F0 11D0                   SHAR.W      #2,R0
+  000004F2 11D0                   SHAR.W      #2,R0
+  000004F4 1190                   SHAR.W      R0
+  000004F6 6401                   OR.W        R0,R1
+  000004F8 0D18                   MOV.W       R1,E0
+       304:            
+       305:            if      (g_e2p_data.E2P_1.model == MoTeC1)
+  000004FA 6A2800000000           MOV.B       @(_g_e2p_data+2):32,R0L
+  00000500 58600000               BNE         L7760:16
+       306:            {
+       307:                switch(msgID)
+  00000504 7968FF00               AND.W       #H'FF00:16,E0
+  00000508 58600000               BNE         L7699:16
+  0000050C A910                   CMP.B       #H'10:8,R1L
+  0000050E 58700000               BEQ         L7695:16
+  00000512 A911                   CMP.B       #H'11:8,R1L
+  00000514 58700000               BEQ         L7696:16
+  00000518 A912                   CMP.B       #H'12:8,R1L
+  0000051A 4700                   BEQ         L7697:8
+  0000051C A913                   CMP.B       #H'13:8,R1L
+  0000051E 58600000               BNE         L7699:16
+       308:                {
+       309:                    case 0x010:
+       310:                                g_MoTeC1_data.RPM                   = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       311:                                g_MoTeC1_data.GroundSpeed           = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       312:                                g_MoTeC1_data.OilPressure           = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       313:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       314:                                break;
+       315:                    case 0x011:
+       316:                                g_MoTeC1_data.EngineTemp            = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       317:                                g_MoTeC1_data.FuelPressure          = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       318:                                g_MoTeC1_data.BatteryVoltage        = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       319:                                g_MoTeC1_data.ThrottlePosition      = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       320:                                break;
+       321:                    case 0x012:
+       322:                                g_MoTeC1_data.ManifoldPressure      = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       323:                                g_MoTeC1_data.InletAirTemp          = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       324:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       325:                                g_MoTeC1_data.Lambda                = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       326:                                break;
+       327:                    case 0x013:
+       328:                                g_MoTeC1_data.IgnitionAdvance       = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+  00000522 6E710008               MOV.B       @(8:16,SP),R1H
+  00000526 1899                   SUB.B       R1L,R1L
+  00000528 6E780009               MOV.B       @(9:16,SP),R0L
+  0000052C 1750                   EXTU.W      R0
+  0000052E 0901                   ADD.W       R0,R1
+  00000530 7A0400000000           MOV.L       #_g_MoTeC1_data,ER4
+  00000536 6FC10014               MOV.W       R1,@(H'0014:16,ER4)
+       329:                                g_MoTeC1_data.Gear                  = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+  0000053A 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  0000053E 1899                   SUB.B       R1L,R1L
+  00000540 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000544 0901                   ADD.W       R0,R1
+  00000546 6FC10016               MOV.W       R1,@(H'0016:16,ER4)
+       330:                                g_MoTeC1_data.InjectorDuty          = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+  0000054A 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  0000054E 1899                   SUB.B       R1L,R1L
+  00000550 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000554 0901                   ADD.W       R0,R1
+  00000556 6FC10018               MOV.W       R1,@(H'0018:16,ER4)
+  0000055A 5A000000               JMP         @L7699:24
+  0000055E                    L7697:                                
+  0000055E 6E710008               MOV.B       @(8:16,SP),R1H
+  00000562 1899                   SUB.B       R1L,R1L
+  00000564 6E780009               MOV.B       @(9:16,SP),R0L
+  00000568 1750                   EXTU.W      R0
+  0000056A 0901                   ADD.W       R0,R1
+  0000056C 7A0400000000           MOV.L       #_g_MoTeC1_data,ER4
+  00000572 6FC1000E               MOV.W       R1,@(H'000E:16,ER4)
+  00000576 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  0000057A 1899                   SUB.B       R1L,R1L
+  0000057C 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000580 0901                   ADD.W       R0,R1
+  00000582 6FC10010               MOV.W       R1,@(H'0010:16,ER4)
+  00000586 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  0000058A 1899                   SUB.B       R1L,R1L
+  0000058C 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  00000590 0901                   ADD.W       R0,R1
+  00000592 6FC10012               MOV.W       R1,@(H'0012:16,ER4)
+  00000596 5A000000               JMP         @L7699:24
+  0000059A                    L7696:                                
+  0000059A 6E710008               MOV.B       @(8:16,SP),R1H
+  0000059E 1899                   SUB.B       R1L,R1L
+  000005A0 6E780009               MOV.B       @(9:16,SP),R0L
+  000005A4 1750                   EXTU.W      R0
+  000005A6 0901                   ADD.W       R0,R1
+  000005A8 7A0400000000           MOV.L       #_g_MoTeC1_data,ER4
+  000005AE 6FC10006               MOV.W       R1,@(6:16,ER4)
+  000005B2 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000005B6 1899                   SUB.B       R1L,R1L
+  000005B8 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000005BC 0901                   ADD.W       R0,R1
+  000005BE 6FC10008               MOV.W       R1,@(8:16,ER4)
+  000005C2 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  000005C6 1899                   SUB.B       R1L,R1L
+  000005C8 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  000005CC 0901                   ADD.W       R0,R1
+  000005CE 6FC1000A               MOV.W       R1,@(H'000A:16,ER4)
+  000005D2 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  000005D6 1899                   SUB.B       R1L,R1L
+  000005D8 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  000005DC 0901                   ADD.W       R0,R1
+  000005DE 6FC1000C               MOV.W       R1,@(H'000C:16,ER4)
+  000005E2 5A000000               JMP         @L7699:24
+  000005E6                    L7695:                                
+  000005E6 6E710008               MOV.B       @(8:16,SP),R1H
+  000005EA 1899                   SUB.B       R1L,R1L
+  000005EC 6E780009               MOV.B       @(9:16,SP),R0L
+  000005F0 1750                   EXTU.W      R0
+  000005F2 0901                   ADD.W       R0,R1
+  000005F4 7A0400000000           MOV.L       #_g_MoTeC1_data,ER4
+  000005FA 69C1                   MOV.W       R1,@ER4
+  000005FC 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  00000600 1899                   SUB.B       R1L,R1L
+  00000602 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000606 0901                   ADD.W       R0,R1
+  00000608 6FC10002               MOV.W       R1,@(2:16,ER4)
+  0000060C 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  00000610 1899                   SUB.B       R1L,R1L
+  00000612 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000616 0901                   ADD.W       R0,R1
+  00000618 6FC10004               MOV.W       R1,@(4:16,ER4)
+  0000061C 5A000000               JMP         @L7699:24
+  00000620                    L7760:                                
+       331:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       332:                                default: break;
+       333:                }
+       334:            }
+       335:            else if (g_e2p_data.E2P_1.model == Haltech1)
+  00000620 6A3800000000A002       CMP.B       #2:8,@(_g_e2p_data+2):32
+  00000628 58600000               BNE         L7770:16
+       336:            {
+       337:                switch(msgID)
+  0000062C 7968FF00               AND.W       #H'FF00:16,E0
+  00000630 58600000               BNE         L7699:16
+  00000634 A910                   CMP.B       #H'10:8,R1L
+  00000636 58700000               BEQ         L7700:16
+  0000063A A911                   CMP.B       #H'11:8,R1L
+  0000063C 58700000               BEQ         L7701:16
+  00000640 A912                   CMP.B       #H'12:8,R1L
+  00000642 4700                   BEQ         L7702:8
+  00000644 A913                   CMP.B       #H'13:8,R1L
+  00000646 58600000               BNE         L7699:16
+       338:                {
+       339:                    case 0x010:
+       340:                                g_Haltech1_data.RPM                 = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       341:                                g_Haltech1_data.GroundSpeed         = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       342:                                g_Haltech1_data.OilPressure         = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       343:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       344:                                break;
+       345:                    case 0x011:
+       346:                                g_Haltech1_data.EngineTemp          = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       347:                                g_Haltech1_data.FuelPressure        = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       348:                                g_Haltech1_data.BatteryVoltage      = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       349:                                g_Haltech1_data.ThrottlePosition    = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       350:                                break;
+       351:                    case 0x012:
+       352:                                g_Haltech1_data.ManifoldPressure    = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       353:                                g_Haltech1_data.InletAirTemp        = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       354:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       355:                                g_Haltech1_data.Lambda              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       356:                                break;
+       357:                    case 0x013:
+       358:                                g_Haltech1_data.IgnitionAdvance     = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+  0000064A 6E710008               MOV.B       @(8:16,SP),R1H
+  0000064E 1899                   SUB.B       R1L,R1L
+  00000650 6E780009               MOV.B       @(9:16,SP),R0L
+  00000654 1750                   EXTU.W      R0
+  00000656 0901                   ADD.W       R0,R1
+  00000658 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000014):32
+       359:                                g_Haltech1_data.Gear                = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+  0000065E 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  00000662 1899                   SUB.B       R1L,R1L
+  00000664 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000668 0901                   ADD.W       R0,R1
+  0000066A 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000016):32
+       360:                                g_Haltech1_data.InjectorDuty        = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+  00000670 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  00000674 1899                   SUB.B       R1L,R1L
+  00000676 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  0000067A 0901                   ADD.W       R0,R1
+  0000067C 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000018):32
+  00000682 5A000000               JMP         @L7699:24
+  00000686                    L7702:                                
+  00000686 6E710008               MOV.B       @(8:16,SP),R1H
+  0000068A 1899                   SUB.B       R1L,R1L
+  0000068C 6E780009               MOV.B       @(9:16,SP),R0L
+  00000690 1750                   EXTU.W      R0
+  00000692 0901                   ADD.W       R0,R1
+  00000694 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'0000000E):32
+  0000069A 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  0000069E 1899                   SUB.B       R1L,R1L
+  000006A0 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000006A4 0901                   ADD.W       R0,R1
+  000006A6 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000010):32
+  000006AC 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  000006B0 1899                   SUB.B       R1L,R1L
+  000006B2 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  000006B6 0901                   ADD.W       R0,R1
+  000006B8 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'00000012):32
+  000006BE 5A000000               JMP         @L7699:24
+  000006C2                    L7701:                                
+  000006C2 6E710008               MOV.B       @(8:16,SP),R1H
+  000006C6 1899                   SUB.B       R1L,R1L
+  000006C8 6E780009               MOV.B       @(9:16,SP),R0L
+  000006CC 1750                   EXTU.W      R0
+  000006CE 0901                   ADD.W       R0,R1
+  000006D0 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+6):32
+  000006D6 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000006DA 1899                   SUB.B       R1L,R1L
+  000006DC 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000006E0 0901                   ADD.W       R0,R1
+  000006E2 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+8):32
+  000006E8 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  000006EC 1899                   SUB.B       R1L,R1L
+  000006EE 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  000006F2 0901                   ADD.W       R0,R1
+  000006F4 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'0000000A):32
+  000006FA 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  000006FE 1899                   SUB.B       R1L,R1L
+  00000700 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  00000704 0901                   ADD.W       R0,R1
+  00000706 6BA100000000           MOV.W       R1,@(_g_Haltech1_data+H'0000000C):32
+  0000070C 5A000000               JMP         @L7699:24
+  00000710                    L7700:                                
+  00000710 6E710008               MOV.B       @(8:16,SP),R1H
+  00000714 1899                   SUB.B       R1L,R1L
+  00000716 6E780009               MOV.B       @(9:16,SP),R0L
+  0000071A 1750                   EXTU.W      R0
+  0000071C 0901                   ADD.W       R0,R1
+  0000071E 7A0500000000           MOV.L       #_g_Haltech1_data,ER5
+  00000724 69D1                   MOV.W       R1,@ER5
+  00000726 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  0000072A 1899                   SUB.B       R1L,R1L
+  0000072C 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000730 0901                   ADD.W       R0,R1
+  00000732 6FD10002               MOV.W       R1,@(2:16,ER5)
+  00000736 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  0000073A 1899                   SUB.B       R1L,R1L
+  0000073C 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000740 0901                   ADD.W       R0,R1
+  00000742 6FD10004               MOV.W       R1,@(4:16,ER5)
+  00000746 5A000000               JMP         @L7699:24
+  0000074A                    L7770:                                
+       361:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       362:                                default: break;
+       363:                }
+       364:            }
+       365:            else if (g_e2p_data.E2P_1.model == Haltech2)
+  0000074A 6A3800000000A003       CMP.B       #3:8,@(_g_e2p_data+2):32
+  00000752 58600000               BNE         L7699:16
+       366:            {
+       367:                switch(msgID)
+  00000756 79280360               CMP.W       #H'0360:16,E0
+  0000075A 58700000               BEQ         L7705:16
+  0000075E 79280361               CMP.W       #H'0361:16,E0
+  00000762 58700000               BEQ         L7706:16
+  00000766 79280362               CMP.W       #H'0362:16,E0
+  0000076A 58700000               BEQ         L7707:16
+  0000076E 79280368               CMP.W       #H'0368:16,E0
+  00000772 58700000               BEQ         L7708:16
+  00000776 79280370               CMP.W       #H'0370:16,E0
+  0000077A 58700000               BEQ         L7709:16
+  0000077E 79280372               CMP.W       #H'0372:16,E0
+  00000782 58700000               BEQ         L7710:16
+  00000786 79280373               CMP.W       #H'0373:16,E0
+  0000078A 4700                   BEQ         L7711:8
+  0000078C 792803E0               CMP.W       #H'03E0:16,E0
+  00000790 58600000               BNE         L7699:16
+       368:                {
+       369:                    case 0x360:
+       370:                                g_Haltech2_data.RPM                 = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       371:                                g_Haltech2_data.ManifoldPressure    = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       372:                                g_Haltech2_data.ThrottlePosition    = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       373:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       374:                                break;
+       375:                    case 0x361:
+       376:                                g_Haltech2_data.FuelPressure        = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       377:                                g_Haltech2_data.OilPressure         = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       378:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       379:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       380:                                break;
+       381:                    case 0x362:
+       382:                                g_Haltech2_data.InjectorDuty        = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       383:                                // N/A                              = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       384:                                g_Haltech2_data.IgnitionAdvance1    = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       385:                                g_Haltech2_data.IgnitionAdvance2    = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       386:                                break;
+       387:                    case 0x368:
+       388:                                g_Haltech2_data.Lambda              = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       389:                                // N/A                              = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       390:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       391:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       392:                                break;
+       393:                    case 0x370:
+       394:                                g_Haltech2_data.GroundSpeed         = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       395:                                g_Haltech2_data.Gear                = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       396:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       397:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       398:                                break;
+       399:                    case 0x372:
+       400:                                g_Haltech2_data.BatteryVoltage      = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       401:                                g_Haltech2_data.InletAirTemp2       = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       402:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       403:                                g_Haltech2_data.BaroPressure        = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       404:                                break;
+       405:                    case 0x373:
+       406:                                g_Haltech2_data.EGT                 = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+       407:                                // N/A                              = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+       408:                                // N/A                              = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+       409:                                // N/A                              = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+       410:                                break;
+       411:                    case 0x3E0:
+       412:                                g_Haltech2_data.EngineTemp          = ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+  00000794 6E710008               MOV.B       @(8:16,SP),R1H
+  00000798 1899                   SUB.B       R1L,R1L
+  0000079A 6E780009               MOV.B       @(9:16,SP),R0L
+  0000079E 1750                   EXTU.W      R0
+  000007A0 0901                   ADD.W       R0,R1
+  000007A2 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000001E):32
+       413:                                g_Haltech2_data.InletAirTemp1       = ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+  000007A8 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000007AC 1899                   SUB.B       R1L,R1L
+  000007AE 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000007B2 0901                   ADD.W       R0,R1
+  000007B4 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000020):32
+       414:                                g_Haltech2_data.FuelTemp            = ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+  000007BA 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  000007BE 1899                   SUB.B       R1L,R1L
+  000007C0 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  000007C4 0901                   ADD.W       R0,R1
+  000007C6 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000022):32
+       415:                                g_Haltech2_data.OilTemp             = ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+  000007CC 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  000007D0 1899                   SUB.B       R1L,R1L
+  000007D2 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  000007D6 0901                   ADD.W       R0,R1
+  000007D8 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000024):32
+  000007DE 5A000000               JMP         @L7699:24
+  000007E2                    L7711:                                
+  000007E2 6E710008               MOV.B       @(8:16,SP),R1H
+  000007E6 1899                   SUB.B       R1L,R1L
+  000007E8 6E780009               MOV.B       @(9:16,SP),R0L
+  000007EC 1750                   EXTU.W      R0
+  000007EE 0910                   ADD.W       R1,R0
+  000007F0 6BA000000000           MOV.W       R0,@(_g_Haltech2_data+H'0000001C):32
+  000007F6 5A000000               JMP         @L7699:24
+  000007FA                    L7710:                                
+  000007FA 6E710008               MOV.B       @(8:16,SP),R1H
+  000007FE 1899                   SUB.B       R1L,R1L
+  00000800 6E780009               MOV.B       @(9:16,SP),R0L
+  00000804 1750                   EXTU.W      R0
+  00000806 0901                   ADD.W       R0,R1
+  00000808 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000016):32
+  0000080E 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  00000812 1899                   SUB.B       R1L,R1L
+  00000814 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000818 0901                   ADD.W       R0,R1
+  0000081A 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000018):32
+  00000820 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  00000824 1899                   SUB.B       R1L,R1L
+  00000826 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  0000082A 0901                   ADD.W       R0,R1
+  0000082C 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000001A):32
+  00000832 5A000000               JMP         @L7699:24
+  00000836                    L7709:                                
+  00000836 6E710008               MOV.B       @(8:16,SP),R1H
+  0000083A 1899                   SUB.B       R1L,R1L
+  0000083C 6E780009               MOV.B       @(9:16,SP),R0L
+  00000840 1750                   EXTU.W      R0
+  00000842 0901                   ADD.W       R0,R1
+  00000844 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000012):32
+  0000084A 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  0000084E 1899                   SUB.B       R1L,R1L
+  00000850 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  00000854 0901                   ADD.W       R0,R1
+  00000856 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'00000014):32
+  0000085C 5A000000               JMP         @L7699:24
+  00000860                    L7708:                                
+  00000860 6E710008               MOV.B       @(8:16,SP),R1H
+  00000864 1899                   SUB.B       R1L,R1L
+  00000866 6E780009               MOV.B       @(9:16,SP),R0L
+  0000086A 1750                   EXTU.W      R0
+  0000086C 0910                   ADD.W       R1,R0
+  0000086E 6BA000000000           MOV.W       R0,@(_g_Haltech2_data+H'00000010):32
+  00000874 5A000000               JMP         @L7699:24
+  00000878                    L7707:                                
+  00000878 6E710008               MOV.B       @(8:16,SP),R1H
+  0000087C 1899                   SUB.B       R1L,R1L
+  0000087E 6E780009               MOV.B       @(9:16,SP),R0L
+  00000882 1750                   EXTU.W      R0
+  00000884 0901                   ADD.W       R0,R1
+  00000886 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000000A):32
+  0000088C 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  00000890 1899                   SUB.B       R1L,R1L
+  00000892 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  00000896 0901                   ADD.W       R0,R1
+  00000898 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000000C):32
+  0000089E 6E71000E               MOV.B       @(H'000E:16,SP),R1H
+  000008A2 1899                   SUB.B       R1L,R1L
+  000008A4 6E78000F               MOV.B       @(H'000F:16,SP),R0L
+  000008A8 0901                   ADD.W       R0,R1
+  000008AA 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+H'0000000E):32
+  000008B0 4000                   BRA         L7699:8
+  000008B2                    L7706:                                
+  000008B2 6E710008               MOV.B       @(8:16,SP),R1H
+  000008B6 1899                   SUB.B       R1L,R1L
+  000008B8 6E780009               MOV.B       @(9:16,SP),R0L
+  000008BC 1750                   EXTU.W      R0
+  000008BE 0901                   ADD.W       R0,R1
+  000008C0 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+6):32
+  000008C6 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000008CA 1899                   SUB.B       R1L,R1L
+  000008CC 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000008D0 0901                   ADD.W       R0,R1
+  000008D2 6BA100000000           MOV.W       R1,@(_g_Haltech2_data+8):32
+  000008D8 4000                   BRA         L7699:8
+  000008DA                    L7705:                                
+  000008DA 6E710008               MOV.B       @(8:16,SP),R1H
+  000008DE 1899                   SUB.B       R1L,R1L
+  000008E0 6E780009               MOV.B       @(9:16,SP),R0L
+  000008E4 1750                   EXTU.W      R0
+  000008E6 0901                   ADD.W       R0,R1
+  000008E8 7A0500000000           MOV.L       #_g_Haltech2_data,ER5
+  000008EE 69D1                   MOV.W       R1,@ER5
+  000008F0 6E71000A               MOV.B       @(H'000A:16,SP),R1H
+  000008F4 1899                   SUB.B       R1L,R1L
+  000008F6 6E78000B               MOV.B       @(H'000B:16,SP),R0L
+  000008FA 0901                   ADD.W       R0,R1
+  000008FC 6FD10002               MOV.W       R1,@(2:16,ER5)
+  00000900 6E71000C               MOV.B       @(H'000C:16,SP),R1H
+  00000904 1899                   SUB.B       R1L,R1L
+  00000906 6E78000D               MOV.B       @(H'000D:16,SP),R0L
+  0000090A 0901                   ADD.W       R0,R1
+  0000090C 6FD10004               MOV.W       R1,@(4:16,ER5)
+  00000910                    L7699:                                
+       416:                                default: break;
+       417:                }
+       418:            }
+       419:        }
+       420:        
+       421:        CANWriteReg(CANINTF, 0x00);
+  00000910 7900002C               MOV.W       #H'002C:16,R0
+  00000914 5E000000               JSR         @_CANWriteReg:24
+  00000918 79170010               ADD.W       #H'0010:16,R7
+  0000091C 5426                   RTS/L       (ER4-ER6)
+       422:    }
+       423:    
+       424:    volatile unsigned long dmy;
+       425:    
+       426:    // --------------------------------------------------------------------
+       427:    // 定期割り込みルーチン 50mSec毎
+       428:    // --------------------------------------------------------------------
+       429:    void Int_50msFunc(void)
+  0000091E                    _Int_50msFunc:                       ; function: Int_50msFunc
+  0000091E 01306DF2               STM.L       (ER2-ER5),@-SP
+  00000922 01006DF6               PUSH.L      ER6
+       430:    {
+       431:        // --------------------------------------------------------------------
+       432:        // ローカル変数宣言
+       433:        // --------------------------------------------------------------------
+       434:        unsigned long i;
+       435:        
+       436:        // --------------------------------------------------------------------
+       437:        // 割り込みフラグクリア
+       438:        // --------------------------------------------------------------------
+       439:        TPU0.TSR.BIT.TGFA = 0;
+  00000926 7A0600000000           MOV.L       #_g_master_warning_flg1,ER6
+  0000092C 7FC57200               BCLR.B      #0,@H'00FFFFC5:8
+       440:        
+       441:        // --------------------------------------------------------------------
+       442:        // TFT LCD リフレッシュ処理
+       443:        // --------------------------------------------------------------------
+       444:        Display_Home();
+  00000930 5E000000               JSR         @_Display_Home:24
+       445:        g_refresh_done = 1;
+  00000934 0F12                   MOV.W       #1:3,R2
+  00000936 6BA200000000           MOV.W       R2,@_g_refresh_done:32
+       446:        
+       447:        // --------------------------------------------------------------------
+       448:        // 50msecカウンタインクリメント
+       449:        // --------------------------------------------------------------------
+       450:        g_int50mscnt ++;
+  0000093C 010E481000000000       ADD.L       #1:16,@_g_int50mscnt:32
+           0001               
+       451:        
+       452:        // --------------------------------------------------------------------
+       453:        // マスターワーニング処理
+       454:        // --------------------------------------------------------------------
+       455:        if ((g_e2p_data.E2P_1.control.BIT.ms_on == 0)
+  00000946 6A30000000007760       BLD.B       #6,@(_g_e2p_data+3):32
+  0000094E 4500                   BCS         L7798:8
+  00000950 7DE01F10               CMP.W       #1:3,@ER6
+  00000954 4700                   BEQ         L7800:8
+  00000956 6B38000000001F10       CMP.W       #1:3,@_g_master_warning_flg2:32
+  0000095E 4700                   BEQ         L7800:8
+  00000960 6B38000000001F10       CMP.W       #1:3,@_g_master_warning_flg3:32
+  00000968 4700                   BEQ         L7800:8
+  0000096A 6B38000000001F10       CMP.W       #1:3,@_g_master_warning_flg4:32
+  00000972 4700                   BEQ         L7800:8
+  00000974 6B38000000001F10       CMP.W       #1:3,@_g_master_warning_flg5:32
+  0000097C 4700                   BEQ         L7800:8
+  0000097E 6B38000000001F10       CMP.W       #1:3,@_g_master_warning_flg6:32
+  00000986 4600                   BNE         L7798:8
+  00000988                    L7800:                                
+       456:        && ((g_master_warning_flg1 == 1)
+       457:        ||  (g_master_warning_flg2 == 1)
+       458:        ||  (g_master_warning_flg3 == 1)
+       459:        ||  (g_master_warning_flg4 == 1)
+       460:        ||  (g_master_warning_flg5 == 1)
+       461:        ||  (g_master_warning_flg6 == 1)))
+       462:        {
+       463:            master_warning_cnt ++;
+  00000988 7A0100000000           MOV.L       #__$master_warning_cnt,ER1
+  0000098E 6910                   MOV.W       @ER1,R0
+  00000990 0B50                   INC.W       #1,R0
+  00000992 6990                   MOV.W       R0,@ER1
+       464:            if(master_warning_cnt == 1)
+  00000994 1F10                   CMP.W       #1:3,R0
+  00000996 4600                   BNE         L7806:8
+       465:            {
+       466:                Beep_OneShotMax();
+  00000998 6BA200000000           MOV.W       R2,@_g_beep_oneshotmax_flg:32
+  0000099E 5A000000               JMP         @L7807:24
+  000009A2                    L7806:                                
+       467:            }
+       468:            else if(master_warning_cnt >= 10)
+  000009A2 7920000A               CMP.W       #H'000A:16,R0
+  000009A6 58500000               BLO         L7807:16
+       469:            {
+       470:                master_warning_cnt = 0;
+  000009AA 1900                   SUB.W       R0,R0
+  000009AC 6990                   MOV.W       R0,@ER1
+  000009AE 5A000000               JMP         @L7807:24
+  000009B2                    L7798:                                
+       471:            }
+       472:        }
+       473:        // --------------------------------------------------------------------
+       474:        // シフトタイミングランプ処理
+       475:        // --------------------------------------------------------------------
+       476:        else if(g_shift_timing_flg == 3)
+  000009B2 6B38000000001F30       CMP.W       #3:3,@_g_shift_timing_flg:32
+  000009BA 4600                   BNE         L7810:8
+       477:        {
+       478:            g_shift_timing_cnt ++;
+  000009BC 6B2000000000           MOV.W       @__$g_shift_timing_cnt:32,R0
+  000009C2 0B50                   INC.W       #1,R0
+  000009C4 6BA000000000           MOV.W       R0,@__$g_shift_timing_cnt:32
+       479:            
+       480:            if(g_shift_timing_cnt == 1)
+  000009CA 1F10                   CMP.W       #1:3,R0
+  000009CC 4700                   BEQ         L7812:8
+       481:            {
+       482:                Led_R_Min_ON();
+       483:                Led_O_Min_ON();
+       484:            }
+       485:            else if(g_shift_timing_cnt == 2)
+  000009CE 1F20                   CMP.W       #2:3,R0
+  000009D0 4600                   BNE         L7807:8
+       486:            {
+       487:                Led_R_Min_OFF();
+  000009D2 6BF000000000           MOV.W       #0:4,@_g_led_r_min_flg:32
+       488:                Led_O_Min_OFF();
+  000009D8 6BF000000000           MOV.W       #0:4,@_g_led_o_min_flg:32
+       489:                g_shift_timing_cnt = 0;
+  000009DE 1900                   SUB.W       R0,R0
+  000009E0 6BA000000000           MOV.W       R0,@__$g_shift_timing_cnt:32
+  000009E6 4000                   BRA         L7807:8
+  000009E8                    L7810:                                
+       490:            }
+       491:        }
+       492:        else if(g_shift_timing_flg == 2)
+  000009E8 6B38000000001F20       CMP.W       #2:3,@_g_shift_timing_flg:32
+  000009F0 4700                   BEQ         L7812:8
+       493:        {
+       494:            Led_R_Min_ON();
+       495:            Led_O_Min_ON();
+       496:        }
+       497:        else if(g_shift_timing_flg == 1)
+  000009F2 6B38000000001F10       CMP.W       #1:3,@_g_shift_timing_flg:32
+  000009FA 4600                   BNE         L7816:8
+       498:        {
+       499:            Led_R_Min_OFF();
+  000009FC 6BF000000000           MOV.W       #0:4,@_g_led_r_min_flg:32
+  00000A02 4000                   BRA         L7817:8
+  00000A04                    L7816:                                
+       500:            Led_O_Min_ON();
+       501:        }
+       502:        else
+       503:        {
+       504:            master_warning_cnt = 0;
+  00000A04 1900                   SUB.W       R0,R0
+  00000A06 6BA000000000           MOV.W       R0,@__$master_warning_cnt:32
+       505:            Led_R_Min_OFF();
+  00000A0C 6BF000000000           MOV.W       #0:4,@_g_led_r_min_flg:32
+       506:            Led_O_Min_OFF();
+  00000A12 6BF000000000           MOV.W       #0:4,@_g_led_o_min_flg:32
+  00000A18 4000                   BRA         L7807:8
+  00000A1A                    L7812:                                
+  00000A1A 6BA200000000           MOV.W       R2,@_g_led_r_min_flg:32
+  00000A20                    L7817:                                
+  00000A20 6BA200000000           MOV.W       R2,@_g_led_o_min_flg:32
+  00000A26                    L7807:                                
+       507:        }
+       508:        
+       509:        // --------------------------------------------------------------------
+       510:        // タッチパネル入力処理
+       511:        // --------------------------------------------------------------------
+       512:        Touch_Read();
+  00000A26 7A0400000000           MOV.L       #_g_TouchY,ER4
+  00000A2C 5E000000               JSR         @_Touch_Read:24
+       513:        
+       514:        // --------------------------------------------------------------------
+       515:        // タッチパネル押下判断
+       516:        // --------------------------------------------------------------------
+       517:        Touch_Decision();
+       518:        
+       519:        // --------------------------------------------------------------------
+       520:        // ブザー制御
+       521:        // --------------------------------------------------------------------
+       522:        if(g_e2p_data.E2P_1.control.BIT.beep_on == 0)   // ブザー on/off 設定により有効の時
+       523:        {
+       524:            Beep_OneShotMin_control();                  // 小ブザー 1ショット 処理
+       525:            Beep_OneShotMax_control();                  // 大ブザー 1ショット 処理
+       526:            Beep_TwoShotMin_control();                  // 小ブザー 2ショット 処理
+       527:        }
+       528:        else                                            // ブザー on/off 設定により無効の時
+       529:        {
+       530:            TPU3.TGRD = 0x0000;
+       531:            g_beep_oneshotmin_flg = 0;
+       532:            Beep_OneShotMin_cnt = 0;
+       533:            g_beep_oneshotmax_flg = 0;
+       534:            Beep_OneShotMax_cnt = 0;
+       535:            g_beep_twoshotmin_flg = 0;
+       536:            Beep_TwoShotMin_cnt = 0;
+       537:        }
+       538:        // --------------------------------------------------------------------
+       539:        // FPS計測カウンタインクリメント
+       540:        // --------------------------------------------------------------------
+       541:        g_fps_cnt ++;
+       542:        if(g_fps_cnt == 20)
+       543:        {
+       544:            g_fps_max = g_fps;
+       545:            g_fps = 0;
+       546:            g_fps_cnt = 0;
+       547:        }
+       548:        else
+       549:        {
+       550:            //
+       551:        }
+       552:        
+       553:        // --------------------------------------------------------------------
+       554:        // EXDMA転送時間待機
+       555:        // --------------------------------------------------------------------
+       556:        for(i = 0; i <= 60000; i++) dmy = i;
+       557:    }
+       558:    
+       559:    
+       560:    // --------------------------------------------------------------------
+       561:    // タッチパネル押下判断
+       562:    // --------------------------------------------------------------------
+       563:    static void Touch_Decision(void)
+       564:    {
+       565:        if((g_TouchX != 0) || (g_TouchY != 0))              // タッチ無しでは無い場合
+  00000A30 6B2000000000           MOV.W       @_g_TouchX:32,R0
+  00000A36 4600                   BNE         L7819:8
+  00000A38 6940                   MOV.W       @ER4,R0
+  00000A3A 4700                   BEQ         L7820:8
+  00000A3C                    L7819:                                
+       566:        {
+       567:            if((g_TouchX != 999) || (g_TouchY != 999))      // 半押し判定では無い場合
+  00000A3C 015E482000000000       CMP.W       #H'03E7:16,@_g_TouchX:32
+           03E7               
+  00000A46 4600                   BNE         L7822:8
+  00000A48 015E042003E7           CMP.W       #H'03E7:16,@ER4
+  00000A4E 4600                   BNE         L7822:8
+  00000A50                    L7820:                                
+  00000A50 1900                   SUB.W       R0,R0
+  00000A52 6BA000000000           MOV.W       R0,@__$touch_cnt:32
+  00000A58 4000                   BRA         L7823:8
+  00000A5A                    L7822:                                
+       568:            {
+       569:                touch_cnt ++;       // 押下時カウントアップ
+  00000A5A 7A0100000000           MOV.L       #__$touch_cnt,ER1
+  00000A60 6910                   MOV.W       @ER1,R0
+  00000A62 0B50                   INC.W       #1,R0
+       570:                if(touch_cnt > 10)
+  00000A64 7920000A               CMP.W       #H'000A:16,R0
+  00000A68 4300                   BLS         L7890:8
+       571:                touch_cnt = 10;     // リミット
+  00000A6A 7900000A               MOV.W       #H'000A:16,R0
+  00000A6E                    L7890:                                
+  00000A6E 6990                   MOV.W       R0,@ER1
+  00000A70                    L7823:                                
+       572:            }
+       573:            else
+       574:            {
+       575:                touch_cnt = 0;      // リリースクリア
+       576:            }
+       577:        }
+       578:        else
+       579:        {
+       580:            touch_cnt = 0;          // リリースクリア
+       581:        }
+       582:        
+       583:        if(touch_cnt == 1)          // 押下1回につき
+  00000A70 1F10                   CMP.W       #1:3,R0
+  00000A72 58600000               BNE         L7826:16
+       584:        {
+       585:            // マスターワーニング解除
+       586:            if(g_master_warning_flg1 == 1)g_master_warning_flg1 = 2;
+  00000A76 7DE01F10               CMP.W       #1:3,@ER6
+  00000A7A 4600                   BNE         L7828:8
+  00000A7C 015D0602               MOV.W       #2:8,@ER6
+  00000A80                    L7828:                                
+       587:            if(g_master_warning_flg2 == 1)g_master_warning_flg2 = 2;
+  00000A80 7A0100000000           MOV.L       #_g_master_warning_flg2,ER1
+  00000A86 7D901F10               CMP.W       #1:3,@ER1
+  00000A8A 4600                   BNE         L7830:8
+  00000A8C 015D0102               MOV.W       #2:8,@ER1
+  00000A90                    L7830:                                
+       588:            if(g_master_warning_flg3 == 1)g_master_warning_flg3 = 2;
+  00000A90 7A0100000000           MOV.L       #_g_master_warning_flg3,ER1
+  00000A96 7D901F10               CMP.W       #1:3,@ER1
+  00000A9A 4600                   BNE         L7832:8
+  00000A9C 015D0102               MOV.W       #2:8,@ER1
+  00000AA0                    L7832:                                
+       589:            if(g_master_warning_flg4 == 1)g_master_warning_flg4 = 2;
+  00000AA0 7A0100000000           MOV.L       #_g_master_warning_flg4,ER1
+  00000AA6 7D901F10               CMP.W       #1:3,@ER1
+  00000AAA 4600                   BNE         L7834:8
+  00000AAC 015D0102               MOV.W       #2:8,@ER1
+  00000AB0                    L7834:                                
+       590:            if(g_master_warning_flg5 == 1)g_master_warning_flg5 = 2;
+  00000AB0 7A0100000000           MOV.L       #_g_master_warning_flg5,ER1
+  00000AB6 7D901F10               CMP.W       #1:3,@ER1
+  00000ABA 4600                   BNE         L7836:8
+  00000ABC 015D0102               MOV.W       #2:8,@ER1
+  00000AC0                    L7836:                                
+       591:            if(g_master_warning_flg6 == 1)g_master_warning_flg6 = 2;
+  00000AC0 7A0100000000           MOV.L       #_g_master_warning_flg6,ER1
+  00000AC6 7D901F10               CMP.W       #1:3,@ER1
+  00000ACA 4600                   BNE         L7838:8
+  00000ACC 015D0102               MOV.W       #2:8,@ER1
+  00000AD0                    L7838:                                
+       592:            Beep_OneShotMin();      // ブザー小
+  00000AD0 6BA200000000           MOV.W       R2,@_g_beep_oneshotmin_flg:32
+       593:            touch_done_flg = 1;     // タッチ押下判定発行
+  00000AD6 6BA200000000           MOV.W       R2,@_touch_done_flg:32
+       594:            g_PressX = g_TouchX;    // 押下X座標
+  00000ADC 0158484800000000       MOV.W       @_g_TouchX:32,@_g_PressX:32
+           00000000           
+       595:            g_PressY = g_TouchY;
+  00000AE8 0158044800000000       MOV.W       @ER4,@_g_PressY:32
+  00000AF0                    L7826:                                
+       596:        }
+       597:        else
+       598:        {
+       599:            //
+       600:        }
+       601:        if(touch_cnt >= 2)          // 連続押下の時
+  00000AF0 1F20                   CMP.W       #2:3,R0
+  00000AF2 4500                   BLO         L7840:8
+       602:        {
+       603:        //  Beep_OneShotMin();      // ブザー小
+       604:            touch_drag_flg = 1;     // ドラッグ判定発行
+  00000AF4 6BA200000000           MOV.W       R2,@_touch_drag_flg:32
+       605:            g_DragX = g_TouchX;     // 押下X座標
+  00000AFA 0158484800000000       MOV.W       @_g_TouchX:32,@_g_DragX:32
+           00000000           
+       606:            g_DragY = g_TouchY;
+  00000B06 0158044800000000       MOV.W       @ER4,@_g_DragY:32
+  00000B0E                    L7840:                                
+  00000B0E 6A2800000000           MOV.B       @(_g_e2p_data+3):32,R0L
+  00000B14 58B00000               BMI         L7842:16
+       607:        }
+       608:        else
+       609:        {
+       610:            //
+       611:        }
+       612:    }
+       613:    
+       614:    // --------------------------------------------------------------------
+       615:    // 小ブザー 1ショット 処理
+       616:    // --------------------------------------------------------------------
+       617:    static void Beep_OneShotMin_control(void)
+       618:    {
+       619:        if(g_beep_oneshotmin_flg == 1)
+  00000B18 7A0300000000           MOV.L       #_g_beep_oneshotmin_flg,ER3
+  00000B1E 7DB01F10               CMP.W       #1:3,@ER3
+  00000B22 4600                   BNE         L7844:8
+       620:        {
+       621:            g_beep_oneshotmin_flg = 2;
+  00000B24 015D0302               MOV.W       #2:8,@ER3
+       622:            Beep_OneShotMin_cnt = 0;
+  00000B28 1900                   SUB.W       R0,R0
+  00000B2A 6BA000000000           MOV.W       R0,@__$Beep_OneShotMin_cnt:32
+  00000B30                    L7844:                                
+       623:        }
+       624:        else
+       625:        {
+       626:            //
+       627:        }
+       628:        
+       629:        if(g_beep_oneshotmin_flg == 2)
+  00000B30 7DB01F20               CMP.W       #2:3,@ER3
+  00000B34 4600                   BNE         L7846:8
+       630:        {
+       631:            TPU3.TGRD = 0x0100;
+  00000B36 797401004000FFFE       MOV.W       #H'0100:16,@H'00FFFFFE:16
+       632:            Beep_OneShotMin_cnt ++;
+  00000B3E 7A0100000000           MOV.L       #__$Beep_OneShotMin_cnt,ER1
+  00000B44 6910                   MOV.W       @ER1,R0
+  00000B46 0B50                   INC.W       #1,R0
+       633:        
+       634:            if(Beep_OneShotMin_cnt >= 2)    // 0.1sec経過
+  00000B48 1F20                   CMP.W       #2:3,R0
+  00000B4A 4500                   BLO         L7891:8
+       635:            {
+       636:                TPU3.TGRD = 0x0000;
+  00000B4C 6BD0FFFE               MOV.W       #0:4,@H'00FFFFFE:16
+       637:                g_beep_oneshotmin_flg = 0;
+  00000B50 015D0300               MOV.W       #0:8,@ER3
+       638:                Beep_OneShotMin_cnt = 0;
+  00000B54 1900                   SUB.W       R0,R0
+  00000B56                    L7891:                                
+  00000B56 6990                   MOV.W       R0,@ER1
+  00000B58                    L7846:                                
+       639:            }
+       640:            else
+       641:            {
+       642:                //
+       643:            }
+       644:        }
+       645:    }
+       646:    
+       647:    // --------------------------------------------------------------------
+       648:    // 大ブザー 1ショット 処理
+       649:    // --------------------------------------------------------------------
+       650:    static void Beep_OneShotMax_control(void)
+       651:    {
+       652:        if(g_beep_oneshotmax_flg == 1)
+  00000B58 7A0300000000           MOV.L       #_g_beep_oneshotmax_flg,ER3
+  00000B5E 7DB01F10               CMP.W       #1:3,@ER3
+  00000B62 4600                   BNE         L7849:8
+       653:        {
+       654:            g_beep_oneshotmax_flg = 2;
+  00000B64 015D0302               MOV.W       #2:8,@ER3
+       655:            Beep_OneShotMax_cnt = 0;
+  00000B68 1900                   SUB.W       R0,R0
+  00000B6A 6BA000000000           MOV.W       R0,@__$Beep_OneShotMax_cnt:32
+  00000B70                    L7849:                                
+       656:        }
+       657:        else
+       658:        {
+       659:            //
+       660:        }
+       661:        
+       662:        if(g_beep_oneshotmax_flg == 2)
+  00000B70 7DB01F20               CMP.W       #2:3,@ER3
+  00000B74 4600                   BNE         L7851:8
+       663:        {
+       664:            TPU3.TGRD = 0x0BB8;
+  00000B76 79740BB84000FFFE       MOV.W       #H'0BB8:16,@H'00FFFFFE:16
+       665:            Led_R_Min_ON();
+  00000B7E 7A0500000000           MOV.L       #_g_led_r_min_flg,ER5
+  00000B84 69D2                   MOV.W       R2,@ER5
+       666:            Led_O_Min_OFF();
+  00000B86 7A0400000000           MOV.L       #_g_led_o_min_flg,ER4
+  00000B8C 015D0400               MOV.W       #0:8,@ER4
+       667:            Beep_OneShotMax_cnt ++;
+  00000B90 7A0100000000           MOV.L       #__$Beep_OneShotMax_cnt,ER1
+  00000B96 6910                   MOV.W       @ER1,R0
+  00000B98 0B50                   INC.W       #1,R0
+       668:        
+       669:            if(Beep_OneShotMax_cnt >= 5)    // 0.25sec経過
+  00000B9A 1F50                   CMP.W       #5:3,R0
+  00000B9C 4500                   BLO         L7892:8
+       670:            {
+       671:                TPU3.TGRD = 0x0000;
+  00000B9E 6BD0FFFE               MOV.W       #0:4,@H'00FFFFFE:16
+       672:                Led_R_Min_OFF();
+  00000BA2 015D0500               MOV.W       #0:8,@ER5
+       673:                Led_O_Min_OFF();
+  00000BA6 015D0400               MOV.W       #0:8,@ER4
+       674:                g_beep_oneshotmax_flg = 0;
+  00000BAA 015D0300               MOV.W       #0:8,@ER3
+       675:                Beep_OneShotMax_cnt = 0;
+  00000BAE 1900                   SUB.W       R0,R0
+  00000BB0                    L7892:                                
+  00000BB0 6990                   MOV.W       R0,@ER1
+  00000BB2                    L7851:                                
+       676:            }
+       677:            else
+       678:            {
+       679:                //
+       680:            }
+       681:        }
+       682:    }
+       683:    
+       684:    // --------------------------------------------------------------------
+       685:    // 小ブザー 2ショット 処理
+       686:    // --------------------------------------------------------------------
+       687:    static void Beep_TwoShotMin_control(void)
+       688:    {
+       689:        if(g_beep_twoshotmin_flg == 1)
+  00000BB2 7A0200000000           MOV.L       #_g_beep_twoshotmin_flg,ER2
+  00000BB8 7DA01F10               CMP.W       #1:3,@ER2
+  00000BBC 4600                   BNE         L7854:8
+       690:        {
+       691:            g_beep_twoshotmin_flg = 2;
+  00000BBE 015D0202               MOV.W       #2:8,@ER2
+       692:            Beep_TwoShotMin_cnt = 0;
+  00000BC2 1900                   SUB.W       R0,R0
+  00000BC4 6BA000000000           MOV.W       R0,@__$Beep_TwoShotMin_cnt:32
+  00000BCA                    L7854:                                
+       693:        }
+       694:        else
+       695:        {
+       696:            //
+       697:        }
+       698:        
+       699:        if(g_beep_twoshotmin_flg == 2)
+  00000BCA 7DA01F20               CMP.W       #2:3,@ER2
+  00000BCE 4600                   BNE         L7856:8
+       700:        {
+       701:            Beep_TwoShotMin_cnt ++;
+  00000BD0 7A0100000000           MOV.L       #__$Beep_TwoShotMin_cnt,ER1
+  00000BD6 6910                   MOV.W       @ER1,R0
+  00000BD8 0B50                   INC.W       #1,R0
+  00000BDA 6990                   MOV.W       R0,@ER1
+       702:        
+       703:            if     (Beep_TwoShotMin_cnt == 1)   // 0.00sec経過
+  00000BDC 1F10                   CMP.W       #1:3,R0
+  00000BDE 4700                   BEQ         L7858:8
+       704:            {
+       705:                TPU3.TGRD = 0x0100;
+       706:            }
+       707:            else if(Beep_TwoShotMin_cnt == 2)   // 0.05sec経過
+  00000BE0 1F20                   CMP.W       #2:3,R0
+  00000BE2 4600                   BNE         L7860:8
+       708:            {
+       709:                TPU3.TGRD = 0x0000;
+  00000BE4 6BD0FFFE               MOV.W       #0:4,@H'00FFFFFE:16
+  00000BE8 4000                   BRA         L7856:8
+  00000BEA                    L7860:                                
+       710:            }
+       711:            else if(Beep_TwoShotMin_cnt == 3)   // 0.10sec経過
+  00000BEA 1F30                   CMP.W       #3:3,R0
+  00000BEC 4700                   BEQ         L7858:8
+       712:            {
+       713:                TPU3.TGRD = 0x0100;
+       714:            }
+       715:            else if(Beep_TwoShotMin_cnt >= 4)   // 0.20sec経過
+  00000BEE 1F40                   CMP.W       #4:3,R0
+  00000BF0 4500                   BLO         L7856:8
+       716:            {
+       717:                TPU3.TGRD = 0x0000;
+  00000BF2 6BD0FFFE               MOV.W       #0:4,@H'00FFFFFE:16
+  00000BF6 4000                   BRA         L7863:8
+  00000BF8                    L7858:                                
+  00000BF8 797401004000FFFE       MOV.W       #H'0100:16,@H'00FFFFFE:16
+  00000C00 4000                   BRA         L7856:8
+  00000C02                    L7842:                                
+  00000C02 6BD0FFFE               MOV.W       #0:4,@H'00FFFFFE:16
+  00000C06 6BF000000000           MOV.W       #0:4,@_g_beep_oneshotmin_flg:32
+  00000C0C 1900                   SUB.W       R0,R0
+  00000C0E 6BA000000000           MOV.W       R0,@__$Beep_OneShotMin_cnt:32
+  00000C14 6BF000000000           MOV.W       #0:4,@_g_beep_oneshotmax_flg:32
+  00000C1A 6BA000000000           MOV.W       R0,@__$Beep_OneShotMax_cnt:32
+  00000C20                    L7863:                                
+  00000C20 6BF000000000           MOV.W       #0:4,@_g_beep_twoshotmin_flg:32
+  00000C26 1900                   SUB.W       R0,R0
+  00000C28 6BA000000000           MOV.W       R0,@__$Beep_TwoShotMin_cnt:32
+  00000C2E                    L7856:                                
+  00000C2E 6B38000000000A10       ADD.W       #1:3,@_g_fps_cnt:32
+  00000C36 015E482000000000       CMP.W       #H'0014:16,@_g_fps_cnt:32
+           0014               
+  00000C40 4600                   BNE         L7865:8
+  00000C42 0158484800000000       MOV.W       @_g_fps:32,@_g_fps_max:32
+           00000000           
+  00000C4E 6BF000000000           MOV.W       #0:4,@_g_fps:32
+  00000C54 6BF000000000           MOV.W       #0:4,@_g_fps_cnt:32
+  00000C5A                    L7865:                                
+  00000C5A 1A80                   SUB.L       ER0,ER0
+  00000C5C                    L7866:                                
+  00000C5C 01006BA000000000       MOV.L       ER0,@_dmy:32
+  00000C64 0B70                   INC.L       #1,ER0
+  00000C66 7A28EA60               CMP.L       #H'EA60:16,ER0
+  00000C6A 4300                   BLS         L7866:8
+  00000C6C 01006D76               POP.L       ER6
+  00000C70 5435                   RTS/L       (ER2-ER5)
+       718:                g_beep_twoshotmin_flg = 0;
+       719:                Beep_TwoShotMin_cnt = 0;
+       720:            }
+       721:            else
+       722:            {
+       723:                //
+       724:            }
+       725:        }
+       726:    }
+       727:    
+       728:    // --------------------------------------------------------------------
+       729:    // LEDオン/オフ処理
+       730:    // --------------------------------------------------------------------
+       731:    void Int_LEDonoff(void)
+  00000C72                    _Int_LEDonoff:                       ; function: Int_LEDonoff
+       732:    {
+       733:        // --------------------------------------------------------------------
+       734:        // 割り込みフラグクリア
+       735:        // --------------------------------------------------------------------
+       736:        TPU6.TSR.BIT.TGFA = 0;
+  00000C72 6A18FB157200           BCLR.B      #0,@H'00FFFB15:16
+       737:        
+       738:        if      (LEDonoff_cnt == 0)
+  00000C78 7A0100000000           MOV.L       #__$LEDonoff_cnt,ER1
+  00000C7E 6910                   MOV.W       @ER1,R0
+  00000C80 4600                   BNE         L7870:8
+       739:        {
+       740:            if((g_led_o_max_flg) || (g_led_o_min_flg)) { PM.DR.BIT.B0 = 1;} else { PM.DR.BIT.B0 = 0; }
+  00000C82 6B2000000000           MOV.W       @_g_led_o_max_flg:32,R0
+  00000C88 4600                   BNE         L7872:8
+  00000C8A 6B2000000000           MOV.W       @_g_led_o_min_flg:32,R0
+  00000C90 4600                   BNE         L7872:8
+  00000C92 6A18EE517200           BCLR.B      #0,@H'00FFEE51:16
+  00000C98 4000                   BRA         L7874:8
+  00000C9A                    L7872:                                
+  00000C9A 6A18EE517000           BSET.B      #0,@H'00FFEE51:16
+  00000CA0                    L7874:                                
+       741:            if((g_led_r_max_flg) || (g_led_r_min_flg)) { PB.DR.BIT.B3 = 1;} else { PB.DR.BIT.B3 = 0; }
+  00000CA0 6B2000000000           MOV.W       @_g_led_r_max_flg:32,R0
+  00000CA6 4600                   BNE         L7876:8
+  00000CA8 6B2000000000           MOV.W       @_g_led_r_min_flg:32,R0
+  00000CAE 4700                   BEQ         L7877:8
+  00000CB0                    L7876:                                
+  00000CB0 7F5A7030               BSET.B      #3,@H'00FFFF5A:8
+  00000CB4 4000                   BRA         L7878:8
+  00000CB6                    L7870:                                
+       742:        }
+       743:        else if((LEDonoff_cnt >= 1) && (LEDonoff_cnt <= 19))
+  00000CB6 0D00                   MOV.W       R0,R0
+  00000CB8 4700                   BEQ         L7878:8
+  00000CBA 79200013               CMP.W       #H'0013:16,R0
+  00000CBE 4200                   BHI         L7878:8
+       744:        {
+       745:            if((backlight_dimmer_flg == 1) && ((g_led_o_max_flg) || (g_led_o_min_flg))) PM.DR.BIT.B0 = 0;
+  00000CC0 6B38000000001F10       CMP.W       #1:3,@_backlight_dimmer_flg:32
+  00000CC8 4600                   BNE         L7882:8
+  00000CCA 6B2000000000           MOV.W       @_g_led_o_max_flg:32,R0
+  00000CD0 4600                   BNE         L7884:8
+  00000CD2 6B2000000000           MOV.W       @_g_led_o_min_flg:32,R0
+  00000CD8 4700                   BEQ         L7882:8
+  00000CDA                    L7884:                                
+  00000CDA 6A18EE517200           BCLR.B      #0,@H'00FFEE51:16
+  00000CE0                    L7882:                                
+       746:            if((backlight_dimmer_flg == 1) && ((g_led_r_max_flg) || (g_led_r_min_flg))) PB.DR.BIT.B3 = 0;
+  00000CE0 6B38000000001F10       CMP.W       #1:3,@_backlight_dimmer_flg:32
+  00000CE8 4600                   BNE         L7878:8
+  00000CEA 6B2000000000           MOV.W       @_g_led_r_max_flg:32,R0
+  00000CF0 4600                   BNE         L7877:8
+  00000CF2 6B2000000000           MOV.W       @_g_led_r_min_flg:32,R0
+  00000CF8 4700                   BEQ         L7878:8
+  00000CFA                    L7877:                                
+  00000CFA 7F5A7230               BCLR.B      #3,@H'00FFFF5A:8
+  00000CFE                    L7878:                                
+       747:        }
+       748:        
+       749:        LEDonoff_cnt ++;
+  00000CFE 6910                   MOV.W       @ER1,R0
+  00000D00 0B50                   INC.W       #1,R0
+       750:        if(LEDonoff_cnt > 19) LEDonoff_cnt = 0;
+  00000D02 79200013               CMP.W       #H'0013:16,R0
+  00000D06 4300                   BLS         L7893:8
+  00000D08 1900                   SUB.W       R0,R0
+  00000D0A                    L7893:                                
+  00000D0A 6990                   MOV.W       R0,@ER1
+  00000D0C 5470                   RTS
+       751:    }
+       752:    
+       753:    #ifdef __cplusplus
+       754:    void abort(void)
+       755:    {
+       756:    
+       757:    }
+       758:    #endif
+       759:    
+D                                                                  ; section
+  00000000                    _version:                            ; static: version
+  00000000 76312E3032             .SDATA      "v1.02"
+B                                                                  ; section
+  00000000                    _g_e2p_data:                         ; static: g_e2p_data
+  00000000 00000082               .RES.B      130
+  00000082                    _g_MoTeC1_data:                      ; static: g_MoTeC1_data
+  00000082 0000001A               .RES.W      13
+  0000009C                    _g_Haltech1_data:                    ; static: g_Haltech1_data
+  0000009C 0000001A               .RES.W      13
+  000000B6                    _g_Haltech2_data:                    ; static: g_Haltech2_data
+  000000B6 00000026               .RES.W      19
+  000000DC                    _g_Freedom2_data:                    ; static: g_Freedom2_data
+  000000DC 0000001A               .RES.W      13
+  000000F6                    _g_refresh_done:                     ; static: g_refresh_done
+  000000F6 00000002               .RES.W      1
+  000000F8                    _g_led_o_max_flg:                    ; static: g_led_o_max_flg
+  000000F8 00000002               .RES.W      1
+  000000FA                    _g_led_o_min_flg:                    ; static: g_led_o_min_flg
+  000000FA 00000002               .RES.W      1
+  000000FC                    _g_led_r_max_flg:                    ; static: g_led_r_max_flg
+  000000FC 00000002               .RES.W      1
+  000000FE                    _g_led_r_min_flg:                    ; static: g_led_r_min_flg
+  000000FE 00000002               .RES.W      1
+  00000100                    _g_int50mscnt:                       ; static: g_int50mscnt
+  00000100 00000004               .RES.L      1
+  00000104                    _touch_done_flg:                     ; static: touch_done_flg
+  00000104 00000002               .RES.W      1
+  00000106                    _touch_drag_flg:                     ; static: touch_drag_flg
+  00000106 00000002               .RES.W      1
+  00000108                    _g_PressX:                           ; static: g_PressX
+  00000108 00000002               .RES.W      1
+  0000010A                    _g_PressY:                           ; static: g_PressY
+  0000010A 00000002               .RES.W      1
+  0000010C                    _g_DragX:                            ; static: g_DragX
+  0000010C 00000002               .RES.W      1
+  0000010E                    _g_DragY:                            ; static: g_DragY
+  0000010E 00000002               .RES.W      1
+  00000110                    __$g_state:                          ; static: g_state
+  00000110 00000002               .RES.W      1
+  00000112                    __$g_model:                          ; static: g_model
+  00000112 00000002               .RES.W      1
+  00000114                    __$touch_cnt:                        ; static: touch_cnt
+  00000114 00000002               .RES.W      1
+  00000116                    __$Beep_OneShotMin_cnt:              ; static: Beep_OneShotMin_cnt
+  00000116 00000002               .RES.W      1
+  00000118                    __$Beep_OneShotMax_cnt:              ; static: Beep_OneShotMax_cnt
+  00000118 00000002               .RES.W      1
+  0000011A                    __$Beep_TwoShotMin_cnt:              ; static: Beep_TwoShotMin_cnt
+  0000011A 00000002               .RES.W      1
+  0000011C                    __$master_warning_cnt:               ; static: master_warning_cnt
+  0000011C 00000002               .RES.W      1
+  0000011E                    __$g_shift_timing_cnt:               ; static: g_shift_timing_cnt
+  0000011E 00000002               .RES.W      1
+  00000120                    __$LEDonoff_cnt:                     ; static: LEDonoff_cnt
+  00000120 00000002               .RES.W      1
+  00000122                    _dmy:                                ; static: dmy
+  00000122 00000004               .RES.L      1
+
+
