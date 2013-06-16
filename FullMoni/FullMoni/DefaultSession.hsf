@@ -398,19 +398,14 @@
 [WINDOW_POSITION_STATE_DATA_VD3]
 [WINDOW_POSITION_STATE_DATA_VD4]
 [WINDOW_Z_ORDER]
-"C:\WorkSpace\FullMoni\FullMoni\TFTLCD35.c" 
-"C:\WorkSpace\FullMoni\FullMoni\state_control.c" 
-"C:\WorkSpace\FullMoni\FullMoni\dataregister.c" 
-"C:\WorkSpace\FullMoni\FullMoni\init_system.h" 
-"C:\WorkSpace\FullMoni\FullMoni\TFTLCD35.h" 
-"C:\WorkSpace\FullMoni\FullMoni\CAN2515.c" 
-"C:\WorkSpace\FullMoni\FullMoni\ADS7843.c" 
-"C:\WorkSpace\FullMoni\FullMoni\main.c" 
 "C:\WorkSpace\FullMoni\FullMoni\state_control.h" 
 "C:\WorkSpace\FullMoni\FullMoni\iodefine.h" 
+"C:\WorkSpace\FullMoni\FullMoni\init_system.h" 
 "C:\WorkSpace\FullMoni\FullMoni\dataregister.h" 
+"C:\WorkSpace\FullMoni\FullMoni\state_control.c" 
 "C:\WorkSpace\FullMoni\FullMoni\intprg.c" 
 "C:\WorkSpace\FullMoni\FullMoni\init_system.c" 
+"C:\WorkSpace\FullMoni\FullMoni\dataregister.c" 
 [TARGET_NAME]
 "" "" 0 
 [STATUSBAR_STATEINFO_VD1]

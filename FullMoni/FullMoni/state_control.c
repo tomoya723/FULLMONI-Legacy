@@ -19,8 +19,8 @@
 // filename		:	state_control.c
 // brief		:	FullMoni rev.B ステート管理
 // author		:	Tomoya Sato
-// update		:	2013/03/31
-// version		:	1.02
+// update		:	2013/06/16
+// version		:	1.03
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -102,6 +102,8 @@ void state_control(void)
 									case  9:	A019();	break;
 									case 10:	A020();	break;
 									case 11:	A021();	break;
+									case 12:	A022();	break;
+									case 13:	A023();	break;
 								}
 								break;
 		case S110:	funcS110();
@@ -266,18 +268,32 @@ unsigned int E010(void)
 			return 9;
 		}
 		// --------------------------------------------------------------------
+		// FClogger使用変更上アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	((g_PressX >= 230) && (g_PressX <= (230 + 32 -1 )) && (g_PressY >= ( 24 * 5)) && (g_PressY <= ( 24 * 5 + 24 - 1)))
+		{
+			return 10;
+		}
+		// --------------------------------------------------------------------
+		// FClogger使用変更下アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 5)) && (g_PressY <= ( 24 * 5 + 24 - 1)))
+		{
+			return 11;
+		}
+		// --------------------------------------------------------------------
 		// プリセット変更上アイコン押下判定
 		// --------------------------------------------------------------------
 		else if	((g_PressX >= 230) && (g_PressX <= (230 + 32 -1 )) && (g_PressY >= ( 24 * 6)) && (g_PressY <= ( 24 * 6 + 24 - 1)))
 		{
-			return 10;
+			return 12;
 		}
 		// --------------------------------------------------------------------
 		// プリセット変更下アイコン押下判定
 		// --------------------------------------------------------------------
 		else if	((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 6)) && (g_PressY <= ( 24 * 6 + 24 - 1)))
 		{
-			return 11;
+			return 13;
 		}
 	}
 	return 0;
@@ -944,9 +960,9 @@ void A002(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// EEPROMデータ読み込み
@@ -975,15 +991,19 @@ void A100(void)
 	g_state = S110;
 	
 	// --------------------------------------------------------------------
-	// CAN初期化
+	// 通信初期化
 	// --------------------------------------------------------------------
 	switch(g_e2p_data.E2P_1.model)
 	{
 		case MoTeC1:	Init_MoTeC1();		break;
+		case MoTeC2:	Init_MoTeC2();		break;
 		case Haltech1:	Init_Haltech1();	break;
 		case Haltech2:	Init_Haltech2();	break;
+		case Freedom2:	Init_Freedom2();	break;
+		case MSquirt1:	Init_MSquirt1();	break;
 	}
-	
+	g_MoTeC1_data.ThrottlePosition			=  800;
+
 	// --------------------------------------------------------------------
 	// ピークホールド値初回限定更新クリアフラグリセット
 	// --------------------------------------------------------------------
@@ -995,7 +1015,7 @@ void A100(void)
 	// --------------------------------------------------------------------
 	for(i = 0; i < ChartBufNum; i++ )
 	{
-		chart_buf1[i] = 1742;
+		chart_buf1[i] =    0;
 		chart_buf2[i] =    0;
 	}
 }
@@ -1009,9 +1029,9 @@ void A011(void)
 	// 保存アイコンタッチ描画
 	// --------------------------------------------------------------------
 	LCD_locate(130,215);	LCD_Gcopy(256, 120, 64, 24, (volatile unsigned int    *)FONTR);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(130,215);	LCD_Gcopy(256, 120, 64, 24, (volatile unsigned int    *)FONTR);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// データプリセット保存
@@ -1026,7 +1046,7 @@ void A011(void)
 		case 6:	Preset_load_Freedom2();		break;
 		case 7:	Preset_load_MegaSquirt1();	break;
 		case 0:
-		default:						break;
+		default:							break;
 	}
 	
 	// --------------------------------------------------------------------
@@ -1077,17 +1097,20 @@ void A012(void)
 	switch(g_e2p_data.E2P_1.model)
 	{
 		case MoTeC1:	Init_MoTeC1();		break;
+		case MoTeC2:	Init_MoTeC2();		break;
 		case Haltech1:	Init_Haltech1();	break;
 		case Haltech2:	Init_Haltech2();	break;
+		case Freedom2:	Init_Freedom2();	break;
+		case MSquirt1:	Init_MSquirt1();	break;
 	}
 	
 	// --------------------------------------------------------------------
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// チャートバッファクリア
@@ -1096,7 +1119,7 @@ void A012(void)
 	{
 		for(i = 0; i < ChartBufNum; i++ )
 		{
-			chart_buf1[i] = 1742;
+			chart_buf1[i] =    0;
 			chart_buf2[i] =    0;
 		}
 	}
@@ -1122,17 +1145,20 @@ void A013(void)
 	switch(g_e2p_data.E2P_1.model)
 	{
 		case MoTeC1:	Init_MoTeC1();		break;
+		case MoTeC2:	Init_MoTeC2();		break;
 		case Haltech1:	Init_Haltech1();	break;
 		case Haltech2:	Init_Haltech2();	break;
+		case Freedom2:	Init_Freedom2();	break;
+		case MSquirt1:	Init_MSquirt1();	break;
 	}
 	
 	// --------------------------------------------------------------------
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -1144,12 +1170,9 @@ void A014(void)
 	g_e2p_data.E2P_1.model = ( g_e2p_data.E2P_1.model >= 255 ) ? 0 : g_e2p_data.E2P_1.model;
 	
 	LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1166,12 +1189,9 @@ void A015(void)
 	g_e2p_data.E2P_1.model = (g_e2p_data.E2P_1.model > 6) ? 6 : g_e2p_data.E2P_1.model;
 	
 	LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1193,12 +1213,9 @@ void A016(void)
 		g_e2p_data.E2P_1.control.BIT.beep_on = 1;
 	}
 	LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1220,12 +1237,9 @@ void A017(void)
 		g_e2p_data.E2P_1.control.BIT.beep_on = 1;
 	}
 	LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1247,12 +1261,9 @@ void A018(void)
 		g_e2p_data.E2P_1.control.BIT.ms_on = 1;
 	}
 	LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1274,12 +1285,9 @@ void A019(void)
 		g_e2p_data.E2P_1.control.BIT.ms_on = 1;
 	}
 	LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1292,16 +1300,18 @@ void A019(void)
 // --------------------------------------------------------------------
 void A020(void)
 {
-	preset_no --;
-	preset_no = ( preset_no >= 255 ) ? 0 : preset_no;
-	
-	LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_Refresh();
-	LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	if(g_e2p_data.E2P_1.control.BIT.FC_mode)
+	{
+		g_e2p_data.E2P_1.control.BIT.FC_mode = 0;
+	}
+	else
+	{
+		g_e2p_data.E2P_1.control.BIT.FC_mode = 1;
+	}
+	LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+	LCD_RefreshFast();
+	LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1314,16 +1324,56 @@ void A020(void)
 // --------------------------------------------------------------------
 void A021(void)
 {
+	if(g_e2p_data.E2P_1.control.BIT.FC_mode)
+	{
+		g_e2p_data.E2P_1.control.BIT.FC_mode = 0;
+	}
+	else
+	{
+		g_e2p_data.E2P_1.control.BIT.FC_mode = 1;
+	}
+	LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+	LCD_RefreshFast();
+	LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+	LCD_RefreshFast();
+	
+	// --------------------------------------------------------------------
+	// 2度押しキャンセル
+	// --------------------------------------------------------------------
+	touch_done_flg = 0;
+}
+
+// --------------------------------------------------------------------
+// 
+// --------------------------------------------------------------------
+void A022(void)
+{
+	preset_no --;
+	preset_no = ( preset_no >= 255 ) ? 0 : preset_no;
+	
+	LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+	LCD_RefreshFast();
+	LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+	LCD_RefreshFast();
+	
+	// --------------------------------------------------------------------
+	// 2度押しキャンセル
+	// --------------------------------------------------------------------
+	touch_done_flg = 0;
+}
+
+// --------------------------------------------------------------------
+// 
+// --------------------------------------------------------------------
+void A023(void)
+{
 	preset_no ++;
 	preset_no = (preset_no > 7) ? 7 : preset_no;
 	
 	LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1357,7 +1407,7 @@ void A101(void)
 	{
 		LCD_locate(130,215);	LCD_Gcopy(256,   0, 64, 24, (volatile unsigned int    *)FONTR);
 	}
-	LCD_Refresh();
+	LCD_RefreshFast();
 	if(backlight_dimmer_flg)
 	{
 		LCD_locate(130,215);	LCD_Gcopy(256,  24, 64, 24, (volatile unsigned int    *)FONTR);
@@ -1366,10 +1416,7 @@ void A101(void)
 	{
 		LCD_locate(130,215);	LCD_Gcopy(256,   0, 64, 24, (volatile unsigned int    *)FONTR);
 	}
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -1381,12 +1428,9 @@ void A121(void)
 	// ピークホールドクリアアイコンタッチ描画
 	// --------------------------------------------------------------------
 	LCD_locate(130,215);	LCD_Gcopy(256,  96, 64, 24, (volatile unsigned int    *)FONTR);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(130,215);	LCD_Gcopy(256,  96, 64, 24, (volatile unsigned int    *)FONTR);
-	LCD_Refresh();
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
+	LCD_RefreshFast();
 	
 	rev_peak  = 0;
 	num1_peak = 0;
@@ -1417,7 +1461,7 @@ void A131(void)
 		LCD_locate(130,215);	LCD_Gcopy(256, 168, 64, 24, (volatile unsigned int    *)FONTR);	// ||
 		LCD_Refresh();
 		LCD_locate(130,215);	LCD_Gcopy(256, 168, 64, 24, (volatile unsigned int    *)FONTR);	// ||
-		LCD_Refresh();
+		LCD_RefreshFast();
 	}
 	else
 	{
@@ -1429,20 +1473,17 @@ void A131(void)
 		LCD_locate(130,215);	LCD_Gcopy(256,  72, 64, 24, (volatile unsigned int    *)FONTR);	// 右
 		LCD_Refresh();
 		LCD_locate(130,215);	LCD_Gcopy(256,  72, 64, 24, (volatile unsigned int    *)FONTR);	// 右
-		LCD_Refresh();
+		LCD_RefreshFast();
 		
 		// --------------------------------------------------------------------
 		// チャートバッファクリア
 		// --------------------------------------------------------------------
 		for(i = 0; i < ChartBufNum; i++ )
 		{
-			chart_buf1[i] = 1742;
+			chart_buf1[i] =    0;
 			chart_buf2[i] =    0;
 		}
 	}
-	
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
 }
 
 // --------------------------------------------------------------------
@@ -1464,9 +1505,9 @@ void A102(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -1483,9 +1524,9 @@ void A103(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -1502,9 +1543,9 @@ void A104(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -1526,9 +1567,9 @@ void A133(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// チャートバッファクリア
@@ -1537,7 +1578,7 @@ void A133(void)
 	{
 		for(i = 0; i < ChartBufNum; i++ )
 		{
-			chart_buf1[i] = 1742;
+			chart_buf1[i] =    0;
 			chart_buf2[i] =    0;
 		}
 	}
@@ -1561,9 +1602,9 @@ void A122(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -1580,9 +1621,9 @@ void A132(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -1604,9 +1645,9 @@ void A123(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -1623,9 +1664,9 @@ void A201(void)
 	// 保存アイコンタッチ描画
 	// --------------------------------------------------------------------
 	LCD_locate(130,215);	LCD_Gcopy(256, 120, 64, 24, (volatile unsigned int    *)FONTR);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(130,215);	LCD_Gcopy(256, 120, 64, 24, (volatile unsigned int    *)FONTR);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// EEPROMデータ保存
@@ -1654,9 +1695,9 @@ void A201(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1666,7 +1707,7 @@ void A201(void)
 }
 
 // --------------------------------------------------------------------
-// 
+// 数値描画設定操作
 // --------------------------------------------------------------------
 void A202(void)
 {
@@ -1954,9 +1995,9 @@ void A990(void)
 	// 画面クリア&切り替え
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_CLR(COLOR_BLACK);
-	LCD_Refresh();
+	LCD_RefreshFast();
 	
 	touch_done_flg = 0;
 	touch_drag_flg = 0;
@@ -1973,11 +2014,11 @@ void A991(void)
 	LCD_locate(130,215);	LCD_Gcopy(256, 120, 64, 24, (volatile unsigned int    *)FONTR);
 	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("Processing.......");
 	LCD_locate( 20, 24 * 6 + 6);	LCD_textout("                ");
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(130,215);	LCD_Gcopy(256, 120, 64, 24, (volatile unsigned int    *)FONTR);
 	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("Processing.......");
 	LCD_locate( 20, 24 * 6 + 6);	LCD_textout("                ");
-	LCD_Refresh();
+	LCD_RefreshFast();
 	
 	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
 	while(g_int50mscnt < 0);
@@ -2013,11 +2054,11 @@ void A991(void)
 	
 	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("Save is complete.");
 	LCD_locate( 20, 24 * 6 + 6);	LCD_textout("Please restart!!");
-	LCD_Refresh();
+	LCD_RefreshFast();
 	LCD_locate(130,215);	LCD_Gcopy(256, 120, 64, 24, (volatile unsigned int    *)FONTR);
 	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("Save is complete.");
 	LCD_locate( 20, 24 * 6 + 6);	LCD_textout("Please restart!!");
-	LCD_Refresh();
+	LCD_RefreshFast();
 }
 
 // --------------------------------------------------------------------
@@ -2054,14 +2095,15 @@ void funcS010(void)
 	LCD_locate( 20, 24 * 0 + 6);	LCD_textout("<<SETTINGS>>");
 	LCD_locate( 20, 24 * 2 + 6);	LCD_textout("Model   ");
 	LCD_locate( 20, 24 * 3 + 6);	LCD_textout("Beep    ");
-	LCD_locate( 20, 24 * 4 + 6);	LCD_textout("Mater-W ");
+	LCD_locate( 20, 24 * 4 + 6);	LCD_textout("Mstr-W  ");
+	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("FCmode  ");
 	LCD_locate( 20, 24 * 6 + 6);	LCD_textout("Preset  ");
 	LCD_locate(250, 24 * 0 + 6);	LCD_textout(version);
 	
 	switch(g_e2p_data.E2P_1.model)
 	{
-		case MoTeC1:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< MoTeC1   >");	break;
-		case MoTeC2:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< MoTeC2   >");	break;
+		case MoTeC1:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< MoTeC100 >");	break;
+		case MoTeC2:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< MoTeC84  >");	break;
 		case Haltech1:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< Haltech1 >");	break;
 		case Haltech2:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< Haltech2 >");	break;
 		case Freedom1:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< Freedom1 >");	break;
@@ -2086,6 +2128,14 @@ void funcS010(void)
 	}
 	LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
 	LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	
+	switch(g_e2p_data.E2P_1.control.BIT.FC_mode)
+	{
+		case 0:			LCD_locate(100, 24 * 5 + 6);	LCD_textout("< FASTmode >");	break;
+		case 1:			LCD_locate(100, 24 * 5 + 6);	LCD_textout("< ALLmode  >");	break;
+	}
+	LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+	LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
 	
 	switch(preset_no)
 	{
@@ -2519,7 +2569,8 @@ void funcS130(void)
 				chart_buf1[i - 1] = chart_buf1[i];
 				chart_buf2[i - 1] = chart_buf2[i];
 			}
-			chart_buf1[ChartBufNum - 1] = afr_data_select(g_e2p_data.E2P_3.afr_data_select);
+//			chart_buf1[ChartBufNum - 1] = afr_data_select(g_e2p_data.E2P_3.afr_data_select);
+			chart_buf1[ChartBufNum - 1] = afr;
 			chart_buf2[ChartBufNum - 1] = rev;
 		}
 		
@@ -2535,11 +2586,11 @@ void funcS130(void)
 	// --------------------------------------------------------------------
 	for(i = 1; i < ChartBufNum; i++ )
 	{
-		chart_line0 = ((chart_buf1[i - 1] * 16377) >> 16) * (-1) + 340;
+		chart_line0 = ((chart_buf1[i - 1] * 13926) >> 13) * (-1) + 340;
 		chart_line0 = (chart_line0 > 204) ? 204 : chart_line0;
 		chart_line0 = (chart_line0 <   1) ?   1 : chart_line0;
 		
-		chart_line1 = ((chart_buf1[i    ] * 16377) >> 16) * (-1) + 340;
+		chart_line1 = ((chart_buf1[i    ] * 13926) >> 13) * (-1) + 340;
 		chart_line1 = (chart_line1 > 204) ? 204 : chart_line1;
 		chart_line1 = (chart_line1 <   1) ?   1 : chart_line1;
 		
@@ -2577,8 +2628,10 @@ void funcS130(void)
 		// --------------------------------------------------------------------
 		// 数値メータ描画
 		// --------------------------------------------------------------------
-		LCD_locate(  0, 24 * 2);		LCD_INT_drawBNR((chart_buf1[ChartX - 114] * 147 + 500) /1000,5, 1);
-		LCD_locate(  0, 24 * 4);		LCD_INT_drawBNR( chart_buf2[ChartX - 114]					,5, 0);
+		LCD_locate(  0, 24 * 2);	LCD_INT_drawBNR( chart_buf1[ChartX - 114] , 5, g_e2p_data.E2P_3.afr_dp );
+		LCD_locate(  0, 24 * 4);	LCD_INT_drawBNR( chart_buf2[ChartX - 114] , 5, 0);
+//		LCD_locate(  0, 24 * 2);	LCD_INT_drawBNR((chart_buf1[ChartX - 114] * 147 + 500) /1000,5, 1);
+//		LCD_locate(  0, 24 * 4);	LCD_INT_drawBNR( chart_buf2[ChartX - 114]					,5, 0);
 		
 		// --------------------------------------------------------------------
 		// タッチ操作処理
@@ -2892,12 +2945,67 @@ static void Init_MoTeC1(void)
 	// --------------------------------------------------------------------
 	// CANフィルター設定
 	// --------------------------------------------------------------------
-	CANSetSidFilter0(0x0010);
-	CANSetSidFilter1(0x0010);
-	CANSetSidFilter2(0x0010);
-	CANSetSidFilter3(0x0010);
-	CANSetSidFilter4(0x0010);
-	CANSetSidFilter5(0x0010);
+	CANSetSidFilter0(0x05F0);
+	CANSetSidFilter1(0x05F0);
+	CANSetSidFilter2(0x05F0);
+	CANSetSidFilter3(0x05F0);
+	CANSetSidFilter4(0x05F0);
+	CANSetSidFilter5(0x05F0);
+	CANSetSidMask0(0xFFF0);
+	CANSetSidMask1(0xFFF0);
+	
+	CANSetFilterRxB0(1);
+	CANSetFilterRxB1(1);
+	
+	// --------------------------------------------------------------------
+	// CANモード切替
+	// --------------------------------------------------------------------
+	CANSetOpMode(CAM_MODE_NORMAL);
+//	CANSetOpMode(CAM_MODE_LISTEN);
+	
+	// --------------------------------------------------------------------
+	// CAN割り込み許可
+	// --------------------------------------------------------------------
+	RX0IE_Enable;
+	RX1IE_Enable;
+//	ERRIE_Enable;
+//	WAKIE_Enable;
+//	MERRE_Enable;
+	
+	// --------------------------------------------------------------------
+	// CAN 時分割処理用タイマー初期化
+	// --------------------------------------------------------------------
+	g_can_rcv_timer = 10;
+}
+
+// --------------------------------------------------------------------
+// MoTeC2初期化
+// --------------------------------------------------------------------
+static void Init_MoTeC2(void)
+{
+	// --------------------------------------------------------------------
+	// CAN割り込み禁止
+	// --------------------------------------------------------------------
+	RX0IE_Disable;
+	RX1IE_Disable;
+//	ERRIE_Disable;
+//	WAKIE_Disable;
+//	MERRE_Disable;
+	
+	// --------------------------------------------------------------------
+	// CAN初期化
+	// --------------------------------------------------------------------
+	CANInit(CAN_BRP_20MHz_1MBPS);
+	
+	// --------------------------------------------------------------------
+	// CANフィルター設定
+	// --------------------------------------------------------------------
+	CANSetSidFilter0(0x00E8);
+	CANSetSidFilter1(0x00E8);
+	CANSetSidFilter2(0x00E8);
+	CANSetSidFilter3(0x00E8);
+	CANSetSidFilter4(0x00E8);
+	CANSetSidFilter5(0x00E8);
 	CANSetSidMask0(0xFFF0);
 	CANSetSidMask1(0xFFF0);
 	
@@ -2925,6 +3033,12 @@ static void Init_MoTeC1(void)
 // --------------------------------------------------------------------
 static void Init_Haltech1(void)
 {
+	// --------------------------------------------------------------------
+	// SCI5停止
+	// --------------------------------------------------------------------
+	SCI5.SCR.BIT.TE  = 0;
+	SCI5.SCR.BIT.RE  = 0;
+	
 	// --------------------------------------------------------------------
 	// CAN割り込み禁止
 	// --------------------------------------------------------------------
@@ -2976,6 +3090,12 @@ static void Init_Haltech1(void)
 static void Init_Haltech2(void)
 {
 	// --------------------------------------------------------------------
+	// SCI5停止
+	// --------------------------------------------------------------------
+	SCI5.SCR.BIT.TE  = 0;
+	SCI5.SCR.BIT.RE  = 0;
+	
+	// --------------------------------------------------------------------
 	// CAN割り込み禁止
 	// --------------------------------------------------------------------
 	RX0IE_Disable;
@@ -3021,6 +3141,94 @@ static void Init_Haltech2(void)
 }
 
 // --------------------------------------------------------------------
+// Freedom2初期化
+// --------------------------------------------------------------------
+static void Init_Freedom2(void)
+{
+	// --------------------------------------------------------------------
+	// ローカル変数宣言
+	// --------------------------------------------------------------------
+	volatile unsigned long i;
+	
+	// --------------------------------------------------------------------
+	// 送信FIFO変数初期化
+	// --------------------------------------------------------------------
+	gUART_FIFO_Tx_WP = 0;
+	gUART_FIFO_Tx_RP = 0;
+	gUART_FIFO_Tx_DC = 0;
+	
+	// --------------------------------------------------------------------
+	// 受信一時レジスタ初期化
+	// --------------------------------------------------------------------
+	for(i = 0; i < 154; i++ ) sci_rcv[i] = 0x00;
+	sci_rcv_pointer = 0;
+	
+	INTC.IPRQ.BIT._SCI5 = 6;
+	
+	SCI5.SCR.BIT.TE  = 0;
+	SCI5.SCR.BIT.RE  = 0;
+	SCI5.SCR.BIT.CKE = 0;
+	SCI5.SMR.BYTE = 0x60;  //01100000
+	SCI5.SEMR.BIT.ABCS = 0;
+	SCI5.BRR = 77;
+	
+	for (i = 0; i < 30000 / 20; i++);
+	
+	SCI5.SCR.BIT.RIE = 1;
+	
+	// --------------------------------------------------------------------
+	// SCI5開始
+	// --------------------------------------------------------------------
+	SCI5.SCR.BIT.TE  = 1;
+	SCI5.SCR.BIT.RE  = 1;
+}
+
+// --------------------------------------------------------------------
+// MSquirt1初期化
+// --------------------------------------------------------------------
+static void Init_MSquirt1(void)
+{
+	// --------------------------------------------------------------------
+	// ローカル変数宣言
+	// --------------------------------------------------------------------
+	volatile unsigned long i;
+	
+	// --------------------------------------------------------------------
+	// 送信FIFO変数初期化
+	// --------------------------------------------------------------------
+	gUART_FIFO_Tx_WP = 0;
+	gUART_FIFO_Tx_RP = 0;
+	gUART_FIFO_Tx_DC = 0;
+	
+	// --------------------------------------------------------------------
+	// 受信一時レジスタ初期化
+	// --------------------------------------------------------------------
+	for(i = 0; i < 154; i++ ) sci_rcv[i] = 0x00;
+	sci_rcv_pointer = 0;
+	
+	INTC.IPRQ.BIT._SCI5 = 6;
+	
+	SCI5.SCR.BIT.TE  = 0;
+	SCI5.SCR.BIT.RE  = 0;
+	SCI5.SCR.BIT.CKE = 0;
+	SCI5.SMR.BYTE = 0x00;  //00000000
+//	SCI5.SEMR.BIT.ABCS = 1;
+//	SCI5.BRR = 12;
+	SCI5.SEMR.BIT.ABCS = 0;
+	SCI5.BRR = 19;
+	
+	for (i = 0; i < 30000 / 20; i++);
+	
+	SCI5.SCR.BIT.RIE = 1;
+	
+	// --------------------------------------------------------------------
+	// SCI5開始
+	// --------------------------------------------------------------------
+	SCI5.SCR.BIT.TE  = 1;
+	SCI5.SCR.BIT.RE  = 1;
+}
+
+// --------------------------------------------------------------------
 // MoTeC1プリセット読み込み
 // --------------------------------------------------------------------
 static void Preset_load_MoTeC1(void)
@@ -3028,50 +3236,14 @@ static void Preset_load_MoTeC1(void)
 	g_e2p_data.E2P_2.rev_timing_rmp1			=   6250;
 	g_e2p_data.E2P_2.rev_timing_rmp2			=   6500;
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
-	g_e2p_data.E2P_3.rev_data_select			=      0;
-	g_e2p_data.E2P_3.rev_gain					=   1000;
-	g_e2p_data.E2P_3.rev_bias					=      0;
-	g_e2p_data.E2P_3.afr_data_select			=      0;
-	g_e2p_data.E2P_3.afr_gain					=    147;
-	g_e2p_data.E2P_3.afr_bias					=      0;
-	g_e2p_data.E2P_3.afr_dp						=      1;
-	g_e2p_data.E2P_3.afr_label					=      1;
-	g_e2p_data.E2P_4.num1_data_select			=      3;
-	g_e2p_data.E2P_4.num1_gain					=   1000;
-	g_e2p_data.E2P_4.num1_bias					=      0;
-	g_e2p_data.E2P_4.num1_dp					=      1;
-	g_e2p_data.E2P_4.num1_label					=      3;
-	g_e2p_data.E2P_4.num1_unit					=      1;
-	g_e2p_data.E2P_4.num2_data_select			=      8;
-	g_e2p_data.E2P_4.num2_gain					=   1000;
-	g_e2p_data.E2P_4.num2_bias					=      0;
-	g_e2p_data.E2P_4.num2_dp					=      1;
-	g_e2p_data.E2P_4.num2_label					=      5;
-	g_e2p_data.E2P_4.num2_unit					=      1;
-	g_e2p_data.E2P_5.num3_data_select			=      5;
-	g_e2p_data.E2P_5.num3_gain					=   1000;
-	g_e2p_data.E2P_5.num3_bias					=      0;
-	g_e2p_data.E2P_5.num3_dp					=      2;
-	g_e2p_data.E2P_5.num3_label					=      8;
-	g_e2p_data.E2P_5.num3_unit					=      2;
-	g_e2p_data.E2P_5.num4_data_select			=      7;
-	g_e2p_data.E2P_5.num4_gain					=   1000;
-	g_e2p_data.E2P_5.num4_bias					=      0;
-	g_e2p_data.E2P_5.num4_dp					=      0;
-	g_e2p_data.E2P_5.num4_label					=     12;
-	g_e2p_data.E2P_5.num4_unit					=      4;
-	g_e2p_data.E2P_6.num5_data_select			=      6;
-	g_e2p_data.E2P_6.num5_gain					=   1000;
-	g_e2p_data.E2P_6.num5_bias					=      0;
-	g_e2p_data.E2P_6.num5_dp					=      1;
-	g_e2p_data.E2P_6.num5_label					=     10;
-	g_e2p_data.E2P_6.num5_unit					=      3;
-	g_e2p_data.E2P_6.num6_data_select			=     12;
-	g_e2p_data.E2P_6.num6_gain					=   1000;
-	g_e2p_data.E2P_6.num6_bias					=      0;
-	g_e2p_data.E2P_6.num6_dp					=      1;
-	g_e2p_data.E2P_6.num6_label					=     15;
-	g_e2p_data.E2P_6.num6_unit					=      3;
+	g_e2p_data.E2P_3.rev_data_select			=      0; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
+	g_e2p_data.E2P_3.afr_data_select			=      0; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_4.num1_data_select			=      4; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =      0; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
+	g_e2p_data.E2P_4.num2_data_select			=      3; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =      0; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
+	g_e2p_data.E2P_5.num3_data_select			=     15; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 2; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
+	g_e2p_data.E2P_5.num4_data_select			=      2; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
+	g_e2p_data.E2P_6.num5_data_select			=      1; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
+	g_e2p_data.E2P_6.num6_data_select			=     21; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 1; g_e2p_data.E2P_6.num6_label = 15; g_e2p_data.E2P_6.num6_unit =  3;
 	g_e2p_data.E2P_7.num1_warning				=   1050;
 	g_e2p_data.E2P_7.num2_warning				=    700;
 	g_e2p_data.E2P_7.num3_warning				=   1600;
@@ -3096,50 +3268,14 @@ static void Preset_load_Haltech1(void)
 	g_e2p_data.E2P_2.rev_timing_rmp1			=   6250;
 	g_e2p_data.E2P_2.rev_timing_rmp2			=   6500;
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
-	g_e2p_data.E2P_3.rev_data_select			=      1;
-	g_e2p_data.E2P_3.rev_gain					=   1000;
-	g_e2p_data.E2P_3.rev_bias					=      0;
-	g_e2p_data.E2P_3.afr_data_select			=      1;
-	g_e2p_data.E2P_3.afr_gain					=    147;
-	g_e2p_data.E2P_3.afr_bias					=      0;
-	g_e2p_data.E2P_3.afr_dp						=      1;
-	g_e2p_data.E2P_3.afr_label					=      1;
-	g_e2p_data.E2P_4.num1_data_select			=     16;
-	g_e2p_data.E2P_4.num1_gain					=   1000;
-	g_e2p_data.E2P_4.num1_bias					=      0;
-	g_e2p_data.E2P_4.num1_dp					=      1;
-	g_e2p_data.E2P_4.num1_label					=      3;
-	g_e2p_data.E2P_4.num1_unit					=      1;
-	g_e2p_data.E2P_4.num2_data_select			=     21;
-	g_e2p_data.E2P_4.num2_gain					=   1000;
-	g_e2p_data.E2P_4.num2_bias					=      0;
-	g_e2p_data.E2P_4.num2_dp					=      1;
-	g_e2p_data.E2P_4.num2_label					=      5;
-	g_e2p_data.E2P_4.num2_unit					=      1;
-	g_e2p_data.E2P_5.num3_data_select			=     18;
-	g_e2p_data.E2P_5.num3_gain					=   1000;
-	g_e2p_data.E2P_5.num3_bias					=      0;
-	g_e2p_data.E2P_5.num3_dp					=      2;
-	g_e2p_data.E2P_5.num3_label					=      8;
-	g_e2p_data.E2P_5.num3_unit					=      2;
-	g_e2p_data.E2P_5.num4_data_select			=     20;
-	g_e2p_data.E2P_5.num4_gain					=   1000;
-	g_e2p_data.E2P_5.num4_bias					=      0;
-	g_e2p_data.E2P_5.num4_dp					=      0;
-	g_e2p_data.E2P_5.num4_label					=     12;
-	g_e2p_data.E2P_5.num4_unit					=      4;
-	g_e2p_data.E2P_6.num5_data_select			=     19;
-	g_e2p_data.E2P_6.num5_gain					=   1000;
-	g_e2p_data.E2P_6.num5_bias					=      0;
-	g_e2p_data.E2P_6.num5_dp					=      1;
-	g_e2p_data.E2P_6.num5_label					=     10;
-	g_e2p_data.E2P_6.num5_unit					=      3;
-	g_e2p_data.E2P_6.num6_data_select			=     25;
-	g_e2p_data.E2P_6.num6_gain					=   1000;
-	g_e2p_data.E2P_6.num6_bias					=      0;
-	g_e2p_data.E2P_6.num6_dp					=      1;
-	g_e2p_data.E2P_6.num6_label					=     15;
-	g_e2p_data.E2P_6.num6_unit					=      3;
+	g_e2p_data.E2P_3.rev_data_select			=      1; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
+	g_e2p_data.E2P_3.afr_data_select			=      2; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_4.num1_data_select			=     26; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =      0; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
+	g_e2p_data.E2P_4.num2_data_select			=     31; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =      0; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
+	g_e2p_data.E2P_5.num3_data_select			=     28; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 2; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
+	g_e2p_data.E2P_5.num4_data_select			=     30; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
+	g_e2p_data.E2P_6.num5_data_select			=     29; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
+	g_e2p_data.E2P_6.num6_data_select			=     35; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 1; g_e2p_data.E2P_6.num6_label = 15; g_e2p_data.E2P_6.num6_unit =  3;
 	g_e2p_data.E2P_7.num1_warning				=   1050;
 	g_e2p_data.E2P_7.num2_warning				=    700;
 	g_e2p_data.E2P_7.num3_warning				=   1600;
@@ -3156,50 +3292,14 @@ static void Preset_load_Haltech2(void)
 	g_e2p_data.E2P_2.rev_timing_rmp1			=   6250;
 	g_e2p_data.E2P_2.rev_timing_rmp2			=   6500;
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
-	g_e2p_data.E2P_3.rev_data_select			=      2;
-	g_e2p_data.E2P_3.rev_gain					=   1000;
-	g_e2p_data.E2P_3.rev_bias					=      0;
-	g_e2p_data.E2P_3.afr_data_select			=      2;
-	g_e2p_data.E2P_3.afr_gain					=    147;
-	g_e2p_data.E2P_3.afr_bias					=      0;
-	g_e2p_data.E2P_3.afr_dp						=      1;
-	g_e2p_data.E2P_3.afr_label					=      1;
-	g_e2p_data.E2P_4.num1_data_select			=     41;
-	g_e2p_data.E2P_4.num1_gain					=   1000;
-	g_e2p_data.E2P_4.num1_bias					=  -2731;
-	g_e2p_data.E2P_4.num1_dp					=      1;
-	g_e2p_data.E2P_4.num1_label					=      3;
-	g_e2p_data.E2P_4.num1_unit					=      1;
-	g_e2p_data.E2P_4.num2_data_select			=     42;
-	g_e2p_data.E2P_4.num2_gain					=   1000;
-	g_e2p_data.E2P_4.num2_bias					=  -2731;
-	g_e2p_data.E2P_4.num2_dp					=      1;
-	g_e2p_data.E2P_4.num2_label					=      5;
-	g_e2p_data.E2P_4.num2_unit					=      1;
-	g_e2p_data.E2P_5.num3_data_select			=     37;
-	g_e2p_data.E2P_5.num3_gain					=   1000;
-	g_e2p_data.E2P_5.num3_bias					=      0;
-	g_e2p_data.E2P_5.num3_dp					=      2;
-	g_e2p_data.E2P_5.num3_label					=      8;
-	g_e2p_data.E2P_5.num3_unit					=      2;
-	g_e2p_data.E2P_5.num4_data_select			=     27;
-	g_e2p_data.E2P_5.num4_gain					=   1000;
-	g_e2p_data.E2P_5.num4_bias					=      0;
-	g_e2p_data.E2P_5.num4_dp					=      0;
-	g_e2p_data.E2P_5.num4_label					=     12;
-	g_e2p_data.E2P_5.num4_unit					=      4;
-	g_e2p_data.E2P_6.num5_data_select			=     28;
-	g_e2p_data.E2P_6.num5_gain					=   1000;
-	g_e2p_data.E2P_6.num5_bias					=      0;
-	g_e2p_data.E2P_6.num5_dp					=      1;
-	g_e2p_data.E2P_6.num5_label					=     10;
-	g_e2p_data.E2P_6.num5_unit					=      3;
-	g_e2p_data.E2P_6.num6_data_select			=     31;
-	g_e2p_data.E2P_6.num6_gain					=   1000;
-	g_e2p_data.E2P_6.num6_bias					=      0;
-	g_e2p_data.E2P_6.num6_dp					=      1;
-	g_e2p_data.E2P_6.num6_label					=     15;
-	g_e2p_data.E2P_6.num6_unit					=      3;
+	g_e2p_data.E2P_3.rev_data_select			=      2; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
+	g_e2p_data.E2P_3.afr_data_select			=      3; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_4.num1_data_select			=     51; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =  -2731; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
+	g_e2p_data.E2P_4.num2_data_select			=     52; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =  -2731; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
+	g_e2p_data.E2P_5.num3_data_select			=     47; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 2; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
+	g_e2p_data.E2P_5.num4_data_select			=     37; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
+	g_e2p_data.E2P_6.num5_data_select			=     38; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
+	g_e2p_data.E2P_6.num6_data_select			=     41; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 1; g_e2p_data.E2P_6.num6_label = 15; g_e2p_data.E2P_6.num6_unit =  3;
 	g_e2p_data.E2P_7.num1_warning				=   1050;
 	g_e2p_data.E2P_7.num2_warning				=    700;
 	g_e2p_data.E2P_7.num3_warning				=   1600;
@@ -3221,7 +3321,23 @@ static void Preset_load_Freedom1(void)
 // --------------------------------------------------------------------
 static void Preset_load_Freedom2(void)
 {
-	//
+	g_e2p_data.E2P_2.rev_timing_rmp1			=   6250;
+	g_e2p_data.E2P_2.rev_timing_rmp2			=   6500;
+	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
+	g_e2p_data.E2P_3.rev_data_select			=      3; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
+	g_e2p_data.E2P_3.afr_data_select			=      4; g_e2p_data.E2P_3.afr_gain  =   1000; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_4.num1_data_select			=     57; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =      0; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
+	g_e2p_data.E2P_4.num2_data_select			=     58; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =      0; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
+	g_e2p_data.E2P_5.num3_data_select			=     61; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 1; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
+	g_e2p_data.E2P_5.num4_data_select			=     56; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
+	g_e2p_data.E2P_6.num5_data_select			=     60; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
+	g_e2p_data.E2P_6.num6_data_select			=     64; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 0; g_e2p_data.E2P_6.num6_label = 16; g_e2p_data.E2P_6.num6_unit =  0;
+	g_e2p_data.E2P_7.num1_warning				=   1050;
+	g_e2p_data.E2P_7.num2_warning				=    700;
+	g_e2p_data.E2P_7.num3_warning				=   1600;
+	g_e2p_data.E2P_7.num4_warning				=   1500;
+	g_e2p_data.E2P_7.num5_warning				=   1100;
+	g_e2p_data.E2P_7.num6_warning				=     45;
 }
 
 // --------------------------------------------------------------------
@@ -3229,6 +3345,22 @@ static void Preset_load_Freedom2(void)
 // --------------------------------------------------------------------
 static void Preset_load_MegaSquirt1(void)
 {
-	//
+	g_e2p_data.E2P_2.rev_timing_rmp1			=   6250;
+	g_e2p_data.E2P_2.rev_timing_rmp2			=   6500;
+	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
+	g_e2p_data.E2P_3.rev_data_select			=      4; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
+	g_e2p_data.E2P_3.afr_data_select			=      5; g_e2p_data.E2P_3.afr_gain  =   1000; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_4.num1_data_select			=     86; g_e2p_data.E2P_4.num1_gain =    556; g_e2p_data.E2P_4.num1_bias =   -320; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
+	g_e2p_data.E2P_4.num2_data_select			=     85; g_e2p_data.E2P_4.num2_gain =    556; g_e2p_data.E2P_4.num2_bias =   -320; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
+	g_e2p_data.E2P_5.num3_data_select			=     88; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 1; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
+	g_e2p_data.E2P_5.num4_data_select			=     84; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
+	g_e2p_data.E2P_6.num5_data_select			=     87; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
+	g_e2p_data.E2P_6.num6_data_select			=     80; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 1; g_e2p_data.E2P_6.num6_label = 16; g_e2p_data.E2P_6.num6_unit =  0;
+	g_e2p_data.E2P_7.num1_warning				=   1050;
+	g_e2p_data.E2P_7.num2_warning				=    700;
+	g_e2p_data.E2P_7.num3_warning				=   1600;
+	g_e2p_data.E2P_7.num4_warning				=   1500;
+	g_e2p_data.E2P_7.num5_warning				=   1100;
+	g_e2p_data.E2P_7.num6_warning				=    450;
 }
 

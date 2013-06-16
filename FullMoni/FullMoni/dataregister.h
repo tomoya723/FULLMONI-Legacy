@@ -19,8 +19,8 @@
 // filename		:	dataregister.h
 // brief		:	FullMoni rev.B データ管理
 // author		:	Tomoya Sato
-// update		:	2013/03/31
-// version		:	1.02
+// update		:	2013/06/16
+// version		:	1.03
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -32,9 +32,9 @@
 // --------------------------------------------------------------------
 // define宣言
 // --------------------------------------------------------------------
-#define num_data_select_value	44
-#define rev_data_select_value	2
-#define afr_data_select_value	2
+#define num_data_select_value	90
+#define rev_data_select_value	4
+#define afr_data_select_value	6
 #define num_dp_value			3
 #define num_label_value			16
 #define afr_label_value			2
@@ -45,6 +45,7 @@
 // --------------------------------------------------------------------
 void Init_e2p_data(void);
 void Init_MoTeC1_data(void);
+void Init_MoTeC2_data(void);
 void Init_Haltech1_data(void);
 void Init_Haltech2_data(void);
 void Init_Freedom2_data(void);
@@ -63,22 +64,69 @@ void num_unit_draw(unsigned char num_unit);
 // --------------------------------------------------------------------
 typedef struct {
 	unsigned int RPM;					/* エンジン回転数		*/
-	unsigned int GroundSpeed;			/* 車速					*/
-	unsigned int OilPressure;			/* 油圧					*/
-	unsigned int EngineTemp;			/* エンジン温度			*/
-	unsigned int FuelPressure;			/* 燃圧					*/
-	unsigned int BatteryVoltage;		/* バッテリー電圧		*/
 	unsigned int ThrottlePosition;		/* スロポジ				*/
 	unsigned int ManifoldPressure;		/* 吸気圧				*/
 	unsigned int InletAirTemp;			/* 吸気温				*/
-	unsigned int Lambda;				/* ラムダ値				*/
+	unsigned int EngineTemp;			/* エンジン温度			*/
+	unsigned int Lambda1;				/* ラムダ値1			*/
+	unsigned int Lambda2;				/* ラムダ値2			*/
+	unsigned int ExhaustPressure;		/* 排気圧				*/
+	unsigned int MassAirFlow;			/* エアフロ				*/
+	unsigned int FuelTemp;				/* 燃温					*/
+	unsigned int FuelPressure;			/* 燃圧					*/
+	unsigned int OilTemp;				/* 油温					*/
+	unsigned int OilPressure;			/* 油圧					*/
+//	unsigned int GearVoltage;			/* ギア電圧				*/
+//	unsigned int KnockVoltage;			/* ノック電圧			*/
+//	unsigned int GearShiftForce;		/* ギアシフトフォース	*/
+	unsigned int ExhaustTemp1;			/* 排気温1				*/
+	unsigned int ExhaustTemp2;			/* 排気温2				*/
+//	unsigned int UserChannel1;			/* ユーザチャンネル1	*/
+//	unsigned int UserChannel2;			/* ユーザチャンネル2	*/
+//	unsigned int UserChannel3;			/* ユーザチャンネル3	*/
+//	unsigned int UserChannel4;			/* ユーザチャンネル4	*/
+	unsigned int BatteryVoltage;		/* バッテリー電圧		*/
+	unsigned int ECUTemp;				/* ECU内部温度			*/
+//	unsigned int Dig1Speed;				/* Dig1速度				*/
+//	unsigned int Dig2Speed;				/* Dig2速度				*/
+//	unsigned int Dig3Speed;				/* Dig3速度				*/
+//	unsigned int Dig4Speed;				/* Dig4速度				*/
+//	unsigned int DriveSpeed;			/* ドライブ速度			*/
+	unsigned int GroundSpeed;			/* 車速					*/
+//	unsigned int Slip;					/* スリップ速度			*/
+//	unsigned int AimSlip;				/* 目標スリップ速度		*/
+//	unsigned int LaunchRPM;				/* ローンチ回転数		*/
+//	unsigned int La1ShortTrim;			/* ラムダ1短時間補正	*/
+//	unsigned int La2ShortTrim;			/* ラムダ2短時間補正	*/
+//	unsigned int La1LongTrim;			/* ラムダ1長時間補正	*/
+//	unsigned int La2LongTrim;			/* ラムダ2長時間補正	*/
+	unsigned int AimLambda1;			/* 目標ラムダ値1		*/
+	unsigned int AimLambda2;			/* 目標ラムダ値2		*/
+//	unsigned int FuelCutLevel;			/* 燃料カットレベル		*/
+//	unsigned int IGCutLevel;			/* 点火カットレベル		*/
 	unsigned int IgnitionAdvance;		/* 点火時期				*/
-	unsigned int Gear;					/* ギアポジション		*/
+//	unsigned int LoadPoint;				/* 負荷軸値				*/
+//	unsigned int EffPoint;				/* 負荷軸値				*/
+//	unsigned int FuelUsed;				/* 						*/
+//	unsigned int Aux1Duty;				/* Aux1デューティ		*/
+//	unsigned int Aux2Duty;				/* Aux2デューティ		*/
+//	unsigned int Aux3Duty;				/* Aux3デューティ		*/
+//	unsigned int Aux4Duty;				/* Aux4デューティ		*/
+//	unsigned int Aux5Duty;				/* Aux5デューティ		*/
+//	unsigned int Aux6Duty;				/* Aux6デューティ		*/
+//	unsigned int Aux7Duty;				/* Aux7デューティ		*/
+//	unsigned int Aux8Duty;				/* Aux8デューティ		*/
+//	unsigned int FuelActualWidth;		/* 						*/
+//	unsigned int FuelEffPulseWidth;		/* 						*/
 	unsigned int InjectorDuty;			/* 開弁率				*/
+	unsigned int Gear;					/* ギアポジション		*/
+//	unsigned int SyncPosition;			/* 						*/
+//	unsigned int FuelComp1;				/* 						*/
+//	unsigned int FuelComp2;				/* 						*/
 } MoTeC1_data_t;
 
 // --------------------------------------------------------------------
-// Haltech E8データレジスタ
+// Haltech E8/E11データレジスタ
 // --------------------------------------------------------------------
 typedef struct {
 	unsigned int RPM;					/* エンジン回転数		*/
@@ -137,118 +185,38 @@ typedef struct {
 	unsigned int IgnitionAdvance;		/* 点火時期				*/
 	unsigned int Status;				/* ステータス			*/
 	unsigned int GroundSpeed;			/* データ				*/
-	unsigned int Lambda;				/* ラムダ値				*/
+	unsigned int AFR;					/* AFR値				*/
+	unsigned int AimAFR;				/* 目標AFR値			*/
+	unsigned int IATCorrection;			/* 吸気温補正			*/
+	unsigned int ETCorrection;			/* 水温補正				*/
+	unsigned int EStartCorrection;		/* 始動後増量補正		*/
+	unsigned int AccelCorrection;		/* 加減速補正			*/
+	unsigned int PowerCorrection;		/* 出力増量補正			*/
+	unsigned int FeedbackCorrection;	/* フィードバック補正	*/
+	unsigned int IdolCorrection;		/* アイドル安定化補正	*/
+	unsigned int DecelCutCorrection;	/* 噴射復帰補正			*/
+	unsigned int BaroCorrection;		/* 外気圧補正			*/
+	unsigned int IdolIGCorrection;		/* アイドル安定化点火補正			*/
+	unsigned int RetardCorrection;		/* 噴射復帰点火補正＆ノック遅角補正	*/
 } Freedom2_data_t;
 
-#pragma pack 1
 // --------------------------------------------------------------------
 // MegaSquirt(MS2/Extra) データレジスタ
 // --------------------------------------------------------------------
 typedef struct {						/* 						*/
-	unsigned int	seconds;			/* 						*/
-	unsigned int	pulseWidth1;		/* 						*/
-	unsigned int	pulseWidth2;		/* 						*/
-	unsigned int	rpm;				/* 						*/
-	int				advance;			/* 						*/
-	union {								/* 						*/
-		unsigned char	BYTE;			/* 						*/
-		struct {						/* 						*/
-			unsigned firing1	:1;		/* 	b0					*/
-			unsigned firing2	:1;		/* 	b1					*/
-			unsigned sched1		:1;		/*	b2					*/
-			unsigned inj1		:1;		/*	b3					*/
-			unsigned sched2		:1;		/*	b4					*/
-			unsigned inj2		:1;		/*	b5					*/
-			unsigned tentative	:1;		/*	b6					*/
-			unsigned 			:1;		/*	b7					*/
-		} BIT;							/*						*/
-	} squirt;							/*						*/
-	union {								/* 						*/
-		unsigned char	BYTE;			/* 						*/
-		struct {						/* 						*/
-			unsigned running	:1;		/* 	b0					*/
-			unsigned cranking	:1;		/* 	b1					*/
-			unsigned ASE		:1;		/*	b2					*/
-			unsigned warmup		:1;		/*	b3					*/
-			unsigned accaen		:1;		/*	b4					*/
-			unsigned accden		:1;		/*	b5					*/
-			unsigned 			:1;		/*	b6					*/
-			unsigned idleon		:1;		/*	b7					*/
-		} BIT;							/*						*/
-	} engine;							/*						*/
-	unsigned char	afrtgt1;			/* 						*/
-	unsigned char	afrtgt2;			/* 						*/
-	unsigned char	wbo2_en1;			/* 						*/
-	unsigned char	wbo2_en2;			/* 						*/
-	int				barometer;			/* 						*/
-	int				map;				/* 						*/
-	int				mat;				/* 						*/
-	int				coolant;			/* 						*/
-	int				tps;				/* 						*/
-	int				batteryVoltage;		/* 						*/
-	int				afr1;				/* 						*/
-	int				afr2;				/* 						*/
-	int				knock;				/* 						*/
-	int				egoCorrection1;		/* 						*/
-	int				egoCorrection2;		/* 						*/
-	int				airCorrection;		/* 						*/
-	int				warmupEnrich;		/* 						*/
-	int				accelEnrich;		/* 						*/
-	int				tpsfuelcut;			/* 						*/
-	int				baroCorrection;		/* 						*/
-	int				gammaEnrich;		/* 						*/
-	int				veCurr1;			/* 						*/
-	int				veCurr2;			/* 						*/
-	int				iacstep;			/* 						*/
-	int				coldAdvDeg;			/* 						*/
-	int				tpsDOT;				/* 						*/
-	int				mapDOT;				/* 						*/
-	unsigned int	dwell;				/* 						*/
-	int				maf;				/* 						*/
-	int				fuelload;			/* 						*/
-	int				fuelCorrection;		/* 						*/
-	unsigned char	portStatus;			/* 						*/
-	unsigned char	knockRetard;		/* 						*/
-	unsigned int	EAEFuleCorr;		/* 						*/
-	int				egoV;				/* 						*/
-	int				egoV2;				/* 						*/
-	unsigned char	status1;			/* 						*/
-	unsigned char	status2;			/* 						*/
-	unsigned char	status3;			/* 						*/
-	unsigned char	status4;			/* 						*/
-	unsigned int	looptime;			/* 						*/
-	unsigned char	status5;			/* 						*/
-	unsigned int	tpsADC;				/* 						*/
-	unsigned int	fuelload2;			/* 						*/
-	unsigned int	ignload;			/* 						*/
-	unsigned int	ignload2;			/* 						*/
-	unsigned char	dummy;				/* 						*/
-	long			deltaT;				/* 						*/
-	unsigned long	wallfuel;			/* 						*/
-	unsigned int	gpioadc0;			/* 						*/
-	unsigned int	gpioadc1;			/* 						*/
-	unsigned int	gpioadc2;			/* 						*/
-	unsigned int	gpioadc3;			/* 						*/
-	unsigned int	gpioadc4;			/* 						*/
-	unsigned int	gpioadc5;			/* 						*/
-	unsigned int	gpioadc6;			/* 						*/
-	unsigned int	gpioadc7;			/* 						*/
-	unsigned int	gpiopwmin0;			/* 						*/
-	unsigned int	gpiopwmin1;			/* 						*/
-	unsigned int	gpiopwmin2;			/* 						*/
-	unsigned int	gpiopwmin3;			/* 						*/
-	unsigned char	gpioport0;			/* 						*/
-	unsigned char	gpioport1;			/* 						*/
-	unsigned char	gpioport2;			/* 						*/
-	unsigned int	adc6;				/* 						*/
-	unsigned int	adc7;				/* 						*/
-	unsigned long	wallfuel2;			/* 						*/
-	unsigned int	EAEFuelCorr2;		/* 						*/
-	unsigned char	boostduty;			/* 						*/
-	unsigned char	checksum;			/* 						*/
-	unsigned char	ochBlockSize;		/* 						*/
+	unsigned int rpm;					/* 						*/
+	unsigned int advance;				/* 						*/
+	unsigned int afrtgt1;				/* 						*/
+	unsigned int afrtgt2;				/* 						*/
+	unsigned int barometer;				/* 						*/
+	unsigned int map;					/* 						*/
+	unsigned int mat;					/* 						*/
+	unsigned int coolant;				/* 						*/
+	unsigned int tps;					/* 						*/
+	unsigned int batteryVoltage;		/* 						*/
+	unsigned int afr1;					/* 						*/
+	unsigned int afr2;					/* 						*/
 } Megasquirt1_data_t;
-#pragma unpack
 
 #pragma pack 1
 // --------------------------------------------------------------------
@@ -275,7 +243,7 @@ typedef struct {						/*										*/
 			struct {					/*										*/
 				unsigned beep_on	:1;	/*		b0	ブザー on/off				*/
 				unsigned ms_on		:1;	/*		b1	マスターワーニング on/off	*/
-				unsigned fclogger_on:1;	/*		b2	FC-Logger併用 on/off		*/
+				unsigned FC_mode	:1;	/*		b2	フリーダムモード FAST/ALL	*/
 				unsigned defi_on	:1;	/*		b3	Defi受信 on/off				*/
 				unsigned 			:1;	/*		b4								*/
 				unsigned 			:1;	/*		b5								*/
@@ -429,11 +397,12 @@ typedef struct {						/*										*/
 // --------------------------------------------------------------------
 // extern宣言
 // --------------------------------------------------------------------
-extern volatile e2p_data_t		g_e2p_data;
-extern volatile MoTeC1_data_t	g_MoTeC1_data;
-extern volatile Haltech1_data_t	g_Haltech1_data;
-extern volatile Haltech2_data_t	g_Haltech2_data;
-extern volatile Freedom2_data_t	g_Freedom2_data;
+extern volatile e2p_data_t			g_e2p_data;
+extern volatile MoTeC1_data_t		g_MoTeC1_data;
+extern volatile Haltech1_data_t		g_Haltech1_data;
+extern volatile Haltech2_data_t		g_Haltech2_data;
+extern volatile Freedom2_data_t		g_Freedom2_data;
+extern volatile Megasquirt1_data_t	g_Megasquirt1_data;
 
 // --------------------------------------------------------------------
 // 多重インクルード防止

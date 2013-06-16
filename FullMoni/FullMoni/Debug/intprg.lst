@@ -1,4 +1,4 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:49:39 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   16-Jun-2013 20:55:36 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
@@ -1964,7 +1964,7 @@ Total Frame Size        : 0x00000006 Byte(s)
 Used Runtime Library Name
 
 
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:49:39 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   16-Jun-2013 20:55:36 PAGE   1
 
 ************ OBJECT LISTING ************
 
@@ -1994,8 +1994,8 @@ PIntPRG                                                            ; section
         19:    // filename     :   intprg.c
         20:    // brief        :   FullMoni rev.B äÑÇËçûÇ›ÉxÉNÉ^
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2013/03/31
-        23:    // version      :   1.02
+        22:    // update       :   2013/06/16
+        23:    // version      :   1.03
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------
@@ -2526,10 +2526,10 @@ PIntPRG                                                            ; section
   000000CA                    _INT_TEI4_SCI4:                      ; function: INT_TEI4_SCI4
   000000CA 5670                   RTE
        361:    // vector 164 TGI6A TPU6
-       362:    __interrupt(vect=164) void INT_TGI6A_TPU6(void){Int_LEDonoff();}
+       362:    __interrupt(vect=164) void INT_TGI6A_TPU6(void){Int_1msFunc();}
   000000CC                    _INT_TGI6A_TPU6:                     ; function: INT_TGI6A_TPU6
   000000CC 01106DF0               STM.L       (ER0-ER1),@-SP
-  000000D0 5E000000               JSR         @_Int_LEDonoff:24
+  000000D0 5E000000               JSR         @_Int_1msFunc:24
   000000D4 5611                   RTE/L       (ER0-ER1)
        363:    // vector 165 TGI6B TPU6
        364:    __interrupt(vect=165) void INT_TGI6B_TPU6(void){/* sleep(); */}

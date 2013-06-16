@@ -19,8 +19,8 @@
 // filename		:	init_system.h
 // brief		:	FullMoni rev.B システム初期化管理
 // author		:	Tomoya Sato
-// update		:	2013/03/31
-// version		:	1.02
+// update		:	2013/06/16
+// version		:	1.03
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -55,6 +55,9 @@ extern volatile unsigned int	g_master_warning_flg6;
 extern volatile unsigned int	g_shift_timing_flg;
 extern volatile unsigned int	backlight_dimmer_flg;
 extern volatile unsigned int	Onetime_Peakclear_cnt;
+extern volatile unsigned int	sci_rcv_pointer;
+extern volatile unsigned int	sci_rcv_command;
+extern volatile unsigned int	g_can_rcv_timer;
 
 // --------------------------------------------------------------------
 // define関数
@@ -90,21 +93,16 @@ void Init_BSC(void);
 void Init_EXDMAC(void);
 void Init_DMAC(void);
 void Init_TPU(void);
-void Init_UART(void);
 unsigned char UART_Tx_Possible(void);
-unsigned char UART_Rx_Possible(void);
 unsigned char UART_Tx(unsigned char byte);
-unsigned char UART_Rx(unsigned char *byte);
 void UART_Tx_Char(unsigned char byte);
-unsigned char UART_Rx_Char(void);
-unsigned char UART_Found_Ctrl_C(void);
 void Int_Handler_UART_Tx(void);
 void Int_Handler_UART_Rx(void);
 void Int_Handler_UART_Tx_END(void);
 void Int_Handler_UART_Rx_ERR(void);
 void Int_CAN2515(void);
 void Int_50msFunc(void);
-void Int_LEDonoff(void);
+void Int_1msFunc(void);
 
 // --------------------------------------------------------------------
 // 多重インクルード防止

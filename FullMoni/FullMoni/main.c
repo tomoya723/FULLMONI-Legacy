@@ -19,8 +19,8 @@
 // filename		:	main.c
 // brief		:	FullMoni rev.B メインルーチン
 // author		:	Tomoya Sato
-// update		:	2013/03/31
-// version		:	1.02
+// update		:	2013/06/16
+// version		:	1.03
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -52,7 +52,7 @@ void abort(void);
 // --------------------------------------------------------------------
 // グローバル変数宣言
 // --------------------------------------------------------------------
-volatile char version[5] = "v1.02";
+volatile char version[5] = "v1.03";
 
 // --------------------------------------------------------------------
 // グローバル構造体宣言
@@ -62,6 +62,7 @@ volatile MoTeC1_data_t		g_MoTeC1_data;
 volatile Haltech1_data_t	g_Haltech1_data;
 volatile Haltech2_data_t	g_Haltech2_data;
 volatile Freedom2_data_t	g_Freedom2_data;
+volatile Megasquirt1_data_t	g_Megasquirt1_data;
 
 // --------------------------------------------------------------------
 // メインルーチン
@@ -79,7 +80,7 @@ void main(void)
 	Init_EXDMAC();
 	Init_DMAC();
 	Init_TPU();
-	Init_UART();
+//	Init_UART();	//モデル別対応の為state_controlで実行
 	Init_TFTLCD();
 	Init_SPI();
 //	Init_CAN();		//モデル別対応の為state_controlで実行
@@ -93,7 +94,8 @@ void main(void)
 	Init_Haltech1_data();
 	Init_Haltech2_data();
 	Init_Freedom2_data();
-	
+	Init_MSquirt1_data();
+
 	// --------------------------------------------------------------------
 	// FONTデータ展開(Flash→内部RAM)
 	// --------------------------------------------------------------------
@@ -142,6 +144,7 @@ volatile unsigned int	g_led_o_max_flg;
 volatile unsigned int	g_led_o_min_flg;
 volatile unsigned int	g_led_r_max_flg;
 volatile unsigned int	g_led_r_min_flg;
+volatile unsigned int	g_can_rcv_timer;
 static unsigned int		touch_cnt;
 static unsigned int		Beep_OneShotMin_cnt;
 static unsigned int		Beep_OneShotMax_cnt;
@@ -160,6 +163,7 @@ void Int_CAN2515(void)
 	// --------------------------------------------------------------------
 	unsigned char CAN_rcv_INTF, can_rcv[14];
 	signed short msgID;
+	static unsigned int can_rcv_cnt;
 	
 	// --------------------------------------------------------------------
 	// 割り込みフラグクリア
@@ -183,29 +187,349 @@ void Int_CAN2515(void)
 		{
 			switch(msgID)
 			{
-				case 0x010:
-							g_MoTeC1_data.RPM					= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_MoTeC1_data.GroundSpeed			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_MoTeC1_data.OilPressure			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
-							break;
-				case 0x011:
-							g_MoTeC1_data.EngineTemp			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_MoTeC1_data.FuelPressure			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_MoTeC1_data.BatteryVoltage		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							g_MoTeC1_data.ThrottlePosition		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
-							break;
-				case 0x012:
-							g_MoTeC1_data.ManifoldPressure		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_MoTeC1_data.InletAirTemp			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							g_MoTeC1_data.Lambda				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
-							break;
-				case 0x013:
-							g_MoTeC1_data.IgnitionAdvance		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_MoTeC1_data.Gear					= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_MoTeC1_data.InjectorDuty			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				case 0x5F0:
+							if(g_can_rcv_timer >= 10)		// 前回受信時から10mSec以上経過している場合
+							{
+									can_rcv_cnt = 0;		//  0 データ先頭
+									g_MoTeC1_data.RPM					= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.ThrottlePosition		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.ManifoldPressure		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.InletAirTemp			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+							}
+							else
+							{
+								if		(can_rcv_cnt ==  1)	//  1
+								{
+									g_MoTeC1_data.EngineTemp			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.Lambda1				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.Lambda2				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.ExhaustPressure		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  2)	//  2
+								{
+									g_MoTeC1_data.MassAirFlow			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.FuelTemp				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.FuelPressure			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.OilTemp				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  3)	//  3
+								{
+									g_MoTeC1_data.OilPressure			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  4)	//  4
+								{
+									g_MoTeC1_data.ExhaustTemp1			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.ExhaustTemp2			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  5)	//  5
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.BatteryVoltage		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.ECUTemp				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  6)	//  6
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  7)	//  7
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.GroundSpeed			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  8)	//  8
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  9)	//  9
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.AimLambda1			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.AimLambda2			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 10)	// 10
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.IgnitionAdvance		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 11)	// 11
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 12)	// 12
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 13)	// 13
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.InjectorDuty			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 14)	// 14
+								{
+									g_MoTeC1_data.Gear					= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 15)	// 15
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 16)	// 16
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 17)	// 17
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+							}
+							
+							g_can_rcv_timer = 0;	// タイマーリセット
+							default: break;
+			}
+		}
+		else if	(g_e2p_data.E2P_1.model == MoTeC2)
+		{
+			switch(msgID)
+			{
+				case 0x0E8:
+							if((can_rcv[6] == 0x82) && (can_rcv[7] == 0x81) && (can_rcv[8] == 0x80))
+							{
+								can_rcv_cnt = 0;
+							}
+							else
+							{
+								//
+							}
+							if		(can_rcv_cnt ==  0)	//  0
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.RPM					= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.ThrottlePosition		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  1)	//  1
+							{
+								g_MoTeC1_data.ManifoldPressure		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.InletAirTemp			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.EngineTemp			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.Lambda1				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  2)	//  2
+							{
+								g_MoTeC1_data.Lambda2				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.ExhaustPressure		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.MassAirFlow			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.FuelTemp				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  3)	//  3
+							{
+								g_MoTeC1_data.FuelPressure			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.OilTemp				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.OilPressure			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  4)	//  4
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.ExhaustTemp1			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.ExhaustTemp2			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  5)	//  5
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  6)	//  6
+							{
+								g_MoTeC1_data.BatteryVoltage		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.ECUTemp				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  7)	//  7
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.GroundSpeed			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  8)	//  8
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  9)	//  9
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.AimLambda1			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 10)	// 10
+							{
+								g_MoTeC1_data.AimLambda2			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.IgnitionAdvance		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 11)	// 11
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 12)	// 12
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 13)	// 13
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 14)	// 14
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.InjectorDuty			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.Gear					= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 15)	// 15
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 16)	// 16
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 17)	// 17
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 18)	// 18
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 19)	// 19
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 20)	// 20
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 21)	// 21
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
 							default: break;
 			}
 		}
@@ -298,37 +622,357 @@ void Int_CAN2515(void)
 	{
 		CANRxB0Read(&can_rcv[1], 8);
 		
-		if(Onetime_Peakclear_cnt > 0) Onetime_Peakclear_cnt --;
-		
 		msgID = MAKE_SID(can_rcv[1], can_rcv[2]);		// ID作成
+		
+		if(Onetime_Peakclear_cnt > 0) Onetime_Peakclear_cnt --;
 		
 		if		(g_e2p_data.E2P_1.model == MoTeC1)
 		{
 			switch(msgID)
 			{
-				case 0x010:
-							g_MoTeC1_data.RPM					= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_MoTeC1_data.GroundSpeed			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_MoTeC1_data.OilPressure			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
-							break;
-				case 0x011:
-							g_MoTeC1_data.EngineTemp			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_MoTeC1_data.FuelPressure			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_MoTeC1_data.BatteryVoltage		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							g_MoTeC1_data.ThrottlePosition		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
-							break;
-				case 0x012:
-							g_MoTeC1_data.ManifoldPressure		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_MoTeC1_data.InletAirTemp			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							g_MoTeC1_data.Lambda				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
-							break;
-				case 0x013:
-							g_MoTeC1_data.IgnitionAdvance		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
-							g_MoTeC1_data.Gear					= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
-							g_MoTeC1_data.InjectorDuty			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
-							// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				case 0x5F0:
+							if(g_can_rcv_timer >= 10)		// 前回受信時から10mSec以上経過している場合
+							{
+									can_rcv_cnt = 0;		//  0 データ先頭
+									g_MoTeC1_data.RPM					= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.ThrottlePosition		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.ManifoldPressure		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.InletAirTemp			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+							}
+							else
+							{
+								if		(can_rcv_cnt ==  1)	//  1
+								{
+									g_MoTeC1_data.EngineTemp			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.Lambda1				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.Lambda2				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.ExhaustPressure		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  2)	//  2
+								{
+									g_MoTeC1_data.MassAirFlow			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.FuelTemp				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.FuelPressure			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.OilTemp				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  3)	//  3
+								{
+									g_MoTeC1_data.OilPressure			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  4)	//  4
+								{
+									g_MoTeC1_data.ExhaustTemp1			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.ExhaustTemp2			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  5)	//  5
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.BatteryVoltage		= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.ECUTemp				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  6)	//  6
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  7)	//  7
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.GroundSpeed			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  8)	//  8
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt ==  9)	//  9
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.AimLambda1			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									g_MoTeC1_data.AimLambda2			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 10)	// 10
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									g_MoTeC1_data.IgnitionAdvance		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 11)	// 11
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 12)	// 12
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 13)	// 13
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									g_MoTeC1_data.InjectorDuty			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 14)	// 14
+								{
+									g_MoTeC1_data.Gear					= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 15)	// 15
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 16)	// 16
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+								else if	(can_rcv_cnt == 17)	// 17
+								{
+									// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+									// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+									// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+									// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+									can_rcv_cnt ++;
+								}
+							}
+							
+							g_can_rcv_timer = 0;	// タイマーリセット
+							default: break;
+			}
+		}
+		else if	(g_e2p_data.E2P_1.model == MoTeC2)
+		{
+			switch(msgID)
+			{
+				case 0x0E8:
+							if((can_rcv[6] == 0x82) && (can_rcv[7] == 0x81) && (can_rcv[8] == 0x80))
+							{
+								can_rcv_cnt = 0;
+							}
+							else
+							{
+								//
+							}
+							if		(can_rcv_cnt ==  0)	//  0
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.RPM					= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.ThrottlePosition		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  1)	//  1
+							{
+								g_MoTeC1_data.ManifoldPressure		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.InletAirTemp			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.EngineTemp			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.Lambda1				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  2)	//  2
+							{
+								g_MoTeC1_data.Lambda2				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.ExhaustPressure		= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.MassAirFlow			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.FuelTemp				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  3)	//  3
+							{
+								g_MoTeC1_data.FuelPressure			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.OilTemp				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.OilPressure			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  4)	//  4
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.ExhaustTemp1			= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.ExhaustTemp2			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  5)	//  5
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  6)	//  6
+							{
+								g_MoTeC1_data.BatteryVoltage		= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.ECUTemp				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  7)	//  7
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.GroundSpeed			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  8)	//  8
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt ==  9)	//  9
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.AimLambda1			= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 10)	// 10
+							{
+								g_MoTeC1_data.AimLambda2			= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								g_MoTeC1_data.IgnitionAdvance		= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 11)	// 11
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 12)	// 12
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 13)	// 13
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 14)	// 14
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								g_MoTeC1_data.InjectorDuty			= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								g_MoTeC1_data.Gear					= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 15)	// 15
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 16)	// 16
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 17)	// 17
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 18)	// 18
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 19)	// 19
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 20)	// 20
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
+							else if	(can_rcv_cnt == 21)	// 21
+							{
+								// N/A								= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+								// N/A								= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+								// N/A								= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+								// N/A								= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+								can_rcv_cnt ++;
+							}
 							default: break;
 			}
 		}
@@ -726,20 +1370,31 @@ static void Beep_TwoShotMin_control(void)
 }
 
 // --------------------------------------------------------------------
-// LEDオン/オフ処理
+// 定期割り込みルーチン 50mSec毎
 // --------------------------------------------------------------------
-void Int_LEDonoff(void)
+void Int_1msFunc(void)
 {
+	// --------------------------------------------------------------------
+	// ローカル変数宣言
+	// --------------------------------------------------------------------
+	static unsigned long sci_rcv_cnt;
+	
 	// --------------------------------------------------------------------
 	// 割り込みフラグクリア
 	// --------------------------------------------------------------------
 	TPU6.TSR.BIT.TGFA = 0;
 	
+	// --------------------------------------------------------------------
+	// LED点灯処理
+	// --------------------------------------------------------------------
 	if		(LEDonoff_cnt == 0)
 	{
 		if((g_led_o_max_flg) || (g_led_o_min_flg)) { PM.DR.BIT.B0 = 1;} else { PM.DR.BIT.B0 = 0; }
 		if((g_led_r_max_flg) || (g_led_r_min_flg)) { PB.DR.BIT.B3 = 1;} else { PB.DR.BIT.B3 = 0; }
 	}
+	// --------------------------------------------------------------------
+	// LED減光処理
+	// --------------------------------------------------------------------
 	else if((LEDonoff_cnt >= 1) && (LEDonoff_cnt <= 19))
 	{
 		if((backlight_dimmer_flg == 1) && ((g_led_o_max_flg) || (g_led_o_min_flg))) PM.DR.BIT.B0 = 0;
@@ -748,6 +1403,94 @@ void Int_LEDonoff(void)
 	
 	LEDonoff_cnt ++;
 	if(LEDonoff_cnt > 19) LEDonoff_cnt = 0;
+	
+	// --------------------------------------------------------------------
+	// SCI5 コマンド処理
+	// --------------------------------------------------------------------
+	if		(g_e2p_data.E2P_1.model == Freedom2)
+	{
+		if(g_e2p_data.E2P_1.control.BIT.FC_mode == 0)	// FC_mode FAST
+		{
+			sci_rcv_cnt ++;
+			if		(sci_rcv_cnt ==   1)
+			{
+				UART_Tx_Char(0x3F);		// ?
+				UART_Tx_Char(0x44);		// D
+				UART_Tx_Char(0x41);		// A
+				UART_Tx_Char(0x54);		// T
+				UART_Tx_Char(0x0D);		// [CR]
+				sci_rcv_command = 0;
+				sci_rcv_pointer = 0;
+			}
+			else if (sci_rcv_cnt >=  70) //  単一コードで高速化
+			{
+				sci_rcv_cnt = 0;
+			}
+			else
+			{
+				//
+			}
+		}
+		else											// FC_mode ALL
+		{
+			sci_rcv_cnt ++;
+			if		(sci_rcv_cnt ==   1)
+			{
+				UART_Tx_Char(0x3F);		// ?
+				UART_Tx_Char(0x44);		// D
+				UART_Tx_Char(0x41);		// A
+				UART_Tx_Char(0x54);		// T
+				UART_Tx_Char(0x0D);		// [CR]
+				sci_rcv_command = 0;
+				sci_rcv_pointer = 0;
+			}
+			else if	(sci_rcv_cnt ==  70)
+			{
+				UART_Tx_Char(0x3F);		// ?
+				UART_Tx_Char(0x48);		// H
+				UART_Tx_Char(0x4F);		// O
+				UART_Tx_Char(0x53);		// S
+				UART_Tx_Char(0x0D);		// [CR]
+				sci_rcv_command = 1;
+				sci_rcv_pointer = 0;
+			}
+			else if (sci_rcv_cnt >= 140)
+			{
+				sci_rcv_cnt = 0;
+			}
+			else
+			{
+				//
+			}
+		}
+	}
+	else if	(g_e2p_data.E2P_1.model == MSquirt1)
+	{
+		sci_rcv_cnt ++;
+//		if		(sci_rcv_cnt ==   1)
+//		{
+//			UART_Tx_Char(0x41);		// A
+//			sci_rcv_pointer = 0;
+//		}
+//		else if (sci_rcv_cnt >=  50) //  50mSec周期 20Hz
+//		{
+//			sci_rcv_cnt = 0;
+//		}
+//		else
+//		{
+//			//
+//		}
+	}
+	else
+	{
+		//
+	}
+	
+	// --------------------------------------------------------------------
+	// CAN 時分割処理用タイマー
+	// --------------------------------------------------------------------
+	g_can_rcv_timer ++;
+	if(g_can_rcv_timer > 10) g_can_rcv_timer = 10;
 }
 
 #ifdef __cplusplus

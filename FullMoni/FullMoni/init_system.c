@@ -19,8 +19,8 @@
 // filename		:	initsystem.c
 // brief		:	FullMoni rev.B システム初期化
 // author		:	Tomoya Sato
-// update		:	2013/03/31
-// version		:	1.02
+// update		:	2013/06/16
+// version		:	1.03
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -34,6 +34,8 @@
 #include "iodefine.h"
 #include "TFTLCD35.h"
 #include "CAN2515.h"
+#include "dataregister.h"
+#include "state_control.h"
 
 // --------------------------------------------------------------------
 // CPG初期化
@@ -424,7 +426,7 @@ void Init_TPU(void)
 	//----------------------------
 	// Set Interrupt Request Level
 	//----------------------------
-	INTC.IPRL.BIT._TPU6A = 5;
+	INTC.IPRL.BIT._TPU6A = 6;
 	//----------------------------
 	// Initialize TPU6
 	//----------------------------
@@ -434,7 +436,7 @@ void Init_TPU(void)
 	TPU6.TIER.BYTE			= 0x41;		// タイマインタラプトイネーブルレジスタ
 	TPU6.TSR.BYTE			= 0xC0;		// タイマステータスレジスタ
 	TPU6.TCNT				= 0x0000;	// タイマカウンタ
-	TPU6.TGRA				= 0x2EE0;	// タイマジェネラルレジスタA(2KHz)
+	TPU6.TGRA				= 0x5DC0;	// タイマジェネラルレジスタA(1KHz)
 	TPU6.TGRB				= 0;		// タイマジェネラルレジスタB
 	TPU6.TGRC				= 0;		// タイマジェネラルレジスタC
 	TPU6.TGRD				= 0;		// タイマジェネラルレジスタD
@@ -447,116 +449,48 @@ void Init_TPU(void)
 //=============================
 // Global : UART Software FIFO
 //=============================
-#define UART_FIFO_DEPTH 256          // UART FIFO Depth
-unsigned char gUART_FIFO_Tx[UART_FIFO_DEPTH]; // Tx FIFO Buffer
-unsigned long gUART_FIFO_Tx_WP;               // Tx FIFO Read Pointer
-unsigned long gUART_FIFO_Tx_RP;               // Tx FIFO Write Pointer
-unsigned long gUART_FIFO_Tx_DC;               // Tx FIFO Data Count;
-unsigned char gUART_FIFO_Rx[UART_FIFO_DEPTH]; // Rx FIFO Buffer
-unsigned long gUART_FIFO_Rx_WP;               // Rx FIFO Read Pointer
-unsigned long gUART_FIFO_Rx_RP;               // Rx FIFO Write Pointer
-unsigned long gUART_FIFO_Rx_DC;               // Rx FIFO Data Count;
-
-//======================
-// Global : Ctrl-C
-//======================
-unsigned char gUART_Ctrl_C;
-
-// --------------------------------------------------------------------
-// UART(SCI5)初期化
-// --------------------------------------------------------------------
-void Init_UART(void)
-{
-	volatile unsigned long i;
-	//------------------------
-	// P14 : SCI5 TxD5
-	// P15 : SCI5 RxD5
-	//------------------------
-	P1.ICR.BIT.B1 = 5;
-	//------------------------
-	// Start SCI5 System Clock
-	//------------------------
-//	MSTP._CRC.BIT._SCI5 = 0;
-	//------------------------
-	// Initialize FIFO
-	//------------------------
-	gUART_FIFO_Tx_WP = 0;
-	gUART_FIFO_Tx_RP = 0;
-	gUART_FIFO_Tx_DC = 0;
-	gUART_FIFO_Rx_WP = 0;
-	gUART_FIFO_Rx_RP = 0;
-	gUART_FIFO_Rx_DC = 0;
-	//------------------------
-	// Initialize Global
-	//------------------------
-	gUART_Ctrl_C = 0;
-	//-----------------------------
-	// Set Interrupt Request Level
-	//-----------------------------
-	INTC.IPRQ.BIT._SCI5 = 6;
-	//------------------------
-	// Reset TE, RE
-	//------------------------
-	SCI5.SCR.BIT.TE  = 0;
-	SCI5.SCR.BIT.RE  = 0;
-	//------------------------
-	// UART Mode
-	//   8bit, No-Parity, 1-Stop
-	//   Baud Rate = 38400bps
-	//   PCLK = 24MHz
-	//   CKS  = 0
-	//   BRR = 24M / (64 * 2^(-1) * 38400) - 1 = 19
-	//------------------------
-	SCI5.SCR.BIT.CKE = 0;
-	SCI5.SMR.BYTE = 0x00;  //00000000
-	SCI5.BRR = 19;
-	//------------------------
-	// Wait for 1bit period (30us)
-	//------------------------
-	for (i = 0; i < 30000 / 20; i++);
-	//------------------------
-	// Enable Interrupt RXI
-	//------------------------
-	SCI5.SCR.BIT.RIE = 1;
-	//------------------------
-	// Set TE, RE
-	//------------------------
-	SCI5.SCR.BIT.TE  = 1;
-	SCI5.SCR.BIT.RE  = 1;
-}
+#define UART_FIFO_DEPTH 256         					 // UART FIFO Depth
+volatile unsigned char gUART_FIFO_Tx[UART_FIFO_DEPTH]; // Tx FIFO Buffer
+volatile unsigned long gUART_FIFO_Tx_WP;               // Tx FIFO Read Pointer
+volatile unsigned long gUART_FIFO_Tx_RP;               // Tx FIFO Write Pointer
+volatile unsigned long gUART_FIFO_Tx_DC;               // Tx FIFO Data Count;
+volatile unsigned char	sci_rcv[154];
+volatile unsigned int	sci_rcv_pointer;
+volatile unsigned int	sci_rcv_command;
 
 // --------------------------------------------------------------------
 // UART 送信処理
 // --------------------------------------------------------------------
 unsigned char UART_Tx(unsigned char byte)
 {
-    unsigned char possible;
-    unsigned char tie_bkup;
-
-    //----------------------------------------------
-    // Disable Interrupt TXI (still TDRE flag is ON)
-    //----------------------------------------------
-    tie_bkup = SCI5.SCR.BIT.TIE;
-    //------------------------
-    // Check FIFO Tx
-    //------------------------
-    possible = (gUART_FIFO_Tx_DC < UART_FIFO_DEPTH)? 1 : 0;
-    //------------------------
-    // Set the Tx Data in FIFO
-    //------------------------
-    if (possible)
-    {
-        gUART_FIFO_Tx[gUART_FIFO_Tx_WP] = byte;
-        gUART_FIFO_Tx_WP = (gUART_FIFO_Tx_WP + 1) % UART_FIFO_DEPTH;
-        gUART_FIFO_Tx_DC = gUART_FIFO_Tx_DC + 1;
-        tie_bkup = 1;
-    }
-    //------------------------
-    // Revert TIE
-    //------------------------
-    SCI5.SCR.BIT.TIE = tie_bkup;
-
-    return possible;
+	unsigned char possible;
+	unsigned char tie_bkup;
+	
+	//----------------------------
+	// Set Interrupt Request Level
+	//----------------------------
+	INTC.IPRQ.BIT._SCI5 = 5;
+	//----------------------------------------------
+	// Disable Interrupt TXI (still TDRE flag is ON)
+	//----------------------------------------------
+	tie_bkup = SCI5.SCR.BIT.TIE;
+	//------------------------
+	// Check FIFO Tx
+	//------------------------
+	possible = (gUART_FIFO_Tx_DC < UART_FIFO_DEPTH)? 1 : 0;
+	//------------------------
+	// Set the Tx Data in FIFO
+	//------------------------
+	if (possible)
+	{
+		gUART_FIFO_Tx[gUART_FIFO_Tx_WP] = byte;
+		gUART_FIFO_Tx_WP = (gUART_FIFO_Tx_WP + 1) % UART_FIFO_DEPTH;
+		gUART_FIFO_Tx_DC = gUART_FIFO_Tx_DC + 1;
+		tie_bkup = 1;
+	}
+	SCI5.SCR.BIT.TIE = tie_bkup;
+	
+	return possible;
 }
 
 // --------------------------------------------------------------------
@@ -564,89 +498,7 @@ unsigned char UART_Tx(unsigned char byte)
 // --------------------------------------------------------------------
 void UART_Tx_Char(unsigned char byte)
 {
-    while(UART_Tx(byte) == 0);
-}
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
-unsigned char UART_Rx_Possible(void)
-{
-    unsigned char possible;
-    unsigned char rie_bkup;
-
-    //------------------------
-    // Disable Interrupt RXI
-    //------------------------
-    rie_bkup = SCI5.SCR.BIT.RIE;
-    SCI5.SCR.BIT.RIE = 0;
-    //------------------------
-    // Check FIFO Rx
-    //------------------------
-    possible = (gUART_FIFO_Rx_DC > 0)? 1 : 0;
-    //------------------------
-    // Revert RIE
-    //------------------------
-    SCI5.SCR.BIT.RIE = rie_bkup;
-
-    return possible;
-}
-
-// --------------------------------------------------------------------
-// UART 受信処理
-// --------------------------------------------------------------------
-unsigned char UART_Rx(unsigned char *byte)
-{
-    unsigned char possible;
-    unsigned char rie_bkup;
-
-    //------------------------
-    // Disable Interrupt RXI
-    //------------------------
-    rie_bkup = SCI5.SCR.BIT.RIE;
-    //------------------------
-    // Check FIFO Rx
-    //------------------------
-    possible = (gUART_FIFO_Rx_DC > 0)? 1 : 0;
-    //---------------------------
-    // Get the Rx Data from FIFO
-    //---------------------------
-    if (possible)
-    {
-        *byte = gUART_FIFO_Rx[gUART_FIFO_Rx_RP];
-        gUART_FIFO_Rx_RP = (gUART_FIFO_Rx_RP + 1) % UART_FIFO_DEPTH;
-        gUART_FIFO_Rx_DC = gUART_FIFO_Rx_DC - 1;
-        rie_bkup = 1;
-    }
-    //------------------------
-    // Revert RIE
-    //------------------------
-    SCI5.SCR.BIT.RIE = rie_bkup;
-
-    return possible;
-}
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
-unsigned char UART_Rx_Char(void)
-{
-    unsigned char byte;
-
-    while(UART_Rx(&byte) == 0);
-    return byte;
-}
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
-unsigned char UART_Found_Ctrl_C(void)
-{
-    unsigned char result;
-
-    result = gUART_Ctrl_C;
-    gUART_Ctrl_C = 0;
-    return result;
+	while(UART_Tx(byte) == 0);
 }
 
 // --------------------------------------------------------------------
@@ -654,26 +506,23 @@ unsigned char UART_Found_Ctrl_C(void)
 // --------------------------------------------------------------------
 void Int_Handler_UART_Tx(void)
 {
-    //------------------------
-    // If FIFO Tx has Data
-    //------------------------
-    if (gUART_FIFO_Tx_DC > 0)
+	//------------------------
+	// If FIFO Tx has Data
+	//------------------------
+	if (gUART_FIFO_Tx_DC > 0)
     {
-        // Read FIFO Tx and Set TDR
-        SCI5.TDR = gUART_FIFO_Tx[gUART_FIFO_Tx_RP];
-        gUART_FIFO_Tx_RP = (gUART_FIFO_Tx_RP + 1) % UART_FIFO_DEPTH;
-        gUART_FIFO_Tx_DC = gUART_FIFO_Tx_DC - 1;
-        // Clear TDRE
-        SCI5.SSR.BIT.TDRE = 0; // read 1 and write 0
-    }
-    //-------------------------
-    // If FIFO Tx has no Data
-    //-------------------------
-    else
-    {
-        // Disable Interrupt TXI (still TDRE flag is ON)
-        SCI5.SCR.BIT.TIE = 0;
-    }
+		SCI5.TDR = gUART_FIFO_Tx[gUART_FIFO_Tx_RP];
+		gUART_FIFO_Tx_RP = (gUART_FIFO_Tx_RP + 1) % UART_FIFO_DEPTH;
+		gUART_FIFO_Tx_DC = gUART_FIFO_Tx_DC - 1;
+		SCI5.SSR.BIT.TDRE = 0;
+	}
+	//-------------------------
+	// If FIFO Tx has no Data
+	//-------------------------
+	else
+	{
+		SCI5.SCR.BIT.TIE = 0;
+	}
 }
 
 // --------------------------------------------------------------------
@@ -682,34 +531,90 @@ void Int_Handler_UART_Tx(void)
 void Int_Handler_UART_Rx(void)
 {
     unsigned char byte;
-
-    //------------------------
-    // If FIFO Rx has Room
-    //------------------------
-    if (gUART_FIFO_Rx_DC < UART_FIFO_DEPTH)
-    {
-        // Read RDR and Set FIFO Rx
-        byte = SCI5.RDR;
-        if (byte == 0x03) // Ctrl-C ?
-        {
-            gUART_Ctrl_C = 1;
-        }
-		UART_Tx_Char(byte);
-		TPU3.TGRD = byte << 8;
-        gUART_FIFO_Rx[gUART_FIFO_Rx_WP] = byte;
-        gUART_FIFO_Rx_WP = (gUART_FIFO_Rx_WP + 1) % UART_FIFO_DEPTH;
-        gUART_FIFO_Rx_DC = gUART_FIFO_Rx_DC + 1;
-        // Clear RDRF
-        SCI5.SSR.BIT.RDRF = 0; // read 1 and write 0
-    }
-    //------------------------
-    // If FIFO Rx has no Room
-    //------------------------
-    else
-    {
-        // Disable Interrupt RXI (still RDRF flag is ON)
-        SCI5.SCR.BIT.RIE = 0;
-    }
+	unsigned int lambda;
+	
+	if		(g_e2p_data.E2P_1.model == Freedom2)
+	{
+		sci_rcv[sci_rcv_pointer] = SCI5.RDR - 0x30;
+		sci_rcv_pointer ++;
+		
+		if(sci_rcv_pointer >= 55)
+		{
+			sci_rcv_pointer = 0;
+			if		(sci_rcv_command == 0)
+			{
+				g_Freedom2_data.RPM					= sci_rcv[0]  * 10000 + sci_rcv[1]  * 1000 + sci_rcv[2]  * 100 + sci_rcv[3]  * 10 + sci_rcv[4] ;
+				g_Freedom2_data.ManifoldPressure	=                       sci_rcv[5]  * 1000 + sci_rcv[6]  * 100 + sci_rcv[7]  * 10 + sci_rcv[8] ;
+				g_Freedom2_data.EngineTemp			= sci_rcv[9]  * 10000 + sci_rcv[10] * 1000 + sci_rcv[11] * 100 + sci_rcv[12] * 10 + sci_rcv[13];
+				g_Freedom2_data.InletAirTemp		= sci_rcv[14] * 10000 + sci_rcv[15] * 1000 + sci_rcv[16] * 100 + sci_rcv[17] * 10 + sci_rcv[18];
+				g_Freedom2_data.BarometricPressure	=                       sci_rcv[19] * 1000 + sci_rcv[20] * 100 + sci_rcv[21] * 10 + sci_rcv[22];
+				g_Freedom2_data.ThrottlePosition	=                       sci_rcv[23] * 1000 + sci_rcv[24] * 100 + sci_rcv[25] * 10 + sci_rcv[26];
+				g_Freedom2_data.BatteryVoltage		=                                            sci_rcv[27] * 100 + sci_rcv[28] * 10 + sci_rcv[29];
+				g_Freedom2_data.ValidFuelTime		=                       sci_rcv[30] * 1000 + sci_rcv[31] * 100 + sci_rcv[32] * 10 + sci_rcv[33];
+				g_Freedom2_data.InvalidFuelTime		=                       sci_rcv[34] * 1000 + sci_rcv[35] * 100 + sci_rcv[36] * 10 + sci_rcv[37];
+				g_Freedom2_data.IgnitionAdvance		=                                                                sci_rcv[38] * 10 + sci_rcv[39];
+				g_Freedom2_data.Status				= sci_rcv[40] * 10000 + sci_rcv[41] * 1000 + sci_rcv[42] * 100 + sci_rcv[43] * 10 + sci_rcv[44];
+				g_Freedom2_data.GroundSpeed			= sci_rcv[45] * 10000 + sci_rcv[46] * 1000 + sci_rcv[47] * 100 + sci_rcv[48] * 10 + sci_rcv[49];
+				lambda								= sci_rcv[50] * 10000 + sci_rcv[51] * 1000 + sci_rcv[52] * 100 + sci_rcv[53] * 10 + sci_rcv[54];
+				g_Freedom2_data.AFR					= (lambda & 0xFF00) >> 8;
+				g_Freedom2_data.AimAFR				= (lambda & 0x00FF);
+			}
+			else if	(sci_rcv_command == 1)
+			{
+				g_Freedom2_data.IATCorrection		= sci_rcv[0]  * 10000 + sci_rcv[1]  * 1000 + sci_rcv[2]  * 100 + sci_rcv[3]  * 10 + sci_rcv[4] ;
+				g_Freedom2_data.ETCorrection		= sci_rcv[5]  * 10000 + sci_rcv[6]  * 1000 + sci_rcv[7]  * 100 + sci_rcv[8]  * 10 + sci_rcv[9] ;
+				g_Freedom2_data.EStartCorrection	= sci_rcv[10] * 10000 + sci_rcv[11] * 1000 + sci_rcv[12] * 100 + sci_rcv[13] * 10 + sci_rcv[14];
+				g_Freedom2_data.AccelCorrection		= sci_rcv[15] * 10000 + sci_rcv[16] * 1000 + sci_rcv[17] * 100 + sci_rcv[18] * 10 + sci_rcv[19];
+				g_Freedom2_data.PowerCorrection		= sci_rcv[20] * 10000 + sci_rcv[21] * 1000 + sci_rcv[22] * 100 + sci_rcv[23] * 10 + sci_rcv[24];
+				g_Freedom2_data.FeedbackCorrection	= sci_rcv[25] * 10000 + sci_rcv[26] * 1000 + sci_rcv[27] * 100 + sci_rcv[28] * 10 + sci_rcv[29];
+				g_Freedom2_data.IdolCorrection		= sci_rcv[30] * 10000 + sci_rcv[31] * 1000 + sci_rcv[32] * 100 + sci_rcv[33] * 10 + sci_rcv[34];
+				g_Freedom2_data.DecelCutCorrection	= sci_rcv[35] * 10000 + sci_rcv[36] * 1000 + sci_rcv[37] * 100 + sci_rcv[38] * 10 + sci_rcv[39];
+				g_Freedom2_data.BaroCorrection		= sci_rcv[40] * 10000 + sci_rcv[41] * 1000 + sci_rcv[42] * 100 + sci_rcv[43] * 10 + sci_rcv[44];
+				g_Freedom2_data.IdolIGCorrection	= sci_rcv[45] * 10000 + sci_rcv[46] * 1000 + sci_rcv[47] * 100 + sci_rcv[48] * 10 + sci_rcv[49];
+				g_Freedom2_data.RetardCorrection	= sci_rcv[50] * 10000 + sci_rcv[51] * 1000 + sci_rcv[52] * 100 + sci_rcv[53] * 10 + sci_rcv[54];
+			}
+			else
+			{
+				//
+			}
+		}
+		else
+		{
+			//
+		}
+	}
+	else if	(g_e2p_data.E2P_1.model == MSquirt1)
+	{
+		sci_rcv[sci_rcv_pointer] = SCI5.RDR;
+		sci_rcv_pointer ++;
+//		if(sci_rcv_pointer >= 154)
+		if(sci_rcv_pointer >32)
+		{
+			sci_rcv_pointer = 0;
+			g_Megasquirt1_data.rpm				= ((unsigned int) sci_rcv[6]  << 8) + sci_rcv[7] ;
+			g_Megasquirt1_data.advance			= ((unsigned int) sci_rcv[8]  << 8) + sci_rcv[9] ;
+//			g_Megasquirt1_data.afrtgt1			=        				              sci_rcv[12];
+//			g_Megasquirt1_data.afrtgt2			=        				              sci_rcv[13];
+//			g_Megasquirt1_data.barometer		= ((unsigned int) sci_rcv[16] << 8) + sci_rcv[17];
+//			g_Megasquirt1_data.map				= ((unsigned int) sci_rcv[18] << 8) + sci_rcv[19];
+//			g_Megasquirt1_data.mat				= ((unsigned int) sci_rcv[20] << 8) + sci_rcv[21];
+//			g_Megasquirt1_data.coolant			= ((unsigned int) sci_rcv[22] << 8) + sci_rcv[23];
+//			g_Megasquirt1_data.tps				= ((unsigned int) sci_rcv[24] << 8) + sci_rcv[25];
+//			g_Megasquirt1_data.batteryVoltage	= ((unsigned int) sci_rcv[26] << 8) + sci_rcv[27];
+//			g_Megasquirt1_data.afr1				= ((unsigned int) sci_rcv[28] << 8) + sci_rcv[29];
+//			g_Megasquirt1_data.afr2				= ((unsigned int) sci_rcv[30] << 8) + sci_rcv[31];
+		}
+		else
+		{
+			//
+		}
+	}
+	else
+	{
+		//
+	}
+	
+	SCI5.SSR.BIT.RDRF = 0;
 }
 
 // --------------------------------------------------------------------
@@ -717,10 +622,10 @@ void Int_Handler_UART_Rx(void)
 // --------------------------------------------------------------------
 void Int_Handler_UART_Rx_ERR(void)
 {
-    SCI5.SSR.BIT.FER = 0;
-    SCI5.SSR.BIT.ORER = 0;
-    SCI5.SSR.BIT.PER = 0;
-    SCI5.SSR.BIT.RDRF = 0;
+	SCI5.SSR.BIT.FER = 0;
+	SCI5.SSR.BIT.ORER = 0;
+	SCI5.SSR.BIT.PER = 0;
+	SCI5.SSR.BIT.RDRF = 0;
 }
 
 // --------------------------------------------------------------------
@@ -728,5 +633,5 @@ void Int_Handler_UART_Rx_ERR(void)
 // --------------------------------------------------------------------
 void Int_Handler_UART_Tx_END(void)
 {
-    SCI5.SSR.BIT.TEND = 0;
+	SCI5.SSR.BIT.TEND = 0;
 }

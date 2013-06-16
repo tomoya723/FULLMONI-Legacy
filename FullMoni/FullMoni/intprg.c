@@ -19,8 +19,8 @@
 // filename		:	intprg.c
 // brief		:	FullMoni rev.B äÑÇËçûÇ›ÉxÉNÉ^
 // author		:	Tomoya Sato
-// update		:	2013/03/31
-// version		:	1.02
+// update		:	2013/06/16
+// version		:	1.03
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -359,7 +359,7 @@ __interrupt(vect=162) void INT_TXI4_SCI4(void){/* sleep(); */}
 // vector 163 TEI4 SCI4
 __interrupt(vect=163) void INT_TEI4_SCI4(void){/* sleep(); */}
 // vector 164 TGI6A TPU6
-__interrupt(vect=164) void INT_TGI6A_TPU6(void){Int_LEDonoff();}
+__interrupt(vect=164) void INT_TGI6A_TPU6(void){Int_1msFunc();}
 // vector 165 TGI6B TPU6
 __interrupt(vect=165) void INT_TGI6B_TPU6(void){/* sleep(); */}
 // vector 166 TGI6C TPU6

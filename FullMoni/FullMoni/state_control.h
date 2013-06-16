@@ -19,8 +19,8 @@
 // filename		:	state_control.h
 // brief		:	FullMoni rev.B 	ステート管理
 // author		:	Tomoya Sato
-// update		:	2013/03/31
-// version		:	1.02
+// update		:	2013/06/16
+// version		:	1.03
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -32,15 +32,20 @@
 // --------------------------------------------------------------------
 // extern宣言
 // --------------------------------------------------------------------
-extern volatile char version[5];
-extern volatile unsigned int g_oneshot_flg;
-extern volatile unsigned int g_drawbuff_flg;
-extern volatile long g_int50mscnt;
-extern volatile unsigned int touch_done_flg;
-extern volatile unsigned int touch_drag_flg;
-extern volatile unsigned int g_PressX, g_PressY;
-extern volatile unsigned int g_DragX, g_DragY;
-extern volatile unsigned int g_refresh_done;
+extern volatile char			version[5];
+extern volatile unsigned int	g_oneshot_flg;
+extern volatile unsigned int	g_drawbuff_flg;
+extern volatile long			g_int50mscnt;
+extern volatile unsigned int	touch_done_flg;
+extern volatile unsigned int	touch_drag_flg;
+extern volatile unsigned int	g_PressX, g_PressY;
+extern volatile unsigned int	g_DragX, g_DragY;
+extern volatile unsigned int	g_refresh_done;
+extern volatile unsigned long	gUART_FIFO_Tx_WP;
+extern volatile unsigned long	gUART_FIFO_Tx_RP;
+extern volatile unsigned long	gUART_FIFO_Tx_DC;
+extern volatile unsigned char	sci_rcv[154];
+extern volatile unsigned int	sci_rcv_pointer;
 
 // --------------------------------------------------------------------
 // define宣言
@@ -117,6 +122,8 @@ void A018(void);
 void A019(void);
 void A020(void);
 void A021(void);
+void A022(void);
+void A023(void);
 void A101(void);
 void A102(void);
 void A103(void);
@@ -132,8 +139,11 @@ void A202(void);
 void A990(void);
 void A991(void);
 static void Init_MoTeC1(void);
+static void Init_MoTeC2(void);
 static void Init_Haltech1(void);
 static void Init_Haltech2(void);
+static void Init_Freedom2(void);
+static void Init_MSquirt1(void);
 static void Preset_load_MoTeC1(void);
 static void Preset_load_MoTeC2(void);
 static void Preset_load_Haltech1(void);

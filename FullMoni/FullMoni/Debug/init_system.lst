@@ -1,10 +1,10 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:33:06 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   16-Jun-2013 20:55:34 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
 FILE NAME: C:\WorkSpace\FullMoni\FullMoni\init_system.c
 
-Function (File C:\WorkSpa, Line    41): Init_CPG
+Function (File C:\WorkSpa, Line    43): Init_CPG
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -18,7 +18,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line    55): Init_INTC
+Function (File C:\WorkSpa, Line    57): Init_INTC
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -32,7 +32,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line    79): Init_MSTP
+Function (File C:\WorkSpa, Line    81): Init_MSTP
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -46,7 +46,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   120): Init_GPIO
+Function (File C:\WorkSpa, Line   122): Init_GPIO
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -60,7 +60,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   243): Init_BSC
+Function (File C:\WorkSpa, Line   245): Init_BSC
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -74,7 +74,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   283): Init_EXDMAC
+Function (File C:\WorkSpa, Line   285): Init_EXDMAC
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -88,7 +88,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   307): Init_DMAC
+Function (File C:\WorkSpa, Line   309): Init_DMAC
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -102,7 +102,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   348): Init_TPU
+Function (File C:\WorkSpa, Line   350): Init_TPU
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -116,35 +116,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   468): Init_UART
-
-  Optimize Option Specified : No Allocation Information Available
-
-Parameter Area Size     : 0x00000000 Byte(s)
-Linkage Area Size       : 0x00000004 Byte(s)
-Local Variable Size     : 0x00000004 Byte(s)
-Temporary Size          : 0x00000000 Byte(s)
-Register Save Area Size : 0x00000000 Byte(s)
-Total Frame Size        : 0x00000008 Byte(s)
-
-Used Runtime Library Name
-
-
-Function (File C:\WorkSpa, Line   531): UART_Tx
-
-  Optimize Option Specified : No Allocation Information Available
-
-Parameter Area Size     : 0x00000000 Byte(s)
-Linkage Area Size       : 0x00000004 Byte(s)
-Local Variable Size     : 0x00000000 Byte(s)
-Temporary Size          : 0x00000000 Byte(s)
-Register Save Area Size : 0x00000008 Byte(s)
-Total Frame Size        : 0x0000000c Byte(s)
-
-Used Runtime Library Name
-
-
-Function (File C:\WorkSpa, Line   565): UART_Tx_Char
+Function (File C:\WorkSpa, Line   464): UART_Tx
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -158,7 +130,21 @@ Total Frame Size        : 0x00000006 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   573): UART_Rx_Possible
+Function (File C:\WorkSpa, Line   499): UART_Tx_Char
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000002 Byte(s)
+Total Frame Size        : 0x00000006 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File C:\WorkSpa, Line   507): Int_Handler_UART_Tx
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -172,7 +158,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   598): UART_Rx
+Function (File C:\WorkSpa, Line   531): Int_Handler_UART_Rx
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -186,21 +172,7 @@ Total Frame Size        : 0x00000010 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   632): UART_Rx_Char
-
-  Optimize Option Specified : No Allocation Information Available
-
-Parameter Area Size     : 0x00000000 Byte(s)
-Linkage Area Size       : 0x00000004 Byte(s)
-Local Variable Size     : 0x00000002 Byte(s)
-Temporary Size          : 0x00000000 Byte(s)
-Register Save Area Size : 0x00000000 Byte(s)
-Total Frame Size        : 0x00000006 Byte(s)
-
-Used Runtime Library Name
-
-
-Function (File C:\WorkSpa, Line   643): UART_Found_Ctrl_C
+Function (File C:\WorkSpa, Line   623): Int_Handler_UART_Rx_ERR
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -214,35 +186,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   655): Int_Handler_UART_Tx
-
-  Optimize Option Specified : No Allocation Information Available
-
-Parameter Area Size     : 0x00000000 Byte(s)
-Linkage Area Size       : 0x00000004 Byte(s)
-Local Variable Size     : 0x00000000 Byte(s)
-Temporary Size          : 0x00000000 Byte(s)
-Register Save Area Size : 0x00000004 Byte(s)
-Total Frame Size        : 0x00000008 Byte(s)
-
-Used Runtime Library Name
-
-
-Function (File C:\WorkSpa, Line   682): Int_Handler_UART_Rx
-
-  Optimize Option Specified : No Allocation Information Available
-
-Parameter Area Size     : 0x00000000 Byte(s)
-Linkage Area Size       : 0x00000004 Byte(s)
-Local Variable Size     : 0x00000000 Byte(s)
-Temporary Size          : 0x00000000 Byte(s)
-Register Save Area Size : 0x00000002 Byte(s)
-Total Frame Size        : 0x00000006 Byte(s)
-
-Used Runtime Library Name
-
-
-Function (File C:\WorkSpa, Line   718): Int_Handler_UART_Rx_ERR
+Function (File C:\WorkSpa, Line   634): Int_Handler_UART_Tx_END
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -256,21 +200,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   729): Int_Handler_UART_Tx_END
-
-  Optimize Option Specified : No Allocation Information Available
-
-Parameter Area Size     : 0x00000000 Byte(s)
-Linkage Area Size       : 0x00000004 Byte(s)
-Local Variable Size     : 0x00000000 Byte(s)
-Temporary Size          : 0x00000000 Byte(s)
-Register Save Area Size : 0x00000000 Byte(s)
-Total Frame Size        : 0x00000004 Byte(s)
-
-Used Runtime Library Name
-
-
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   31-Mar-2013 13:33:06 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   16-Jun-2013 20:55:34 PAGE   1
 
 ************ OBJECT LISTING ************
 
@@ -300,8 +230,8 @@ P                                                                  ; section
         19:    // filename     :   initsystem.c
         20:    // brief        :   FullMoni rev.B システム初期化
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2013/03/31
-        23:    // version      :   1.02
+        22:    // update       :   2013/06/16
+        23:    // version      :   1.03
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------
@@ -315,1089 +245,1296 @@ P                                                                  ; section
         34:    #include "iodefine.h"
         35:    #include "TFTLCD35.h"
         36:    #include "CAN2515.h"
-        37:    
-        38:    // --------------------------------------------------------------------
-        39:    // CPG初期化
+        37:    #include "dataregister.h"
+        38:    #include "state_control.h"
+        39:    
         40:    // --------------------------------------------------------------------
-        41:    void Init_CPG(void)
+        41:    // CPG初期化
+        42:    // --------------------------------------------------------------------
+        43:    void Init_CPG(void)
   00000000                    _Init_CPG:                           ; function: Init_CPG
-        42:    {
-        43:        //-----------------------------------------
-        44:        // Set All Internal Clocks in Maximum Speed
+        44:    {
         45:        //-----------------------------------------
-        46:        // ICLK = EXTAL x 4 (48MHz)
-        47:        // PCLK = EXTAL x 2 (24MHz)
-        48:        // BCLK = EXTAL x 4 (48MHz)
-        49:        SCKCR.WORD = (0 << 8) + (1 << 4) + (0 << 0);
+        46:        // Set All Internal Clocks in Maximum Speed
+        47:        //-----------------------------------------
+        48:        // ICLK = EXTAL x 4 (48MHz)
+        49:        // PCLK = EXTAL x 2 (24MHz)
+        50:        // BCLK = EXTAL x 4 (48MHz)
+        51:        SCKCR.WORD = (0 << 8) + (1 << 4) + (0 << 0);
   00000000 015D4010FDC4           MOV.W       #H'10:8,@H'00FFFDC4:16
   00000006 5470                   RTS
-        50:    }
-        51:    
-        52:    // --------------------------------------------------------------------
-        53:    // INTC初期化
+        52:    }
+        53:    
         54:    // --------------------------------------------------------------------
-        55:    void Init_INTC(void)
+        55:    // INTC初期化
+        56:    // --------------------------------------------------------------------
+        57:    void Init_INTC(void)
   00000008                    _Init_INTC:                          ; function: Init_INTC
-        56:    {
-        57:        //-------------------
-        58:        // Interrupt Mode = 2
+        58:    {
         59:        //-------------------
-        60:        INTC.INTCR.BIT.INTM = 2;
+        60:        // Interrupt Mode = 2
+        61:        //-------------------
+        62:        INTC.INTCR.BIT.INTM = 2;
   00000008 F802                   MOV.B       #2:8,R0L
   0000000A 7F32F830               BFST        R0L,#H'30,@H'00FFFF32:8
-        61:        //--------------------------------
-        62:        // Set Current Interrupt Level = 0
         63:        //--------------------------------
-        64:        set_imask_exr(0);
+        64:        // Set Current Interrupt Level = 0
+        65:        //--------------------------------
+        66:        set_imask_exr(0);
   0000000E 0218                   STC.B       EXR,R0L
   00000010 E8F8                   AND.B       #H'F8:8,R0L
   00000012 C800                   OR.B        #0:8,R0L
   00000014 0318                   LDC.B       R0L,EXR
-        65:        
-        66:        // MCP2515 CANIRQ 指定
-        67:        P1.ICR.BIT.B3           =    1;
+        67:        
+        68:        // MCP2515 CANIRQ 指定
+        69:        P1.ICR.BIT.B3           =    1;
   00000016 6A18FB907030           BSET.B      #3,@H'00FFFB90:16
-        68:        PFC.PFCRC.BIT.ITS3      =    0;
+        70:        PFC.PFCRC.BIT.ITS3      =    0;
   0000001C 6A18FBCC7230           BCLR.B      #3,@H'00FFFBCC:16
-        69:        INTC.IPRA.BIT._IRQ3     =    5;
+        71:        INTC.IPRA.BIT._IRQ3     =    5;
   00000022 F805                   MOV.B       #5:8,R0L
   00000024 6A18FD41F807           BFST        R0L,#7,@H'00FFFD41:16
-        70:        INTC.ISCR_L.BIT.IRQ3SC  = 0x01;
+        72:        INTC.ISCR_L.BIT.IRQ3SC  = 0x01;
   0000002A F801                   MOV.B       #1:8,R0L
   0000002C 6A18FD6BF8C0           BFST        R0L,#H'C0,@H'00FFFD6B:16
-        71:        INTC.IER.BIT.IRQ3E      =    1;
+        73:        INTC.IER.BIT.IRQ3E      =    1;
   00000032 7F357030               BSET.B      #3,@H'00FFFF35:8
-        72:        INTC.ISR.BIT.IRQ3F      =    0;
+        74:        INTC.ISR.BIT.IRQ3F      =    0;
   00000036 7F377230               BCLR.B      #3,@H'00FFFF37:8
   0000003A 5470                   RTS
-        73:        
-        74:    }
-        75:    
-        76:    // --------------------------------------------------------------------
-        77:    // MSTP初期化
+        75:        
+        76:    }
+        77:    
         78:    // --------------------------------------------------------------------
-        79:    void Init_MSTP(void)
+        79:    // MSTP初期化
+        80:    // --------------------------------------------------------------------
+        81:    void Init_MSTP(void)
   0000003C                    _Init_MSTP:                          ; function: Init_MSTP
-        80:    {
-        81:        //-------------------------------------------
-        82:        // Clear Module Stop for All Internal Modules
+        82:    {
         83:        //-------------------------------------------
-        84:        MSTP.CRA.BIT.ACSE       = 0;
+        84:        // Clear Module Stop for All Internal Modules
+        85:        //-------------------------------------------
+        86:        MSTP.CRA.BIT.ACSE       = 0;
   0000003C 6A18FDC87270           BCLR.B      #7,@H'00FFFDC8:16
-        85:        MSTP.CRA.BIT._EXDMAC    = 0;
+        87:        MSTP.CRA.BIT._EXDMAC    = 0;
   00000042 6A18FDC87260           BCLR.B      #6,@H'00FFFDC8:16
-        86:        MSTP.CRA.BIT._DMAC      = 0;
+        88:        MSTP.CRA.BIT._DMAC      = 0;
   00000048 6A18FDC87250           BCLR.B      #5,@H'00FFFDC8:16
-        87:        MSTP.CRA.BIT._DTC       = 0;
+        89:        MSTP.CRA.BIT._DTC       = 0;
   0000004E 6A18FDC87240           BCLR.B      #4,@H'00FFFDC8:16
-        88:        MSTP.CRA.BIT._TMR23     = 0;
+        90:        MSTP.CRA.BIT._TMR23     = 0;
   00000054 6A18FDC87210           BCLR.B      #1,@H'00FFFDC8:16
-        89:        MSTP.CRA.BIT._TMR01     = 0;
+        91:        MSTP.CRA.BIT._TMR01     = 0;
   0000005A 6A18FDC87200           BCLR.B      #0,@H'00FFFDC8:16
-        90:        MSTP.CRA.BIT._DA        = 0;
+        92:        MSTP.CRA.BIT._DA        = 0;
   00000060 6A18FDC97250           BCLR.B      #5,@H'00FFFDC9:16
-        91:        MSTP.CRA.BIT._AD0       = 0;
+        93:        MSTP.CRA.BIT._AD0       = 0;
   00000066 6A18FDC97230           BCLR.B      #3,@H'00FFFDC9:16
-        92:        MSTP.CRA.BIT._TPUU      = 0;
+        94:        MSTP.CRA.BIT._TPUU      = 0;
   0000006C 6A18FDC97210           BCLR.B      #1,@H'00FFFDC9:16
-        93:        MSTP.CRA.BIT._TPUL      = 0;
+        95:        MSTP.CRA.BIT._TPUL      = 0;
   00000072 6A18FDC97200           BCLR.B      #0,@H'00FFFDC9:16
-        94:        
-        95:        MSTP.CRB.BIT._PPG0      = 0;
+        96:        
+        97:        MSTP.CRB.BIT._PPG0      = 0;
   00000078 6A18FDCA7270           BCLR.B      #7,@H'00FFFDCA:16
-        96:        MSTP.CRB.BIT._SCI4      = 0;
+        98:        MSTP.CRB.BIT._SCI4      = 0;
   0000007E 6A18FDCA7240           BCLR.B      #4,@H'00FFFDCA:16
-        97:        MSTP.CRB.BIT._SCI2      = 0;
+        99:        MSTP.CRB.BIT._SCI2      = 0;
   00000084 6A18FDCA7220           BCLR.B      #2,@H'00FFFDCA:16
-        98:        MSTP.CRB.BIT._SCI1      = 0;
+       100:        MSTP.CRB.BIT._SCI1      = 0;
   0000008A 6A18FDCA7210           BCLR.B      #1,@H'00FFFDCA:16
-        99:        MSTP.CRB.BIT._SCI0      = 0;
+       101:        MSTP.CRB.BIT._SCI0      = 0;
   00000090 6A18FDCA7200           BCLR.B      #0,@H'00FFFDCA:16
-       100:        MSTP.CRB.BIT._IIC1      = 0;
+       102:        MSTP.CRB.BIT._IIC1      = 0;
   00000096 6A18FDCB7270           BCLR.B      #7,@H'00FFFDCB:16
-       101:        MSTP.CRB.BIT._IIC0      = 0;
+       103:        MSTP.CRB.BIT._IIC0      = 0;
   0000009C 6A18FDCB7260           BCLR.B      #6,@H'00FFFDCB:16
-       102:        MSTP.CRB.BIT._UBC       = 0;
+       104:        MSTP.CRB.BIT._UBC       = 0;
   000000A2 6A18FDCB7250           BCLR.B      #5,@H'00FFFDCB:16
-       103:        
-       104:        MSTP._CRC.BIT._SCI5     = 0;
+       105:        
+       106:        MSTP._CRC.BIT._SCI5     = 0;
   000000A8 6A18FDCC7270           BCLR.B      #7,@H'00FFFDCC:16
-       105:        MSTP._CRC.BIT._SCI6     = 0;
+       107:        MSTP._CRC.BIT._SCI6     = 0;
   000000AE 6A18FDCC7260           BCLR.B      #6,@H'00FFFDCC:16
-       106:        MSTP._CRC.BIT._TMR45    = 0;
+       108:        MSTP._CRC.BIT._TMR45    = 0;
   000000B4 6A18FDCC7250           BCLR.B      #5,@H'00FFFDCC:16
-       107:        MSTP._CRC.BIT._TMR67    = 0;
+       109:        MSTP._CRC.BIT._TMR67    = 0;
   000000BA 6A18FDCC7240           BCLR.B      #4,@H'00FFFDCC:16
-       108:        MSTP._CRC.BIT._USB      = 0;
+       110:        MSTP._CRC.BIT._USB      = 0;
   000000C0 6A18FDCC7230           BCLR.B      #3,@H'00FFFDCC:16
-       109:        MSTP._CRC.BIT._CRC      = 0;
+       111:        MSTP._CRC.BIT._CRC      = 0;
   000000C6 6A18FDCC7220           BCLR.B      #2,@H'00FFFDCC:16
-       110:        MSTP._CRC.BIT._AD1      = 0;
+       112:        MSTP._CRC.BIT._AD1      = 0;
   000000CC 6A18FDCC7210           BCLR.B      #1,@H'00FFFDCC:16
-       111:        MSTP._CRC.BIT._PPG1     = 0;
+       113:        MSTP._CRC.BIT._PPG1     = 0;
   000000D2 6A18FDCC7200           BCLR.B      #0,@H'00FFFDCC:16
-       112:        MSTP._CRC.BIT._RAM_4    = 0;
+       114:        MSTP._CRC.BIT._RAM_4    = 0;
   000000D8 1888                   SUB.B       R0L,R0L
   000000DA 6A18FDCDF830           BFST        R0L,#H'30,@H'00FFFDCD:16
-       113:        MSTP._CRC.BIT._RAM32    = 0;
+       115:        MSTP._CRC.BIT._RAM32    = 0;
   000000E0 1888                   SUB.B       R0L,R0L
   000000E2 6A18FDCDF80C           BFST        R0L,#H'0C,@H'00FFFDCD:16
-       114:        MSTP._CRC.BIT._RAM10    = 0;
+       116:        MSTP._CRC.BIT._RAM10    = 0;
   000000E8 1888                   SUB.B       R0L,R0L
   000000EA 6A18FDCDF803           BFST        R0L,#3,@H'00FFFDCD:16
   000000F0 5470                   RTS
-       115:    }
-       116:    
-       117:    // --------------------------------------------------------------------
-       118:    // GPIO初期化
+       117:    }
+       118:    
        119:    // --------------------------------------------------------------------
-       120:    void Init_GPIO(void)
+       120:    // GPIO初期化
+       121:    // --------------------------------------------------------------------
+       122:    void Init_GPIO(void)
   000000F2                    _Init_GPIO:                          ; function: Init_GPIO
-       121:    {
-       122:        //---------------------
-       123:        // Enable External Bus
+       123:    {
        124:        //---------------------
-       125:        SYSCR.BIT.EXPE          = 1;        // 外部バスモード選択
+       125:        // Enable External Bus
+       126:        //---------------------
+       127:        SYSCR.BIT.EXPE          = 1;        // 外部バスモード選択
   000000F2 6A18FDC27010           BSET.B      #1,@H'00FFFDC2:16
-       126:        //-------------
-       127:        // P1
        128:        //-------------
-       129:        // P10 : O : TFT LCD Command/Data Switch
-       130:        // P11 : I : ADS7843E INT
-       131:        // P12 : O : MCP2515 CS
-       132:        // P13 : I : MCP2515 INT
-       133:        // P14 : O : MAX3232ID TxD5
-       134:        // P15 : I : MAX3232ID RxD5
-       135:        // P16 : I/O : BR24L04F-W SDA0
-       136:        // P17 : O : BR24L04F-W SDL0
-       137:        P1.DDR = 0x95;
+       129:        // P1
+       130:        //-------------
+       131:        // P10 : O : TFT LCD Command/Data Switch
+       132:        // P11 : I : ADS7843E INT
+       133:        // P12 : O : MCP2515 CS
+       134:        // P13 : I : MCP2515 INT
+       135:        // P14 : O : MAX3232ID TxD5
+       136:        // P15 : I : MAX3232ID RxD5
+       137:        // P16 : I/O : BR24L04F-W SDA0
+       138:        // P17 : O : BR24L04F-W SDL0
+       139:        P1.DDR = 0x95;
   000000F8 017D4095FB80           MOV.B       #H'95:8,@H'00FFFB80:16
-       138:        P1.ICR.BIT.B4 = 1;
+       140:        P1.ICR.BIT.B4 = 1;
   000000FE 6A18FB907040           BSET.B      #4,@H'00FFFB90:16
-       139:        P1.ICR.BIT.B5 = 1;
+       141:        P1.ICR.BIT.B5 = 1;
   00000104 6A18FB907050           BSET.B      #5,@H'00FFFB90:16
-       140:        P1.ICR.BIT.B6 = 1;
+       142:        P1.ICR.BIT.B6 = 1;
   0000010A 6A18FB907060           BSET.B      #6,@H'00FFFB90:16
-       141:        P1.ICR.BIT.B7 = 1;
+       143:        P1.ICR.BIT.B7 = 1;
   00000110 6A18FB907070           BSET.B      #7,@H'00FFFB90:16
-       142:        P1.DR.BIT.B6 = 1;
+       144:        P1.DR.BIT.B6 = 1;
   00000116 7F507060               BSET.B      #6,@H'00FFFF50:8
-       143:        P1.DR.BIT.B7 = 1;
+       145:        P1.DR.BIT.B7 = 1;
   0000011A 7F507070               BSET.B      #7,@H'00FFFF50:8
-       144:        //-------------
-       145:        // P2
        146:        //-------------
-       147:        // P20 : O : MCP2515 SCK0
-       148:        // P21 : I : MCP2515 RxD0
-       149:        // P22 : O : MCP2515 TxD0
-       150:        // P23 : O : BEEP OUT
-       151:        // P24 : O : TFT LCD Reset
-       152:        // P25 : O : TFT LCD Back Light Control PWM
-       153:        // P26 : I : Reserve
-       154:        // P27 : O : MAX3232ID FC-Logger select Switch
-       155:        P2.DR.BIT.B3 = 0;
+       147:        // P2
+       148:        //-------------
+       149:        // P20 : O : MCP2515 SCK0
+       150:        // P21 : I : MCP2515 RxD0
+       151:        // P22 : O : MCP2515 TxD0
+       152:        // P23 : O : BEEP OUT
+       153:        // P24 : O : TFT LCD Reset
+       154:        // P25 : O : TFT LCD Back Light Control PWM
+       155:        // P26 : I : Reserve
+       156:        // P27 : O : MAX3232ID FC-Logger select Switch
+       157:        P2.DR.BIT.B3 = 0;
   0000011E 7F517230               BCLR.B      #3,@H'00FFFF51:8
-       156:        P2.DDR = 0xBD;
+       158:        P2.DDR = 0xBD;
   00000122 017D40BDFB81           MOV.B       #H'BD:8,@H'00FFFB81:16
-       157:        P2.ICR.BIT.B1 = 1;
+       159:        P2.ICR.BIT.B1 = 1;
   00000128 6A18FB917010           BSET.B      #1,@H'00FFFB91:16
-       158:        P2.DR.BIT.B7 = 1;
+       160:        P2.DR.BIT.B7 = 1;
   0000012E 7F517070               BSET.B      #7,@H'00FFFF51:8
-       159:        //-------------
-       160:        // P5
        161:        //-------------
-       162:        // P50 : I : Reserve
-       163:        // P51 : I : Reserve
-       164:        // P52 : I : Reserve
-       165:        // P53 : I : Reserve
-       166:        // P54 : I : Reserve
-       167:        // P55 : I : Reserve
-       168:        // P56 : I : Reserve
-       169:        // P57 : I : Reserve
-       170:        //-------------
-       171:        // P6
+       162:        // P5
+       163:        //-------------
+       164:        // P50 : I : Reserve
+       165:        // P51 : I : Reserve
+       166:        // P52 : I : Reserve
+       167:        // P53 : I : Reserve
+       168:        // P54 : I : Reserve
+       169:        // P55 : I : Reserve
+       170:        // P56 : I : Reserve
+       171:        // P57 : I : Reserve
        172:        //-------------
-       173:        // P60 : O : ADS7843E TxD4
-       174:        // P61 : I : ADS7843E RxD4
-       175:        // P62 : O : ADS7843E SCK4
-       176:        // P63 : O : ADS7843E CS
-       177:        // P64 : I : Reserve
-       178:        // P65 : I : Reserve
-       179:        P6.DDR = 0x0D;
+       173:        // P6
+       174:        //-------------
+       175:        // P60 : O : ADS7843E TxD4
+       176:        // P61 : I : ADS7843E RxD4
+       177:        // P62 : O : ADS7843E SCK4
+       178:        // P63 : O : ADS7843E CS
+       179:        // P64 : I : Reserve
+       180:        // P65 : I : Reserve
+       181:        P6.DDR = 0x0D;
   00000132 6ADDFB85               MOV.B       #H'D:4,@H'00FFFB85:16
-       180:    //  P6.ICR.BIT.B1 = 1;
-       181:        //-------------
-       182:        // PA
+       182:    //  P6.ICR.BIT.B1 = 1;
        183:        //-------------
-       184:        // PA0 : I : Reserve
-       185:        // PA1 : O : RD/WR
-       186:        // PA2 : I : Reserve
-       187:        // PA3 : O : LLWR
-       188:        // PA4 : O : LHWR
-       189:        // PA5 : O : RD
-       190:        // PA6 : I : Reserve
-       191:        // PA7 : I : Reserve
-       192:        PA.DDR = 0x3A;
+       184:        // PA
+       185:        //-------------
+       186:        // PA0 : I : Reserve
+       187:        // PA1 : O : RD/WR
+       188:        // PA2 : I : Reserve
+       189:        // PA3 : O : LLWR
+       190:        // PA4 : O : LHWR
+       191:        // PA5 : O : RD
+       192:        // PA6 : I : Reserve
+       193:        // PA7 : I : Reserve
+       194:        PA.DDR = 0x3A;
   00000136 017D403AFB89           MOV.B       #H'3A:8,@H'00FFFB89:16
-       193:        //-------------
-       194:        // PB
        195:        //-------------
-       196:        // PB0 : I : Reserve
-       197:        // PB1 : O : CS1
-       198:        // PB2 : O : CS2-A
-       199:        // PB3 : O : LED(Red)
-       200:        PB.DDR = 0x0E;
+       196:        // PB
+       197:        //-------------
+       198:        // PB0 : I : Reserve
+       199:        // PB1 : O : CS1
+       200:        // PB2 : O : CS2-A
+       201:        // PB3 : O : LED(Red)
+       202:        PB.DDR = 0x0E;
   0000013C 6ADEFB8A               MOV.B       #H'E:4,@H'00FFFB8A:16
-       201:        //-------------
-       202:        // PD
        203:        //-------------
-       204:        // BSC Address
-       205:        PD.DDR = 0xFF; // Enable  A7-A0 Output
+       204:        // PD
+       205:        //-------------
+       206:        // BSC Address
+       207:        PD.DDR = 0xFF; // Enable  A7-A0 Output
   00000140 017D40FFFB8C           MOV.B       #H'FF:8,@H'00FFFB8C:16
-       206:        //-------------
-       207:        // PE
        208:        //-------------
-       209:        // BSC Address
-       210:        PE.DDR = 0xFF; // Enable A15-A8 Output
+       209:        // PE
+       210:        //-------------
+       211:        // BSC Address
+       212:        PE.DDR = 0xFF; // Enable A15-A8 Output
   00000146 017D40FFFB8D           MOV.B       #H'FF:8,@H'00FFFB8D:16
-       211:        //-------------
-       212:        // PF
        213:        //-------------
-       214:        // BSC Address
-       215:        PF.DDR = 0x1F; // Enable A18-A16 Output
+       214:        // PF
+       215:        //-------------
+       216:        // BSC Address
+       217:        PF.DDR = 0x1F; // Enable A18-A16 Output
   0000014C 017D401FFB8E           MOV.B       #H'1F:8,@H'00FFFB8E:16
-       216:        //-------------
-       217:        // PH
        218:        //-------------
-       219:        PH.DDR = 0xFF; // Enable D7-D0 Output
-  00000152 017D40FFFBA8           MOV.B       #H'FF:8,@H'00FFFBA8:16
+       219:        // PH
        220:        //-------------
-       221:        // PI
+       221:        PH.DDR = 0xFF; // Enable D7-D0 Output
+  00000152 017D40FFFBA8           MOV.B       #H'FF:8,@H'00FFFBA8:16
        222:        //-------------
-       223:        PI.DDR = 0xFF; // Enable D15-D8 Output
+       223:        // PI
+       224:        //-------------
+       225:        PI.DDR = 0xFF; // Enable D15-D8 Output
   00000158 017D40FFFBA9           MOV.B       #H'FF:8,@H'00FFFBA9:16
-       224:        //----------------------
-       225:        // PJ (Single Chip Mode)
        226:        //----------------------
-       227:        //----------------------
-       228:        // PK
+       227:        // PJ (Single Chip Mode)
+       228:        //----------------------
        229:        //----------------------
-       230:        //-------------
-       231:        // PM
+       230:        // PK
+       231:        //----------------------
        232:        //-------------
-       233:        // PM0 : O : LED(Yellow)
-       234:        // PM1 : I : TC7W125FU RxD6
-       235:        // PM2 : I : Reserve
-       236:        PM.DDR = 0x01;
+       233:        // PM
+       234:        //-------------
+       235:        // PM0 : O : LED(Yellow)
+       236:        // PM1 : I : TC7W125FU RxD6
+       237:        // PM2 : I : Reserve
+       238:        PM.DDR = 0x01;
   0000015E 6AD1EE50               MOV.B       #1:4,@H'00FFEE50:16
   00000162 5470                   RTS
-       237:    }
-       238:    
-       239:    
-       240:    // --------------------------------------------------------------------
-       241:    // BSC初期化
+       239:    }
+       240:    
+       241:    
        242:    // --------------------------------------------------------------------
-       243:    void Init_BSC(void)
+       243:    // BSC初期化
+       244:    // --------------------------------------------------------------------
+       245:    void Init_BSC(void)
   00000164                    _Init_BSC:                           ; function: Init_BSC
-       244:    {
-       245:        // --------------------------------------------------------------------
-       246:        // PFC
+       246:    {
        247:        // --------------------------------------------------------------------
-       248:        PFC.PFCR0.BIT.CS1E      = 1;        // 出力選択     CS1     SRAMチップセレクト
+       248:        // PFC
+       249:        // --------------------------------------------------------------------
+       250:        PFC.PFCR0.BIT.CS1E      = 1;        // 出力選択     CS1     SRAMチップセレクト
   00000164 6A18FBC07010           BSET.B      #1,@H'00FFFBC0:16
-       249:        PFC.PFCR0.BIT.CS2E      = 1;        // 出力選択     CS2-A   LCDチップセレクト
+       251:        PFC.PFCR0.BIT.CS2E      = 1;        // 出力選択     CS2-A   LCDチップセレクト
   0000016A 6A18FBC07020           BSET.B      #2,@H'00FFFBC0:16
-       250:        PFC.PFCR2.BIT.RDWRE     = 1;        // 出力設定     RD/^WR
+       252:        PFC.PFCR2.BIT.RDWRE     = 1;        // 出力設定     RD/^WR
   00000170 6A18FBC27020           BSET.B      #2,@H'00FFFBC2:16
-       251:        PFC.PFCR4.BIT.A18E      = 1;        // 出力設定     A18
+       253:        PFC.PFCR4.BIT.A18E      = 1;        // 出力設定     A18
   00000176 6A18FBC47020           BSET.B      #2,@H'00FFFBC4:16
-       252:        PFC.PFCR4.BIT.A17E      = 1;        // 出力設定     A17
+       254:        PFC.PFCR4.BIT.A17E      = 1;        // 出力設定     A17
   0000017C 6A18FBC47010           BSET.B      #1,@H'00FFFBC4:16
-       253:        PFC.PFCR4.BIT.A16E      = 1;        // 出力設定     A16
+       255:        PFC.PFCR4.BIT.A16E      = 1;        // 出力設定     A16
   00000182 6A18FBC47000           BSET.B      #0,@H'00FFFBC4:16
-       254:        PFC.PFCR6.BIT.LHWROE    = 1;        // 出力設定     PA4=LHWR
+       256:        PFC.PFCR6.BIT.LHWROE    = 1;        // 出力設定     PA4=LHWR
   00000188 6A18FBC67060           BSET.B      #6,@H'00FFFBC6:16
-       255:        PFC.PFCR8.BYTE          = 0x00;     // EXDMAC1制御端子 P14-P17
+       257:        PFC.PFCR8.BYTE          = 0x00;     // EXDMAC1制御端子 P14-P17
   0000018E 6AD0FBC8               MOV.B       #0:4,@H'00FFFBC8:16
-       256:        PFC.PFCR9.BIT.TPUMS4    = 1;        // TIOCA4 P25アウトプトコンペア
+       258:        PFC.PFCR9.BIT.TPUMS4    = 1;        // TIOCA4 P25アウトプトコンペア
   00000192 6A18FBC97060           BSET.B      #6,@H'00FFFBC9:16
-       257:        PFC.PFCR9.BIT.TPUMS4    = 1;        // TIOCA4 P25アウトプトコンペア
+       259:        PFC.PFCR9.BIT.TPUMS4    = 1;        // TIOCA4 P25アウトプトコンペア
   00000198 6A18FBC97060           BSET.B      #6,@H'00FFFBC9:16
-       258:        
-       259:        // --------------------------------------------------------------------
-       260:        // BSC
+       260:        
        261:        // --------------------------------------------------------------------
-       262:        BSC.ABWCR.BIT.ABWH1     = 0;        // 16bit幅設定H CS1
+       262:        // BSC
+       263:        // --------------------------------------------------------------------
+       264:        BSC.ABWCR.BIT.ABWH1     = 0;        // 16bit幅設定H CS1
   0000019E 6A18FD847210           BCLR.B      #1,@H'00FFFD84:16
-       263:        BSC.ABWCR.BIT.ABWL1     = 1;        // 16bit幅設定L CS1
+       265:        BSC.ABWCR.BIT.ABWL1     = 1;        // 16bit幅設定L CS1
   000001A4 6A18FD857010           BSET.B      #1,@H'00FFFD85:16
-       264:        BSC.ABWCR.BIT.ABWH2     = 0;        // 16bit幅設定H CS2
+       266:        BSC.ABWCR.BIT.ABWH2     = 0;        // 16bit幅設定H CS2
   000001AA 6A18FD847220           BCLR.B      #2,@H'00FFFD84:16
-       265:        BSC.ABWCR.BIT.ABWL2     = 1;        // 16bit幅設定L CS2
+       267:        BSC.ABWCR.BIT.ABWL2     = 1;        // 16bit幅設定L CS2
   000001B0 6A18FD857020           BSET.B      #2,@H'00FFFD85:16
-       266:        BSC.ASTCR.WORD          = 0x0000;   // 外部バスウェイトステート挿入許可
+       268:        BSC.ASTCR.WORD          = 0x0000;   // 外部バスウェイトステート挿入許可
   000001B6 6BD0FD86               MOV.W       #0:4,@H'00FFFD86:16
-       267:        BSC.WTCRA.WORD          = 0x0000;   // 外部バスウェイトステート数(1)
+       269:        BSC.WTCRA.WORD          = 0x0000;   // 外部バスウェイトステート数(1)
   000001BA 6BD0FD88               MOV.W       #0:4,@H'00FFFD88:16
-       268:        BSC.WTCRB.WORD          = 0x0000;   // 外部バスウェイトステート数(2)
+       270:        BSC.WTCRB.WORD          = 0x0000;   // 外部バスウェイトステート数(2)
   000001BE 6BD0FD8A               MOV.W       #0:4,@H'00FFFD8A:16
-       269:        BSC.RDNCR.WORD          = 0x0000;   // 外部バスリードストローブタイミング
+       271:        BSC.RDNCR.WORD          = 0x0000;   // 外部バスリードストローブタイミング
   000001C2 6BD0FD8C               MOV.W       #0:4,@H'00FFFD8C:16
-       270:        BSC.CSACR.WORD          = 0x0000;   // 外部バスCSアサート期間拡張
+       272:        BSC.CSACR.WORD          = 0x0000;   // 外部バスCSアサート期間拡張
   000001C6 6BD0FD8E               MOV.W       #0:4,@H'00FFFD8E:16
-       271:        BSC.IDLCR.WORD          = 0x0000;   // 外部バスアイドルサイクル
+       273:        BSC.IDLCR.WORD          = 0x0000;   // 外部バスアイドルサイクル
   000001CA 6BD0FD90               MOV.W       #0:4,@H'00FFFD90:16
-       272:        BSC.BCR1.WORD           = 0x0000;   // バスコントロールレジスタ1
+       274:        BSC.BCR1.WORD           = 0x0000;   // バスコントロールレジスタ1
   000001CE 6BD0FD92               MOV.W       #0:4,@H'00FFFD92:16
-       273:        BSC.BCR2.BYTE           = 0x02;     // バスコントロールレジスタ2
+       275:        BSC.BCR2.BYTE           = 0x02;     // バスコントロールレジスタ2
   000001D2 6AD2FD94               MOV.B       #2:4,@H'00FFFD94:16
-       274:        BSC.ENDIANCR.BYTE       = 0x00;     // エンディアンコントロールレジスタ
+       276:        BSC.ENDIANCR.BYTE       = 0x00;     // エンディアンコントロールレジスタ
   000001D6 6AD0FD95               MOV.B       #0:4,@H'00FFFD95:16
-       275:        BSC.SRAMCR.WORD         = 0x0600;   // SRAMモードコントロールレジスタ
+       277:        BSC.SRAMCR.WORD         = 0x0600;   // SRAMモードコントロールレジスタ
   000001DA 797406004000FD98       MOV.W       #H'0600:16,@H'00FFFD98:16
-       276:        BSC.BROMCR.WORD         = 0x0000;   // バーストROMインターフェースコントロールレジスタ
+       278:        BSC.BROMCR.WORD         = 0x0000;   // バーストROMインターフェースコントロールレジスタ
   000001E2 6BD0FD9A               MOV.W       #0:4,@H'00FFFD9A:16
-       277:        BSC.MPXCR.WORD          = 0x0000;   // アドレスデータMPXコントロールレジスタ
+       279:        BSC.MPXCR.WORD          = 0x0000;   // アドレスデータMPXコントロールレジスタ
   000001E6 6BD0FD9C               MOV.W       #0:4,@H'00FFFD9C:16
   000001EA 5470                   RTS
-       278:    }
-       279:    
-       280:    // --------------------------------------------------------------------
-       281:    // EXDMAC初期化
+       280:    }
+       281:    
        282:    // --------------------------------------------------------------------
-       283:    void Init_EXDMAC(void)
+       283:    // EXDMAC初期化
+       284:    // --------------------------------------------------------------------
+       285:    void Init_EXDMAC(void)
   000001EC                    _Init_EXDMAC:                        ; function: Init_EXDMAC
-       284:    {
-       285:        //=========================================
-       286:        // Configure EXDMAC0 for TFT LCD Refresh Cycle
+       286:    {
        287:        //=========================================
-       288:        //--------------------------
-       289:        // Start EXDMAC0
+       288:        // Configure EXDMAC0 for TFT LCD Refresh Cycle
+       289:        //=========================================
        290:        //--------------------------
-       291:    //  MSTP.CRA.BIT._EXDMAC  = 0;
-       292:        //------------------------
-       293:        // Initialize EXDMAC0
+       291:        // Start EXDMAC0
+       292:        //--------------------------
+       293:    //  MSTP.CRA.BIT._EXDMAC  = 0;
        294:        //------------------------
-       295:        EXDMAC0.EDSAR           = 0x200000;     //*ADATA        // EXDMA ソースアドレスレジスタ
+       295:        // Initialize EXDMAC0
+       296:        //------------------------
+       297:        EXDMAC0.EDSAR           = 0x200000;     //*ADATA        // EXDMA ソースアドレスレジスタ
   000001EC 7A0000200000           MOV.L       #H'00200000,ER0
   000001F2 01006B80FC80           MOV.L       ER0,@H'00FFFC80:16
-       296:        EXDMAC0.EDDAR           = 0x400000;     //LCD_D         // EXDMA デスティネーションアドレスレジスタ
+       298:        EXDMAC0.EDDAR           = 0x400000;     //LCD_D         // EXDMA デスティネーションアドレスレジスタ
   000001F8 7A74004000004000       MOV.L       #H'00400000:32,@H'00FFFC84:16
            FC84               
-       297:        EXDMAC0.EDOFR           = 0x00000000;                   // EXDMA オフセットレジスタ
+       299:        EXDMAC0.EDOFR           = 0x00000000;                   // EXDMA オフセットレジスタ
   00000202 010D4000FC88           MOV.L       #0:8,@H'00FFFC88:16
-       298:        EXDMAC0.EDTCR           = 0x00025800;                   // EXDMA 転送カウントレジスタ 320*240*2=0x00025800
+       300:        EXDMAC0.EDTCR           = 0x00025800;                   // EXDMA 転送カウントレジスタ 320*240*2=0x00025800
   00000208 7A74000258004000       MOV.L       #H'00025800:32,@H'00FFFC8C:16
            FC8C               
-       299:    //  EXDMAC0.EDBSR           = (320 << 16) + (320 << 0);     // EXDMA ブロックサイズレジスタ
-       300:        EXDMAC0.EDMDR.LONG      = 0x00004006;                   // EXDMA モードコントロールレジスタ
+       301:    //  EXDMAC0.EDBSR           = (320 << 16) + (320 << 0);     // EXDMA ブロックサイズレジスタ
+       302:        EXDMAC0.EDMDR.LONG      = 0x00004006;                   // EXDMA モードコントロールレジスタ
   00000212 7A7C40064000FC94       MOV.L       #H'4006:16,@H'00FFFC94:16
-       301:        EXDMAC0.EDACR.LONG      = 0x00200000;                   // EXDMA アドレスコントロールレジスタ
+       303:        EXDMAC0.EDACR.LONG      = 0x00200000;                   // EXDMA アドレスコントロールレジスタ
   0000021A 01006B80FC98           MOV.L       ER0,@H'00FFFC98:16
   00000220 5470                   RTS
-       302:    }
-       303:    
-       304:    // --------------------------------------------------------------------
-       305:    // DMA初期化
+       304:    }
+       305:    
        306:    // --------------------------------------------------------------------
-       307:    void Init_DMAC(void)
+       307:    // DMA初期化
+       308:    // --------------------------------------------------------------------
+       309:    void Init_DMAC(void)
   00000222                    _Init_DMAC:                          ; function: Init_DMAC
-       308:    {
-       309:        //=========================================
-       310:        // Configure DMAC0 for TFT LCD Graphic Copy
+       310:    {
        311:        //=========================================
-       312:        //--------------------------
-       313:        // Start DMAC0
+       312:        // Configure DMAC0 for TFT LCD Graphic Copy
+       313:        //=========================================
        314:        //--------------------------
-       315:    //  MSTP.CRA.BIT._DMAC = 0;
-       316:        //------------------------
-       317:        // Initialize DMAC0
+       315:        // Start DMAC0
+       316:        //--------------------------
+       317:    //  MSTP.CRA.BIT._DMAC = 0;
        318:        //------------------------
-       319:        DMAC0.DOFR          = 0x00000000;   // DMA オフセットレジスタ
+       319:        // Initialize DMAC0
+       320:        //------------------------
+       321:        DMAC0.DOFR          = 0x00000000;   // DMA オフセットレジスタ
   00000222 010D4000FC08           MOV.L       #0:8,@H'00FFFC08:16
-       320:        DMAC0.DMDR.LONG     = 0x00004005;   // DMA モードコントロールレジスタ
+       322:        DMAC0.DMDR.LONG     = 0x00004005;   // DMA モードコントロールレジスタ
   00000228 7A084005               MOV.L       #H'4005:16,ER0
   0000022C 01006B80FC14           MOV.L       ER0,@H'00FFFC14:16
-       321:        DMAC0.DACR.LONG     = 0x00220000;   // DMA アドレスコントロールレジスタ
+       323:        DMAC0.DACR.LONG     = 0x00220000;   // DMA アドレスコントロールレジスタ
   00000232 7A74002200004000       MOV.L       #H'00220000:32,@H'00FFFC18:16
            FC18               
-       322:        
-       323:        //=========================================
-       324:        // Configure DMAC1 for TFT LCD Paint
+       324:        
        325:        //=========================================
-       326:        //------------------------
-       327:        // Initialize DMAC1
+       326:        // Configure DMAC1 for TFT LCD Paint
+       327:        //=========================================
        328:        //------------------------
-       329:        DMAC1.DOFR          = 0x00000000;   // DMA オフセットレジスタ
+       329:        // Initialize DMAC1
+       330:        //------------------------
+       331:        DMAC1.DOFR          = 0x00000000;   // DMA オフセットレジスタ
   0000023C 010D4000FC28           MOV.L       #0:8,@H'00FFFC28:16
-       330:        DMAC1.DMDR.LONG     = 0x00004005;   // DMA モードコントロールレジスタ
+       332:        DMAC1.DMDR.LONG     = 0x00004005;   // DMA モードコントロールレジスタ
   00000242 01006B80FC34           MOV.L       ER0,@H'00FFFC34:16
-       331:        DMAC1.DACR.LONG     = 0x00020000;   // DMA アドレスコントロールレジスタ
+       333:        DMAC1.DACR.LONG     = 0x00020000;   // DMA アドレスコントロールレジスタ
   00000248 7A74000200004000       MOV.L       #H'00020000:32,@H'00FFFC38:16
            FC38               
-       332:        
-       333:        //=========================================
-       334:        // Configure DMAC2 for TFT LCD Graphic Copy Large
+       334:        
        335:        //=========================================
-       336:        //------------------------
-       337:        // Initialize DMAC2
+       336:        // Configure DMAC2 for TFT LCD Graphic Copy Large
+       337:        //=========================================
        338:        //------------------------
-       339:        DMAC2.DOFR          = 0x00000004;   // DMA オフセットレジスタ
+       339:        // Initialize DMAC2
+       340:        //------------------------
+       341:        DMAC2.DOFR          = 0x00000004;   // DMA オフセットレジスタ
   00000252 010D4004FC48           MOV.L       #4:8,@H'00FFFC48:16
-       340:        DMAC2.DMDR.LONG     = 0x00004005;   // DMA モードコントロールレジスタ
+       342:        DMAC2.DMDR.LONG     = 0x00004005;   // DMA モードコントロールレジスタ
   00000258 01006B80FC54           MOV.L       ER0,@H'00FFFC54:16
-       341:        DMAC2.DACR.LONG     = 0x00210000;   // DMA アドレスコントロールレジスタ
+       343:        DMAC2.DACR.LONG     = 0x00210000;   // DMA アドレスコントロールレジスタ
   0000025E 7A74002100004000       MOV.L       #H'00210000:32,@H'00FFFC58:16
            FC58               
   00000268 5470                   RTS
-       342:    
-       343:    }
        344:    
-       345:    // --------------------------------------------------------------------
-       346:    // TPU初期化
+       345:    }
+       346:    
        347:    // --------------------------------------------------------------------
-       348:    void Init_TPU(void)
+       348:    // TPU初期化
+       349:    // --------------------------------------------------------------------
+       350:    void Init_TPU(void)
   0000026A                    _Init_TPU:                           ; function: Init_TPU
-       349:    {
-       350:        TPU.TSTR.BYTE           = 0x00;     // タイマスタートレジスタクリア
+       351:    {
+       352:        TPU.TSTR.BYTE           = 0x00;     // タイマスタートレジスタクリア
   0000026A 1888                   SUB.B       R0L,R0L
   0000026C 38BC                   MOV.B       R0L,@H'00FFFFBC:8
-       351:        
-       352:        //--------------------------
-       353:        // Module Start TPU0-5
+       353:        
        354:        //--------------------------
-       355:    //  MSTP.CRA.BIT._TPUL  = 0;
-       356:        //=========================================
-       357:        // Configure TPU0 for TFT LCD Refresh Cycle
+       355:        // Module Start TPU0-5
+       356:        //--------------------------
+       357:    //  MSTP.CRA.BIT._TPUL  = 0;
        358:        //=========================================
-       359:        //----------------------------
-       360:        // Set Interrupt Request Level
+       359:        // Configure TPU0 for TFT LCD Refresh Cycle
+       360:        //=========================================
        361:        //----------------------------
-       362:        INTC.IPRF.BIT._TPU0 = 4;
+       362:        // Set Interrupt Request Level
+       363:        //----------------------------
+       364:        INTC.IPRF.BIT._TPU0 = 4;
   0000026E F804                   MOV.B       #4:8,R0L
   00000270 6A18FD4BF870           BFST        R0L,#H'70,@H'00FFFD4B:16
-       363:        //----------------------------
-       364:        // Initialize TPU0
        365:        //----------------------------
-       366:        TPU0.TCR.BYTE           = 0x2B;     // タイマコントロールレジスタ(TGRAでクリア/立上り/φ／64)
+       366:        // Initialize TPU0
+       367:        //----------------------------
+       368:        TPU0.TCR.BYTE           = 0x2B;     // タイマコントロールレジスタ(TGRAでクリア/立上り/φ／64)
   00000276 F82B                   MOV.B       #H'2B:8,R0L
   00000278 38C0                   MOV.B       R0L,@H'00FFFFC0:8
-       367:        TPU0.TIOR.BYTE.H        = 0x00;     // タイマI/Oコントロールレジスタ(H)
+       369:        TPU0.TIOR.BYTE.H        = 0x00;     // タイマI/Oコントロールレジスタ(H)
   0000027A 1888                   SUB.B       R0L,R0L
   0000027C 38C2                   MOV.B       R0L,@H'00FFFFC2:8
-       368:        TPU0.TIOR.BYTE.L        = 0x00;     // タイマI/Oコントロールレジスタ(L)
+       370:        TPU0.TIOR.BYTE.L        = 0x00;     // タイマI/Oコントロールレジスタ(L)
   0000027E 38C3                   MOV.B       R0L,@H'00FFFFC3:8
-       369:        TPU0.TIER.BYTE          = 0x41;     // タイマインタラプトイネーブルレジスタ
+       371:        TPU0.TIER.BYTE          = 0x41;     // タイマインタラプトイネーブルレジスタ
   00000280 F841                   MOV.B       #H'41:8,R0L
   00000282 38C4                   MOV.B       R0L,@H'00FFFFC4:8
-       370:        TPU0.TSR.BYTE           = 0xC0;     // タイマステータスレジスタ
+       372:        TPU0.TSR.BYTE           = 0xC0;     // タイマステータスレジスタ
   00000284 F8C0                   MOV.B       #H'C0:8,R0L
   00000286 38C5                   MOV.B       R0L,@H'00FFFFC5:8
-       371:        TPU0.TCNT               = 0x0000;   // タイマカウンタ
+       373:        TPU0.TCNT               = 0x0000;   // タイマカウンタ
   00000288 6BD0FFC6               MOV.W       #0:4,@H'00FFFFC6:16
-       372:    //  TPU0.TGRA               = 0x249F;   // タイマジェネラルレジスタA(fps40)
-       373:    //  TPU0.TGRA               = 0x30D4;   // タイマジェネラルレジスタA(fps30)
-       374:        TPU0.TGRA               = 0x493E;   // タイマジェネラルレジスタA(fps20)
+       374:    //  TPU0.TGRA               = 0x249F;   // タイマジェネラルレジスタA(fps40)
+       375:    //  TPU0.TGRA               = 0x30D4;   // タイマジェネラルレジスタA(fps30)
+       376:        TPU0.TGRA               = 0x493E;   // タイマジェネラルレジスタA(fps20)
   0000028C 7974493E4000FFC8       MOV.W       #H'493E:16,@H'00FFFFC8:16
-       375:    //  TPU0.TGRA               = 0x927C;   // タイマジェネラルレジスタA(fps10)
-       376:        TPU0.TGRB               = 0;        // タイマジェネラルレジスタB
+       377:    //  TPU0.TGRA               = 0x927C;   // タイマジェネラルレジスタA(fps10)
+       378:        TPU0.TGRB               = 0;        // タイマジェネラルレジスタB
   00000294 6BD0FFCA               MOV.W       #0:4,@H'00FFFFCA:16
-       377:        TPU0.TGRC               = 0;        // タイマジェネラルレジスタC
+       379:        TPU0.TGRC               = 0;        // タイマジェネラルレジスタC
   00000298 6BD0FFCC               MOV.W       #0:4,@H'00FFFFCC:16
-       378:        TPU0.TGRD               = 0;        // タイマジェネラルレジスタD
+       380:        TPU0.TGRD               = 0;        // タイマジェネラルレジスタD
   0000029C 6BD0FFCE               MOV.W       #0:4,@H'00FFFFCE:16
-       379:        TPU0.TMDR.BYTE          = 0xC0;     // タイマモードレジスタ(すべて通常動作)
+       381:        TPU0.TMDR.BYTE          = 0xC0;     // タイマモードレジスタ(すべて通常動作)
   000002A0 38C1                   MOV.B       R0L,@H'00FFFFC1:8
-       380:        
-       381:        //=========================================
-       382:        // Configure TPU3 for BEEP
+       382:        
        383:        //=========================================
-       384:        //----------------------------
-       385:        // Set Interrupt Request Level
+       384:        // Configure TPU3 for BEEP
+       385:        //=========================================
        386:        //----------------------------
-       387:        INTC.IPRG.BIT._TPU3 = 3;
+       387:        // Set Interrupt Request Level
+       388:        //----------------------------
+       389:        INTC.IPRG.BIT._TPU3 = 3;
   000002A2 F803                   MOV.B       #3:8,R0L
   000002A4 6A18FD4CF807           BFST        R0L,#7,@H'00FFFD4C:16
-       388:        //----------------------------
-       389:        // Initialize TPU3
        390:        //----------------------------
-       391:        TPU3.TCR.BYTE           = 0xA8;     // タイマコントロールレジスタ(TGRAでクリア/立上り/φ／1)
+       391:        // Initialize TPU3
+       392:        //----------------------------
+       393:        TPU3.TCR.BYTE           = 0xA8;     // タイマコントロールレジスタ(TGRAでクリア/立上り/φ／1)
   000002AA F8A8                   MOV.B       #H'A8:8,R0L
   000002AC 38F0                   MOV.B       R0L,@H'00FFFFF0:8
-       392:        TPU3.TIOR.BYTE.H        = 0x00;     // タイマI/Oコントロールレジスタ(H)
+       394:        TPU3.TIOR.BYTE.H        = 0x00;     // タイマI/Oコントロールレジスタ(H)
   000002AE 1888                   SUB.B       R0L,R0L
   000002B0 38F2                   MOV.B       R0L,@H'00FFFFF2:8
-       393:        TPU3.TIOR.BYTE.L        = 0x21;     // タイマI/Oコントロールレジスタ(L)
+       395:        TPU3.TIOR.BYTE.L        = 0x21;     // タイマI/Oコントロールレジスタ(L)
   000002B2 F821                   MOV.B       #H'21:8,R0L
   000002B4 38F3                   MOV.B       R0L,@H'00FFFFF3:8
-       394:        TPU3.TIER.BYTE          = 0x40;     // タイマインタラプトイネーブルレジスタ
+       396:        TPU3.TIER.BYTE          = 0x40;     // タイマインタラプトイネーブルレジスタ
   000002B6 F840                   MOV.B       #H'40:8,R0L
   000002B8 38F4                   MOV.B       R0L,@H'00FFFFF4:8
-       395:        TPU3.TSR.BYTE           = 0xC0;     // タイマステータスレジスタ
+       397:        TPU3.TSR.BYTE           = 0xC0;     // タイマステータスレジスタ
   000002BA F8C0                   MOV.B       #H'C0:8,R0L
   000002BC 38F5                   MOV.B       R0L,@H'00FFFFF5:8
-       396:        TPU3.TCNT               = 0x0000;   // タイマカウンタ
+       398:        TPU3.TCNT               = 0x0000;   // タイマカウンタ
   000002BE 6BD0FFF6               MOV.W       #0:4,@H'00FFFFF6:16
-       397:        TPU3.TGRC               = 0x1770;   // タイマジェネラルレジスタA(4KHz)
+       399:        TPU3.TGRC               = 0x1770;   // タイマジェネラルレジスタA(4KHz)
   000002C2 797417704000FFFC       MOV.W       #H'1770:16,@H'00FFFFFC:16
-       398:    //  TPU3.TGRD               = 0x0BB8;   // タイマジェネラルレジスタB(50%)   (最大音)
-       399:        TPU3.TGRD               = 0x0000;   // タイマジェネラルレジスタB(0%)    (消音)
+       400:    //  TPU3.TGRD               = 0x0BB8;   // タイマジェネラルレジスタB(50%)   (最大音)
+       401:        TPU3.TGRD               = 0x0000;   // タイマジェネラルレジスタB(0%)    (消音)
   000002CA 6BD0FFFE               MOV.W       #0:4,@H'00FFFFFE:16
-       400:        TPU3.TMDR.BYTE          = 0xC3;     // タイマモードレジスタ(PWMモード2)
+       402:        TPU3.TMDR.BYTE          = 0xC3;     // タイマモードレジスタ(PWMモード2)
   000002CE F8C3                   MOV.B       #H'C3:8,R0L
   000002D0 38F1                   MOV.B       R0L,@H'00FFFFF1:8
-       401:        
-       402:        //=========================================
-       403:        // Configure TPU4 for TFT LCD Back Light PWM
+       403:        
        404:        //=========================================
-       405:        //----------------------------
-       406:        // Set Interrupt Request Level
+       405:        // Configure TPU4 for TFT LCD Back Light PWM
+       406:        //=========================================
        407:        //----------------------------
-       408:        INTC.IPRG.BIT._TPU4 = 3;
+       408:        // Set Interrupt Request Level
+       409:        //----------------------------
+       410:        INTC.IPRG.BIT._TPU4 = 3;
   000002D2 F803                   MOV.B       #3:8,R0L
   000002D4 6A18FD4DF870           BFST        R0L,#H'70,@H'00FFFD4D:16
-       409:        //----------------------------
-       410:        // Initialize TPU4
        411:        //----------------------------
-       412:        TPU4.TCR.BYTE           = 0x28;     // タイマコントロールレジスタ(TGRAでクリア/立上り/φ／1)
+       412:        // Initialize TPU4
+       413:        //----------------------------
+       414:        TPU4.TCR.BYTE           = 0x28;     // タイマコントロールレジスタ(TGRAでクリア/立上り/φ／1)
   000002DA 017D4028FEE0           MOV.B       #H'28:8,@H'00FFFEE0:16
-       413:        TPU4.TIOR.BYTE          = 0x21;     // タイマI/Oコントロールレジスタ
+       415:        TPU4.TIOR.BYTE          = 0x21;     // タイマI/Oコントロールレジスタ
   000002E0 017D4021FEE2           MOV.B       #H'21:8,@H'00FFFEE2:16
-       414:        TPU4.TIER.BYTE          = 0x40;     // タイマインタラプトイネーブルレジスタ
+       416:        TPU4.TIER.BYTE          = 0x40;     // タイマインタラプトイネーブルレジスタ
   000002E6 017D4040FEE4           MOV.B       #H'40:8,@H'00FFFEE4:16
-       415:        TPU4.TSR.BYTE           = 0xC0;     // タイマステータスレジスタ
+       417:        TPU4.TSR.BYTE           = 0xC0;     // タイマステータスレジスタ
   000002EC 017D40C0FEE5           MOV.B       #H'C0:8,@H'00FFFEE5:16
-       416:        TPU4.TCNT               = 0x0000;   // タイマカウンタ
+       418:        TPU4.TCNT               = 0x0000;   // タイマカウンタ
   000002F2 6BD0FEE6               MOV.W       #0:4,@H'00FFFEE6:16
-       417:        TPU4.TGRA               = 0x2580;   // タイマジェネラルレジスタA(2.5KHz)
+       419:        TPU4.TGRA               = 0x2580;   // タイマジェネラルレジスタA(2.5KHz)
   000002F6 797425804000FEE8       MOV.W       #H'2580:16,@H'00FFFEE8:16
-       418:        TPU4.TGRB               = 0x2579;   // タイマジェネラルレジスタB(0%)
+       420:        TPU4.TGRB               = 0x2579;   // タイマジェネラルレジスタB(0%)
   000002FE 797425794000FEEA       MOV.W       #H'2579:16,@H'00FFFEEA:16
-       419:        TPU4.TMDR.BYTE          = 0xC2;     // タイマモードレジスタ(PWMモード1)
+       421:        TPU4.TMDR.BYTE          = 0xC2;     // タイマモードレジスタ(PWMモード1)
   00000306 017D40C2FEE1           MOV.B       #H'C2:8,@H'00FFFEE1:16
-       420:        
-       421:        //=========================================
-       422:        // Configure TPU6 for LED Dimmer Cycle
+       422:        
        423:        //=========================================
-       424:        //----------------------------
-       425:        // Set Interrupt Request Level
+       424:        // Configure TPU6 for LED Dimmer Cycle
+       425:        //=========================================
        426:        //----------------------------
-       427:        INTC.IPRL.BIT._TPU6A = 5;
-  0000030C F805                   MOV.B       #5:8,R0L
-  0000030E 6A18FD57F807           BFST        R0L,#7,@H'00FFFD57:16
+       427:        // Set Interrupt Request Level
        428:        //----------------------------
-       429:        // Initialize TPU6
+       429:        INTC.IPRL.BIT._TPU6A = 6;
+  0000030C F806                   MOV.B       #6:8,R0L
+  0000030E 6A18FD57F807           BFST        R0L,#7,@H'00FFFD57:16
        430:        //----------------------------
-       431:        TPU6.TCR.BYTE           = 0x28;     // タイマコントロールレジスタ(TGRAでクリア/立上り/φ／1)
+       431:        // Initialize TPU6
+       432:        //----------------------------
+       433:        TPU6.TCR.BYTE           = 0x28;     // タイマコントロールレジスタ(TGRAでクリア/立上り/φ／1)
   00000314 017D4028FB10           MOV.B       #H'28:8,@H'00FFFB10:16
-       432:        TPU6.TIOR.BYTE.H        = 0x00;     // タイマI/Oコントロールレジスタ(H)
+       434:        TPU6.TIOR.BYTE.H        = 0x00;     // タイマI/Oコントロールレジスタ(H)
   0000031A 6AD0FB12               MOV.B       #0:4,@H'00FFFB12:16
-       433:        TPU6.TIOR.BYTE.L        = 0x00;     // タイマI/Oコントロールレジスタ(L)
+       435:        TPU6.TIOR.BYTE.L        = 0x00;     // タイマI/Oコントロールレジスタ(L)
   0000031E 6AD0FB13               MOV.B       #0:4,@H'00FFFB13:16
-       434:        TPU6.TIER.BYTE          = 0x41;     // タイマインタラプトイネーブルレジスタ
+       436:        TPU6.TIER.BYTE          = 0x41;     // タイマインタラプトイネーブルレジスタ
   00000322 017D4041FB14           MOV.B       #H'41:8,@H'00FFFB14:16
-       435:        TPU6.TSR.BYTE           = 0xC0;     // タイマステータスレジスタ
+       437:        TPU6.TSR.BYTE           = 0xC0;     // タイマステータスレジスタ
   00000328 017D40C0FB15           MOV.B       #H'C0:8,@H'00FFFB15:16
-       436:        TPU6.TCNT               = 0x0000;   // タイマカウンタ
+       438:        TPU6.TCNT               = 0x0000;   // タイマカウンタ
   0000032E 6BD0FB16               MOV.W       #0:4,@H'00FFFB16:16
-       437:        TPU6.TGRA               = 0x2EE0;   // タイマジェネラルレジスタA(2KHz)
-  00000332 79742EE04000FB18       MOV.W       #H'2EE0:16,@H'00FFFB18:16
-       438:        TPU6.TGRB               = 0;        // タイマジェネラルレジスタB
+       439:        TPU6.TGRA               = 0x5DC0;   // タイマジェネラルレジスタA(1KHz)
+  00000332 79745DC04000FB18       MOV.W       #H'5DC0:16,@H'00FFFB18:16
+       440:        TPU6.TGRB               = 0;        // タイマジェネラルレジスタB
   0000033A 6BD0FB1A               MOV.W       #0:4,@H'00FFFB1A:16
-       439:        TPU6.TGRC               = 0;        // タイマジェネラルレジスタC
+       441:        TPU6.TGRC               = 0;        // タイマジェネラルレジスタC
   0000033E 6BD0FB1C               MOV.W       #0:4,@H'00FFFB1C:16
-       440:        TPU6.TGRD               = 0;        // タイマジェネラルレジスタD
+       442:        TPU6.TGRD               = 0;        // タイマジェネラルレジスタD
   00000342 6BD0FB1E               MOV.W       #0:4,@H'00FFFB1E:16
-       441:        TPU6.TMDR.BYTE          = 0xC0;     // タイマモードレジスタ(すべて通常動作)
+       443:        TPU6.TMDR.BYTE          = 0xC0;     // タイマモードレジスタ(すべて通常動作)
   00000346 017D40C0FB11           MOV.B       #H'C0:8,@H'00FFFB11:16
-       442:        
-       443:    //  TPU.TSTR.BYTE           = 0x00;     // タイマスタートレジスタ
-       444:        TPU.TSYR.BYTE           = 0x00;     // タイマシンクロレジスタ
+       444:        
+       445:    //  TPU.TSTR.BYTE           = 0x00;     // タイマスタートレジスタ
+       446:        TPU.TSYR.BYTE           = 0x00;     // タイマシンクロレジスタ
   0000034C 1888                   SUB.B       R0L,R0L
   0000034E 38BD                   MOV.B       R0L,@H'00FFFFBD:8
   00000350 5470                   RTS
-       445:    }
-       446:    
-       447:    //=============================
-       448:    // Global : UART Software FIFO
+       447:    }
+       448:    
        449:    //=============================
-       450:    #define UART_FIFO_DEPTH 256          // UART FIFO Depth
-       451:    unsigned char gUART_FIFO_Tx[UART_FIFO_DEPTH]; // Tx FIFO Buffer
-       452:    unsigned long gUART_FIFO_Tx_WP;               // Tx FIFO Read Pointer
-       453:    unsigned long gUART_FIFO_Tx_RP;               // Tx FIFO Write Pointer
-       454:    unsigned long gUART_FIFO_Tx_DC;               // Tx FIFO Data Count;
-       455:    unsigned char gUART_FIFO_Rx[UART_FIFO_DEPTH]; // Rx FIFO Buffer
-       456:    unsigned long gUART_FIFO_Rx_WP;               // Rx FIFO Read Pointer
-       457:    unsigned long gUART_FIFO_Rx_RP;               // Rx FIFO Write Pointer
-       458:    unsigned long gUART_FIFO_Rx_DC;               // Rx FIFO Data Count;
-       459:    
-       460:    //======================
-       461:    // Global : Ctrl-C
-       462:    //======================
-       463:    unsigned char gUART_Ctrl_C;
-       464:    
-       465:    // --------------------------------------------------------------------
-       466:    // UART(SCI5)初期化
-       467:    // --------------------------------------------------------------------
-       468:    void Init_UART(void)
-  00000352                    _Init_UART:                          ; function: Init_UART
-  00000352 1B97                   SUBS.L      #4,SP
-       469:    {
-       470:        volatile unsigned long i;
-       471:        //------------------------
-       472:        // P14 : SCI5 TxD5
-       473:        // P15 : SCI5 RxD5
-       474:        //------------------------
-       475:        P1.ICR.BIT.B1 = 5;
-  00000354 6A18FB907010           BSET.B      #1,@H'00FFFB90:16
-       476:        //------------------------
-       477:        // Start SCI5 System Clock
-       478:        //------------------------
-       479:    //  MSTP._CRC.BIT._SCI5 = 0;
-       480:        //------------------------
-       481:        // Initialize FIFO
-       482:        //------------------------
-       483:        gUART_FIFO_Tx_WP = 0;
-  0000035A 010D480000000000       MOV.L       #0:8,@_gUART_FIFO_Tx_WP:32
-       484:        gUART_FIFO_Tx_RP = 0;
-  00000362 010D480000000000       MOV.L       #0:8,@_gUART_FIFO_Tx_RP:32
-       485:        gUART_FIFO_Tx_DC = 0;
-  0000036A 010D480000000000       MOV.L       #0:8,@_gUART_FIFO_Tx_DC:32
-       486:        gUART_FIFO_Rx_WP = 0;
-  00000372 010D480000000000       MOV.L       #0:8,@_gUART_FIFO_Rx_WP:32
-       487:        gUART_FIFO_Rx_RP = 0;
-  0000037A 010D480000000000       MOV.L       #0:8,@_gUART_FIFO_Rx_RP:32
-       488:        gUART_FIFO_Rx_DC = 0;
-  00000382 010D480000000000       MOV.L       #0:8,@_gUART_FIFO_Rx_DC:32
-       489:        //------------------------
-       490:        // Initialize Global
-       491:        //------------------------
-       492:        gUART_Ctrl_C = 0;
-  0000038A 6AF000000000           MOV.B       #0:4,@_gUART_Ctrl_C:32
-       493:        //-----------------------------
-       494:        // Set Interrupt Request Level
-       495:        //-----------------------------
-       496:        INTC.IPRQ.BIT._SCI5 = 6;
-  00000390 F806                   MOV.B       #6:8,R0L
-  00000392 6A18FD61F807           BFST        R0L,#7,@H'00FFFD61:16
-       497:        //------------------------
-       498:        // Reset TE, RE
-       499:        //------------------------
-       500:        SCI5.SCR.BIT.TE  = 0;
-  00000398 6A18F6027250           BCLR.B      #5,@H'00FFF602:16
-       501:        SCI5.SCR.BIT.RE  = 0;
-  0000039E 6A18F6027240           BCLR.B      #4,@H'00FFF602:16
-       502:        //------------------------
-       503:        // UART Mode
-       504:        //   8bit, No-Parity, 1-Stop
-       505:        //   Baud Rate = 38400bps
-       506:        //   PCLK = 24MHz
-       507:        //   CKS  = 0
-       508:        //   BRR = 24M / (64 * 2^(-1) * 38400) - 1 = 19
+       450:    // Global : UART Software FIFO
+       451:    //=============================
+       452:    #define UART_FIFO_DEPTH 256                              // UART FIFO Depth
+       453:    volatile unsigned char gUART_FIFO_Tx[UART_FIFO_DEPTH]; // Tx FIFO Buffer
+       454:    volatile unsigned long gUART_FIFO_Tx_WP;               // Tx FIFO Read Pointer
+       455:    volatile unsigned long gUART_FIFO_Tx_RP;               // Tx FIFO Write Pointer
+       456:    volatile unsigned long gUART_FIFO_Tx_DC;               // Tx FIFO Data Count;
+       457:    volatile unsigned char  sci_rcv[154];
+       458:    volatile unsigned int   sci_rcv_pointer;
+       459:    volatile unsigned int   sci_rcv_command;
+       460:    
+       461:    // --------------------------------------------------------------------
+       462:    // UART 送信処理
+       463:    // --------------------------------------------------------------------
+       464:    unsigned char UART_Tx(unsigned char byte)
+  00000352                    _UART_Tx:                            ; function: UART_Tx
+  00000352 6DF2                   PUSH.W      R2
+       465:    {
+       466:        unsigned char possible;
+       467:        unsigned char tie_bkup;
+       468:        
+       469:        //----------------------------
+       470:        // Set Interrupt Request Level
+       471:        //----------------------------
+       472:        INTC.IPRQ.BIT._SCI5 = 5;
+  00000354 F005                   MOV.B       #5:8,R0H
+  00000356 6A18FD61F007           BFST        R0H,#7,@H'00FFFD61:16
+       473:        //----------------------------------------------
+       474:        // Disable Interrupt TXI (still TDRE flag is ON)
+       475:        //----------------------------------------------
+       476:        tie_bkup = SCI5.SCR.BIT.TIE;
+  0000035C 6A10F602F080           BFLD        #H'80,@H'00FFF602:16,R0H
+       477:        //------------------------
+       478:        // Check FIFO Tx
+       479:        //------------------------
+       480:        possible = (gUART_FIFO_Tx_DC < UART_FIFO_DEPTH)? 1 : 0;
+  00000362 010E482000000000       CMP.L       #H'0100:16,@_gUART_FIFO_Tx_DC:32
+           0100               
+  0000036C 4500                   BLO         L7475:8
+  0000036E 4001                   BRA/S       L7476:8
+  00000370 18AA                   SUB.B       R2L,R2L
+  00000372                    L7475:                                
+  00000372 FA01                   MOV.B       #1:8,R2L
+       481:        //------------------------
+       482:        // Set the Tx Data in FIFO
+       483:        //------------------------
+       484:        if (possible)
+       485:        {
+       486:            gUART_FIFO_Tx[gUART_FIFO_Tx_WP] = byte;
+  00000374 01006B2100000000       MOV.L       @_gUART_FIFO_Tx_WP:32,ER1
+  0000037C 78106AA800000000       MOV.B       R0L,@(_gUART_FIFO_Tx:32,ER1)
+       487:            gUART_FIFO_Tx_WP = (gUART_FIFO_Tx_WP + 1) % UART_FIFO_DEPTH;
+  00000384 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_WP:32,ER0
+  0000038C 0B70                   INC.L       #1,ER0
+  0000038E 7A6800FF               AND.L       #H'00FF:16,ER0
+  00000392 01006BA000000000       MOV.L       ER0,@_gUART_FIFO_Tx_WP:32
+       488:            gUART_FIFO_Tx_DC = gUART_FIFO_Tx_DC + 1;
+  0000039A 010E481000000000       ADD.L       #1:16,@_gUART_FIFO_Tx_DC:32
+           0001               
+       489:            tie_bkup = 1;
+  000003A4 0CA0                   MOV.B       R2L,R0H
+  000003A6                    L7476:                                
+       490:        }
+       491:        SCI5.SCR.BIT.TIE = tie_bkup;
+  000003A6 7700                   BLD.B       #0,R0H
+  000003A8 6A18F6026770           BST.B       #7,@H'00FFF602:16
+       492:        
+       493:        return possible;
+  000003AE 0CA8                   MOV.B       R2L,R0L
+  000003B0 6D72                   POP.W       R2
+  000003B2 5470                   RTS
+       494:    }
+       495:    
+       496:    // --------------------------------------------------------------------
+       497:    // UART 送信処理
+       498:    // --------------------------------------------------------------------
+       499:    void UART_Tx_Char(unsigned char byte)
+  000003B4                    _UART_Tx_Char:                       ; function: UART_Tx_Char
+  000003B4 6DF2                   PUSH.W      R2
+  000003B6 0C8A                   MOV.B       R0L,R2L
+  000003B8                    L7479:                                
+       500:    {
+       501:        while(UART_Tx(byte) == 0);
+  000003B8 0CA8                   MOV.B       R2L,R0L
+  000003BA 5500                   BSR         _UART_Tx:8
+  000003BC 0C88                   MOV.B       R0L,R0L
+  000003BE 4700                   BEQ         L7479:8
+  000003C0 6D72                   POP.W       R2
+  000003C2 5470                   RTS
+       502:    }
+       503:    
+       504:    // --------------------------------------------------------------------
+       505:    // UART 送信ハンドラ
+       506:    // --------------------------------------------------------------------
+       507:    void Int_Handler_UART_Tx(void)
+  000003C4                    _Int_Handler_UART_Tx:                ; function: Int_Handler_UART_Tx
+       508:    {
        509:        //------------------------
-       510:        SCI5.SCR.BIT.CKE = 0;
-  000003A4 1888                   SUB.B       R0L,R0L
-  000003A6 6A18F602F803           BFST        R0L,#3,@H'00FFF602:16
-       511:        SCI5.SMR.BYTE = 0x00;  //00000000
-  000003AC 6AD0F600               MOV.B       #0:4,@H'00FFF600:16
-       512:        SCI5.BRR = 19;
-  000003B0 017D4013F601           MOV.B       #H'13:8,@H'00FFF601:16
-       513:        //------------------------
-       514:        // Wait for 1bit period (30us)
-       515:        //------------------------
-       516:        for (i = 0; i < 30000 / 20; i++);
-  000003B6 010D0700               MOV.L       #0:8,@SP
-  000003BA 7A0805DC               MOV.L       #H'05DC:16,ER0
-  000003BE 01090720               CMP.L       ER0,@SP
-  000003C2 4400                   BHS         L6984:8
-  000003C4                    L6985:                                
-  000003C4 010E07100001           ADD.L       #1:16,@SP
-  000003CA 01090720               CMP.L       ER0,@SP
-  000003CE 4500                   BLO         L6985:8
-  000003D0                    L6984:                                
-       517:        //------------------------
-       518:        // Enable Interrupt RXI
-       519:        //------------------------
-       520:        SCI5.SCR.BIT.RIE = 1;
-  000003D0 6A18F6027060           BSET.B      #6,@H'00FFF602:16
-       521:        //------------------------
-       522:        // Set TE, RE
-       523:        //------------------------
-       524:        SCI5.SCR.BIT.TE  = 1;
-  000003D6 6A18F6027050           BSET.B      #5,@H'00FFF602:16
-       525:        SCI5.SCR.BIT.RE  = 1;
-  000003DC 6A18F6027040           BSET.B      #4,@H'00FFF602:16
-  000003E2 0B97                   ADDS.L      #4,SP
-  000003E4 5470                   RTS
+       510:        // If FIFO Tx has Data
+       511:        //------------------------
+       512:        if (gUART_FIFO_Tx_DC > 0)
+  000003C4 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_DC:32,ER0
+  000003CC 4700                   BEQ         L7483:8
+       513:        {
+       514:            SCI5.TDR = gUART_FIFO_Tx[gUART_FIFO_Tx_RP];
+  000003CE 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_RP:32,ER0
+  000003D6 78006A2900000000       MOV.B       @(_gUART_FIFO_Tx:32,ER0),R1L
+  000003DE 6A89F603               MOV.B       R1L,@H'00FFF603:16
+       515:            gUART_FIFO_Tx_RP = (gUART_FIFO_Tx_RP + 1) % UART_FIFO_DEPTH;
+  000003E2 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_RP:32,ER0
+  000003EA 0B70                   INC.L       #1,ER0
+  000003EC 7A6800FF               AND.L       #H'00FF:16,ER0
+  000003F0 01006BA000000000       MOV.L       ER0,@_gUART_FIFO_Tx_RP:32
+       516:            gUART_FIFO_Tx_DC = gUART_FIFO_Tx_DC - 1;
+  000003F8 010E483000000000       SUB.L       #1:16,@_gUART_FIFO_Tx_DC:32
+           0001               
+       517:            SCI5.SSR.BIT.TDRE = 0;
+  00000402 6A18F6047270           BCLR.B      #7,@H'00FFF604:16
+  00000408 5470                   RTS
+  0000040A                    L7483:                                
+       518:        }
+       519:        //-------------------------
+       520:        // If FIFO Tx has no Data
+       521:        //-------------------------
+       522:        else
+       523:        {
+       524:            SCI5.SCR.BIT.TIE = 0;
+  0000040A 6A18F6027270           BCLR.B      #7,@H'00FFF602:16
+  00000410 5470                   RTS
+       525:        }
        526:    }
        527:    
        528:    // --------------------------------------------------------------------
-       529:    // UART 送信処理
+       529:    // UART 受信ハンドラ
        530:    // --------------------------------------------------------------------
-       531:    unsigned char UART_Tx(unsigned char byte)
-  000003E6                    _UART_Tx:                            ; function: UART_Tx
-  000003E6 01106DF2               STM.L       (ER2-ER3),@-SP
+       531:    void Int_Handler_UART_Rx(void)
+  00000412                    _Int_Handler_UART_Rx:                ; function: Int_Handler_UART_Rx
+  00000412 01206DF4               STM.L       (ER4-ER6),@-SP
        532:    {
-       533:        unsigned char possible;
-       534:        unsigned char tie_bkup;
-       535:    
-       536:        //----------------------------------------------
-       537:        // Disable Interrupt TXI (still TDRE flag is ON)
-       538:        //----------------------------------------------
-       539:        tie_bkup = SCI5.SCR.BIT.TIE;
-  000003EA 6A10F602F080           BFLD        #H'80,@H'00FFF602:16,R0H
-       540:        //------------------------
-       541:        // Check FIFO Tx
-       542:        //------------------------
-       543:        possible = (gUART_FIFO_Tx_DC < UART_FIFO_DEPTH)? 1 : 0;
-  000003F0 01006B2300000000       MOV.L       @_gUART_FIFO_Tx_DC:32,ER3
-  000003F8 7A2B0100               CMP.L       #H'0100:16,ER3
-  000003FC 4500                   BLO         L6989:8
-  000003FE 4001                   BRA/S       L6990:8
-  00000400 18AA                   SUB.B       R2L,R2L
-  00000402                    L6989:                                
-  00000402 FA01                   MOV.B       #1:8,R2L
-       544:        //------------------------
-       545:        // Set the Tx Data in FIFO
-       546:        //------------------------
-       547:        if (possible)
-       548:        {
-       549:            gUART_FIFO_Tx[gUART_FIFO_Tx_WP] = byte;
-  00000404 01006B2100000000       MOV.L       @_gUART_FIFO_Tx_WP:32,ER1
-  0000040C 78106AA800000000       MOV.B       R0L,@(_gUART_FIFO_Tx:32,ER1)
-       550:            gUART_FIFO_Tx_WP = (gUART_FIFO_Tx_WP + 1) % UART_FIFO_DEPTH;
-  00000414 0B71                   INC.L       #1,ER1
-  00000416 7A6900FF               AND.L       #H'00FF:16,ER1
-  0000041A 0F90                   MOV.L       ER1,ER0
-  0000041C 01006BA100000000       MOV.L       ER1,@_gUART_FIFO_Tx_WP:32
-       551:            gUART_FIFO_Tx_DC = gUART_FIFO_Tx_DC + 1;
-  00000424 0B73                   INC.L       #1,ER3
-  00000426 01006BA300000000       MOV.L       ER3,@_gUART_FIFO_Tx_DC:32
-       552:            tie_bkup = 1;
-  0000042E 0CA0                   MOV.B       R2L,R0H
-  00000430                    L6990:                                
-       553:        }
-       554:        //------------------------
-       555:        // Revert TIE
-       556:        //------------------------
-       557:        SCI5.SCR.BIT.TIE = tie_bkup;
-  00000430 7700                   BLD.B       #0,R0H
-  00000432 6A18F6026770           BST.B       #7,@H'00FFF602:16
-       558:    
-       559:        return possible;
-  00000438 0CA8                   MOV.B       R2L,R0L
-  0000043A 5413                   RTS/L       (ER2-ER3)
-       560:    }
-       561:    
-       562:    // --------------------------------------------------------------------
-       563:    // UART 送信処理
-       564:    // --------------------------------------------------------------------
-       565:    void UART_Tx_Char(unsigned char byte)
-  0000043C                    _UART_Tx_Char:                       ; function: UART_Tx_Char
-  0000043C 6DF2                   PUSH.W      R2
-  0000043E 0C8A                   MOV.B       R0L,R2L
-  00000440                    L6993:                                
-       566:    {
-       567:        while(UART_Tx(byte) == 0);
-  00000440 0CA8                   MOV.B       R2L,R0L
-  00000442 5500                   BSR         _UART_Tx:8
-  00000444 0C88                   MOV.B       R0L,R0L
-  00000446 4700                   BEQ         L6993:8
-  00000448 6D72                   POP.W       R2
-  0000044A 5470                   RTS
-       568:    }
-       569:    
-       570:    // --------------------------------------------------------------------
-       571:    // 
-       572:    // --------------------------------------------------------------------
-       573:    unsigned char UART_Rx_Possible(void)
-  0000044C                    _UART_Rx_Possible:                   ; function: UART_Rx_Possible
-       574:    {
-       575:        unsigned char possible;
-       576:        unsigned char rie_bkup;
-       577:    
-       578:        //------------------------
-       579:        // Disable Interrupt RXI
-       580:        //------------------------
-       581:        rie_bkup = SCI5.SCR.BIT.RIE;
-  0000044C 6A10F602F940           BFLD        #H'40,@H'00FFF602:16,R1L
-       582:        SCI5.SCR.BIT.RIE = 0;
-  00000452 6A18F6027260           BCLR.B      #6,@H'00FFF602:16
-       583:        //------------------------
-       584:        // Check FIFO Rx
-       585:        //------------------------
-       586:        possible = (gUART_FIFO_Rx_DC > 0)? 1 : 0;
-  00000458 01006B2000000000       MOV.L       @_gUART_FIFO_Rx_DC:32,ER0
-  00000460 1811                   SUB.B       R1H,R1H
-  00000462 0F80                   MOV.L       ER0,ER0
-  00000464 4700                   BEQ         L6997:8
-  00000466 F101                   MOV.B       #1:8,R1H
-  00000468                    L6997:                                
-       587:        //------------------------
-       588:        // Revert RIE
-       589:        //------------------------
-       590:        SCI5.SCR.BIT.RIE = rie_bkup;
-  00000468 7709                   BLD.B       #0,R1L
-  0000046A 6A18F6026760           BST.B       #6,@H'00FFF602:16
-       591:    
-       592:        return possible;
-  00000470 0C18                   MOV.B       R1H,R0L
-  00000472 5470                   RTS
-       593:    }
-       594:    
-       595:    // --------------------------------------------------------------------
-       596:    // UART 受信処理
-       597:    // --------------------------------------------------------------------
-       598:    unsigned char UART_Rx(unsigned char *byte)
-  00000474                    _UART_Rx:                            ; function: UART_Rx
-  00000474 01206DF4               STM.L       (ER4-ER6),@-SP
-       599:    {
-       600:        unsigned char possible;
-       601:        unsigned char rie_bkup;
-       602:    
-       603:        //------------------------
-       604:        // Disable Interrupt RXI
-       605:        //------------------------
-       606:        rie_bkup = SCI5.SCR.BIT.RIE;
-  00000478 0F85                   MOV.L       ER0,ER5
-  0000047A 7A0400000000           MOV.L       #_gUART_FIFO_Rx_RP,ER4
-  00000480 6A10F602F940           BFLD        #H'40,@H'00FFF602:16,R1L
-       607:        //------------------------
-       608:        // Check FIFO Rx
-       609:        //------------------------
-       610:        possible = (gUART_FIFO_Rx_DC > 0)? 1 : 0;
-  00000486 01006B2000000000       MOV.L       @_gUART_FIFO_Rx_DC:32,ER0
-  0000048E 4600                   BNE         L7001:8
-  00000490 4001                   BRA/S       L7002:8
-  00000492 18EE                   SUB.B       R6L,R6L
-  00000494                    L7001:                                
-  00000494 FE01                   MOV.B       #1:8,R6L
-       611:        //---------------------------
-       612:        // Get the Rx Data from FIFO
-       613:        //---------------------------
-       614:        if (possible)
-       615:        {
-       616:            *byte = gUART_FIFO_Rx[gUART_FIFO_Rx_RP];
-  00000496 01006941               MOV.L       @ER4,ER1
-  0000049A 0178F90500000000       MOV.B       @(_gUART_FIFO_Rx:32,ER1.L),@ER5
-       617:            gUART_FIFO_Rx_RP = (gUART_FIFO_Rx_RP + 1) % UART_FIFO_DEPTH;
-  000004A2 01006941               MOV.L       @ER4,ER1
-  000004A6 0B71                   INC.L       #1,ER1
-  000004A8 7A6900FF               AND.L       #H'00FF:16,ER1
-  000004AC 0F90                   MOV.L       ER1,ER0
-  000004AE 010069C1               MOV.L       ER1,@ER4
-       618:            gUART_FIFO_Rx_DC = gUART_FIFO_Rx_DC - 1;
-  000004B2 010E483000000000       SUB.L       #1:16,@_gUART_FIFO_Rx_DC:32
-           0001               
-       619:            rie_bkup = 1;
-  000004BC 0CE9                   MOV.B       R6L,R1L
-  000004BE                    L7002:                                
-       620:        }
-       621:        //------------------------
-       622:        // Revert RIE
-       623:        //------------------------
-       624:        SCI5.SCR.BIT.RIE = rie_bkup;
-  000004BE 7709                   BLD.B       #0,R1L
-  000004C0 6A18F6026760           BST.B       #6,@H'00FFF602:16
-       625:    
-       626:        return possible;
-  000004C6 0CE8                   MOV.B       R6L,R0L
-  000004C8 5426                   RTS/L       (ER4-ER6)
-       627:    }
-       628:    
-       629:    // --------------------------------------------------------------------
-       630:    // 
+       533:        unsigned char byte;
+       534:        unsigned int lambda;
+       535:        
+       536:        if      (g_e2p_data.E2P_1.model == Freedom2)
+  00000416 7A0500000000           MOV.L       #_sci_rcv_pointer,ER5
+  0000041C 6A3800000000A005       CMP.B       #5:8,@(_g_e2p_data+2):32
+  00000424 58600000               BNE         L7488:16
+       537:        {
+       538:            sci_rcv[sci_rcv_pointer] = SCI5.RDR - 0x30;
+  00000428 6A09F605               MOV.B       @H'00FFF605:16,R1L
+  0000042C 89D0                   ADD.B       #H'D0:8,R1L
+  0000042E 6950                   MOV.W       @ER5,R0
+  00000430 78026AA900000000       MOV.B       R1L,@(_sci_rcv:32,R0.W)
+       539:            sci_rcv_pointer ++;
+  00000438 7DD00A10               ADD.W       #1:3,@ER5
+       540:            
+       541:            if(sci_rcv_pointer >= 55)
+  0000043C 015E05200037           CMP.W       #H'0037:16,@ER5
+  00000442 58500000               BLO         L7490:16
+       542:            {
+       543:                sci_rcv_pointer = 0;
+  00000446 7A0400000000           MOV.L       #_g_Freedom2_data,ER4
+  0000044C 015D0500               MOV.W       #0:8,@ER5
+       544:                if      (sci_rcv_command == 0)
+  00000450 6B2000000000           MOV.W       @_sci_rcv_command:32,R0
+  00000456 58600000               BNE         L7492:16
+       545:                {
+       546:                    g_Freedom2_data.RPM                 = sci_rcv[0]  * 10000 + sci_rcv[1]  * 1000 + sci_rcv[2]  * 100 + sci_rcv[3]  * 10 + sci_rcv[4] ;
+  0000045A 7A0500000000           MOV.L       #_sci_rcv,ER5
+  00000460 6858                   MOV.B       @ER5,R0L
+  00000462 1750                   EXTU.W      R0
+  00000464 0D08                   MOV.W       R0,E0
+  00000466 79092710               MOV.W       #H'2710:16,E1
+  0000046A 01C25098               MULS.W      E1,E0
+  0000046E 6E580001               MOV.B       @(1:16,ER5),R0L
+  00000472 790103E8               MOV.W       #H'03E8:16,R1
+  00000476 01C25010               MULS.W      R1,R0
+  0000047A 0908                   ADD.W       R0,E0
+  0000047C 6E580002               MOV.B       @(2:16,ER5),R0L
+  00000480 FE64                   MOV.B       #H'64:8,R6L
+  00000482 50E0                   MULXU.B     R6L,R0
+  00000484 0908                   ADD.W       R0,E0
+  00000486 6E580003               MOV.B       @(3:16,ER5),R0L
+  0000048A 01CC50A0               MULXU.B     #H'A:4,R0
+  0000048E 0908                   ADD.W       R0,E0
+  00000490 6E580004               MOV.B       @(4:16,ER5),R0L
+  00000494 1750                   EXTU.W      R0
+  00000496 0908                   ADD.W       R0,E0
+  00000498 69C8                   MOV.W       E0,@ER4
+       547:                    g_Freedom2_data.ManifoldPressure    =                       sci_rcv[5]  * 1000 + sci_rcv[6]  * 100 + sci_rcv[7]  * 10 + sci_rcv[8] ;
+  0000049A 6E580005               MOV.B       @(5:16,ER5),R0L
+  0000049E 0D08                   MOV.W       R0,E0
+  000004A0 01C25018               MULS.W      R1,E0
+  000004A4 6E580006               MOV.B       @(6:16,ER5),R0L
+  000004A8 50E0                   MULXU.B     R6L,R0
+  000004AA 0908                   ADD.W       R0,E0
+  000004AC 6E580007               MOV.B       @(7:16,ER5),R0L
+  000004B0 01CC50A0               MULXU.B     #H'A:4,R0
+  000004B4 0908                   ADD.W       R0,E0
+  000004B6 6E580008               MOV.B       @(8:16,ER5),R0L
+  000004BA 1750                   EXTU.W      R0
+  000004BC 0908                   ADD.W       R0,E0
+  000004BE 6FC80002               MOV.W       E0,@(2:16,ER4)
+       548:                    g_Freedom2_data.EngineTemp          = sci_rcv[9]  * 10000 + sci_rcv[10] * 1000 + sci_rcv[11] * 100 + sci_rcv[12] * 10 + sci_rcv[13];
+  000004C2 6E580009               MOV.B       @(9:16,ER5),R0L
+  000004C6 0D08                   MOV.W       R0,E0
+  000004C8 01C25098               MULS.W      E1,E0
+  000004CC 6E58000A               MOV.B       @(H'000A:16,ER5),R0L
+  000004D0 01C25010               MULS.W      R1,R0
+  000004D4 0908                   ADD.W       R0,E0
+  000004D6 6E58000B               MOV.B       @(H'000B:16,ER5),R0L
+  000004DA 50E0                   MULXU.B     R6L,R0
+  000004DC 0908                   ADD.W       R0,E0
+  000004DE 6E58000C               MOV.B       @(H'000C:16,ER5),R0L
+  000004E2 01CC50A0               MULXU.B     #H'A:4,R0
+  000004E6 0908                   ADD.W       R0,E0
+  000004E8 6E58000D               MOV.B       @(H'000D:16,ER5),R0L
+  000004EC 1750                   EXTU.W      R0
+  000004EE 0908                   ADD.W       R0,E0
+  000004F0 6FC80004               MOV.W       E0,@(4:16,ER4)
+       549:                    g_Freedom2_data.InletAirTemp        = sci_rcv[14] * 10000 + sci_rcv[15] * 1000 + sci_rcv[16] * 100 + sci_rcv[17] * 10 + sci_rcv[18];
+  000004F4 6E58000E               MOV.B       @(H'000E:16,ER5),R0L
+  000004F8 0D08                   MOV.W       R0,E0
+  000004FA 01C25098               MULS.W      E1,E0
+  000004FE 6E58000F               MOV.B       @(H'000F:16,ER5),R0L
+  00000502 01C25010               MULS.W      R1,R0
+  00000506 0908                   ADD.W       R0,E0
+  00000508 6E580010               MOV.B       @(H'0010:16,ER5),R0L
+  0000050C 50E0                   MULXU.B     R6L,R0
+  0000050E 0908                   ADD.W       R0,E0
+  00000510 6E580011               MOV.B       @(H'0011:16,ER5),R0L
+  00000514 01CC50A0               MULXU.B     #H'A:4,R0
+  00000518 0908                   ADD.W       R0,E0
+  0000051A 6E580012               MOV.B       @(H'0012:16,ER5),R0L
+  0000051E 1750                   EXTU.W      R0
+  00000520 0908                   ADD.W       R0,E0
+  00000522 6FC80006               MOV.W       E0,@(6:16,ER4)
+       550:                    g_Freedom2_data.BarometricPressure  =                       sci_rcv[19] * 1000 + sci_rcv[20] * 100 + sci_rcv[21] * 10 + sci_rcv[22];
+  00000526 6E580013               MOV.B       @(H'0013:16,ER5),R0L
+  0000052A 0D08                   MOV.W       R0,E0
+  0000052C 01C25018               MULS.W      R1,E0
+  00000530 6E580014               MOV.B       @(H'0014:16,ER5),R0L
+  00000534 50E0                   MULXU.B     R6L,R0
+  00000536 0908                   ADD.W       R0,E0
+  00000538 6E580015               MOV.B       @(H'0015:16,ER5),R0L
+  0000053C 01CC50A0               MULXU.B     #H'A:4,R0
+  00000540 0908                   ADD.W       R0,E0
+  00000542 6E580016               MOV.B       @(H'0016:16,ER5),R0L
+  00000546 1750                   EXTU.W      R0
+  00000548 0908                   ADD.W       R0,E0
+  0000054A 6FC80008               MOV.W       E0,@(8:16,ER4)
+       551:                    g_Freedom2_data.ThrottlePosition    =                       sci_rcv[23] * 1000 + sci_rcv[24] * 100 + sci_rcv[25] * 10 + sci_rcv[26];
+  0000054E 6E580017               MOV.B       @(H'0017:16,ER5),R0L
+  00000552 0D08                   MOV.W       R0,E0
+  00000554 01C25018               MULS.W      R1,E0
+  00000558 6E580018               MOV.B       @(H'0018:16,ER5),R0L
+  0000055C 50E0                   MULXU.B     R6L,R0
+  0000055E 0908                   ADD.W       R0,E0
+  00000560 6E580019               MOV.B       @(H'0019:16,ER5),R0L
+  00000564 01CC50A0               MULXU.B     #H'A:4,R0
+  00000568 0908                   ADD.W       R0,E0
+  0000056A 6E58001A               MOV.B       @(H'001A:16,ER5),R0L
+  0000056E 1750                   EXTU.W      R0
+  00000570 0908                   ADD.W       R0,E0
+  00000572 6FC8000A               MOV.W       E0,@(H'000A:16,ER4)
+       552:                    g_Freedom2_data.BatteryVoltage      =                                            sci_rcv[27] * 100 + sci_rcv[28] * 10 + sci_rcv[29];
+  00000576 6E58001B               MOV.B       @(H'001B:16,ER5),R0L
+  0000057A 50E0                   MULXU.B     R6L,R0
+  0000057C 0D08                   MOV.W       R0,E0
+  0000057E 6E58001C               MOV.B       @(H'001C:16,ER5),R0L
+  00000582 01CC50A0               MULXU.B     #H'A:4,R0
+  00000586 0908                   ADD.W       R0,E0
+  00000588 6E58001D               MOV.B       @(H'001D:16,ER5),R0L
+  0000058C 1750                   EXTU.W      R0
+  0000058E 0908                   ADD.W       R0,E0
+  00000590 6FC8000C               MOV.W       E0,@(H'000C:16,ER4)
+       553:                    g_Freedom2_data.ValidFuelTime       =                       sci_rcv[30] * 1000 + sci_rcv[31] * 100 + sci_rcv[32] * 10 + sci_rcv[33];
+  00000594 6E58001E               MOV.B       @(H'001E:16,ER5),R0L
+  00000598 0D08                   MOV.W       R0,E0
+  0000059A 01C25018               MULS.W      R1,E0
+  0000059E 6E58001F               MOV.B       @(H'001F:16,ER5),R0L
+  000005A2 50E0                   MULXU.B     R6L,R0
+  000005A4 0908                   ADD.W       R0,E0
+  000005A6 6E580020               MOV.B       @(H'0020:16,ER5),R0L
+  000005AA 01CC50A0               MULXU.B     #H'A:4,R0
+  000005AE 0908                   ADD.W       R0,E0
+  000005B0 6E580021               MOV.B       @(H'0021:16,ER5),R0L
+  000005B4 1750                   EXTU.W      R0
+  000005B6 0908                   ADD.W       R0,E0
+  000005B8 6FC8000E               MOV.W       E0,@(H'000E:16,ER4)
+       554:                    g_Freedom2_data.InvalidFuelTime     =                       sci_rcv[34] * 1000 + sci_rcv[35] * 100 + sci_rcv[36] * 10 + sci_rcv[37];
+  000005BC 6E580022               MOV.B       @(H'0022:16,ER5),R0L
+  000005C0 0D08                   MOV.W       R0,E0
+  000005C2 01C25018               MULS.W      R1,E0
+  000005C6 6E580023               MOV.B       @(H'0023:16,ER5),R0L
+  000005CA 50E0                   MULXU.B     R6L,R0
+  000005CC 0908                   ADD.W       R0,E0
+  000005CE 6E580024               MOV.B       @(H'0024:16,ER5),R0L
+  000005D2 01CC50A0               MULXU.B     #H'A:4,R0
+  000005D6 0908                   ADD.W       R0,E0
+  000005D8 6E580025               MOV.B       @(H'0025:16,ER5),R0L
+  000005DC 1750                   EXTU.W      R0
+  000005DE 0908                   ADD.W       R0,E0
+  000005E0 6FC80010               MOV.W       E0,@(H'0010:16,ER4)
+       555:                    g_Freedom2_data.IgnitionAdvance     =                                                                sci_rcv[38] * 10 + sci_rcv[39];
+  000005E4 6E580026               MOV.B       @(H'0026:16,ER5),R0L
+  000005E8 01CC50A0               MULXU.B     #H'A:4,R0
+  000005EC 0D08                   MOV.W       R0,E0
+  000005EE 6E580027               MOV.B       @(H'0027:16,ER5),R0L
+  000005F2 1750                   EXTU.W      R0
+  000005F4 0908                   ADD.W       R0,E0
+  000005F6 6FC80012               MOV.W       E0,@(H'0012:16,ER4)
+       556:                    g_Freedom2_data.Status              = sci_rcv[40] * 10000 + sci_rcv[41] * 1000 + sci_rcv[42] * 100 + sci_rcv[43] * 10 + sci_rcv[44];
+  000005FA 6E580028               MOV.B       @(H'0028:16,ER5),R0L
+  000005FE 0D08                   MOV.W       R0,E0
+  00000600 01C25098               MULS.W      E1,E0
+  00000604 6E580029               MOV.B       @(H'0029:16,ER5),R0L
+  00000608 01C25010               MULS.W      R1,R0
+  0000060C 0908                   ADD.W       R0,E0
+  0000060E 6E58002A               MOV.B       @(H'002A:16,ER5),R0L
+  00000612 50E0                   MULXU.B     R6L,R0
+  00000614 0908                   ADD.W       R0,E0
+  00000616 6E58002B               MOV.B       @(H'002B:16,ER5),R0L
+  0000061A 01CC50A0               MULXU.B     #H'A:4,R0
+  0000061E 0908                   ADD.W       R0,E0
+  00000620 6E58002C               MOV.B       @(H'002C:16,ER5),R0L
+  00000624 1750                   EXTU.W      R0
+  00000626 0908                   ADD.W       R0,E0
+  00000628 6FC80014               MOV.W       E0,@(H'0014:16,ER4)
+       557:                    g_Freedom2_data.GroundSpeed         = sci_rcv[45] * 10000 + sci_rcv[46] * 1000 + sci_rcv[47] * 100 + sci_rcv[48] * 10 + sci_rcv[49];
+  0000062C 6E58002D               MOV.B       @(H'002D:16,ER5),R0L
+  00000630 0D08                   MOV.W       R0,E0
+  00000632 01C25098               MULS.W      E1,E0
+  00000636 6E58002E               MOV.B       @(H'002E:16,ER5),R0L
+  0000063A 01C25010               MULS.W      R1,R0
+  0000063E 0908                   ADD.W       R0,E0
+  00000640 6E58002F               MOV.B       @(H'002F:16,ER5),R0L
+  00000644 50E0                   MULXU.B     R6L,R0
+  00000646 0908                   ADD.W       R0,E0
+  00000648 6E580030               MOV.B       @(H'0030:16,ER5),R0L
+  0000064C 01CC50A0               MULXU.B     #H'A:4,R0
+  00000650 0908                   ADD.W       R0,E0
+  00000652 6E580031               MOV.B       @(H'0031:16,ER5),R0L
+  00000656 1750                   EXTU.W      R0
+  00000658 0908                   ADD.W       R0,E0
+  0000065A 6FC80016               MOV.W       E0,@(H'0016:16,ER4)
+       558:                    lambda                              = sci_rcv[50] * 10000 + sci_rcv[51] * 1000 + sci_rcv[52] * 100 + sci_rcv[53] * 10 + sci_rcv[54];
+  0000065E 6E580032               MOV.B       @(H'0032:16,ER5),R0L
+  00000662 0D08                   MOV.W       R0,E0
+  00000664 01C25098               MULS.W      E1,E0
+  00000668 6E580033               MOV.B       @(H'0033:16,ER5),R0L
+  0000066C 01C25010               MULS.W      R1,R0
+  00000670 0908                   ADD.W       R0,E0
+  00000672 6E580034               MOV.B       @(H'0034:16,ER5),R0L
+  00000676 50E0                   MULXU.B     R6L,R0
+  00000678 0908                   ADD.W       R0,E0
+  0000067A 6E580035               MOV.B       @(H'0035:16,ER5),R0L
+  0000067E 01CC50A0               MULXU.B     #H'A:4,R0
+  00000682 0908                   ADD.W       R0,E0
+  00000684 6E580036               MOV.B       @(H'0036:16,ER5),R0L
+  00000688 1750                   EXTU.W      R0
+  0000068A 0908                   ADD.W       R0,E0
+       559:                    g_Freedom2_data.AFR                 = (lambda & 0xFF00) >> 8;
+  0000068C 0D80                   MOV.W       E0,R0
+  0000068E 1160                   SHLR.W      #8,R0
+  00000690 E000                   AND.B       #0:8,R0H
+  00000692 6FC00018               MOV.W       R0,@(H'0018:16,ER4)
+       560:                    g_Freedom2_data.AimAFR              = (lambda & 0x00FF);
+  00000696 796800FF               AND.W       #H'00FF:16,E0
+  0000069A 6FC8001A               MOV.W       E0,@(H'001A:16,ER4)
+  0000069E 5A000000               JMP         @L7490:24
+  000006A2                    L7492:                                
+       561:                }
+       562:                else if (sci_rcv_command == 1)
+  000006A2 6B38000000001F10       CMP.W       #1:3,@_sci_rcv_command:32
+  000006AA 58600000               BNE         L7490:16
+       563:                {
+       564:                    g_Freedom2_data.IATCorrection       = sci_rcv[0]  * 10000 + sci_rcv[1]  * 1000 + sci_rcv[2]  * 100 + sci_rcv[3]  * 10 + sci_rcv[4] ;
+  000006AE 7A0500000000           MOV.L       #_sci_rcv,ER5
+  000006B4 6858                   MOV.B       @ER5,R0L
+  000006B6 1750                   EXTU.W      R0
+  000006B8 0D08                   MOV.W       R0,E0
+  000006BA 79092710               MOV.W       #H'2710:16,E1
+  000006BE 01C25098               MULS.W      E1,E0
+  000006C2 6E580001               MOV.B       @(1:16,ER5),R0L
+  000006C6 790103E8               MOV.W       #H'03E8:16,R1
+  000006CA 01C25010               MULS.W      R1,R0
+  000006CE 0908                   ADD.W       R0,E0
+  000006D0 6E580002               MOV.B       @(2:16,ER5),R0L
+  000006D4 FE64                   MOV.B       #H'64:8,R6L
+  000006D6 50E0                   MULXU.B     R6L,R0
+  000006D8 0908                   ADD.W       R0,E0
+  000006DA 6E580003               MOV.B       @(3:16,ER5),R0L
+  000006DE 01CC50A0               MULXU.B     #H'A:4,R0
+  000006E2 0908                   ADD.W       R0,E0
+  000006E4 6E580004               MOV.B       @(4:16,ER5),R0L
+  000006E8 1750                   EXTU.W      R0
+  000006EA 0908                   ADD.W       R0,E0
+  000006EC 6FC8001C               MOV.W       E0,@(H'001C:16,ER4)
+       565:                    g_Freedom2_data.ETCorrection        = sci_rcv[5]  * 10000 + sci_rcv[6]  * 1000 + sci_rcv[7]  * 100 + sci_rcv[8]  * 10 + sci_rcv[9] ;
+  000006F0 6E580005               MOV.B       @(5:16,ER5),R0L
+  000006F4 0D08                   MOV.W       R0,E0
+  000006F6 01C25098               MULS.W      E1,E0
+  000006FA 6E580006               MOV.B       @(6:16,ER5),R0L
+  000006FE 01C25010               MULS.W      R1,R0
+  00000702 0908                   ADD.W       R0,E0
+  00000704 6E580007               MOV.B       @(7:16,ER5),R0L
+  00000708 50E0                   MULXU.B     R6L,R0
+  0000070A 0908                   ADD.W       R0,E0
+  0000070C 6E580008               MOV.B       @(8:16,ER5),R0L
+  00000710 01CC50A0               MULXU.B     #H'A:4,R0
+  00000714 0908                   ADD.W       R0,E0
+  00000716 6E580009               MOV.B       @(9:16,ER5),R0L
+  0000071A 1750                   EXTU.W      R0
+  0000071C 0908                   ADD.W       R0,E0
+  0000071E 6FC8001E               MOV.W       E0,@(H'001E:16,ER4)
+       566:                    g_Freedom2_data.EStartCorrection    = sci_rcv[10] * 10000 + sci_rcv[11] * 1000 + sci_rcv[12] * 100 + sci_rcv[13] * 10 + sci_rcv[14];
+  00000722 6E58000A               MOV.B       @(H'000A:16,ER5),R0L
+  00000726 0D08                   MOV.W       R0,E0
+  00000728 01C25098               MULS.W      E1,E0
+  0000072C 6E58000B               MOV.B       @(H'000B:16,ER5),R0L
+  00000730 01C25010               MULS.W      R1,R0
+  00000734 0908                   ADD.W       R0,E0
+  00000736 6E58000C               MOV.B       @(H'000C:16,ER5),R0L
+  0000073A 50E0                   MULXU.B     R6L,R0
+  0000073C 0908                   ADD.W       R0,E0
+  0000073E 6E58000D               MOV.B       @(H'000D:16,ER5),R0L
+  00000742 01CC50A0               MULXU.B     #H'A:4,R0
+  00000746 0908                   ADD.W       R0,E0
+  00000748 6E58000E               MOV.B       @(H'000E:16,ER5),R0L
+  0000074C 1750                   EXTU.W      R0
+  0000074E 0908                   ADD.W       R0,E0
+  00000750 6FC80020               MOV.W       E0,@(H'0020:16,ER4)
+       567:                    g_Freedom2_data.AccelCorrection     = sci_rcv[15] * 10000 + sci_rcv[16] * 1000 + sci_rcv[17] * 100 + sci_rcv[18] * 10 + sci_rcv[19];
+  00000754 6E58000F               MOV.B       @(H'000F:16,ER5),R0L
+  00000758 0D08                   MOV.W       R0,E0
+  0000075A 01C25098               MULS.W      E1,E0
+  0000075E 6E580010               MOV.B       @(H'0010:16,ER5),R0L
+  00000762 01C25010               MULS.W      R1,R0
+  00000766 0908                   ADD.W       R0,E0
+  00000768 6E580011               MOV.B       @(H'0011:16,ER5),R0L
+  0000076C 50E0                   MULXU.B     R6L,R0
+  0000076E 0908                   ADD.W       R0,E0
+  00000770 6E580012               MOV.B       @(H'0012:16,ER5),R0L
+  00000774 01CC50A0               MULXU.B     #H'A:4,R0
+  00000778 0908                   ADD.W       R0,E0
+  0000077A 6E580013               MOV.B       @(H'0013:16,ER5),R0L
+  0000077E 1750                   EXTU.W      R0
+  00000780 0908                   ADD.W       R0,E0
+  00000782 6FC80022               MOV.W       E0,@(H'0022:16,ER4)
+       568:                    g_Freedom2_data.PowerCorrection     = sci_rcv[20] * 10000 + sci_rcv[21] * 1000 + sci_rcv[22] * 100 + sci_rcv[23] * 10 + sci_rcv[24];
+  00000786 6E580014               MOV.B       @(H'0014:16,ER5),R0L
+  0000078A 0D08                   MOV.W       R0,E0
+  0000078C 01C25098               MULS.W      E1,E0
+  00000790 6E580015               MOV.B       @(H'0015:16,ER5),R0L
+  00000794 01C25010               MULS.W      R1,R0
+  00000798 0908                   ADD.W       R0,E0
+  0000079A 6E580016               MOV.B       @(H'0016:16,ER5),R0L
+  0000079E 50E0                   MULXU.B     R6L,R0
+  000007A0 0908                   ADD.W       R0,E0
+  000007A2 6E580017               MOV.B       @(H'0017:16,ER5),R0L
+  000007A6 01CC50A0               MULXU.B     #H'A:4,R0
+  000007AA 0908                   ADD.W       R0,E0
+  000007AC 6E580018               MOV.B       @(H'0018:16,ER5),R0L
+  000007B0 1750                   EXTU.W      R0
+  000007B2 0908                   ADD.W       R0,E0
+  000007B4 6FC80024               MOV.W       E0,@(H'0024:16,ER4)
+       569:                    g_Freedom2_data.FeedbackCorrection  = sci_rcv[25] * 10000 + sci_rcv[26] * 1000 + sci_rcv[27] * 100 + sci_rcv[28] * 10 + sci_rcv[29];
+  000007B8 6E580019               MOV.B       @(H'0019:16,ER5),R0L
+  000007BC 0D08                   MOV.W       R0,E0
+  000007BE 01C25098               MULS.W      E1,E0
+  000007C2 6E58001A               MOV.B       @(H'001A:16,ER5),R0L
+  000007C6 01C25010               MULS.W      R1,R0
+  000007CA 0908                   ADD.W       R0,E0
+  000007CC 6E58001B               MOV.B       @(H'001B:16,ER5),R0L
+  000007D0 50E0                   MULXU.B     R6L,R0
+  000007D2 0908                   ADD.W       R0,E0
+  000007D4 6E58001C               MOV.B       @(H'001C:16,ER5),R0L
+  000007D8 01CC50A0               MULXU.B     #H'A:4,R0
+  000007DC 0908                   ADD.W       R0,E0
+  000007DE 6E58001D               MOV.B       @(H'001D:16,ER5),R0L
+  000007E2 1750                   EXTU.W      R0
+  000007E4 0908                   ADD.W       R0,E0
+  000007E6 6FC80026               MOV.W       E0,@(H'0026:16,ER4)
+       570:                    g_Freedom2_data.IdolCorrection      = sci_rcv[30] * 10000 + sci_rcv[31] * 1000 + sci_rcv[32] * 100 + sci_rcv[33] * 10 + sci_rcv[34];
+  000007EA 6E58001E               MOV.B       @(H'001E:16,ER5),R0L
+  000007EE 0D08                   MOV.W       R0,E0
+  000007F0 01C25098               MULS.W      E1,E0
+  000007F4 6E58001F               MOV.B       @(H'001F:16,ER5),R0L
+  000007F8 01C25010               MULS.W      R1,R0
+  000007FC 0908                   ADD.W       R0,E0
+  000007FE 6E580020               MOV.B       @(H'0020:16,ER5),R0L
+  00000802 50E0                   MULXU.B     R6L,R0
+  00000804 0908                   ADD.W       R0,E0
+  00000806 6E580021               MOV.B       @(H'0021:16,ER5),R0L
+  0000080A 01CC50A0               MULXU.B     #H'A:4,R0
+  0000080E 0908                   ADD.W       R0,E0
+  00000810 6E580022               MOV.B       @(H'0022:16,ER5),R0L
+  00000814 1750                   EXTU.W      R0
+  00000816 0908                   ADD.W       R0,E0
+  00000818 6FC80028               MOV.W       E0,@(H'0028:16,ER4)
+       571:                    g_Freedom2_data.DecelCutCorrection  = sci_rcv[35] * 10000 + sci_rcv[36] * 1000 + sci_rcv[37] * 100 + sci_rcv[38] * 10 + sci_rcv[39];
+  0000081C 6E580023               MOV.B       @(H'0023:16,ER5),R0L
+  00000820 0D08                   MOV.W       R0,E0
+  00000822 01C25098               MULS.W      E1,E0
+  00000826 6E580024               MOV.B       @(H'0024:16,ER5),R0L
+  0000082A 01C25010               MULS.W      R1,R0
+  0000082E 0908                   ADD.W       R0,E0
+  00000830 6E580025               MOV.B       @(H'0025:16,ER5),R0L
+  00000834 50E0                   MULXU.B     R6L,R0
+  00000836 0908                   ADD.W       R0,E0
+  00000838 6E580026               MOV.B       @(H'0026:16,ER5),R0L
+  0000083C 01CC50A0               MULXU.B     #H'A:4,R0
+  00000840 0908                   ADD.W       R0,E0
+  00000842 6E580027               MOV.B       @(H'0027:16,ER5),R0L
+  00000846 1750                   EXTU.W      R0
+  00000848 0908                   ADD.W       R0,E0
+  0000084A 6FC8002A               MOV.W       E0,@(H'002A:16,ER4)
+       572:                    g_Freedom2_data.BaroCorrection      = sci_rcv[40] * 10000 + sci_rcv[41] * 1000 + sci_rcv[42] * 100 + sci_rcv[43] * 10 + sci_rcv[44];
+  0000084E 6E580028               MOV.B       @(H'0028:16,ER5),R0L
+  00000852 0D08                   MOV.W       R0,E0
+  00000854 01C25098               MULS.W      E1,E0
+  00000858 6E580029               MOV.B       @(H'0029:16,ER5),R0L
+  0000085C 01C25010               MULS.W      R1,R0
+  00000860 0908                   ADD.W       R0,E0
+  00000862 6E58002A               MOV.B       @(H'002A:16,ER5),R0L
+  00000866 50E0                   MULXU.B     R6L,R0
+  00000868 0908                   ADD.W       R0,E0
+  0000086A 6E58002B               MOV.B       @(H'002B:16,ER5),R0L
+  0000086E 01CC50A0               MULXU.B     #H'A:4,R0
+  00000872 0908                   ADD.W       R0,E0
+  00000874 6E58002C               MOV.B       @(H'002C:16,ER5),R0L
+  00000878 1750                   EXTU.W      R0
+  0000087A 0908                   ADD.W       R0,E0
+  0000087C 6FC8002C               MOV.W       E0,@(H'002C:16,ER4)
+       573:                    g_Freedom2_data.IdolIGCorrection    = sci_rcv[45] * 10000 + sci_rcv[46] * 1000 + sci_rcv[47] * 100 + sci_rcv[48] * 10 + sci_rcv[49];
+  00000880 6E58002D               MOV.B       @(H'002D:16,ER5),R0L
+  00000884 0D08                   MOV.W       R0,E0
+  00000886 01C25098               MULS.W      E1,E0
+  0000088A 6E58002E               MOV.B       @(H'002E:16,ER5),R0L
+  0000088E 01C25010               MULS.W      R1,R0
+  00000892 0908                   ADD.W       R0,E0
+  00000894 6E58002F               MOV.B       @(H'002F:16,ER5),R0L
+  00000898 50E0                   MULXU.B     R6L,R0
+  0000089A 0908                   ADD.W       R0,E0
+  0000089C 6E580030               MOV.B       @(H'0030:16,ER5),R0L
+  000008A0 01CC50A0               MULXU.B     #H'A:4,R0
+  000008A4 0908                   ADD.W       R0,E0
+  000008A6 6E580031               MOV.B       @(H'0031:16,ER5),R0L
+  000008AA 1750                   EXTU.W      R0
+  000008AC 0908                   ADD.W       R0,E0
+  000008AE 6FC8002E               MOV.W       E0,@(H'002E:16,ER4)
+       574:                    g_Freedom2_data.RetardCorrection    = sci_rcv[50] * 10000 + sci_rcv[51] * 1000 + sci_rcv[52] * 100 + sci_rcv[53] * 10 + sci_rcv[54];
+  000008B2 6E580032               MOV.B       @(H'0032:16,ER5),R0L
+  000008B6 0D08                   MOV.W       R0,E0
+  000008B8 01C25098               MULS.W      E1,E0
+  000008BC 6E580033               MOV.B       @(H'0033:16,ER5),R0L
+  000008C0 01C25010               MULS.W      R1,R0
+  000008C4 0908                   ADD.W       R0,E0
+  000008C6 6E580034               MOV.B       @(H'0034:16,ER5),R0L
+  000008CA 50E0                   MULXU.B     R6L,R0
+  000008CC 0908                   ADD.W       R0,E0
+  000008CE 6E580035               MOV.B       @(H'0035:16,ER5),R0L
+  000008D2 01CC50A0               MULXU.B     #H'A:4,R0
+  000008D6 0908                   ADD.W       R0,E0
+  000008D8 6E580036               MOV.B       @(H'0036:16,ER5),R0L
+  000008DC 1750                   EXTU.W      R0
+  000008DE 0908                   ADD.W       R0,E0
+  000008E0 6FC80030               MOV.W       E0,@(H'0030:16,ER4)
+  000008E4 4000                   BRA         L7490:8
+  000008E6                    L7488:                                
+       575:                }
+       576:                else
+       577:                {
+       578:                    //
+       579:                }
+       580:            }
+       581:            else
+       582:            {
+       583:                //
+       584:            }
+       585:        }
+       586:        else if (g_e2p_data.E2P_1.model == MSquirt1)
+  000008E6 6A3800000000A006       CMP.B       #6:8,@(_g_e2p_data+2):32
+  000008EE 4600                   BNE         L7490:8
+       587:        {
+       588:            sci_rcv[sci_rcv_pointer] = SCI5.RDR;
+  000008F0 6A09F605               MOV.B       @H'00FFF605:16,R1L
+  000008F4 6950                   MOV.W       @ER5,R0
+  000008F6 78026AA900000000       MOV.B       R1L,@(_sci_rcv:32,R0.W)
+       589:            sci_rcv_pointer ++;
+  000008FE 7DD00A10               ADD.W       #1:3,@ER5
+       590:    //      if(sci_rcv_pointer >= 154)
+       591:            if(sci_rcv_pointer >32)
+  00000902 015E05200020           CMP.W       #H'0020:16,@ER5
+  00000908 4300                   BLS         L7490:8
+       592:            {
+       593:                sci_rcv_pointer = 0;
+  0000090A 015D0500               MOV.W       #0:8,@ER5
+       594:                g_Megasquirt1_data.rpm              = ((unsigned int) sci_rcv[6]  << 8) + sci_rcv[7] ;
+  0000090E 6A2100000000           MOV.B       @(_sci_rcv+6):32,R1H
+  00000914 1899                   SUB.B       R1L,R1L
+  00000916 7A0500000000           MOV.L       #_sci_rcv,ER5
+  0000091C 6E580007               MOV.B       @(7:16,ER5),R0L
+  00000920 1750                   EXTU.W      R0
+  00000922 0901                   ADD.W       R0,R1
+  00000924 6BA100000000           MOV.W       R1,@_g_Megasquirt1_data:32
+       595:                g_Megasquirt1_data.advance          = ((unsigned int) sci_rcv[8]  << 8) + sci_rcv[9] ;
+  0000092A 6A2100000000           MOV.B       @(_sci_rcv+8):32,R1H
+  00000930 1899                   SUB.B       R1L,R1L
+  00000932 6E580009               MOV.B       @(9:16,ER5),R0L
+  00000936 0901                   ADD.W       R0,R1
+  00000938 6BA100000000           MOV.W       R1,@(_g_Megasquirt1_data+2):32
+  0000093E                    L7490:                                
+       596:    //          g_Megasquirt1_data.afrtgt1          =                                     sci_rcv[12];
+       597:    //          g_Megasquirt1_data.afrtgt2          =                                     sci_rcv[13];
+       598:    //          g_Megasquirt1_data.barometer        = ((unsigned int) sci_rcv[16] << 8) + sci_rcv[17];
+       599:    //          g_Megasquirt1_data.map              = ((unsigned int) sci_rcv[18] << 8) + sci_rcv[19];
+       600:    //          g_Megasquirt1_data.mat              = ((unsigned int) sci_rcv[20] << 8) + sci_rcv[21];
+       601:    //          g_Megasquirt1_data.coolant          = ((unsigned int) sci_rcv[22] << 8) + sci_rcv[23];
+       602:    //          g_Megasquirt1_data.tps              = ((unsigned int) sci_rcv[24] << 8) + sci_rcv[25];
+       603:    //          g_Megasquirt1_data.batteryVoltage   = ((unsigned int) sci_rcv[26] << 8) + sci_rcv[27];
+       604:    //          g_Megasquirt1_data.afr1             = ((unsigned int) sci_rcv[28] << 8) + sci_rcv[29];
+       605:    //          g_Megasquirt1_data.afr2             = ((unsigned int) sci_rcv[30] << 8) + sci_rcv[31];
+       606:            }
+       607:            else
+       608:            {
+       609:                //
+       610:            }
+       611:        }
+       612:        else
+       613:        {
+       614:            //
+       615:        }
+       616:        
+       617:        SCI5.SSR.BIT.RDRF = 0;
+  0000093E 6A18F6047260           BCLR.B      #6,@H'00FFF604:16
+  00000944 5426                   RTS/L       (ER4-ER6)
+       618:    }
+       619:    
+       620:    // --------------------------------------------------------------------
+       621:    // UART 受信エラーハンドラ
+       622:    // --------------------------------------------------------------------
+       623:    void Int_Handler_UART_Rx_ERR(void)
+  00000946                    _Int_Handler_UART_Rx_ERR:            ; function: Int_Handler_UART_Rx_ERR
+       624:    {
+       625:        SCI5.SSR.BIT.FER = 0;
+  00000946 6A18F6047240           BCLR.B      #4,@H'00FFF604:16
+       626:        SCI5.SSR.BIT.ORER = 0;
+  0000094C 6A18F6047250           BCLR.B      #5,@H'00FFF604:16
+       627:        SCI5.SSR.BIT.PER = 0;
+  00000952 6A18F6047230           BCLR.B      #3,@H'00FFF604:16
+       628:        SCI5.SSR.BIT.RDRF = 0;
+  00000958 6A18F6047260           BCLR.B      #6,@H'00FFF604:16
+  0000095E 5470                   RTS
+       629:    }
+       630:    
        631:    // --------------------------------------------------------------------
-       632:    unsigned char UART_Rx_Char(void)
-  000004CA                    _UART_Rx_Char:                       ; function: UART_Rx_Char
-  000004CA 1B87                   SUBS.L      #2,SP
-  000004CC                    L7004:                                
-       633:    {
-       634:        unsigned char byte;
-       635:    
-       636:        while(UART_Rx(&byte) == 0);
-  000004CC 0FF0                   MOV.L       SP,ER0
-  000004CE 5500                   BSR         _UART_Rx:8
-  000004D0 0C88                   MOV.B       R0L,R0L
-  000004D2 4700                   BEQ         L7004:8
-       637:        return byte;
-  000004D4 6878                   MOV.B       @SP,R0L
-  000004D6 0BF7                   INC.L       #2,SP
-  000004D8 5470                   RTS
-       638:    }
-       639:    
-       640:    // --------------------------------------------------------------------
-       641:    // 
-       642:    // --------------------------------------------------------------------
-       643:    unsigned char UART_Found_Ctrl_C(void)
-  000004DA                    _UART_Found_Ctrl_C:                  ; function: UART_Found_Ctrl_C
-       644:    {
-       645:        unsigned char result;
-       646:    
-       647:        result = gUART_Ctrl_C;
-  000004DA 6A2800000000           MOV.B       @_gUART_Ctrl_C:32,R0L
-       648:        gUART_Ctrl_C = 0;
-  000004E0 6AF000000000           MOV.B       #0:4,@_gUART_Ctrl_C:32
-  000004E6 5470                   RTS
-       649:        return result;
-       650:    }
-       651:    
-       652:    // --------------------------------------------------------------------
-       653:    // UART 送信ハンドラ
-       654:    // --------------------------------------------------------------------
-       655:    void Int_Handler_UART_Tx(void)
-  000004E8                    _Int_Handler_UART_Tx:                ; function: Int_Handler_UART_Tx
-  000004E8 01006DF2               PUSH.L      ER2
-       656:    {
-       657:        //------------------------
-       658:        // If FIFO Tx has Data
-       659:        //------------------------
-       660:        if (gUART_FIFO_Tx_DC > 0)
-  000004EC 7A0200000000           MOV.L       #_gUART_FIFO_Tx_RP,ER2
-  000004F2 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_DC:32,ER0
-  000004FA 4700                   BEQ         L7011:8
-       661:        {
-       662:            // Read FIFO Tx and Set TDR
-       663:            SCI5.TDR = gUART_FIFO_Tx[gUART_FIFO_Tx_RP];
-  000004FC 01006920               MOV.L       @ER2,ER0
-  00000500 78006A2900000000       MOV.B       @(_gUART_FIFO_Tx:32,ER0),R1L
-  00000508 6A89F603               MOV.B       R1L,@H'00FFF603:16
-       664:            gUART_FIFO_Tx_RP = (gUART_FIFO_Tx_RP + 1) % UART_FIFO_DEPTH;
-  0000050C 01006920               MOV.L       @ER2,ER0
-  00000510 0B70                   INC.L       #1,ER0
-  00000512 7A6800FF               AND.L       #H'00FF:16,ER0
-  00000516 010069A0               MOV.L       ER0,@ER2
-       665:            gUART_FIFO_Tx_DC = gUART_FIFO_Tx_DC - 1;
-  0000051A 010E483000000000       SUB.L       #1:16,@_gUART_FIFO_Tx_DC:32
-           0001               
-       666:            // Clear TDRE
-       667:            SCI5.SSR.BIT.TDRE = 0; // read 1 and write 0
-  00000524 6A18F6047270           BCLR.B      #7,@H'00FFF604:16
-  0000052A 5402                   RTS/L       ER2
-  0000052C                    L7011:                                
-       668:        }
-       669:        //-------------------------
-       670:        // If FIFO Tx has no Data
-       671:        //-------------------------
-       672:        else
-       673:        {
-       674:            // Disable Interrupt TXI (still TDRE flag is ON)
-       675:            SCI5.SCR.BIT.TIE = 0;
-  0000052C 6A18F6027270           BCLR.B      #7,@H'00FFF602:16
-  00000532 5402                   RTS/L       ER2
-       676:        }
-       677:    }
-       678:    
-       679:    // --------------------------------------------------------------------
-       680:    // UART 受信ハンドラ
-       681:    // --------------------------------------------------------------------
-       682:    void Int_Handler_UART_Rx(void)
-  00000534                    _Int_Handler_UART_Rx:                ; function: Int_Handler_UART_Rx
-  00000534 6DF2                   PUSH.W      R2
-       683:    {
-       684:        unsigned char byte;
-       685:    
-       686:        //------------------------
-       687:        // If FIFO Rx has Room
-       688:        //------------------------
-       689:        if (gUART_FIFO_Rx_DC < UART_FIFO_DEPTH)
-  00000536 010E482000000000       CMP.L       #H'0100:16,@_gUART_FIFO_Rx_DC:32
-           0100               
-  00000540 4400                   BHS         L7016:8
-       690:        {
-       691:            // Read RDR and Set FIFO Rx
-       692:            byte = SCI5.RDR;
-  00000542 6A0AF605               MOV.B       @H'00FFF605:16,R2L
-       693:            if (byte == 0x03) // Ctrl-C ?
-  00000546 AA03                   CMP.B       #3:8,R2L
-  00000548 4600                   BNE         L7018:8
-       694:            {
-       695:                gUART_Ctrl_C = 1;
-  0000054A 6AF100000000           MOV.B       #1:4,@_gUART_Ctrl_C:32
-  00000550                    L7018:                                
-       696:            }
-       697:            UART_Tx_Char(byte);
-  00000550 0CA8                   MOV.B       R2L,R0L
-  00000552 5E000000               JSR         @_UART_Tx_Char:24
-       698:            TPU3.TGRD = byte << 8;
-  00000556 0CA1                   MOV.B       R2L,R1H
-  00000558 1899                   SUB.B       R1L,R1L
-  0000055A 6B81FFFE               MOV.W       R1,@H'00FFFFFE:16
-       699:            gUART_FIFO_Rx[gUART_FIFO_Rx_WP] = byte;
-  0000055E 01006B2100000000       MOV.L       @_gUART_FIFO_Rx_WP:32,ER1
-  00000566 78106AAA00000000       MOV.B       R2L,@(_gUART_FIFO_Rx:32,ER1)
-       700:            gUART_FIFO_Rx_WP = (gUART_FIFO_Rx_WP + 1) % UART_FIFO_DEPTH;
-  0000056E 0B71                   INC.L       #1,ER1
-  00000570 7A6900FF               AND.L       #H'00FF:16,ER1
-  00000574 01006BA100000000       MOV.L       ER1,@_gUART_FIFO_Rx_WP:32
-       701:            gUART_FIFO_Rx_DC = gUART_FIFO_Rx_DC + 1;
-  0000057C 010E481000000000       ADD.L       #1:16,@_gUART_FIFO_Rx_DC:32
-           0001               
-       702:            // Clear RDRF
-       703:            SCI5.SSR.BIT.RDRF = 0; // read 1 and write 0
-  00000586 6A18F6047260           BCLR.B      #6,@H'00FFF604:16
-  0000058C 6D72                   POP.W       R2
-  0000058E 5470                   RTS
-  00000590                    L7016:                                
-       704:        }
-       705:        //------------------------
-       706:        // If FIFO Rx has no Room
-       707:        //------------------------
-       708:        else
-       709:        {
-       710:            // Disable Interrupt RXI (still RDRF flag is ON)
-       711:            SCI5.SCR.BIT.RIE = 0;
-  00000590 6A18F6027260           BCLR.B      #6,@H'00FFF602:16
-  00000596 6D72                   POP.W       R2
-  00000598 5470                   RTS
-       712:        }
-       713:    }
-       714:    
-       715:    // --------------------------------------------------------------------
-       716:    // UART 受信エラーハンドラ
-       717:    // --------------------------------------------------------------------
-       718:    void Int_Handler_UART_Rx_ERR(void)
-  0000059A                    _Int_Handler_UART_Rx_ERR:            ; function: Int_Handler_UART_Rx_ERR
-       719:    {
-       720:        SCI5.SSR.BIT.FER = 0;
-  0000059A 6A18F6047240           BCLR.B      #4,@H'00FFF604:16
-       721:        SCI5.SSR.BIT.ORER = 0;
-  000005A0 6A18F6047250           BCLR.B      #5,@H'00FFF604:16
-       722:        SCI5.SSR.BIT.PER = 0;
-  000005A6 6A18F6047230           BCLR.B      #3,@H'00FFF604:16
-       723:        SCI5.SSR.BIT.RDRF = 0;
-  000005AC 6A18F6047260           BCLR.B      #6,@H'00FFF604:16
-  000005B2 5470                   RTS
-       724:    }
-       725:    
-       726:    // --------------------------------------------------------------------
-       727:    // UART 送信終了ハンドラ
-       728:    // --------------------------------------------------------------------
-       729:    void Int_Handler_UART_Tx_END(void)
-  000005B4                    _Int_Handler_UART_Tx_END:            ; function: Int_Handler_UART_Tx_END
-       730:    {
-       731:        SCI5.SSR.BIT.TEND = 0;
-  000005B4 6A18F6047220           BCLR.B      #2,@H'00FFF604:16
-  000005BA 5470                   RTS
-       732:    }
+       632:    // UART 送信終了ハンドラ
+       633:    // --------------------------------------------------------------------
+       634:    void Int_Handler_UART_Tx_END(void)
+  00000960                    _Int_Handler_UART_Tx_END:            ; function: Int_Handler_UART_Tx_END
+       635:    {
+       636:        SCI5.SSR.BIT.TEND = 0;
+  00000960 6A18F6047220           BCLR.B      #2,@H'00FFF604:16
+  00000966 5470                   RTS
+       637:    }
 B                                                                  ; section
-  00000000                    _gUART_FIFO_Tx:                      ; static: gUART_FIFO_Tx
-  00000000 00000100               .RES.B      256
-  00000100                    _gUART_FIFO_Tx_WP:                   ; static: gUART_FIFO_Tx_WP
-  00000100 00000004               .RES.L      1
-  00000104                    _gUART_FIFO_Tx_RP:                   ; static: gUART_FIFO_Tx_RP
-  00000104 00000004               .RES.L      1
-  00000108                    _gUART_FIFO_Tx_DC:                   ; static: gUART_FIFO_Tx_DC
-  00000108 00000004               .RES.L      1
-  0000010C                    _gUART_FIFO_Rx:                      ; static: gUART_FIFO_Rx
-  0000010C 00000100               .RES.B      256
-  0000020C                    _gUART_FIFO_Rx_WP:                   ; static: gUART_FIFO_Rx_WP
-  0000020C 00000004               .RES.L      1
-  00000210                    _gUART_FIFO_Rx_RP:                   ; static: gUART_FIFO_Rx_RP
-  00000210 00000004               .RES.L      1
-  00000214                    _gUART_FIFO_Rx_DC:                   ; static: gUART_FIFO_Rx_DC
-  00000214 00000004               .RES.L      1
-  00000218                    _gUART_Ctrl_C:                       ; static: gUART_Ctrl_C
-  00000218 00000001               .RES.B      1
+  00000000                    _gUART_FIFO_Tx_WP:                   ; static: gUART_FIFO_Tx_WP
+  00000000 00000004               .RES.L      1
+  00000004                    _gUART_FIFO_Tx_RP:                   ; static: gUART_FIFO_Tx_RP
+  00000004 00000004               .RES.L      1
+  00000008                    _gUART_FIFO_Tx_DC:                   ; static: gUART_FIFO_Tx_DC
+  00000008 00000004               .RES.L      1
+  0000000C                    _sci_rcv:                            ; static: sci_rcv
+  0000000C 0000009A               .RES.B      154
+  000000A6                    _sci_rcv_pointer:                    ; static: sci_rcv_pointer
+  000000A6 00000002               .RES.W      1
+  000000A8                    __$g_state:                          ; static: g_state
+  000000A8 00000002               .RES.W      1
+  000000AA                    __$g_model:                          ; static: g_model
+  000000AA 00000002               .RES.W      1
+  000000AC                    _gUART_FIFO_Tx:                      ; static: gUART_FIFO_Tx
+  000000AC 00000100               .RES.B      256
+  000001AC                    _sci_rcv_command:                    ; static: sci_rcv_command
+  000001AC 00000002               .RES.W      1
 
 
