@@ -19,8 +19,8 @@
 // filename		:	state_control.c
 // brief		:	FullMoni rev.B ステート管理
 // author		:	Tomoya Sato
-// update		:	2013/06/16
-// version		:	1.03
+// update		:	2013/08/05
+// version		:	1.04
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -59,13 +59,16 @@ volatile unsigned int	backlight_dimmer_flg;
 volatile unsigned int	Onetime_Peakclear_cnt;
 static unsigned int		Onetime_Peakclear_done;
 static unsigned long	chart_buf1[ChartBufNum];
-static unsigned int		chart_buf2[ChartBufNum];
+static unsigned long	chart_buf2[ChartBufNum];
+static unsigned long	chart_buf3[ChartBufNum];
+static unsigned long	chart_buf4[ChartBufNum];
 static unsigned int		chart_onoff;
 static int				rev_peak, num1_peak, num2_peak, num3_peak, num4_peak, num5_peak, num6_peak;
 static unsigned int		Acc;
 static unsigned int		num_page;
 static unsigned int		num_control;
 static unsigned int		preset_no;
+static unsigned int		ChartX = 314, ChartY = 0;
 
 // --------------------------------------------------------------------
 // 状態別処理実行及び状態遷移処理
@@ -118,30 +121,32 @@ void state_control(void)
 		case S120:	funcS120();
 								switch(E100())
 								{
-									case 1:		A121();	break;
-									case 2:		A122();	break;
-									case 3:		A133();	break;
+									case  1:	A121();	break;
+									case  2:	A122();	break;
+									case  3:	A133();	break;
 								}
 								break;
 		case S130:	funcS130();
-								switch(E100())
+								switch(E130())
 								{
-									case 1:		A131();	break;
-									case 2:		A132();	break;
-									case 3:		A123();	break;
+									case  1:	A130();	break;
+									case  2:	A131();	break;
+									case  3:	A132();	break;
+									case  4:	A123();	break;
+									case  5:	A104();	break;
 								}
 								break;
 		case S210:	funcS210();
 								switch(E200())
 								{
-									case 1:		A201();	break;
-									case 2:		A202();	break;
+									case  1:	A201();	break;
+									case  2:	A202();	break;
 								}
 								break;
 		case S999:	funcS999();
 								switch(E990())
 								{
-									case 1:		A991();	break;
+									case  1:	A991();	break;
 								}
 								break;
 	}
@@ -294,6 +299,40 @@ unsigned int E010(void)
 		else if	((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 6)) && (g_PressY <= ( 24 * 6 + 24 - 1)))
 		{
 			return 13;
+		}
+	}
+	return 0;
+}
+
+unsigned int E100(void)
+{
+	// --------------------------------------------------------------------
+	// タッチ操作処理
+	// --------------------------------------------------------------------
+	if(touch_done_flg)			// タッチパネル押下判定あり
+	{
+		touch_done_flg = 0;		// フラグクリア
+		
+		// --------------------------------------------------------------------
+		// 中央コマンドアイコン押下判定
+		// --------------------------------------------------------------------
+		if		((g_PressX >= 130) && (g_PressX <= 193) && (g_PressY >= 215) && (g_PressY <= 238))
+		{
+			return 1;
+		}
+		// --------------------------------------------------------------------
+		// 左コマンドアイコン押下判定
+		// --------------------------------------------------------------------
+		else if	((g_PressX >=  46) && (g_PressX <= 139) && (g_PressY >= 215) && (g_PressY <= 238))
+		{
+			return 2;
+		}
+		// --------------------------------------------------------------------
+		// 右コマンドアイコン押下判定
+		// --------------------------------------------------------------------
+		else if	((g_PressX >= 214) && (g_PressX <= 277) && (g_PressY >= 215) && (g_PressY <= 238))
+		{
+			return 3;
 		}
 	}
 	return 0;
@@ -487,8 +526,23 @@ unsigned int E110(void)
 	return 0;
 }
 
-unsigned int E100(void)
+unsigned int E130(void)
 {
+	// --------------------------------------------------------------------
+	// ローカル変数宣言
+	// --------------------------------------------------------------------
+	static unsigned int drag_cnt;
+	
+	if((g_master_warning_flg1 == 1)
+	|| (g_master_warning_flg2 == 1)
+	|| (g_master_warning_flg3 == 1)
+	|| (g_master_warning_flg4 == 1)
+	|| (g_master_warning_flg5 == 1)
+	|| (g_master_warning_flg6 == 1))
+	{
+		return 1;
+	}
+	
 	// --------------------------------------------------------------------
 	// タッチ操作処理
 	// --------------------------------------------------------------------
@@ -501,22 +555,111 @@ unsigned int E100(void)
 		// --------------------------------------------------------------------
 		if		((g_PressX >= 130) && (g_PressX <= 193) && (g_PressY >= 215) && (g_PressY <= 238))
 		{
-			return 1;
+			return 2;
 		}
 		// --------------------------------------------------------------------
 		// 左コマンドアイコン押下判定
 		// --------------------------------------------------------------------
 		else if	((g_PressX >=  46) && (g_PressX <= 139) && (g_PressY >= 215) && (g_PressY <= 238))
 		{
-			return 2;
+			return 3;
 		}
 		// --------------------------------------------------------------------
 		// 右コマンドアイコン押下判定
 		// --------------------------------------------------------------------
 		else if	((g_PressX >= 214) && (g_PressX <= 277) && (g_PressY >= 215) && (g_PressY <= 238))
 		{
-			return 3;
+			return 4;
 		}
+	}
+	if(touch_drag_flg)			// タッチパネル押下判定あり
+	{
+		touch_drag_flg = 0;		// フラグクリア
+		
+		// --------------------------------------------------------------------
+		// チャートドラッグ判定
+		// --------------------------------------------------------------------
+		if((g_DragX >= 114) && (g_DragX <= 314) && (g_DragY >=   5) && (g_DragY <= 141))
+		{
+			ChartX = g_DragX;
+			ChartY = g_DragY;
+		}
+		// --------------------------------------------------------------------
+		// チャート数値表示1長押し判定
+		// --------------------------------------------------------------------
+		else if	((g_DragX >=   1) && (g_DragX <= 100) && (g_DragY >= 144) && (g_DragY <= 167))
+		{
+			drag_cnt ++;
+			if(drag_cnt > 20)
+			{
+				Beep_TwoShotMin();
+				num_page = 9;
+				return 5;
+			}
+			else
+			{
+				//
+			}
+		}
+		// --------------------------------------------------------------------
+		// チャート数値表示2長押し判定
+		// --------------------------------------------------------------------
+		else if	((g_DragX >=   1) && (g_DragX <= 100) && (g_DragY >= 192) && (g_DragY <= 215))
+		{
+			drag_cnt ++;
+			if(drag_cnt > 20)
+			{
+				Beep_TwoShotMin();
+				num_page = 10;
+				return 5;
+			}
+			else
+			{
+				//
+			}
+		}
+		// --------------------------------------------------------------------
+		// ゲージ1長押し判定
+		// --------------------------------------------------------------------
+		else if	((g_DragX >= 113) && (g_DragX <= 316) && (g_DragY >= 146) && (g_DragY <= 176))
+		{
+			drag_cnt ++;
+			if(drag_cnt > 20)
+			{
+				Beep_TwoShotMin();
+				num_page = 11;
+				return 5;
+			}
+			else
+			{
+				//
+			}
+		}
+		// --------------------------------------------------------------------
+		// ゲージ2長押し判定
+		// --------------------------------------------------------------------
+		else if	((g_DragX >= 113) && (g_DragX <= 316) && (g_DragY >= 179) && (g_DragY <= 209))
+		{
+			drag_cnt ++;
+			if(drag_cnt > 20)
+			{
+				Beep_TwoShotMin();
+				num_page = 12;
+				return 5;
+			}
+			else
+			{
+				//
+			}
+		}
+		else
+		{
+			drag_cnt = 0;
+		}
+	}
+	else
+	{
+		drag_cnt = 0;
 	}
 	return 0;
 }
@@ -1017,6 +1160,8 @@ void A100(void)
 	{
 		chart_buf1[i] =    0;
 		chart_buf2[i] =    0;
+		chart_buf3[i] =    0;
+		chart_buf4[i] =    0;
 	}
 }
 
@@ -1074,6 +1219,9 @@ void A011(void)
 	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
 	while(g_int50mscnt < 0);
 	mtrs_start((const unsigned char *)&g_e2p_data + 0x70, 0x70, 16);	// E2P_8
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x80, 0x80, 16);	// E2P_9
 }
 
 // --------------------------------------------------------------------
@@ -1121,6 +1269,8 @@ void A012(void)
 		{
 			chart_buf1[i] =    0;
 			chart_buf2[i] =    0;
+			chart_buf3[i] =    0;
+			chart_buf4[i] =    0;
 		}
 	}
 	else
@@ -1442,6 +1592,25 @@ void A121(void)
 }
 
 // --------------------------------------------------------------------
+// 
+// --------------------------------------------------------------------
+void A130(void)
+{
+	// --------------------------------------------------------------------
+	// 状態遷移処理
+	// --------------------------------------------------------------------
+	g_state = S110;
+	
+	// --------------------------------------------------------------------
+	// 画面クリア&切り替え
+	// --------------------------------------------------------------------
+	LCD_CLR(COLOR_BLACK);
+	LCD_RefreshFast();
+	LCD_CLR(COLOR_BLACK);
+	LCD_RefreshFast();
+}
+
+// --------------------------------------------------------------------
 // チャートクリア処理
 // --------------------------------------------------------------------
 void A131(void)
@@ -1482,6 +1651,8 @@ void A131(void)
 		{
 			chart_buf1[i] =    0;
 			chart_buf2[i] =    0;
+			chart_buf3[i] =    0;
+			chart_buf4[i] =    0;
 		}
 	}
 }
@@ -1580,6 +1751,8 @@ void A133(void)
 		{
 			chart_buf1[i] =    0;
 			chart_buf2[i] =    0;
+			chart_buf3[i] =    0;
+			chart_buf4[i] =    0;
 		}
 	}
 	else
@@ -1656,9 +1829,33 @@ void A123(void)
 void A201(void)
 {
 	// --------------------------------------------------------------------
+	// ローカル変数宣言
+	// --------------------------------------------------------------------
+	unsigned int i;
+	
+	// --------------------------------------------------------------------
 	// 状態遷移処理
 	// --------------------------------------------------------------------
-	g_state = S110;
+	if((num_page == 9) || (num_page == 10) || (num_page == 11) || (num_page == 12))
+	{
+		g_state = S130;
+	}
+	else
+	{
+		g_state = S110;
+	}
+	
+	// --------------------------------------------------------------------
+	// チャート初期化
+	// --------------------------------------------------------------------
+	chart_onoff = 0;
+	for(i = 0; i < ChartBufNum; i++ )
+	{
+		chart_buf1[i] =    0;
+		chart_buf2[i] =    0;
+		chart_buf3[i] =    0;
+		chart_buf4[i] =    0;
+	}
 	
 	// --------------------------------------------------------------------
 	// 保存アイコンタッチ描画
@@ -1690,6 +1887,9 @@ void A201(void)
 	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
 	while(g_int50mscnt < 0);
 	mtrs_start((const unsigned char *)&g_e2p_data + 0x70, 0x70, 16);	// E2P_8
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x80, 0x80, 16);	// E2P_9
 	
 	// --------------------------------------------------------------------
 	// 画面クリア&切り替え
@@ -1715,50 +1915,64 @@ void A202(void)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_data_select -= Acc; g_e2p_data.E2P_4.num1_data_select = ( g_e2p_data.E2P_4.num1_data_select >= 255 ) ? 0 : g_e2p_data.E2P_4.num1_data_select; break;
-			case 2:	g_e2p_data.E2P_4.num2_data_select -= Acc; g_e2p_data.E2P_4.num2_data_select = ( g_e2p_data.E2P_4.num2_data_select >= 255 ) ? 0 : g_e2p_data.E2P_4.num2_data_select; break;
-			case 3:	g_e2p_data.E2P_5.num3_data_select -= Acc; g_e2p_data.E2P_5.num3_data_select = ( g_e2p_data.E2P_5.num3_data_select >= 255 ) ? 0 : g_e2p_data.E2P_5.num3_data_select; break;
-			case 4:	g_e2p_data.E2P_5.num4_data_select -= Acc; g_e2p_data.E2P_5.num4_data_select = ( g_e2p_data.E2P_5.num4_data_select >= 255 ) ? 0 : g_e2p_data.E2P_5.num4_data_select; break;
-			case 5:	g_e2p_data.E2P_6.num5_data_select -= Acc; g_e2p_data.E2P_6.num5_data_select = ( g_e2p_data.E2P_6.num5_data_select >= 255 ) ? 0 : g_e2p_data.E2P_6.num5_data_select; break;
-			case 6:	g_e2p_data.E2P_6.num6_data_select -= Acc; g_e2p_data.E2P_6.num6_data_select = ( g_e2p_data.E2P_6.num6_data_select >= 255 ) ? 0 : g_e2p_data.E2P_6.num6_data_select; break;
-			case 7:	g_e2p_data.E2P_3.rev_data_select  -= Acc; g_e2p_data.E2P_3.rev_data_select  = ( g_e2p_data.E2P_3.rev_data_select  >= 255 ) ? 0 : g_e2p_data.E2P_3.rev_data_select;  break;
-			case 8:	g_e2p_data.E2P_3.afr_data_select  -= Acc; g_e2p_data.E2P_3.afr_data_select  = ( g_e2p_data.E2P_3.afr_data_select  >= 255 ) ? 0 : g_e2p_data.E2P_3.afr_data_select;  break;
+			case  1:	g_e2p_data.E2P_4.num1_data_select -= Acc; g_e2p_data.E2P_4.num1_data_select = ( g_e2p_data.E2P_4.num1_data_select >= 255 ) ? 0 : g_e2p_data.E2P_4.num1_data_select; break;
+			case  2:	g_e2p_data.E2P_4.num2_data_select -= Acc; g_e2p_data.E2P_4.num2_data_select = ( g_e2p_data.E2P_4.num2_data_select >= 255 ) ? 0 : g_e2p_data.E2P_4.num2_data_select; break;
+			case  3:	g_e2p_data.E2P_5.num3_data_select -= Acc; g_e2p_data.E2P_5.num3_data_select = ( g_e2p_data.E2P_5.num3_data_select >= 255 ) ? 0 : g_e2p_data.E2P_5.num3_data_select; break;
+			case  4:	g_e2p_data.E2P_5.num4_data_select -= Acc; g_e2p_data.E2P_5.num4_data_select = ( g_e2p_data.E2P_5.num4_data_select >= 255 ) ? 0 : g_e2p_data.E2P_5.num4_data_select; break;
+			case  5:	g_e2p_data.E2P_6.num5_data_select -= Acc; g_e2p_data.E2P_6.num5_data_select = ( g_e2p_data.E2P_6.num5_data_select >= 255 ) ? 0 : g_e2p_data.E2P_6.num5_data_select; break;
+			case  6:	g_e2p_data.E2P_6.num6_data_select -= Acc; g_e2p_data.E2P_6.num6_data_select = ( g_e2p_data.E2P_6.num6_data_select >= 255 ) ? 0 : g_e2p_data.E2P_6.num6_data_select; break;
+			case  7:	g_e2p_data.E2P_3.rev_data_select  -= Acc; g_e2p_data.E2P_3.rev_data_select  = ( g_e2p_data.E2P_3.rev_data_select  >= 255 ) ? 0 : g_e2p_data.E2P_3.rev_data_select;  break;
+			case  8:	g_e2p_data.E2P_3.afr_data_select  -= Acc; g_e2p_data.E2P_3.afr_data_select  = ( g_e2p_data.E2P_3.afr_data_select  >= 255 ) ? 0 : g_e2p_data.E2P_3.afr_data_select;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_data_select -= Acc; g_e2p_data.E2P_8.cht1_data_select = ( g_e2p_data.E2P_8.cht1_data_select >= 255 ) ? 0 : g_e2p_data.E2P_8.cht1_data_select; break;
+			case 10:	g_e2p_data.E2P_8.cht2_data_select -= Acc; g_e2p_data.E2P_8.cht2_data_select = ( g_e2p_data.E2P_8.cht2_data_select >= 255 ) ? 0 : g_e2p_data.E2P_8.cht2_data_select; break;
 		}
-		LCD_locate(230,24 * 1);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-		LCD_RefreshFast();
-		LCD_locate(230,24 * 1);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-		LCD_RefreshFast();
+		if((num_page != 11) && (num_page != 12))
+		{
+			LCD_locate(230,24 * 1);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+			LCD_RefreshFast();
+			LCD_locate(230,24 * 1);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+			LCD_RefreshFast();
+		}
 	}
 	else if	(num_control == 2)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_data_select += Acc; g_e2p_data.E2P_4.num1_data_select = (g_e2p_data.E2P_4.num1_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_4.num1_data_select; break;
-			case 2:	g_e2p_data.E2P_4.num2_data_select += Acc; g_e2p_data.E2P_4.num2_data_select = (g_e2p_data.E2P_4.num2_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_4.num2_data_select; break;
-			case 3:	g_e2p_data.E2P_5.num3_data_select += Acc; g_e2p_data.E2P_5.num3_data_select = (g_e2p_data.E2P_5.num3_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_5.num3_data_select; break;
-			case 4:	g_e2p_data.E2P_5.num4_data_select += Acc; g_e2p_data.E2P_5.num4_data_select = (g_e2p_data.E2P_5.num4_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_5.num4_data_select; break;
-			case 5:	g_e2p_data.E2P_6.num5_data_select += Acc; g_e2p_data.E2P_6.num5_data_select = (g_e2p_data.E2P_6.num5_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_6.num5_data_select; break;
-			case 6:	g_e2p_data.E2P_6.num6_data_select += Acc; g_e2p_data.E2P_6.num6_data_select = (g_e2p_data.E2P_6.num6_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_6.num6_data_select; break;
-			case 7:	g_e2p_data.E2P_3.rev_data_select  += Acc; g_e2p_data.E2P_3.rev_data_select  = (g_e2p_data.E2P_3.rev_data_select  > rev_data_select_value) ? rev_data_select_value : g_e2p_data.E2P_3.rev_data_select;  break;
-			case 8:	g_e2p_data.E2P_3.afr_data_select  += Acc; g_e2p_data.E2P_3.afr_data_select  = (g_e2p_data.E2P_3.afr_data_select  > afr_data_select_value) ? afr_data_select_value : g_e2p_data.E2P_3.afr_data_select;  break;
+			case  1:	g_e2p_data.E2P_4.num1_data_select += Acc; g_e2p_data.E2P_4.num1_data_select = (g_e2p_data.E2P_4.num1_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_4.num1_data_select; break;
+			case  2:	g_e2p_data.E2P_4.num2_data_select += Acc; g_e2p_data.E2P_4.num2_data_select = (g_e2p_data.E2P_4.num2_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_4.num2_data_select; break;
+			case  3:	g_e2p_data.E2P_5.num3_data_select += Acc; g_e2p_data.E2P_5.num3_data_select = (g_e2p_data.E2P_5.num3_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_5.num3_data_select; break;
+			case  4:	g_e2p_data.E2P_5.num4_data_select += Acc; g_e2p_data.E2P_5.num4_data_select = (g_e2p_data.E2P_5.num4_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_5.num4_data_select; break;
+			case  5:	g_e2p_data.E2P_6.num5_data_select += Acc; g_e2p_data.E2P_6.num5_data_select = (g_e2p_data.E2P_6.num5_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_6.num5_data_select; break;
+			case  6:	g_e2p_data.E2P_6.num6_data_select += Acc; g_e2p_data.E2P_6.num6_data_select = (g_e2p_data.E2P_6.num6_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_6.num6_data_select; break;
+			case  7:	g_e2p_data.E2P_3.rev_data_select  += Acc; g_e2p_data.E2P_3.rev_data_select  = (g_e2p_data.E2P_3.rev_data_select  > rev_data_select_value) ? rev_data_select_value : g_e2p_data.E2P_3.rev_data_select;  break;
+			case  8:	g_e2p_data.E2P_3.afr_data_select  += Acc; g_e2p_data.E2P_3.afr_data_select  = (g_e2p_data.E2P_3.afr_data_select  > afr_data_select_value) ? afr_data_select_value : g_e2p_data.E2P_3.afr_data_select;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_data_select += Acc; g_e2p_data.E2P_8.cht1_data_select = (g_e2p_data.E2P_8.cht1_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_8.cht1_data_select; break;
+			case 10:	g_e2p_data.E2P_8.cht2_data_select += Acc; g_e2p_data.E2P_8.cht2_data_select = (g_e2p_data.E2P_8.cht2_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_8.cht2_data_select; break;
 		}
-		LCD_locate(270,24 * 1);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-		LCD_RefreshFast();
-		LCD_locate(270,24 * 1);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-		LCD_RefreshFast();
+		if((num_page != 11) && (num_page != 12))
+		{
+			LCD_locate(270,24 * 1);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+			LCD_RefreshFast();
+			LCD_locate(270,24 * 1);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+			LCD_RefreshFast();
+		}
 	}
 	else if	(num_control == 3)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_gain += Acc; Acc ++; g_e2p_data.E2P_4.num1_gain = (g_e2p_data.E2P_4.num1_gain > 10000) ? 10000 : g_e2p_data.E2P_4.num1_gain; break;
-			case 2:	g_e2p_data.E2P_4.num2_gain += Acc; Acc ++; g_e2p_data.E2P_4.num2_gain = (g_e2p_data.E2P_4.num2_gain > 10000) ? 10000 : g_e2p_data.E2P_4.num2_gain; break;
-			case 3:	g_e2p_data.E2P_5.num3_gain += Acc; Acc ++; g_e2p_data.E2P_5.num3_gain = (g_e2p_data.E2P_5.num3_gain > 10000) ? 10000 : g_e2p_data.E2P_5.num3_gain; break;
-			case 4:	g_e2p_data.E2P_5.num4_gain += Acc; Acc ++; g_e2p_data.E2P_5.num4_gain = (g_e2p_data.E2P_5.num4_gain > 10000) ? 10000 : g_e2p_data.E2P_5.num4_gain; break;
-			case 5:	g_e2p_data.E2P_6.num5_gain += Acc; Acc ++; g_e2p_data.E2P_6.num5_gain = (g_e2p_data.E2P_6.num5_gain > 10000) ? 10000 : g_e2p_data.E2P_6.num5_gain; break;
-			case 6:	g_e2p_data.E2P_6.num6_gain += Acc; Acc ++; g_e2p_data.E2P_6.num6_gain = (g_e2p_data.E2P_6.num6_gain > 10000) ? 10000 : g_e2p_data.E2P_6.num6_gain; break;
-			case 7:	g_e2p_data.E2P_3.rev_gain  += Acc; Acc ++; g_e2p_data.E2P_3.rev_gain  = (g_e2p_data.E2P_3.rev_gain  > 10000) ? 10000 : g_e2p_data.E2P_3.rev_gain;  break;
-			case 8:	g_e2p_data.E2P_3.afr_gain  += Acc; Acc ++; g_e2p_data.E2P_3.afr_gain  = (g_e2p_data.E2P_3.afr_gain  > 10000) ? 10000 : g_e2p_data.E2P_3.afr_gain;  break;
+			case  1:	g_e2p_data.E2P_4.num1_gain += Acc; Acc ++; g_e2p_data.E2P_4.num1_gain = (g_e2p_data.E2P_4.num1_gain > 10000) ? 10000 : g_e2p_data.E2P_4.num1_gain; break;
+			case  2:	g_e2p_data.E2P_4.num2_gain += Acc; Acc ++; g_e2p_data.E2P_4.num2_gain = (g_e2p_data.E2P_4.num2_gain > 10000) ? 10000 : g_e2p_data.E2P_4.num2_gain; break;
+			case  3:	g_e2p_data.E2P_5.num3_gain += Acc; Acc ++; g_e2p_data.E2P_5.num3_gain = (g_e2p_data.E2P_5.num3_gain > 10000) ? 10000 : g_e2p_data.E2P_5.num3_gain; break;
+			case  4:	g_e2p_data.E2P_5.num4_gain += Acc; Acc ++; g_e2p_data.E2P_5.num4_gain = (g_e2p_data.E2P_5.num4_gain > 10000) ? 10000 : g_e2p_data.E2P_5.num4_gain; break;
+			case  5:	g_e2p_data.E2P_6.num5_gain += Acc; Acc ++; g_e2p_data.E2P_6.num5_gain = (g_e2p_data.E2P_6.num5_gain > 10000) ? 10000 : g_e2p_data.E2P_6.num5_gain; break;
+			case  6:	g_e2p_data.E2P_6.num6_gain += Acc; Acc ++; g_e2p_data.E2P_6.num6_gain = (g_e2p_data.E2P_6.num6_gain > 10000) ? 10000 : g_e2p_data.E2P_6.num6_gain; break;
+			case  7:	g_e2p_data.E2P_3.rev_gain  += Acc; Acc ++; g_e2p_data.E2P_3.rev_gain  = (g_e2p_data.E2P_3.rev_gain  > 10000) ? 10000 : g_e2p_data.E2P_3.rev_gain;  break;
+			case  8:	g_e2p_data.E2P_3.afr_gain  += Acc; Acc ++; g_e2p_data.E2P_3.afr_gain  = (g_e2p_data.E2P_3.afr_gain  > 10000) ? 10000 : g_e2p_data.E2P_3.afr_gain;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_gain += Acc; Acc ++; g_e2p_data.E2P_8.cht1_gain = (g_e2p_data.E2P_8.cht1_gain > 10000) ? 10000 : g_e2p_data.E2P_8.cht1_gain; break;
+			case 10:	g_e2p_data.E2P_8.cht2_gain += Acc; Acc ++; g_e2p_data.E2P_8.cht2_gain = (g_e2p_data.E2P_8.cht2_gain > 10000) ? 10000 : g_e2p_data.E2P_8.cht2_gain; break;
+			case 11:	g_e2p_data.E2P_9.cht1_guage_gain += Acc; Acc ++; g_e2p_data.E2P_9.cht1_guage_gain = (g_e2p_data.E2P_9.cht1_guage_gain > 10000) ? 10000 : g_e2p_data.E2P_9.cht1_guage_gain; break;
+			case 12:	g_e2p_data.E2P_9.cht2_guage_gain += Acc; Acc ++; g_e2p_data.E2P_9.cht2_guage_gain = (g_e2p_data.E2P_9.cht2_guage_gain > 10000) ? 10000 : g_e2p_data.E2P_9.cht2_guage_gain; break;
 		}
 		LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
 		LCD_RefreshFast();
@@ -1769,14 +1983,18 @@ void A202(void)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_gain -= Acc; Acc ++; g_e2p_data.E2P_4.num1_gain = (g_e2p_data.E2P_4.num1_gain < -10000) ? -10000 : g_e2p_data.E2P_4.num1_gain; break;
-			case 2:	g_e2p_data.E2P_4.num2_gain -= Acc; Acc ++; g_e2p_data.E2P_4.num2_gain = (g_e2p_data.E2P_4.num2_gain < -10000) ? -10000 : g_e2p_data.E2P_4.num2_gain; break;
-			case 3:	g_e2p_data.E2P_5.num3_gain -= Acc; Acc ++; g_e2p_data.E2P_5.num3_gain = (g_e2p_data.E2P_5.num3_gain < -10000) ? -10000 : g_e2p_data.E2P_5.num3_gain; break;
-			case 4:	g_e2p_data.E2P_5.num4_gain -= Acc; Acc ++; g_e2p_data.E2P_5.num4_gain = (g_e2p_data.E2P_5.num4_gain < -10000) ? -10000 : g_e2p_data.E2P_5.num4_gain; break;
-			case 5:	g_e2p_data.E2P_6.num5_gain -= Acc; Acc ++; g_e2p_data.E2P_6.num5_gain = (g_e2p_data.E2P_6.num5_gain < -10000) ? -10000 : g_e2p_data.E2P_6.num5_gain; break;
-			case 6:	g_e2p_data.E2P_6.num6_gain -= Acc; Acc ++; g_e2p_data.E2P_6.num6_gain = (g_e2p_data.E2P_6.num6_gain < -10000) ? -10000 : g_e2p_data.E2P_6.num6_gain; break;
-			case 7:	g_e2p_data.E2P_3.rev_gain  -= Acc; Acc ++; g_e2p_data.E2P_3.rev_gain  = (g_e2p_data.E2P_3.rev_gain  < -10000) ? -10000 : g_e2p_data.E2P_3.rev_gain;  break;
-			case 8:	g_e2p_data.E2P_3.afr_gain  -= Acc; Acc ++; g_e2p_data.E2P_3.afr_gain  = (g_e2p_data.E2P_3.afr_gain  < -10000) ? -10000 : g_e2p_data.E2P_3.afr_gain;  break;
+			case  1:	g_e2p_data.E2P_4.num1_gain -= Acc; Acc ++; g_e2p_data.E2P_4.num1_gain = (g_e2p_data.E2P_4.num1_gain < -10000) ? -10000 : g_e2p_data.E2P_4.num1_gain; break;
+			case  2:	g_e2p_data.E2P_4.num2_gain -= Acc; Acc ++; g_e2p_data.E2P_4.num2_gain = (g_e2p_data.E2P_4.num2_gain < -10000) ? -10000 : g_e2p_data.E2P_4.num2_gain; break;
+			case  3:	g_e2p_data.E2P_5.num3_gain -= Acc; Acc ++; g_e2p_data.E2P_5.num3_gain = (g_e2p_data.E2P_5.num3_gain < -10000) ? -10000 : g_e2p_data.E2P_5.num3_gain; break;
+			case  4:	g_e2p_data.E2P_5.num4_gain -= Acc; Acc ++; g_e2p_data.E2P_5.num4_gain = (g_e2p_data.E2P_5.num4_gain < -10000) ? -10000 : g_e2p_data.E2P_5.num4_gain; break;
+			case  5:	g_e2p_data.E2P_6.num5_gain -= Acc; Acc ++; g_e2p_data.E2P_6.num5_gain = (g_e2p_data.E2P_6.num5_gain < -10000) ? -10000 : g_e2p_data.E2P_6.num5_gain; break;
+			case  6:	g_e2p_data.E2P_6.num6_gain -= Acc; Acc ++; g_e2p_data.E2P_6.num6_gain = (g_e2p_data.E2P_6.num6_gain < -10000) ? -10000 : g_e2p_data.E2P_6.num6_gain; break;
+			case  7:	g_e2p_data.E2P_3.rev_gain  -= Acc; Acc ++; g_e2p_data.E2P_3.rev_gain  = (g_e2p_data.E2P_3.rev_gain  < -10000) ? -10000 : g_e2p_data.E2P_3.rev_gain;  break;
+			case  8:	g_e2p_data.E2P_3.afr_gain  -= Acc; Acc ++; g_e2p_data.E2P_3.afr_gain  = (g_e2p_data.E2P_3.afr_gain  < -10000) ? -10000 : g_e2p_data.E2P_3.afr_gain;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_gain -= Acc; Acc ++; g_e2p_data.E2P_8.cht1_gain = (g_e2p_data.E2P_8.cht1_gain < -10000) ? -10000 : g_e2p_data.E2P_8.cht1_gain; break;
+			case 10:	g_e2p_data.E2P_8.cht2_gain -= Acc; Acc ++; g_e2p_data.E2P_8.cht2_gain = (g_e2p_data.E2P_8.cht2_gain < -10000) ? -10000 : g_e2p_data.E2P_8.cht2_gain; break;
+			case 11:	g_e2p_data.E2P_9.cht1_guage_gain -= Acc; Acc ++; g_e2p_data.E2P_9.cht1_guage_gain = (g_e2p_data.E2P_9.cht1_guage_gain < -10000) ? -10000 : g_e2p_data.E2P_9.cht1_guage_gain; break;
+			case 12:	g_e2p_data.E2P_9.cht2_guage_gain -= Acc; Acc ++; g_e2p_data.E2P_9.cht2_guage_gain = (g_e2p_data.E2P_9.cht2_guage_gain < -10000) ? -10000 : g_e2p_data.E2P_9.cht2_guage_gain; break;
 		}
 		LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
 		LCD_RefreshFast();
@@ -1787,14 +2005,18 @@ void A202(void)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_bias += Acc; Acc ++; g_e2p_data.E2P_4.num1_bias = (g_e2p_data.E2P_4.num1_bias > 10000) ? 10000 : g_e2p_data.E2P_4.num1_bias; break;
-			case 2:	g_e2p_data.E2P_4.num2_bias += Acc; Acc ++; g_e2p_data.E2P_4.num2_bias = (g_e2p_data.E2P_4.num2_bias > 10000) ? 10000 : g_e2p_data.E2P_4.num2_bias; break;
-			case 3:	g_e2p_data.E2P_5.num3_bias += Acc; Acc ++; g_e2p_data.E2P_5.num3_bias = (g_e2p_data.E2P_5.num3_bias > 10000) ? 10000 : g_e2p_data.E2P_5.num3_bias; break;
-			case 4:	g_e2p_data.E2P_5.num4_bias += Acc; Acc ++; g_e2p_data.E2P_5.num4_bias = (g_e2p_data.E2P_5.num4_bias > 10000) ? 10000 : g_e2p_data.E2P_5.num4_bias; break;
-			case 5:	g_e2p_data.E2P_6.num5_bias += Acc; Acc ++; g_e2p_data.E2P_6.num5_bias = (g_e2p_data.E2P_6.num5_bias > 10000) ? 10000 : g_e2p_data.E2P_6.num5_bias; break;
-			case 6:	g_e2p_data.E2P_6.num6_bias += Acc; Acc ++; g_e2p_data.E2P_6.num6_bias = (g_e2p_data.E2P_6.num6_bias > 10000) ? 10000 : g_e2p_data.E2P_6.num6_bias; break;
-			case 7:	g_e2p_data.E2P_3.rev_bias  += Acc; Acc ++; g_e2p_data.E2P_3.rev_bias  = (g_e2p_data.E2P_3.rev_bias  > 10000) ? 10000 : g_e2p_data.E2P_3.rev_bias;  break;
-			case 8:	g_e2p_data.E2P_3.afr_bias  += Acc; Acc ++; g_e2p_data.E2P_3.afr_bias  = (g_e2p_data.E2P_3.afr_bias  > 10000) ? 10000 : g_e2p_data.E2P_3.afr_bias;  break;
+			case  1:	g_e2p_data.E2P_4.num1_bias += Acc; Acc ++; g_e2p_data.E2P_4.num1_bias = (g_e2p_data.E2P_4.num1_bias > 10000) ? 10000 : g_e2p_data.E2P_4.num1_bias; break;
+			case  2:	g_e2p_data.E2P_4.num2_bias += Acc; Acc ++; g_e2p_data.E2P_4.num2_bias = (g_e2p_data.E2P_4.num2_bias > 10000) ? 10000 : g_e2p_data.E2P_4.num2_bias; break;
+			case  3:	g_e2p_data.E2P_5.num3_bias += Acc; Acc ++; g_e2p_data.E2P_5.num3_bias = (g_e2p_data.E2P_5.num3_bias > 10000) ? 10000 : g_e2p_data.E2P_5.num3_bias; break;
+			case  4:	g_e2p_data.E2P_5.num4_bias += Acc; Acc ++; g_e2p_data.E2P_5.num4_bias = (g_e2p_data.E2P_5.num4_bias > 10000) ? 10000 : g_e2p_data.E2P_5.num4_bias; break;
+			case  5:	g_e2p_data.E2P_6.num5_bias += Acc; Acc ++; g_e2p_data.E2P_6.num5_bias = (g_e2p_data.E2P_6.num5_bias > 10000) ? 10000 : g_e2p_data.E2P_6.num5_bias; break;
+			case  6:	g_e2p_data.E2P_6.num6_bias += Acc; Acc ++; g_e2p_data.E2P_6.num6_bias = (g_e2p_data.E2P_6.num6_bias > 10000) ? 10000 : g_e2p_data.E2P_6.num6_bias; break;
+			case  7:	g_e2p_data.E2P_3.rev_bias  += Acc; Acc ++; g_e2p_data.E2P_3.rev_bias  = (g_e2p_data.E2P_3.rev_bias  > 10000) ? 10000 : g_e2p_data.E2P_3.rev_bias;  break;
+			case  8:	g_e2p_data.E2P_3.afr_bias  += Acc; Acc ++; g_e2p_data.E2P_3.afr_bias  = (g_e2p_data.E2P_3.afr_bias  > 10000) ? 10000 : g_e2p_data.E2P_3.afr_bias;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_bias += Acc; Acc ++; g_e2p_data.E2P_8.cht1_bias = (g_e2p_data.E2P_8.cht1_bias > 10000) ? 10000 : g_e2p_data.E2P_8.cht1_bias; break;
+			case 10:	g_e2p_data.E2P_8.cht2_bias += Acc; Acc ++; g_e2p_data.E2P_8.cht2_bias = (g_e2p_data.E2P_8.cht2_bias > 10000) ? 10000 : g_e2p_data.E2P_8.cht2_bias; break;
+			case 11:	g_e2p_data.E2P_9.cht1_guage_bias += Acc; Acc ++; g_e2p_data.E2P_9.cht1_guage_bias = (g_e2p_data.E2P_9.cht1_guage_bias > 10000) ? 10000 : g_e2p_data.E2P_9.cht1_guage_bias; break;
+			case 12:	g_e2p_data.E2P_9.cht2_guage_bias += Acc; Acc ++; g_e2p_data.E2P_9.cht2_guage_bias = (g_e2p_data.E2P_9.cht2_guage_bias > 10000) ? 10000 : g_e2p_data.E2P_9.cht2_guage_bias; break;
 		}
 		LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
 		LCD_RefreshFast();
@@ -1805,14 +2027,18 @@ void A202(void)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_bias -= Acc; Acc ++; g_e2p_data.E2P_4.num1_bias = (g_e2p_data.E2P_4.num1_bias < -10000) ? -10000 : g_e2p_data.E2P_4.num1_bias; break;
-			case 2:	g_e2p_data.E2P_4.num2_bias -= Acc; Acc ++; g_e2p_data.E2P_4.num2_bias = (g_e2p_data.E2P_4.num2_bias < -10000) ? -10000 : g_e2p_data.E2P_4.num2_bias; break;
-			case 3:	g_e2p_data.E2P_5.num3_bias -= Acc; Acc ++; g_e2p_data.E2P_5.num3_bias = (g_e2p_data.E2P_5.num3_bias < -10000) ? -10000 : g_e2p_data.E2P_5.num3_bias; break;
-			case 4:	g_e2p_data.E2P_5.num4_bias -= Acc; Acc ++; g_e2p_data.E2P_5.num4_bias = (g_e2p_data.E2P_5.num4_bias < -10000) ? -10000 : g_e2p_data.E2P_5.num4_bias; break;
-			case 5:	g_e2p_data.E2P_6.num5_bias -= Acc; Acc ++; g_e2p_data.E2P_6.num5_bias = (g_e2p_data.E2P_6.num5_bias < -10000) ? -10000 : g_e2p_data.E2P_6.num5_bias; break;
-			case 6:	g_e2p_data.E2P_6.num6_bias -= Acc; Acc ++; g_e2p_data.E2P_6.num6_bias = (g_e2p_data.E2P_6.num6_bias < -10000) ? -10000 : g_e2p_data.E2P_6.num6_bias; break;
-			case 7:	g_e2p_data.E2P_3.rev_bias  -= Acc; Acc ++; g_e2p_data.E2P_3.rev_bias  = (g_e2p_data.E2P_3.rev_bias  < -10000) ? -10000 : g_e2p_data.E2P_3.rev_bias;  break;
-			case 8:	g_e2p_data.E2P_3.afr_bias  -= Acc; Acc ++; g_e2p_data.E2P_3.afr_bias  = (g_e2p_data.E2P_3.afr_bias  < -10000) ? -10000 : g_e2p_data.E2P_3.afr_bias;  break;
+			case  1:	g_e2p_data.E2P_4.num1_bias -= Acc; Acc ++; g_e2p_data.E2P_4.num1_bias = (g_e2p_data.E2P_4.num1_bias < -10000) ? -10000 : g_e2p_data.E2P_4.num1_bias; break;
+			case  2:	g_e2p_data.E2P_4.num2_bias -= Acc; Acc ++; g_e2p_data.E2P_4.num2_bias = (g_e2p_data.E2P_4.num2_bias < -10000) ? -10000 : g_e2p_data.E2P_4.num2_bias; break;
+			case  3:	g_e2p_data.E2P_5.num3_bias -= Acc; Acc ++; g_e2p_data.E2P_5.num3_bias = (g_e2p_data.E2P_5.num3_bias < -10000) ? -10000 : g_e2p_data.E2P_5.num3_bias; break;
+			case  4:	g_e2p_data.E2P_5.num4_bias -= Acc; Acc ++; g_e2p_data.E2P_5.num4_bias = (g_e2p_data.E2P_5.num4_bias < -10000) ? -10000 : g_e2p_data.E2P_5.num4_bias; break;
+			case  5:	g_e2p_data.E2P_6.num5_bias -= Acc; Acc ++; g_e2p_data.E2P_6.num5_bias = (g_e2p_data.E2P_6.num5_bias < -10000) ? -10000 : g_e2p_data.E2P_6.num5_bias; break;
+			case  6:	g_e2p_data.E2P_6.num6_bias -= Acc; Acc ++; g_e2p_data.E2P_6.num6_bias = (g_e2p_data.E2P_6.num6_bias < -10000) ? -10000 : g_e2p_data.E2P_6.num6_bias; break;
+			case  7:	g_e2p_data.E2P_3.rev_bias  -= Acc; Acc ++; g_e2p_data.E2P_3.rev_bias  = (g_e2p_data.E2P_3.rev_bias  < -10000) ? -10000 : g_e2p_data.E2P_3.rev_bias;  break;
+			case  8:	g_e2p_data.E2P_3.afr_bias  -= Acc; Acc ++; g_e2p_data.E2P_3.afr_bias  = (g_e2p_data.E2P_3.afr_bias  < -10000) ? -10000 : g_e2p_data.E2P_3.afr_bias;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_bias -= Acc; Acc ++; g_e2p_data.E2P_8.cht1_bias = (g_e2p_data.E2P_8.cht1_bias < -10000) ? -10000 : g_e2p_data.E2P_8.cht1_bias; break;
+			case 10:	g_e2p_data.E2P_8.cht2_bias -= Acc; Acc ++; g_e2p_data.E2P_8.cht2_bias = (g_e2p_data.E2P_8.cht2_bias < -10000) ? -10000 : g_e2p_data.E2P_8.cht2_bias; break;
+			case 11:	g_e2p_data.E2P_9.cht1_guage_bias -= Acc; Acc ++; g_e2p_data.E2P_9.cht1_guage_bias = (g_e2p_data.E2P_9.cht1_guage_bias < -10000) ? -10000 : g_e2p_data.E2P_9.cht1_guage_bias; break;
+			case 12:	g_e2p_data.E2P_9.cht2_guage_bias -= Acc; Acc ++; g_e2p_data.E2P_9.cht2_guage_bias = (g_e2p_data.E2P_9.cht2_guage_bias < -10000) ? -10000 : g_e2p_data.E2P_9.cht2_guage_bias; break;
 		}
 		LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
 		LCD_RefreshFast();
@@ -1823,14 +2049,18 @@ void A202(void)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_dp += Acc; g_e2p_data.E2P_4.num1_dp = (g_e2p_data.E2P_4.num1_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_4.num1_dp; break;
-			case 2:	g_e2p_data.E2P_4.num2_dp += Acc; g_e2p_data.E2P_4.num2_dp = (g_e2p_data.E2P_4.num2_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_4.num2_dp; break;
-			case 3:	g_e2p_data.E2P_5.num3_dp += Acc; g_e2p_data.E2P_5.num3_dp = (g_e2p_data.E2P_5.num3_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_5.num3_dp; break;
-			case 4:	g_e2p_data.E2P_5.num4_dp += Acc; g_e2p_data.E2P_5.num4_dp = (g_e2p_data.E2P_5.num4_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_5.num4_dp; break;
-			case 5:	g_e2p_data.E2P_6.num5_dp += Acc; g_e2p_data.E2P_6.num5_dp = (g_e2p_data.E2P_6.num5_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_6.num5_dp; break;
-			case 6:	g_e2p_data.E2P_6.num6_dp += Acc; g_e2p_data.E2P_6.num6_dp = (g_e2p_data.E2P_6.num6_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_6.num6_dp; break;
-			case 7:	g_e2p_data.E2P_2.rev_timing_rmp1 += Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp1 = (g_e2p_data.E2P_2.rev_timing_rmp1 > (g_e2p_data.E2P_2.rev_timing_rmp2 - 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp2 - 1) : g_e2p_data.E2P_2.rev_timing_rmp1; break;
-			case 8:	g_e2p_data.E2P_3.afr_dp  += Acc; g_e2p_data.E2P_3.afr_dp  = (g_e2p_data.E2P_3.afr_dp  > num_dp_value) ? num_dp_value : g_e2p_data.E2P_3.afr_dp;  break;
+			case  1:	g_e2p_data.E2P_4.num1_dp += Acc; g_e2p_data.E2P_4.num1_dp = (g_e2p_data.E2P_4.num1_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_4.num1_dp; break;
+			case  2:	g_e2p_data.E2P_4.num2_dp += Acc; g_e2p_data.E2P_4.num2_dp = (g_e2p_data.E2P_4.num2_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_4.num2_dp; break;
+			case  3:	g_e2p_data.E2P_5.num3_dp += Acc; g_e2p_data.E2P_5.num3_dp = (g_e2p_data.E2P_5.num3_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_5.num3_dp; break;
+			case  4:	g_e2p_data.E2P_5.num4_dp += Acc; g_e2p_data.E2P_5.num4_dp = (g_e2p_data.E2P_5.num4_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_5.num4_dp; break;
+			case  5:	g_e2p_data.E2P_6.num5_dp += Acc; g_e2p_data.E2P_6.num5_dp = (g_e2p_data.E2P_6.num5_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_6.num5_dp; break;
+			case  6:	g_e2p_data.E2P_6.num6_dp += Acc; g_e2p_data.E2P_6.num6_dp = (g_e2p_data.E2P_6.num6_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_6.num6_dp; break;
+			case  7:	g_e2p_data.E2P_2.rev_timing_rmp1 += Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp1 = (g_e2p_data.E2P_2.rev_timing_rmp1 > (g_e2p_data.E2P_2.rev_timing_rmp2 - 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp2 - 1) : g_e2p_data.E2P_2.rev_timing_rmp1; break;
+			case  8:	g_e2p_data.E2P_3.afr_dp  += Acc; g_e2p_data.E2P_3.afr_dp  = (g_e2p_data.E2P_3.afr_dp  > num_dp_value) ? num_dp_value : g_e2p_data.E2P_3.afr_dp;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_dp += Acc; g_e2p_data.E2P_8.cht1_dp = (g_e2p_data.E2P_8.cht1_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_8.cht1_dp; break;
+			case 10:	g_e2p_data.E2P_8.cht2_dp += Acc; g_e2p_data.E2P_8.cht2_dp = (g_e2p_data.E2P_8.cht2_dp > num_dp_value) ? num_dp_value : g_e2p_data.E2P_8.cht2_dp; break;
+			case 11:	g_e2p_data.E2P_9.cht1_guage_grid += Acc; g_e2p_data.E2P_9.cht1_guage_grid = (g_e2p_data.E2P_9.cht1_guage_grid > num_grid_value) ? num_grid_value : g_e2p_data.E2P_9.cht1_guage_grid; break;
+			case 12:	g_e2p_data.E2P_9.cht2_guage_grid += Acc; g_e2p_data.E2P_9.cht2_guage_grid = (g_e2p_data.E2P_9.cht2_guage_grid > num_grid_value) ? num_grid_value : g_e2p_data.E2P_9.cht2_guage_grid; break;
 		}
 		LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
 		LCD_RefreshFast();
@@ -1841,14 +2071,18 @@ void A202(void)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_dp -= Acc; g_e2p_data.E2P_4.num1_dp = (g_e2p_data.E2P_4.num1_dp >= 255) ? 0 : g_e2p_data.E2P_4.num1_dp; break;
-			case 2:	g_e2p_data.E2P_4.num2_dp -= Acc; g_e2p_data.E2P_4.num2_dp = (g_e2p_data.E2P_4.num2_dp >= 255) ? 0 : g_e2p_data.E2P_4.num2_dp; break;
-			case 3:	g_e2p_data.E2P_5.num3_dp -= Acc; g_e2p_data.E2P_5.num3_dp = (g_e2p_data.E2P_5.num3_dp >= 255) ? 0 : g_e2p_data.E2P_5.num3_dp; break;
-			case 4:	g_e2p_data.E2P_5.num4_dp -= Acc; g_e2p_data.E2P_5.num4_dp = (g_e2p_data.E2P_5.num4_dp >= 255) ? 0 : g_e2p_data.E2P_5.num4_dp; break;
-			case 5:	g_e2p_data.E2P_6.num5_dp -= Acc; g_e2p_data.E2P_6.num5_dp = (g_e2p_data.E2P_6.num5_dp >= 255) ? 0 : g_e2p_data.E2P_6.num5_dp; break;
-			case 6:	g_e2p_data.E2P_6.num6_dp -= Acc; g_e2p_data.E2P_6.num6_dp = (g_e2p_data.E2P_6.num6_dp >= 255) ? 0 : g_e2p_data.E2P_6.num6_dp; break;
-			case 7:	g_e2p_data.E2P_2.rev_timing_rmp1 -= Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp1 = (g_e2p_data.E2P_2.rev_timing_rmp1 < 2000) ? 2000 : g_e2p_data.E2P_2.rev_timing_rmp1; break;
-			case 8:	g_e2p_data.E2P_3.afr_dp  -= Acc; g_e2p_data.E2P_3.afr_dp  = (g_e2p_data.E2P_3.afr_dp  >= 255) ? 0 : g_e2p_data.E2P_3.afr_dp;  break;
+			case  1:	g_e2p_data.E2P_4.num1_dp -= Acc; g_e2p_data.E2P_4.num1_dp = (g_e2p_data.E2P_4.num1_dp >= 255) ? 0 : g_e2p_data.E2P_4.num1_dp; break;
+			case  2:	g_e2p_data.E2P_4.num2_dp -= Acc; g_e2p_data.E2P_4.num2_dp = (g_e2p_data.E2P_4.num2_dp >= 255) ? 0 : g_e2p_data.E2P_4.num2_dp; break;
+			case  3:	g_e2p_data.E2P_5.num3_dp -= Acc; g_e2p_data.E2P_5.num3_dp = (g_e2p_data.E2P_5.num3_dp >= 255) ? 0 : g_e2p_data.E2P_5.num3_dp; break;
+			case  4:	g_e2p_data.E2P_5.num4_dp -= Acc; g_e2p_data.E2P_5.num4_dp = (g_e2p_data.E2P_5.num4_dp >= 255) ? 0 : g_e2p_data.E2P_5.num4_dp; break;
+			case  5:	g_e2p_data.E2P_6.num5_dp -= Acc; g_e2p_data.E2P_6.num5_dp = (g_e2p_data.E2P_6.num5_dp >= 255) ? 0 : g_e2p_data.E2P_6.num5_dp; break;
+			case  6:	g_e2p_data.E2P_6.num6_dp -= Acc; g_e2p_data.E2P_6.num6_dp = (g_e2p_data.E2P_6.num6_dp >= 255) ? 0 : g_e2p_data.E2P_6.num6_dp; break;
+			case  7:	g_e2p_data.E2P_2.rev_timing_rmp1 -= Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp1 = (g_e2p_data.E2P_2.rev_timing_rmp1 < 2000) ? 2000 : g_e2p_data.E2P_2.rev_timing_rmp1; break;
+			case  8:	g_e2p_data.E2P_3.afr_dp  -= Acc; g_e2p_data.E2P_3.afr_dp  = (g_e2p_data.E2P_3.afr_dp  >= 255) ? 0 : g_e2p_data.E2P_3.afr_dp;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_dp -= Acc; g_e2p_data.E2P_8.cht1_dp = (g_e2p_data.E2P_8.cht1_dp >= 255) ? 0 : g_e2p_data.E2P_8.cht1_dp; break;
+			case 10:	g_e2p_data.E2P_8.cht2_dp -= Acc; g_e2p_data.E2P_8.cht2_dp = (g_e2p_data.E2P_8.cht2_dp >= 255) ? 0 : g_e2p_data.E2P_8.cht2_dp; break;
+			case 11:	g_e2p_data.E2P_9.cht1_guage_grid -= Acc; g_e2p_data.E2P_9.cht1_guage_grid = (g_e2p_data.E2P_9.cht1_guage_grid >= 255) ? 0 : g_e2p_data.E2P_9.cht1_guage_grid; break;
+			case 12:	g_e2p_data.E2P_9.cht2_guage_grid -= Acc; g_e2p_data.E2P_9.cht2_guage_grid = (g_e2p_data.E2P_9.cht2_guage_grid >= 255) ? 0 : g_e2p_data.E2P_9.cht2_guage_grid; break;
 		}
 		LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
 		LCD_RefreshFast();
@@ -1859,37 +2093,47 @@ void A202(void)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_label -= Acc; g_e2p_data.E2P_4.num1_label = (g_e2p_data.E2P_4.num1_label >= 255) ? 0 : g_e2p_data.E2P_4.num1_label; break;
-			case 2:	g_e2p_data.E2P_4.num2_label -= Acc; g_e2p_data.E2P_4.num2_label = (g_e2p_data.E2P_4.num2_label >= 255) ? 0 : g_e2p_data.E2P_4.num2_label; break;
-			case 3:	g_e2p_data.E2P_5.num3_label -= Acc; g_e2p_data.E2P_5.num3_label = (g_e2p_data.E2P_5.num3_label >= 255) ? 0 : g_e2p_data.E2P_5.num3_label; break;
-			case 4:	g_e2p_data.E2P_5.num4_label -= Acc; g_e2p_data.E2P_5.num4_label = (g_e2p_data.E2P_5.num4_label >= 255) ? 0 : g_e2p_data.E2P_5.num4_label; break;
-			case 5:	g_e2p_data.E2P_6.num5_label -= Acc; g_e2p_data.E2P_6.num5_label = (g_e2p_data.E2P_6.num5_label >= 255) ? 0 : g_e2p_data.E2P_6.num5_label; break;
-			case 6:	g_e2p_data.E2P_6.num6_label -= Acc; g_e2p_data.E2P_6.num6_label = (g_e2p_data.E2P_6.num6_label >= 255) ? 0 : g_e2p_data.E2P_6.num6_label; break;
-			case 7:	g_e2p_data.E2P_2.rev_timing_rmp2 += Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp2 = (g_e2p_data.E2P_2.rev_timing_rmp2 > (g_e2p_data.E2P_2.rev_timing_rmp3 - 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp3 - 1) : g_e2p_data.E2P_2.rev_timing_rmp2; break;
-			case 8:	g_e2p_data.E2P_3.afr_label  -= Acc; g_e2p_data.E2P_3.afr_label  = (g_e2p_data.E2P_3.afr_label  >= 255) ? 0 : g_e2p_data.E2P_3.afr_label;  break;
+			case  1:	g_e2p_data.E2P_4.num1_label -= Acc; g_e2p_data.E2P_4.num1_label = (g_e2p_data.E2P_4.num1_label >= 255) ? 0 : g_e2p_data.E2P_4.num1_label; break;
+			case  2:	g_e2p_data.E2P_4.num2_label -= Acc; g_e2p_data.E2P_4.num2_label = (g_e2p_data.E2P_4.num2_label >= 255) ? 0 : g_e2p_data.E2P_4.num2_label; break;
+			case  3:	g_e2p_data.E2P_5.num3_label -= Acc; g_e2p_data.E2P_5.num3_label = (g_e2p_data.E2P_5.num3_label >= 255) ? 0 : g_e2p_data.E2P_5.num3_label; break;
+			case  4:	g_e2p_data.E2P_5.num4_label -= Acc; g_e2p_data.E2P_5.num4_label = (g_e2p_data.E2P_5.num4_label >= 255) ? 0 : g_e2p_data.E2P_5.num4_label; break;
+			case  5:	g_e2p_data.E2P_6.num5_label -= Acc; g_e2p_data.E2P_6.num5_label = (g_e2p_data.E2P_6.num5_label >= 255) ? 0 : g_e2p_data.E2P_6.num5_label; break;
+			case  6:	g_e2p_data.E2P_6.num6_label -= Acc; g_e2p_data.E2P_6.num6_label = (g_e2p_data.E2P_6.num6_label >= 255) ? 0 : g_e2p_data.E2P_6.num6_label; break;
+			case  7:	g_e2p_data.E2P_2.rev_timing_rmp2 += Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp2 = (g_e2p_data.E2P_2.rev_timing_rmp2 > (g_e2p_data.E2P_2.rev_timing_rmp3 - 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp3 - 1) : g_e2p_data.E2P_2.rev_timing_rmp2; break;
+			case  8:	g_e2p_data.E2P_3.afr_label  -= Acc; g_e2p_data.E2P_3.afr_label  = (g_e2p_data.E2P_3.afr_label  >= 255) ? 0 : g_e2p_data.E2P_3.afr_label;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_label -= Acc; g_e2p_data.E2P_8.cht1_label = (g_e2p_data.E2P_8.cht1_label >= 255) ? 0 : g_e2p_data.E2P_8.cht1_label; break;
+			case 10:	g_e2p_data.E2P_8.cht2_label -= Acc; g_e2p_data.E2P_8.cht2_label = (g_e2p_data.E2P_8.cht2_label >= 255) ? 0 : g_e2p_data.E2P_8.cht2_label; break;
 		}
-		LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-		LCD_RefreshFast();
-		LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-		LCD_RefreshFast();
+		if((num_page != 11) && (num_page != 12))
+		{
+			LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+			LCD_RefreshFast();
+			LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+			LCD_RefreshFast();
+		}
 	}
 	else if	(num_control == 10)
 	{
 		switch(num_page)
 		{
-			case 1:	g_e2p_data.E2P_4.num1_label += Acc; g_e2p_data.E2P_4.num1_label = (g_e2p_data.E2P_4.num1_label > num_label_value) ? num_label_value : g_e2p_data.E2P_4.num1_label; break;
-			case 2:	g_e2p_data.E2P_4.num2_label += Acc; g_e2p_data.E2P_4.num2_label = (g_e2p_data.E2P_4.num2_label > num_label_value) ? num_label_value : g_e2p_data.E2P_4.num2_label; break;
-			case 3:	g_e2p_data.E2P_5.num3_label += Acc; g_e2p_data.E2P_5.num3_label = (g_e2p_data.E2P_5.num3_label > num_label_value) ? num_label_value : g_e2p_data.E2P_5.num3_label; break;
-			case 4:	g_e2p_data.E2P_5.num4_label += Acc; g_e2p_data.E2P_5.num4_label = (g_e2p_data.E2P_5.num4_label > num_label_value) ? num_label_value : g_e2p_data.E2P_5.num4_label; break;
-			case 5:	g_e2p_data.E2P_6.num5_label += Acc; g_e2p_data.E2P_6.num5_label = (g_e2p_data.E2P_6.num5_label > num_label_value) ? num_label_value : g_e2p_data.E2P_6.num5_label; break;
-			case 6:	g_e2p_data.E2P_6.num6_label += Acc; g_e2p_data.E2P_6.num6_label = (g_e2p_data.E2P_6.num6_label > num_label_value) ? num_label_value : g_e2p_data.E2P_6.num6_label; break;
-			case 7:	g_e2p_data.E2P_2.rev_timing_rmp2 -= Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp2 = (g_e2p_data.E2P_2.rev_timing_rmp2 < (g_e2p_data.E2P_2.rev_timing_rmp1 + 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp1 + 1) : g_e2p_data.E2P_2.rev_timing_rmp2; break;
-			case 8:	g_e2p_data.E2P_3.afr_label  += Acc; g_e2p_data.E2P_3.afr_label  = (g_e2p_data.E2P_3.afr_label  > afr_label_value) ? afr_label_value : g_e2p_data.E2P_3.afr_label;  break;
+			case  1:	g_e2p_data.E2P_4.num1_label += Acc; g_e2p_data.E2P_4.num1_label = (g_e2p_data.E2P_4.num1_label > num_label_value) ? num_label_value : g_e2p_data.E2P_4.num1_label; break;
+			case  2:	g_e2p_data.E2P_4.num2_label += Acc; g_e2p_data.E2P_4.num2_label = (g_e2p_data.E2P_4.num2_label > num_label_value) ? num_label_value : g_e2p_data.E2P_4.num2_label; break;
+			case  3:	g_e2p_data.E2P_5.num3_label += Acc; g_e2p_data.E2P_5.num3_label = (g_e2p_data.E2P_5.num3_label > num_label_value) ? num_label_value : g_e2p_data.E2P_5.num3_label; break;
+			case  4:	g_e2p_data.E2P_5.num4_label += Acc; g_e2p_data.E2P_5.num4_label = (g_e2p_data.E2P_5.num4_label > num_label_value) ? num_label_value : g_e2p_data.E2P_5.num4_label; break;
+			case  5:	g_e2p_data.E2P_6.num5_label += Acc; g_e2p_data.E2P_6.num5_label = (g_e2p_data.E2P_6.num5_label > num_label_value) ? num_label_value : g_e2p_data.E2P_6.num5_label; break;
+			case  6:	g_e2p_data.E2P_6.num6_label += Acc; g_e2p_data.E2P_6.num6_label = (g_e2p_data.E2P_6.num6_label > num_label_value) ? num_label_value : g_e2p_data.E2P_6.num6_label; break;
+			case  7:	g_e2p_data.E2P_2.rev_timing_rmp2 -= Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp2 = (g_e2p_data.E2P_2.rev_timing_rmp2 < (g_e2p_data.E2P_2.rev_timing_rmp1 + 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp1 + 1) : g_e2p_data.E2P_2.rev_timing_rmp2; break;
+			case  8:	g_e2p_data.E2P_3.afr_label  += Acc; g_e2p_data.E2P_3.afr_label  = (g_e2p_data.E2P_3.afr_label  > afr_label_value) ? afr_label_value : g_e2p_data.E2P_3.afr_label;  break;
+			case  9:	g_e2p_data.E2P_8.cht1_label += Acc; g_e2p_data.E2P_8.cht1_label = (g_e2p_data.E2P_8.cht1_label > num_label_value) ? num_label_value : g_e2p_data.E2P_8.cht1_label; break;
+			case 10:	g_e2p_data.E2P_8.cht2_label += Acc; g_e2p_data.E2P_8.cht2_label = (g_e2p_data.E2P_8.cht2_label > num_label_value) ? num_label_value : g_e2p_data.E2P_8.cht2_label; break;
 		}
-		LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-		LCD_RefreshFast();
-		LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-		LCD_RefreshFast();
+		if((num_page != 11) && (num_page != 12))
+		{
+			LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+			LCD_RefreshFast();
+			LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+			LCD_RefreshFast();
+		}
 	}
 	else if	(num_control == 11)
 	{
@@ -1900,10 +2144,11 @@ void A202(void)
 			case 3:	g_e2p_data.E2P_5.num3_unit -= Acc; g_e2p_data.E2P_5.num3_unit = (g_e2p_data.E2P_5.num3_unit >= 255) ? 0 : g_e2p_data.E2P_5.num3_unit; break;
 			case 4:	g_e2p_data.E2P_5.num4_unit -= Acc; g_e2p_data.E2P_5.num4_unit = (g_e2p_data.E2P_5.num4_unit >= 255) ? 0 : g_e2p_data.E2P_5.num4_unit; break;
 			case 5:	g_e2p_data.E2P_6.num5_unit -= Acc; g_e2p_data.E2P_6.num5_unit = (g_e2p_data.E2P_6.num5_unit >= 255) ? 0 : g_e2p_data.E2P_6.num5_unit; break;
-			case 7:	g_e2p_data.E2P_2.rev_timing_rmp3 += Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp3 = (g_e2p_data.E2P_2.rev_timing_rmp3 > 20000) ? 20000 : g_e2p_data.E2P_2.rev_timing_rmp3; break;
 			case 6:	g_e2p_data.E2P_6.num6_unit -= Acc; g_e2p_data.E2P_6.num6_unit = (g_e2p_data.E2P_6.num6_unit >= 255) ? 0 : g_e2p_data.E2P_6.num6_unit; break;
+			case 7:	g_e2p_data.E2P_2.rev_timing_rmp3 += Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp3 = (g_e2p_data.E2P_2.rev_timing_rmp3 > 20000) ? 20000 : g_e2p_data.E2P_2.rev_timing_rmp3; break;
+			case 8:	g_e2p_data.E2P_3.t_afr_data_select  -= Acc; g_e2p_data.E2P_3.t_afr_data_select  = ( g_e2p_data.E2P_3.t_afr_data_select  >= 255 ) ? 0 : g_e2p_data.E2P_3.t_afr_data_select;  break;
 		}
-		if(num_page != 8)
+		if((num_page != 9) && (num_page != 10) && (num_page != 11) && (num_page != 12))
 		{
 			LCD_locate(230,24 * 7);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
 			LCD_RefreshFast();
@@ -1920,10 +2165,11 @@ void A202(void)
 			case 3:	g_e2p_data.E2P_5.num3_unit += Acc; g_e2p_data.E2P_5.num3_unit = (g_e2p_data.E2P_5.num3_unit > num_unit_value) ? num_unit_value : g_e2p_data.E2P_5.num3_unit; break;
 			case 4:	g_e2p_data.E2P_5.num4_unit += Acc; g_e2p_data.E2P_5.num4_unit = (g_e2p_data.E2P_5.num4_unit > num_unit_value) ? num_unit_value : g_e2p_data.E2P_5.num4_unit; break;
 			case 5:	g_e2p_data.E2P_6.num5_unit += Acc; g_e2p_data.E2P_6.num5_unit = (g_e2p_data.E2P_6.num5_unit > num_unit_value) ? num_unit_value : g_e2p_data.E2P_6.num5_unit; break;
-			case 7:	g_e2p_data.E2P_2.rev_timing_rmp3 -= Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp3 = (g_e2p_data.E2P_2.rev_timing_rmp3 < (g_e2p_data.E2P_2.rev_timing_rmp2 + 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp2 + 1) : g_e2p_data.E2P_2.rev_timing_rmp3; break;
 			case 6:	g_e2p_data.E2P_6.num6_unit += Acc; g_e2p_data.E2P_6.num6_unit = (g_e2p_data.E2P_6.num6_unit > num_unit_value) ? num_unit_value : g_e2p_data.E2P_6.num6_unit; break;
+			case 7:	g_e2p_data.E2P_2.rev_timing_rmp3 -= Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp3 = (g_e2p_data.E2P_2.rev_timing_rmp3 < (g_e2p_data.E2P_2.rev_timing_rmp2 + 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp2 + 1) : g_e2p_data.E2P_2.rev_timing_rmp3; break;
+			case 8:	g_e2p_data.E2P_3.t_afr_data_select  += Acc; g_e2p_data.E2P_3.t_afr_data_select  = (g_e2p_data.E2P_3.t_afr_data_select  > t_afr_data_select_value) ? t_afr_data_select_value : g_e2p_data.E2P_3.t_afr_data_select;  break;
 		}
-		if(num_page != 8)
+		if((num_page != 9) && (num_page != 10) && (num_page != 11) && (num_page != 12))
 		{
 			LCD_locate(270,24 * 7);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
 			LCD_RefreshFast();
@@ -1942,7 +2188,7 @@ void A202(void)
 			case 5:	g_e2p_data.E2P_7.num5_warning += Acc; Acc ++; g_e2p_data.E2P_7.num5_warning = (g_e2p_data.E2P_7.num5_warning > 30000) ? 30000 : g_e2p_data.E2P_7.num5_warning; break;
 			case 6:	g_e2p_data.E2P_7.num6_warning += Acc; Acc ++; g_e2p_data.E2P_7.num6_warning = (g_e2p_data.E2P_7.num6_warning > 30000) ? 30000 : g_e2p_data.E2P_7.num6_warning; break;
 		}
-		if((num_page != 7) && (num_page != 8))
+		if((num_page != 7) && (num_page != 8) && (num_page != 9) && (num_page != 10) && (num_page != 11) && (num_page != 12))
 		{
 			LCD_locate(230,24 * 8);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
 			LCD_RefreshFast();
@@ -1961,7 +2207,7 @@ void A202(void)
 			case 5:	g_e2p_data.E2P_7.num5_warning -= Acc; Acc ++; g_e2p_data.E2P_7.num5_warning = (g_e2p_data.E2P_7.num5_warning < -30000) ? -30000 : g_e2p_data.E2P_7.num5_warning; break;
 			case 6:	g_e2p_data.E2P_7.num6_warning -= Acc; Acc ++; g_e2p_data.E2P_7.num6_warning = (g_e2p_data.E2P_7.num6_warning < -30000) ? -30000 : g_e2p_data.E2P_7.num6_warning; break;
 		}
-		if((num_page != 7) && (num_page != 8))
+		if((num_page != 7) && (num_page != 8) && (num_page != 9) && (num_page != 10) && (num_page != 11) && (num_page != 12))
 		{
 			LCD_locate(270,24 * 8);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
 			LCD_RefreshFast();
@@ -2051,6 +2297,9 @@ void A991(void)
 	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
 	while(g_int50mscnt < 0);
 	mtrs_start((const unsigned char *)&g_e2p_data + 0x70, 0x70, 16);	// E2P_8
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x80, 0x80, 16);	// E2P_9
 	
 	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("Save is complete.");
 	LCD_locate( 20, 24 * 6 + 6);	LCD_textout("Please restart!!");
@@ -2188,7 +2437,7 @@ void funcS110(void)
 	num5 = ((long)(num_data_select(g_e2p_data.E2P_6.num5_data_select)) + g_e2p_data.E2P_6.num5_bias) * g_e2p_data.E2P_6.num5_gain / 1000;
 	num6 = ((long)(num_data_select(g_e2p_data.E2P_6.num6_data_select)) + g_e2p_data.E2P_6.num6_bias) * g_e2p_data.E2P_6.num6_gain / 1000;
 	// 算出値リミット
-	rev  = (rev  >= +32000) ? +32000 : rev ;	rev  = (rev  <= -32000) ? -32000 : rev ;
+	rev  = (rev  >=  +9000) ? + 9000 : rev ;	rev  = (rev  <=      0) ?      0 : rev ;
 	afr  = (afr  >= +32000) ? +32000 : afr ;	afr  = (afr  <= -32000) ? -32000 : afr ;
 	num1 = (num1 >= +32000) ? +32000 : num1;	num1 = (num1 <= -32000) ? -32000 : num1;
 	num2 = (num2 >= +32000) ? +32000 : num2;	num2 = (num2 <= -32000) ? -32000 : num2;
@@ -2334,7 +2583,7 @@ void funcS120(void)
 	num5 = ((long)(num_data_select(g_e2p_data.E2P_6.num5_data_select)) + g_e2p_data.E2P_6.num5_bias) * g_e2p_data.E2P_6.num5_gain / 1000;
 	num6 = ((long)(num_data_select(g_e2p_data.E2P_6.num6_data_select)) + g_e2p_data.E2P_6.num6_bias) * g_e2p_data.E2P_6.num6_gain / 1000;
 	// 算出値リミット
-	rev  = (rev  >= +32767) ? +32767 : rev ;	rev  = (rev  <= -32767) ? -32767 : rev ;
+	rev  = (rev  >=  +9000) ? + 9000 : rev ;	rev  = (rev  <=      0) ?      0 : rev ;
 	afr  = (afr  >= +32767) ? +32767 : afr ;	afr  = (afr  <= -32767) ? -32767 : afr ;
 	num1 = (num1 >= +32767) ? +32767 : num1;	num1 = (num1 <= -32767) ? -32767 : num1;
 	num2 = (num2 >= +32767) ? +32767 : num2;	num2 = (num2 <= -32767) ? -32767 : num2;
@@ -2458,21 +2707,21 @@ void funcS130(void)
 	// ローカル変数宣言
 	// --------------------------------------------------------------------
 	unsigned int			i;
-	static unsigned int		ChartX = 314, ChartY = 0;
-	int						chart_line0, chart_line1;
-	int						rev, afr, num1, num2, num3, num4, num5, num6;
+	int						chart_line0, chart_line1, chart_line2, chart_line3;
+	int						rev, afr, tafr, num1, num2, num3, num4, num5, num6, cht1, cht2;
+	long					chart1_point, chart2_point;
 	
 	// --------------------------------------------------------------------
 	// チャート部　画面クリア&ベース描画
 	// --------------------------------------------------------------------
 	//チャート面クリア
-	LCD_PAINT( 113,   4, 203, 207, COLOR_WHITE);
+	LCD_PAINT( 113,   4, 203, 139, COLOR_WHITE);
 	//縦罫線
-	LCD_line ( 114,   5, 114, 209, 0xCE59);
-	LCD_line ( 164,   5, 164, 209, 0xCE59);
-	LCD_line ( 214,   5, 214, 209, 0xCE59);
-	LCD_line ( 264,   5, 264, 209, 0xCE59);
-	LCD_line ( 314,   5, 314, 209, 0xCE59);
+	LCD_line ( 114,   5, 114, 141, 0xCE59);
+	LCD_line ( 164,   5, 164, 141, 0xCE59);
+	LCD_line ( 214,   5, 214, 141, 0xCE59);
+	LCD_line ( 264,   5, 264, 141, 0xCE59);
+	LCD_line ( 314,   5, 314, 141, 0xCE59);
 	//横罫線
 	LCD_line ( 114,   5, 314,   5, 0xCE59);
 	LCD_line ( 114,  22, 314,  22, 0xCE59);
@@ -2483,28 +2732,39 @@ void funcS130(void)
 	LCD_line ( 114, 107, 314, 107, 0xCE59);
 	LCD_line ( 114, 124, 314, 124, 0xCE59);
 	LCD_line ( 114, 141, 314, 141, 0xCE59);
-	LCD_line ( 114, 158, 314, 158, 0xCE59);
-	LCD_line ( 114, 175, 314, 175, 0xCE59);
-	LCD_line ( 114, 192, 314, 192, 0xCE59);
-	LCD_line ( 114, 209, 314, 209, 0xCE59);
 	//空燃比罫線
-	LCD_line2( 114,  95, 314,  95, 0xFE50);	// 14.7
-	LCD_line2( 114, 132, 314, 132, 0x865F);	// 12.5
+	LCD_line2( 114,  95 - 51, 314,  95 - 51, 0xFE50);	// 14.7
+	LCD_line2( 114, 132 - 51, 314, 132 - 51, 0x865F);	// 12.5
+	//ゲージ1
+	LCD_PAINT( 113, 146, 203,  30, COLOR_WHITE);
+	//ゲージ2
+	LCD_PAINT( 113, 179, 203,  30, COLOR_WHITE);
 	
 	// --------------------------------------------------------------------
 	// 数値算出
 	// --------------------------------------------------------------------
-	rev  = ((long)(rev_data_select(g_e2p_data.E2P_3.rev_data_select )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
-	afr  = ((long)(afr_data_select(g_e2p_data.E2P_3.afr_data_select )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
-	num1 = ((long)(num_data_select(g_e2p_data.E2P_4.num1_data_select)) + g_e2p_data.E2P_4.num1_bias) * g_e2p_data.E2P_4.num1_gain / 1000;
-	num2 = ((long)(num_data_select(g_e2p_data.E2P_4.num2_data_select)) + g_e2p_data.E2P_4.num2_bias) * g_e2p_data.E2P_4.num2_gain / 1000;
-	num3 = ((long)(num_data_select(g_e2p_data.E2P_5.num3_data_select)) + g_e2p_data.E2P_5.num3_bias) * g_e2p_data.E2P_5.num3_gain / 1000;
-	num4 = ((long)(num_data_select(g_e2p_data.E2P_5.num4_data_select)) + g_e2p_data.E2P_5.num4_bias) * g_e2p_data.E2P_5.num4_gain / 1000;
-	num5 = ((long)(num_data_select(g_e2p_data.E2P_6.num5_data_select)) + g_e2p_data.E2P_6.num5_bias) * g_e2p_data.E2P_6.num5_gain / 1000;
-	num6 = ((long)(num_data_select(g_e2p_data.E2P_6.num6_data_select)) + g_e2p_data.E2P_6.num6_bias) * g_e2p_data.E2P_6.num6_gain / 1000;
+	rev  = ((long)(rev_data_select(g_e2p_data.E2P_3.rev_data_select    )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
+	afr  = ((long)(afr_data_select(g_e2p_data.E2P_3.afr_data_select    )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+	if(g_e2p_data.E2P_3.t_afr_data_select != 0)
+	{
+		tafr = ((long)(t_afr_data_select(g_e2p_data.E2P_3.t_afr_data_select)) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+	}
+	else
+	{
+		tafr = 0;
+	}
+	num1 = ((long)(num_data_select(g_e2p_data.E2P_4.num1_data_select   )) + g_e2p_data.E2P_4.num1_bias) * g_e2p_data.E2P_4.num1_gain / 1000;
+	num2 = ((long)(num_data_select(g_e2p_data.E2P_4.num2_data_select   )) + g_e2p_data.E2P_4.num2_bias) * g_e2p_data.E2P_4.num2_gain / 1000;
+	num3 = ((long)(num_data_select(g_e2p_data.E2P_5.num3_data_select   )) + g_e2p_data.E2P_5.num3_bias) * g_e2p_data.E2P_5.num3_gain / 1000;
+	num4 = ((long)(num_data_select(g_e2p_data.E2P_5.num4_data_select   )) + g_e2p_data.E2P_5.num4_bias) * g_e2p_data.E2P_5.num4_gain / 1000;
+	num5 = ((long)(num_data_select(g_e2p_data.E2P_6.num5_data_select   )) + g_e2p_data.E2P_6.num5_bias) * g_e2p_data.E2P_6.num5_gain / 1000;
+	num6 = ((long)(num_data_select(g_e2p_data.E2P_6.num6_data_select   )) + g_e2p_data.E2P_6.num6_bias) * g_e2p_data.E2P_6.num6_gain / 1000;
+	cht1 = ((long)(num_data_select(g_e2p_data.E2P_8.cht1_data_select   )) + g_e2p_data.E2P_8.cht1_bias) * g_e2p_data.E2P_8.cht1_gain / 1000;
+	cht2 = ((long)(num_data_select(g_e2p_data.E2P_8.cht2_data_select   )) + g_e2p_data.E2P_8.cht2_bias) * g_e2p_data.E2P_8.cht2_gain / 1000;
 	// 算出値リミット
-	rev  = (rev  >= +32767) ? +32767 : rev ;	rev  = (rev  <= -32767) ? -32767 : rev ;
+	rev  = (rev  >=  +9000) ? + 9000 : rev ;	rev  = (rev  <=      0) ?      0 : rev ;
 	afr  = (afr  >= +32767) ? +32767 : afr ;	afr  = (afr  <= -32767) ? -32767 : afr ;
+	tafr = (tafr >= +32767) ? +32767 : tafr;	tafr = (tafr <= -32767) ? -32767 : tafr;
 	num1 = (num1 >= +32767) ? +32767 : num1;	num1 = (num1 <= -32767) ? -32767 : num1;
 	num2 = (num2 >= +32767) ? +32767 : num2;	num2 = (num2 <= -32767) ? -32767 : num2;
 	num3 = (num3 >= +32767) ? +32767 : num3;	num3 = (num3 <= -32767) ? -32767 : num3;
@@ -2568,10 +2828,13 @@ void funcS130(void)
 			{
 				chart_buf1[i - 1] = chart_buf1[i];
 				chart_buf2[i - 1] = chart_buf2[i];
+				chart_buf3[i - 1] = chart_buf3[i];
+				chart_buf4[i - 1] = chart_buf4[i];
 			}
-//			chart_buf1[ChartBufNum - 1] = afr_data_select(g_e2p_data.E2P_3.afr_data_select);
-			chart_buf1[ChartBufNum - 1] = afr;
-			chart_buf2[ChartBufNum - 1] = rev;
+			chart_buf1[ChartBufNum - 1] = tafr;
+			chart_buf2[ChartBufNum - 1] = afr;
+			chart_buf3[ChartBufNum - 1] = cht1;
+			chart_buf4[ChartBufNum - 1] = cht2;
 		}
 		
 		g_int50mscnt = 0;
@@ -2584,31 +2847,61 @@ void funcS130(void)
 	// --------------------------------------------------------------------
 	// AFチャート描画
 	// --------------------------------------------------------------------
+	if(g_e2p_data.E2P_3.t_afr_data_select != 0)
+	{
+		for(i = 1; i < ChartBufNum; i++ )
+		{
+			// 目標空燃比座標算出
+			chart_line0 = ((chart_buf1[i - 1] * 13926) >> 13) * (-1) + 293;
+			chart_line0 = (chart_line0 > 140) ? 140 : chart_line0;
+			chart_line0 = (chart_line0 <   6) ?   6 : chart_line0;
+			
+			chart_line1 = ((chart_buf1[i    ] * 13926) >> 13) * (-1) + 293;
+			chart_line1 = (chart_line1 > 140) ? 140 : chart_line1;
+			chart_line1 = (chart_line1 <   6) ?   6 : chart_line1;
+			
+			// 目標空燃比プロット
+			LCD_line2((i - 1 + 114), chart_line0, ( i + 114), chart_line1, COLOR_RED);
+		}
+	}
+	else
+	{
+		// 描画なし
+	}
+		
 	for(i = 1; i < ChartBufNum; i++ )
 	{
-		chart_line0 = ((chart_buf1[i - 1] * 13926) >> 13) * (-1) + 340;
-		chart_line0 = (chart_line0 > 204) ? 204 : chart_line0;
-		chart_line0 = (chart_line0 <   1) ?   1 : chart_line0;
+		// 実空燃比座標算出
+		chart_line2 = ((chart_buf2[i - 1] * 13926) >> 13) * (-1) + 293;
+		chart_line2 = (chart_line2 > 140) ? 140 : chart_line2;
+		chart_line2 = (chart_line2 <   6) ?   6 : chart_line2;
 		
-		chart_line1 = ((chart_buf1[i    ] * 13926) >> 13) * (-1) + 340;
-		chart_line1 = (chart_line1 > 204) ? 204 : chart_line1;
-		chart_line1 = (chart_line1 <   1) ?   1 : chart_line1;
+		chart_line3 = ((chart_buf2[i    ] * 13926) >> 13) * (-1) + 293;
+		chart_line3 = (chart_line3 > 140) ? 140 : chart_line3;
+		chart_line3 = (chart_line3 <   6) ?   6 : chart_line3;
 		
-		LCD_line2((i - 1 + 114), chart_line0      - 1 + 5,( i + 114), chart_line1  - 1 + 5, COLOR_BLUE);
+		// 実空燃比プロット
+		LCD_line2((i - 1 + 114), chart_line2, ( i + 114), chart_line3, COLOR_BLUE);
 	}
 	
 	// --------------------------------------------------------------------
 	// ベース描画
 	// --------------------------------------------------------------------
 	LCD_locate(  0, 24 * 1 + 6);	num_label_draw(g_e2p_data.E2P_3.afr_label);
-	LCD_locate(  0, 24 * 3 + 6);	LCD_textout("RPM");
-	LCD_locate( 93,   0);			LCD_textout("20");
-	LCD_locate( 93,  34);			LCD_textout("18");
-	LCD_locate( 93,  68);			LCD_textout("16");
-	LCD_locate( 93, 102);			LCD_textout("14");
-	LCD_locate( 93, 136);			LCD_textout("12");
-	LCD_locate( 93, 170);			LCD_textout("10");
-	LCD_locate( 12, 24 * 8 + 6);	LCD_textout("2.5s/DIV");
+	if(g_e2p_data.E2P_3.t_afr_data_select != 0)
+	{
+		LCD_locate(  0, 24 * 3 + 6);	LCD_textout("TARGET");
+	}
+	else
+	{
+		// 描画なし
+	}
+	LCD_locate(  0, 24 * 5 + 6);	num_label_draw(g_e2p_data.E2P_8.cht1_label);
+	LCD_locate(  0, 24 * 7 + 6);	num_label_draw(g_e2p_data.E2P_8.cht2_label);
+	LCD_locate( 93,  68 - 51);		LCD_textout("16");
+	LCD_locate( 93, 102 - 51);		LCD_textout("14");
+	LCD_locate( 93, 136 - 51);		LCD_textout("12");
+	LCD_locate( 93, 170 - 51);		LCD_textout("10");
 	
 	if(chart_onoff == 0)
 	{
@@ -2616,7 +2909,30 @@ void funcS130(void)
 		// 数値メータ描画
 		// --------------------------------------------------------------------
 		LCD_locate(  0, 24 * 2);	LCD_INT_drawBN (afr	, 5, g_e2p_data.E2P_3.afr_dp );
-		LCD_locate(  0, 24 * 4);	LCD_INT_drawBN (rev , 5, 0);
+		if(g_e2p_data.E2P_3.t_afr_data_select != 0)
+		{
+			LCD_locate(  0, 24 * 4);	LCD_INT_drawBN (tafr, 5, g_e2p_data.E2P_3.afr_dp );
+		}
+		else
+		{
+			// 描画なし
+		}
+		LCD_locate(  0, 24 * 6);	LCD_INT_drawBN (cht1, 5, g_e2p_data.E2P_8.cht1_dp);
+		LCD_locate(  0, 24 * 8);	LCD_INT_drawBN (cht2, 5, g_e2p_data.E2P_8.cht2_dp);
+		
+		// ゲージ1描画
+		chart1_point = ((long)(cht1 + g_e2p_data.E2P_9.cht1_guage_bias) * g_e2p_data.E2P_9.cht1_guage_gain / 1000);
+		chart1_point = (chart1_point  >=  200) ? + 200 : chart1_point;
+		chart1_point = (chart1_point  <=    0) ?     0 : chart1_point;
+		chart1_point ++;
+		LCD_PAINT( 114, 148, chart1_point,  26, COLOR_BLUE);
+		
+		// ゲージ2描画
+		chart2_point = ((long)(cht2 + g_e2p_data.E2P_9.cht2_guage_bias) * g_e2p_data.E2P_9.cht2_guage_gain / 1000);
+		chart2_point = (chart2_point  >=  200) ? + 200 : chart2_point;
+		chart2_point = (chart2_point  <=    0) ?     0 : chart2_point;
+		chart2_point ++;
+		LCD_PAINT( 114, 181, chart2_point,  26, COLOR_BLUE);
 		
 		// --------------------------------------------------------------------
 		// チャート停止アイコン描画
@@ -2628,39 +2944,61 @@ void funcS130(void)
 		// --------------------------------------------------------------------
 		// 数値メータ描画
 		// --------------------------------------------------------------------
-		LCD_locate(  0, 24 * 2);	LCD_INT_drawBNR( chart_buf1[ChartX - 114] , 5, g_e2p_data.E2P_3.afr_dp );
-		LCD_locate(  0, 24 * 4);	LCD_INT_drawBNR( chart_buf2[ChartX - 114] , 5, 0);
-//		LCD_locate(  0, 24 * 2);	LCD_INT_drawBNR((chart_buf1[ChartX - 114] * 147 + 500) /1000,5, 1);
-//		LCD_locate(  0, 24 * 4);	LCD_INT_drawBNR( chart_buf2[ChartX - 114]					,5, 0);
-		
-		// --------------------------------------------------------------------
-		// タッチ操作処理
-		// --------------------------------------------------------------------
-		if(touch_drag_flg)			// タッチパネル押下判定あり
+		LCD_locate(  0, 24 * 2);	LCD_INT_drawBNR( chart_buf2[ChartX - 114] , 5, g_e2p_data.E2P_3.afr_dp );
+		if(g_e2p_data.E2P_3.t_afr_data_select != 0)
 		{
-			touch_drag_flg = 0;		// フラグクリア
-			
-			if((g_DragX >= 114) && (g_DragX <= 314) && (g_DragY >=   5) && (g_DragY <= 209))
-			{
-				ChartX = g_DragX;
-				ChartY = g_DragY;
-			}
-			else
-			{
-				//
-			}
+			LCD_locate(  0, 24 * 4);	LCD_INT_drawBNR( chart_buf1[ChartX - 114] , 5, g_e2p_data.E2P_3.afr_dp );
 		}
 		else
 		{
-			//
+			// 描画なし
 		}
-		LCD_line ( ChartX,   5,  ChartX, 209, COLOR_RED);
+		LCD_locate(  0, 24 * 6);	LCD_INT_drawBNR( chart_buf3[ChartX - 114] , 5, g_e2p_data.E2P_8.cht1_dp);
+		LCD_locate(  0, 24 * 8);	LCD_INT_drawBNR( chart_buf4[ChartX - 114] , 5, g_e2p_data.E2P_8.cht2_dp);
+		
+		// チャートドラッググリッド線描画
+		LCD_line ( ChartX,   5,  ChartX, 141, COLOR_RED);
+		
+		// ゲージ1描画
+		chart1_point = ((long)(chart_buf3[ChartX - 114] + g_e2p_data.E2P_9.cht1_guage_bias) * g_e2p_data.E2P_9.cht1_guage_gain / 1000);
+		chart1_point = (chart1_point  >=  200) ? + 200 : chart1_point;
+		chart1_point = (chart1_point  <=    0) ?     0 : chart1_point;
+		chart1_point ++;
+		LCD_PAINT( 114, 148, chart1_point,  26, COLOR_BLUE);
+		
+		// ゲージ2描画
+		chart2_point = ((long)(chart_buf4[ChartX - 114] + g_e2p_data.E2P_9.cht2_guage_bias) * g_e2p_data.E2P_9.cht2_guage_gain / 1000);
+		chart2_point = (chart2_point  >=  200) ? + 200 : chart2_point;
+		chart2_point = (chart2_point  <=    0) ?     0 : chart2_point;
+		chart2_point ++;
+		LCD_PAINT( 114, 181, chart2_point,  26, COLOR_BLUE);
+		
 		// --------------------------------------------------------------------
 		// チャート再生アイコン描画
 		// --------------------------------------------------------------------
-		LCD_locate(130,215);	LCD_Gcopy(256,  72, 64, 24, (volatile unsigned int    *)FONT);	// 右
+		LCD_locate(130,215);	LCD_Gcopy(256,  72, 64, 24, (volatile unsigned int    *)FONTR);	// 右
 	}
 		
+	// --------------------------------------------------------------------
+	// 罫線描画
+	// --------------------------------------------------------------------
+	for(i = 0; i <= 200 ; i = i + (200 / (g_e2p_data.E2P_9.cht1_guage_grid + 1)))
+	{
+		// 縦罫線
+		LCD_line ( 114 + i, 148, 114 + i, 173, 0xCE59);
+	}
+	//横罫線
+	LCD_line ( 114, 147, 114 + (i - (200 / (g_e2p_data.E2P_9.cht1_guage_grid + 1))), 147, 0xCE59);
+	LCD_line ( 114, 174, 114 + (i - (200 / (g_e2p_data.E2P_9.cht1_guage_grid + 1))), 174, 0xCE59);
+	for(i = 0; i <= 200 ; i = i + (200 / (g_e2p_data.E2P_9.cht2_guage_grid + 1)))
+	{
+		// 縦罫線
+		LCD_line ( 114 + i, 181, 114 + i, 206, 0xCE59);
+	}
+	//横罫線
+	LCD_line ( 114, 180, 114 + (i - (200 / (g_e2p_data.E2P_9.cht2_guage_grid + 1))), 180, 0xCE59);
+	LCD_line ( 114, 207, 114 + (i - (200 / (g_e2p_data.E2P_9.cht2_guage_grid + 1))), 207, 0xCE59);
+	
 	// --------------------------------------------------------------------
 	// カーソルアイコン描画
 	// --------------------------------------------------------------------
@@ -2688,55 +3026,81 @@ void funcS210(void)
 	LCD_locate( 20, 24 * 0 + 6);
 	switch(num_page)
 	{
-		case 1:		LCD_textout("<<NUM 1 SETTINGS>>");	break;
-		case 2:		LCD_textout("<<NUM 2 SETTINGS>>");	break;
-		case 3:		LCD_textout("<<NUM 3 SETTINGS>>");	break;
-		case 4:		LCD_textout("<<NUM 4 SETTINGS>>");	break;
-		case 5:		LCD_textout("<<NUM 5 SETTINGS>>");	break;
-		case 6:		LCD_textout("<<NUM 6 SETTINGS>>");	break;
-		case 7:		LCD_textout("<<REV SETTINGS>>");	break;
-		case 8:		LCD_textout("<<AFR SETTINGS>>");	break;
+		case  1:		LCD_textout("<<NUM 1 SETTINGS>>");			break;
+		case  2:		LCD_textout("<<NUM 2 SETTINGS>>");			break;
+		case  3:		LCD_textout("<<NUM 3 SETTINGS>>");			break;
+		case  4:		LCD_textout("<<NUM 4 SETTINGS>>");			break;
+		case  5:		LCD_textout("<<NUM 5 SETTINGS>>");			break;
+		case  6:		LCD_textout("<<NUM 6 SETTINGS>>");			break;
+		case  7:		LCD_textout("<<REV SETTINGS>>");			break;
+		case  8:		LCD_textout("<<AFR SETTINGS>>");			break;
+		case  9:		LCD_textout("<<CHART NUM 1 SETTINGS>>");	break;
+		case 10:		LCD_textout("<<CHART NUM 2 SETTINGS>>");	break;
+		case 11:		LCD_textout("<<CHART GUAGE 1 SETTINGS>>");	break;
+		case 12:		LCD_textout("<<CHART GUAGE 2 SETTINGS>>");	break;
 	}
 	
-							LCD_locate( 20, 24 * 1 + 6);	LCD_textout("Data Select");
+	if((num_page != 11)
+	&&( num_page != 12)){	LCD_locate( 20, 24 * 1 + 6);	LCD_textout("Data Select");}
 							LCD_locate( 20, 24 * 3 + 6);	LCD_textout("Gain  ");
 							LCD_locate( 20, 24 * 4 + 6);	LCD_textout("Bias  ");
-	if( num_page != 7) {	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("DP    ");
-							LCD_locate( 20, 24 * 6 + 6);	LCD_textout("Label ");}
 	if((num_page != 7)
-	&&( num_page != 8)){	LCD_locate( 20, 24 * 7 + 6);	LCD_textout("Unit  ");
+	&&( num_page != 11)
+	&&( num_page != 12)){	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("DP    ");
+							LCD_locate( 20, 24 * 6 + 6);	LCD_textout("Label ");}
+	if((num_page == 11)
+	||( num_page == 12)){	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("Grid  ");}
+	
+	if((num_page != 7)
+	&&( num_page != 8)
+	&&( num_page != 9)
+	&&( num_page != 10)
+	&&( num_page != 11)
+	&&( num_page != 12)){	LCD_locate( 20, 24 * 7 + 6);	LCD_textout("Unit  ");
 							LCD_locate( 20, 24 * 8 + 6);	LCD_textout("Limit ");}
 	
 	if( num_page == 7) {	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("REV-1 ");
 							LCD_locate( 20, 24 * 6 + 6);	LCD_textout("REV-2 ");
 							LCD_locate( 20, 24 * 7 + 6);	LCD_textout("REV-3 ");}
-	
+	if( num_page == 8) {	LCD_locate( 20, 24 * 7 + 6);	LCD_textout("TARGET AFR Select");}
+
 	LCD_locate( 20, 24 * 2 + 6);
 	switch(num_page)
 	{
-		case 1:		num_data_select_draw(g_e2p_data.E2P_4.num1_data_select);	break;
-		case 2:		num_data_select_draw(g_e2p_data.E2P_4.num2_data_select);	break;
-		case 3:		num_data_select_draw(g_e2p_data.E2P_5.num3_data_select);	break;
-		case 4:		num_data_select_draw(g_e2p_data.E2P_5.num4_data_select);	break;
-		case 5:		num_data_select_draw(g_e2p_data.E2P_6.num5_data_select);	break;
-		case 6:		num_data_select_draw(g_e2p_data.E2P_6.num6_data_select);	break;
-		case 7:		rev_data_select_draw(g_e2p_data.E2P_3.rev_data_select );	break;
-		case 8:		afr_data_select_draw(g_e2p_data.E2P_3.afr_data_select );	break;
+		case  1:		num_data_select_draw(g_e2p_data.E2P_4.num1_data_select);	break;
+		case  2:		num_data_select_draw(g_e2p_data.E2P_4.num2_data_select);	break;
+		case  3:		num_data_select_draw(g_e2p_data.E2P_5.num3_data_select);	break;
+		case  4:		num_data_select_draw(g_e2p_data.E2P_5.num4_data_select);	break;
+		case  5:		num_data_select_draw(g_e2p_data.E2P_6.num5_data_select);	break;
+		case  6:		num_data_select_draw(g_e2p_data.E2P_6.num6_data_select);	break;
+		case  7:		rev_data_select_draw(g_e2p_data.E2P_3.rev_data_select );	break;
+		case  8:		afr_data_select_draw(g_e2p_data.E2P_3.afr_data_select );	break;
+		case  9:		num_data_select_draw(g_e2p_data.E2P_8.cht1_data_select);	break;
+		case 10:		num_data_select_draw(g_e2p_data.E2P_8.cht2_data_select);	break;
 	}
-	LCD_locate(230, 24 * 1    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-	LCD_locate(270, 24 * 1    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	switch(num_page)
+	{
+		case 1:	case 2:	case 3:	case 4:	case 5:	case 6:	case 7:	case 8:	case 9:	case 10:
+		LCD_locate(230, 24 * 1    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270, 24 * 1    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+		break;
+	}
 	
 	LCD_locate( 80, 24 * 3 + 6);	LCD_textout("< x ");
 	switch(num_page)
 	{
-		case 1:		LCD_INT_draw(g_e2p_data.E2P_4.num1_gain, 6, 3);	break;
-		case 2:		LCD_INT_draw(g_e2p_data.E2P_4.num2_gain, 6, 3);	break;
-		case 3:		LCD_INT_draw(g_e2p_data.E2P_5.num3_gain, 6, 3);	break;
-		case 4:		LCD_INT_draw(g_e2p_data.E2P_5.num4_gain, 6, 3);	break;
-		case 5:		LCD_INT_draw(g_e2p_data.E2P_6.num5_gain, 6, 3);	break;
-		case 6:		LCD_INT_draw(g_e2p_data.E2P_6.num6_gain, 6, 3);	break;
-		case 7:		LCD_INT_draw(g_e2p_data.E2P_3.rev_gain , 6, 3);	break;
-		case 8:		LCD_INT_draw(g_e2p_data.E2P_3.afr_gain , 6, 3);	break;
+		case  1:		LCD_INT_draw(g_e2p_data.E2P_4.num1_gain, 6, 3);	break;
+		case  2:		LCD_INT_draw(g_e2p_data.E2P_4.num2_gain, 6, 3);	break;
+		case  3:		LCD_INT_draw(g_e2p_data.E2P_5.num3_gain, 6, 3);	break;
+		case  4:		LCD_INT_draw(g_e2p_data.E2P_5.num4_gain, 6, 3);	break;
+		case  5:		LCD_INT_draw(g_e2p_data.E2P_6.num5_gain, 6, 3);	break;
+		case  6:		LCD_INT_draw(g_e2p_data.E2P_6.num6_gain, 6, 3);	break;
+		case  7:		LCD_INT_draw(g_e2p_data.E2P_3.rev_gain , 6, 3);	break;
+		case  8:		LCD_INT_draw(g_e2p_data.E2P_3.afr_gain , 6, 3);	break;
+		case  9:		LCD_INT_draw(g_e2p_data.E2P_8.cht1_gain, 6, 3);	break;
+		case 10:		LCD_INT_draw(g_e2p_data.E2P_8.cht2_gain, 6, 3);	break;
+		case 11:		LCD_INT_draw(g_e2p_data.E2P_9.cht1_guage_gain, 6, 3);	break;
+		case 12:		LCD_INT_draw(g_e2p_data.E2P_9.cht2_guage_gain, 6, 3);	break;
 	}
 	LCD_locate(200, 24 * 3 + 6);	LCD_textout(">");
 	LCD_locate(230, 24 * 3    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
@@ -2745,14 +3109,18 @@ void funcS210(void)
 	LCD_locate( 80, 24 * 4 + 6);	LCD_textout("< + ");
 	switch(num_page)
 	{
-		case 1:		LCD_INT_draw(g_e2p_data.E2P_4.num1_bias, 6, 0);	break;
-		case 2:		LCD_INT_draw(g_e2p_data.E2P_4.num2_bias, 6, 0);	break;
-		case 3:		LCD_INT_draw(g_e2p_data.E2P_5.num3_bias, 6, 0);	break;
-		case 4:		LCD_INT_draw(g_e2p_data.E2P_5.num4_bias, 6, 0);	break;
-		case 5:		LCD_INT_draw(g_e2p_data.E2P_6.num5_bias, 6, 0);	break;
-		case 6:		LCD_INT_draw(g_e2p_data.E2P_6.num6_bias, 6, 0);	break;
-		case 7:		LCD_INT_draw(g_e2p_data.E2P_3.rev_bias , 6, 0);	break;
-		case 8:		LCD_INT_draw(g_e2p_data.E2P_3.afr_bias , 6, 0);	break;
+		case  1:		LCD_INT_draw(g_e2p_data.E2P_4.num1_bias, 6, 0);	break;
+		case  2:		LCD_INT_draw(g_e2p_data.E2P_4.num2_bias, 6, 0);	break;
+		case  3:		LCD_INT_draw(g_e2p_data.E2P_5.num3_bias, 6, 0);	break;
+		case  4:		LCD_INT_draw(g_e2p_data.E2P_5.num4_bias, 6, 0);	break;
+		case  5:		LCD_INT_draw(g_e2p_data.E2P_6.num5_bias, 6, 0);	break;
+		case  6:		LCD_INT_draw(g_e2p_data.E2P_6.num6_bias, 6, 0);	break;
+		case  7:		LCD_INT_draw(g_e2p_data.E2P_3.rev_bias , 6, 0);	break;
+		case  8:		LCD_INT_draw(g_e2p_data.E2P_3.afr_bias , 6, 0);	break;
+		case  9:		LCD_INT_draw(g_e2p_data.E2P_8.cht1_bias, 6, 0);	break;
+		case 10:		LCD_INT_draw(g_e2p_data.E2P_8.cht2_bias, 6, 0);	break;
+		case 11:		LCD_INT_draw(g_e2p_data.E2P_9.cht1_guage_bias, 6, 0);	break;
+		case 12:		LCD_INT_draw(g_e2p_data.E2P_9.cht2_guage_bias, 6, 0);	break;
 	}
 	LCD_locate(200, 24 * 4 + 6);	LCD_textout(">");
 	LCD_locate(230, 24 * 4    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
@@ -2761,137 +3129,80 @@ void funcS210(void)
 	LCD_locate( 80, 24 * 5 + 6);
 	switch(num_page)
 	{
-		case 1:		num_dp_draw(g_e2p_data.E2P_4.num1_dp);
-					LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 2:		num_dp_draw(g_e2p_data.E2P_4.num2_dp);
-					LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 3:		num_dp_draw(g_e2p_data.E2P_5.num3_dp);
-					LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 4:		num_dp_draw(g_e2p_data.E2P_5.num4_dp);
-					LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 5:		num_dp_draw(g_e2p_data.E2P_6.num5_dp);
-					LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 6:		num_dp_draw(g_e2p_data.E2P_6.num6_dp);
-					LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 7:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_2.rev_timing_rmp1, 6, 0);	LCD_textout(">");
-					LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 8:		num_dp_draw(g_e2p_data.E2P_3.afr_dp );
-					LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
+		case  1:		num_dp_draw(g_e2p_data.E2P_4.num1_dp);	break;
+		case  2:		num_dp_draw(g_e2p_data.E2P_4.num2_dp);	break;
+		case  3:		num_dp_draw(g_e2p_data.E2P_5.num3_dp);	break;
+		case  4:		num_dp_draw(g_e2p_data.E2P_5.num4_dp);	break;
+		case  5:		num_dp_draw(g_e2p_data.E2P_6.num5_dp);	break;
+		case  6:		num_dp_draw(g_e2p_data.E2P_6.num6_dp);	break;
+		case  7:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_2.rev_timing_rmp1, 6, 0);	LCD_textout(">");	break;
+		case  8:		num_dp_draw(g_e2p_data.E2P_3.afr_dp );	break;
+		case  9:		num_dp_draw(g_e2p_data.E2P_8.cht1_dp);	break;
+		case 10:		num_dp_draw(g_e2p_data.E2P_8.cht2_dp);	break;
+		case 11:		num_grid_draw(g_e2p_data.E2P_9.cht1_guage_grid);	break;
+		case 12:		num_grid_draw(g_e2p_data.E2P_9.cht2_guage_grid);	break;
 	}
+	LCD_locate(230, 24 * 5    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+	LCD_locate(270, 24 * 5    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
 	
 	LCD_locate( 80, 24 * 6 + 6);	
 	switch(num_page)
 	{
-		case 1:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_4.num1_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 2:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_4.num2_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 3:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_5.num3_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 4:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_5.num4_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 5:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_6.num5_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 6:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_6.num6_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 7:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_2.rev_timing_rmp2, 6, 0);	LCD_textout(">");
-					LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 8:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_3.afr_label );	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
+		case  1:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_4.num1_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+		case  2:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_4.num2_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+		case  3:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_5.num3_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+		case  4:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_5.num4_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+		case  5:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_6.num5_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+		case  6:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_6.num6_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+		case  7:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_2.rev_timing_rmp2, 6, 0);	LCD_textout(">");						break;
+		case  8:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_3.afr_label );	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+		case  9:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_8.cht1_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+		case 10:		LCD_textout("< ");	num_label_draw(g_e2p_data.E2P_8.cht2_label);	LCD_locate(200, 24 * 6 + 6);	LCD_textout(">");	break;
+	}
+	switch(num_page)
+	{
+		case 1:	case 2:	case 3:	case 4:	case 5:	case 6:	case 7:	case 8:	case 9:	case 10:
+		LCD_locate(230, 24 * 6    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270, 24 * 6    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+		break;
 	}
 	
 	LCD_locate( 80, 24 * 7 + 6);
 	switch(num_page)
 	{
-		case 1:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_4.num1_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 7    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 7    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 2:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_4.num2_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 7    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 7    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 3:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_5.num3_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 7    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 7    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 4:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_5.num4_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 7    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 7    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 5:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_6.num5_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 7    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 7    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 6:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_6.num6_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 7    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 7    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 7:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_2.rev_timing_rmp3, 6, 0);	LCD_textout(">");
-					LCD_locate(230, 24 * 7    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 7    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
+		case 1:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_4.num1_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");	break;
+		case 2:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_4.num2_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");	break;
+		case 3:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_5.num3_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");	break;
+		case 4:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_5.num4_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");	break;
+		case 5:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_6.num5_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");	break;
+		case 6:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_6.num6_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");	break;
+		case 7:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_2.rev_timing_rmp3, 6, 0);	LCD_textout(">");					break;
+		case 8:		LCD_locate( 20, 24 * 8 + 6);t_afr_data_select_draw(g_e2p_data.E2P_3.t_afr_data_select );							break;
+	}
+	switch(num_page)
+	{
+		case 1:	case 2:	case 3:	case 4:	case 5:	case 6:	case 7:	case 8:
+		LCD_locate(230, 24 * 7    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270, 24 * 7    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+		break;
 	}
 	
 	LCD_locate( 80, 24 * 8 + 6);
 	switch(num_page)
 	{
-		case 1:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num1_warning, 6, g_e2p_data.E2P_4.num1_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 8    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 8    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 2:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num2_warning, 6, g_e2p_data.E2P_4.num2_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 8    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 8    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 3:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num3_warning, 6, g_e2p_data.E2P_5.num3_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 8    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 8    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 4:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num4_warning, 6, g_e2p_data.E2P_5.num4_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 8    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 8    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 5:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num5_warning, 6, g_e2p_data.E2P_6.num5_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 8    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 8    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
-		case 6:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num6_warning, 6, g_e2p_data.E2P_6.num6_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");
-					LCD_locate(230, 24 * 8    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
-					LCD_locate(270, 24 * 8    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
-					break;
+		case 1:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num1_warning, 6, g_e2p_data.E2P_4.num1_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");	break;
+		case 2:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num2_warning, 6, g_e2p_data.E2P_4.num2_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");	break;
+		case 3:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num3_warning, 6, g_e2p_data.E2P_5.num3_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");	break;
+		case 4:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num4_warning, 6, g_e2p_data.E2P_5.num4_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");	break;
+		case 5:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num5_warning, 6, g_e2p_data.E2P_6.num5_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");	break;
+		case 6:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_7.num6_warning, 6, g_e2p_data.E2P_6.num6_dp);	LCD_locate(200, 24 * 8 + 6);	LCD_textout(">");	break;
+	}
+	switch(num_page)
+	{
+		case 1:	case 2:	case 3:	case 4:	case 5:	case 6:
+		LCD_locate(230, 24 * 8    );	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270, 24 * 8    );	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+		break;
 	}
 	
 	// --------------------------------------------------------------------
@@ -3238,6 +3549,7 @@ static void Preset_load_MoTeC1(void)
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
 	g_e2p_data.E2P_3.rev_data_select			=      0; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
 	g_e2p_data.E2P_3.afr_data_select			=      0; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_3.t_afr_data_select			=      1;
 	g_e2p_data.E2P_4.num1_data_select			=      4; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =      0; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
 	g_e2p_data.E2P_4.num2_data_select			=      3; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =      0; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
 	g_e2p_data.E2P_5.num3_data_select			=     15; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 2; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
@@ -3250,6 +3562,10 @@ static void Preset_load_MoTeC1(void)
 	g_e2p_data.E2P_7.num4_warning				=   1500;
 	g_e2p_data.E2P_7.num5_warning				=   1100;
 	g_e2p_data.E2P_7.num6_warning				=    900;
+	g_e2p_data.E2P_8.cht1_data_select			=      0; g_e2p_data.E2P_8.cht1_gain =   1000; g_e2p_data.E2P_8.cht1_bias =      0; g_e2p_data.E2P_8.cht1_dp = 0; g_e2p_data.E2P_8.cht1_label =  3;
+	g_e2p_data.E2P_8.cht2_data_select			=      1; g_e2p_data.E2P_8.cht2_gain =   1000; g_e2p_data.E2P_8.cht2_bias =      0; g_e2p_data.E2P_8.cht2_dp = 1; g_e2p_data.E2P_8.cht2_label = 10;
+	g_e2p_data.E2P_9.cht1_guage_gain			=     25; g_e2p_data.E2P_9.cht1_guage_bias = 0; g_e2p_data.E2P_9.cht1_guage_grid = 7;
+	g_e2p_data.E2P_9.cht2_guage_gain			=    200; g_e2p_data.E2P_9.cht2_guage_bias = 0; g_e2p_data.E2P_9.cht2_guage_grid = 9;
 }
 
 // --------------------------------------------------------------------
@@ -3270,18 +3586,23 @@ static void Preset_load_Haltech1(void)
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
 	g_e2p_data.E2P_3.rev_data_select			=      1; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
 	g_e2p_data.E2P_3.afr_data_select			=      2; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_3.t_afr_data_select			=      0;
 	g_e2p_data.E2P_4.num1_data_select			=     26; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =      0; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
 	g_e2p_data.E2P_4.num2_data_select			=     31; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =      0; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
 	g_e2p_data.E2P_5.num3_data_select			=     28; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 2; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
 	g_e2p_data.E2P_5.num4_data_select			=     30; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
 	g_e2p_data.E2P_6.num5_data_select			=     29; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
-	g_e2p_data.E2P_6.num6_data_select			=     35; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 1; g_e2p_data.E2P_6.num6_label = 15; g_e2p_data.E2P_6.num6_unit =  3;
+	g_e2p_data.E2P_6.num6_data_select			=     35; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 0; g_e2p_data.E2P_6.num6_label = 15; g_e2p_data.E2P_6.num6_unit =  3;
 	g_e2p_data.E2P_7.num1_warning				=   1050;
 	g_e2p_data.E2P_7.num2_warning				=    700;
 	g_e2p_data.E2P_7.num3_warning				=   1600;
 	g_e2p_data.E2P_7.num4_warning				=   1500;
 	g_e2p_data.E2P_7.num5_warning				=   1100;
 	g_e2p_data.E2P_7.num6_warning				=    900;
+	g_e2p_data.E2P_8.cht1_data_select			=     23; g_e2p_data.E2P_8.cht1_gain =   1000; g_e2p_data.E2P_8.cht1_bias =      0; g_e2p_data.E2P_8.cht1_dp = 0; g_e2p_data.E2P_8.cht1_label =  3;
+	g_e2p_data.E2P_8.cht2_data_select			=     29; g_e2p_data.E2P_8.cht2_gain =   1000; g_e2p_data.E2P_8.cht2_bias =      0; g_e2p_data.E2P_8.cht2_dp = 1; g_e2p_data.E2P_8.cht2_label = 10;
+	g_e2p_data.E2P_9.cht1_guage_gain			=     25; g_e2p_data.E2P_9.cht1_guage_bias = 0; g_e2p_data.E2P_9.cht1_guage_grid = 7;
+	g_e2p_data.E2P_9.cht2_guage_gain			=    200; g_e2p_data.E2P_9.cht2_guage_bias = 0; g_e2p_data.E2P_9.cht2_guage_grid = 9;
 }
 
 // --------------------------------------------------------------------
@@ -3294,6 +3615,7 @@ static void Preset_load_Haltech2(void)
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
 	g_e2p_data.E2P_3.rev_data_select			=      2; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
 	g_e2p_data.E2P_3.afr_data_select			=      3; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_3.t_afr_data_select			=      0;
 	g_e2p_data.E2P_4.num1_data_select			=     51; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =  -2731; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
 	g_e2p_data.E2P_4.num2_data_select			=     52; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =  -2731; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
 	g_e2p_data.E2P_5.num3_data_select			=     47; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 2; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
@@ -3306,6 +3628,10 @@ static void Preset_load_Haltech2(void)
 	g_e2p_data.E2P_7.num4_warning				=   1500;
 	g_e2p_data.E2P_7.num5_warning				=   1100;
 	g_e2p_data.E2P_7.num6_warning				=    900;
+	g_e2p_data.E2P_8.cht1_data_select			=     36; g_e2p_data.E2P_8.cht1_gain =   1000; g_e2p_data.E2P_8.cht1_bias =      0; g_e2p_data.E2P_8.cht1_dp = 0; g_e2p_data.E2P_8.cht1_label =  3;
+	g_e2p_data.E2P_8.cht2_data_select			=     38; g_e2p_data.E2P_8.cht2_gain =   1000; g_e2p_data.E2P_8.cht2_bias =      0; g_e2p_data.E2P_8.cht2_dp = 1; g_e2p_data.E2P_8.cht2_label = 10;
+	g_e2p_data.E2P_9.cht1_guage_gain			=     25; g_e2p_data.E2P_9.cht1_guage_bias = 0; g_e2p_data.E2P_9.cht1_guage_grid = 7;
+	g_e2p_data.E2P_9.cht2_guage_gain			=    200; g_e2p_data.E2P_9.cht2_guage_bias = 0; g_e2p_data.E2P_9.cht2_guage_grid = 9;
 }
 
 // --------------------------------------------------------------------
@@ -3326,6 +3652,7 @@ static void Preset_load_Freedom2(void)
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
 	g_e2p_data.E2P_3.rev_data_select			=      3; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
 	g_e2p_data.E2P_3.afr_data_select			=      4; g_e2p_data.E2P_3.afr_gain  =   1000; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_3.t_afr_data_select			=      3;
 	g_e2p_data.E2P_4.num1_data_select			=     57; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =      0; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
 	g_e2p_data.E2P_4.num2_data_select			=     58; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =      0; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
 	g_e2p_data.E2P_5.num3_data_select			=     61; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 1; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
@@ -3338,6 +3665,10 @@ static void Preset_load_Freedom2(void)
 	g_e2p_data.E2P_7.num4_warning				=   1500;
 	g_e2p_data.E2P_7.num5_warning				=   1100;
 	g_e2p_data.E2P_7.num6_warning				=     45;
+	g_e2p_data.E2P_8.cht1_data_select			=     55; g_e2p_data.E2P_8.cht1_gain =   1000; g_e2p_data.E2P_8.cht1_bias =      0; g_e2p_data.E2P_8.cht1_dp = 0; g_e2p_data.E2P_8.cht1_label =  3;
+	g_e2p_data.E2P_8.cht2_data_select			=     60; g_e2p_data.E2P_8.cht2_gain =   1000; g_e2p_data.E2P_8.cht2_bias =      0; g_e2p_data.E2P_8.cht2_dp = 1; g_e2p_data.E2P_8.cht2_label = 10;
+	g_e2p_data.E2P_9.cht1_guage_gain			=     25; g_e2p_data.E2P_9.cht1_guage_bias = 0; g_e2p_data.E2P_9.cht1_guage_grid = 7;
+	g_e2p_data.E2P_9.cht2_guage_gain			=    200; g_e2p_data.E2P_9.cht2_guage_bias = 0; g_e2p_data.E2P_9.cht2_guage_grid = 9;
 }
 
 // --------------------------------------------------------------------
@@ -3350,17 +3681,21 @@ static void Preset_load_MegaSquirt1(void)
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
 	g_e2p_data.E2P_3.rev_data_select			=      4; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
 	g_e2p_data.E2P_3.afr_data_select			=      5; g_e2p_data.E2P_3.afr_gain  =   1000; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
-	g_e2p_data.E2P_4.num1_data_select			=     86; g_e2p_data.E2P_4.num1_gain =    556; g_e2p_data.E2P_4.num1_bias =   -320; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
-	g_e2p_data.E2P_4.num2_data_select			=     85; g_e2p_data.E2P_4.num2_gain =    556; g_e2p_data.E2P_4.num2_bias =   -320; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
-	g_e2p_data.E2P_5.num3_data_select			=     88; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 1; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
-	g_e2p_data.E2P_5.num4_data_select			=     84; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
-	g_e2p_data.E2P_6.num5_data_select			=     87; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
-	g_e2p_data.E2P_6.num6_data_select			=     80; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 1; g_e2p_data.E2P_6.num6_label = 16; g_e2p_data.E2P_6.num6_unit =  0;
+	g_e2p_data.E2P_3.t_afr_data_select			=      4;
+	g_e2p_data.E2P_4.num1_data_select			=     87; g_e2p_data.E2P_4.num1_gain =    556; g_e2p_data.E2P_4.num1_bias =   -320; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
+	g_e2p_data.E2P_4.num2_data_select			=     88; g_e2p_data.E2P_4.num2_gain =    556; g_e2p_data.E2P_4.num2_bias =   -320; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
+	g_e2p_data.E2P_5.num3_data_select			=     89; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 1; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
+	g_e2p_data.E2P_5.num4_data_select			=     85; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
+	g_e2p_data.E2P_6.num5_data_select			=     88; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
+	g_e2p_data.E2P_6.num6_data_select			=     81; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 1; g_e2p_data.E2P_6.num6_label = 16; g_e2p_data.E2P_6.num6_unit =  0;
 	g_e2p_data.E2P_7.num1_warning				=   1050;
 	g_e2p_data.E2P_7.num2_warning				=    700;
 	g_e2p_data.E2P_7.num3_warning				=   1600;
 	g_e2p_data.E2P_7.num4_warning				=   1500;
 	g_e2p_data.E2P_7.num5_warning				=   1100;
 	g_e2p_data.E2P_7.num6_warning				=    450;
+	g_e2p_data.E2P_8.cht1_data_select			=     80; g_e2p_data.E2P_8.cht1_gain =   1000; g_e2p_data.E2P_8.cht1_bias =      0; g_e2p_data.E2P_8.cht1_dp = 0; g_e2p_data.E2P_8.cht1_label =  3;
+	g_e2p_data.E2P_8.cht2_data_select			=     88; g_e2p_data.E2P_8.cht2_gain =   1000; g_e2p_data.E2P_8.cht2_bias =      0; g_e2p_data.E2P_8.cht2_dp = 1; g_e2p_data.E2P_8.cht2_label = 10;
+	g_e2p_data.E2P_9.cht1_guage_gain			=     25; g_e2p_data.E2P_9.cht1_guage_bias = 0; g_e2p_data.E2P_9.cht1_guage_grid = 7;
+	g_e2p_data.E2P_9.cht2_guage_gain			=    200; g_e2p_data.E2P_9.cht2_guage_bias = 0; g_e2p_data.E2P_9.cht2_guage_grid = 9;
 }
-

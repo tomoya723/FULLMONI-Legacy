@@ -19,8 +19,8 @@
 // filename		:	dataregister.c
 // brief		:	FullMoni rev.B データ管理
 // author		:	Tomoya Sato
-// update		:	2013/06/16
-// version		:	1.03
+// update		:	2013/08/05
+// version		:	1.04
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -56,6 +56,7 @@ void Init_e2p_data(void)
 	g_e2p_data.E2P_3.afr_bias					= 0x0000;
 	g_e2p_data.E2P_3.afr_dp						=      0;
 	g_e2p_data.E2P_3.afr_label					=      0;
+	g_e2p_data.E2P_3.t_afr_data_select			=      0;
 	g_e2p_data.E2P_4.num1_data_select			=      0;
 	g_e2p_data.E2P_4.num1_gain					= 0x0000;
 	g_e2p_data.E2P_4.num1_bias					= 0x0000;
@@ -98,6 +99,22 @@ void Init_e2p_data(void)
 	g_e2p_data.E2P_7.num4_warning				= 0xFFFF;
 	g_e2p_data.E2P_7.num5_warning				= 0xFFFF;
 	g_e2p_data.E2P_7.num6_warning				= 0xFFFF;
+	g_e2p_data.E2P_8.cht1_data_select			=      0;
+	g_e2p_data.E2P_8.cht1_gain					= 0x0000;
+	g_e2p_data.E2P_8.cht1_bias					= 0x0000;
+	g_e2p_data.E2P_8.cht1_dp					=      0;
+	g_e2p_data.E2P_8.cht1_label					=      0;
+	g_e2p_data.E2P_8.cht2_data_select			=      0;
+	g_e2p_data.E2P_8.cht2_gain					= 0x0000;
+	g_e2p_data.E2P_8.cht2_bias					= 0x0000;
+	g_e2p_data.E2P_8.cht2_dp					=      0;
+	g_e2p_data.E2P_8.cht2_label					=      0;
+	g_e2p_data.E2P_9.cht1_guage_gain			= 0x0000;
+	g_e2p_data.E2P_9.cht1_guage_bias			= 0x0000;
+	g_e2p_data.E2P_9.cht1_guage_grid			=      0;
+	g_e2p_data.E2P_9.cht2_guage_gain			= 0x0000;
+	g_e2p_data.E2P_9.cht2_guage_bias			= 0x0000;
+	g_e2p_data.E2P_9.cht2_guage_grid			=      0;
 }
 
 // --------------------------------------------------------------------
@@ -113,7 +130,7 @@ void Init_MoTeC1_data(void)
 	g_MoTeC1_data.Lambda1					= 1000;
 	g_MoTeC1_data.Lambda2					= 1000;
 	g_MoTeC1_data.ExhaustPressure			=  500;
-	g_MoTeC1_data.MassAirFlow				= 1000;
+	g_MoTeC1_data.MassAirFlow				=   50;
 	g_MoTeC1_data.FuelTemp					=  700;
 	g_MoTeC1_data.FuelPressure				=   30;
 	g_MoTeC1_data.OilTemp					= 1000;
@@ -123,7 +140,7 @@ void Init_MoTeC1_data(void)
 	g_MoTeC1_data.BatteryVoltage			= 1250;
 	g_MoTeC1_data.ECUTemp					=  400;
 	g_MoTeC1_data.GroundSpeed				=  200;
-	g_MoTeC1_data.AimLambda1				= 1000;
+	g_MoTeC1_data.AimLambda1				=  850;
 	g_MoTeC1_data.AimLambda2				= 1000;
 	g_MoTeC1_data.IgnitionAdvance			=  200;
 	g_MoTeC1_data.InjectorDuty				=   10;
@@ -193,7 +210,7 @@ void Init_Freedom2_data(void)
 	g_Freedom2_data.Status				=    0;
 	g_Freedom2_data.GroundSpeed			= 2000;
 	g_Freedom2_data.AFR					=  123;
-	g_Freedom2_data.AimAFR				=  147;
+	g_Freedom2_data.TargetAFR			=  147;
 	g_Freedom2_data.IATCorrection		=    0;
 	g_Freedom2_data.ETCorrection		=    0;
 	g_Freedom2_data.EStartCorrection	=    0;
@@ -256,7 +273,24 @@ unsigned int afr_data_select(unsigned char afr_data_select)
 		case  3:	return g_Haltech2_data.Lambda;				break;
 		case  4:	return g_Freedom2_data.AFR;					break;
 		case  5:	return g_Megasquirt1_data.afr1;				break;
-		case  6:	return g_Megasquirt1_data.afr1;				break;
+		case  6:	return g_Megasquirt1_data.afr2;				break;
+	}
+}
+
+// --------------------------------------------------------------------
+// 目標空燃比ゲージデータ選択
+// --------------------------------------------------------------------
+unsigned int t_afr_data_select(unsigned char t_afr_data_select)
+{
+	switch(t_afr_data_select)
+	{
+		default:
+		case  0:	return 1;									break;
+		case  1:	return g_MoTeC1_data.AimLambda1;			break;
+		case  2:	return g_MoTeC1_data.AimLambda2;			break;
+		case  3:	return g_Freedom2_data.TargetAFR;			break;
+		case  4:	return g_Megasquirt1_data.afrtgt1;			break;
+		case  5:	return g_Megasquirt1_data.afrtgt1;			break;
 	}
 }
 
@@ -336,29 +370,30 @@ unsigned int num_data_select(unsigned char num_data_select)
 		case 65:	return g_Freedom2_data.Status;				break;
 		case 66:	return g_Freedom2_data.GroundSpeed;			break;
 		case 67:	return g_Freedom2_data.AFR;					break;
-		case 68:	return g_Freedom2_data.IATCorrection;		break;
-		case 69:	return g_Freedom2_data.ETCorrection;		break;
-		case 70:	return g_Freedom2_data.EStartCorrection;	break;
-		case 71:	return g_Freedom2_data.AccelCorrection;		break;
-		case 72:	return g_Freedom2_data.PowerCorrection;		break;
-		case 73:	return g_Freedom2_data.FeedbackCorrection;	break;
-		case 74:	return g_Freedom2_data.IdolCorrection;		break;
-		case 75:	return g_Freedom2_data.DecelCutCorrection;	break;
-		case 76:	return g_Freedom2_data.BaroCorrection;		break;
-		case 77:	return g_Freedom2_data.IdolIGCorrection;	break;
-		case 78:	return g_Freedom2_data.RetardCorrection;	break;
-		case 79:	return g_Megasquirt1_data.rpm;				break;
-		case 80:	return g_Megasquirt1_data.advance;			break;
-		case 81:	return g_Megasquirt1_data.afrtgt1;			break;
-		case 82:	return g_Megasquirt1_data.afrtgt2;			break;
-		case 83:	return g_Megasquirt1_data.barometer;		break;
-		case 84:	return g_Megasquirt1_data.map;				break;
-		case 85:	return g_Megasquirt1_data.mat;				break;
-		case 86:	return g_Megasquirt1_data.coolant;			break;
-		case 87:	return g_Megasquirt1_data.tps;				break;
-		case 88:	return g_Megasquirt1_data.batteryVoltage;	break;
-		case 89:	return g_Megasquirt1_data.afr1;				break;
-		case 90:	return g_Megasquirt1_data.afr2;				break;
+		case 68:	return g_Freedom2_data.TargetAFR;			break;
+		case 69:	return g_Freedom2_data.IATCorrection;		break;
+		case 70:	return g_Freedom2_data.ETCorrection;		break;
+		case 71:	return g_Freedom2_data.EStartCorrection;	break;
+		case 72:	return g_Freedom2_data.AccelCorrection;		break;
+		case 73:	return g_Freedom2_data.PowerCorrection;		break;
+		case 74:	return g_Freedom2_data.FeedbackCorrection;	break;
+		case 75:	return g_Freedom2_data.IdolCorrection;		break;
+		case 76:	return g_Freedom2_data.DecelCutCorrection;	break;
+		case 77:	return g_Freedom2_data.BaroCorrection;		break;
+		case 78:	return g_Freedom2_data.IdolIGCorrection;	break;
+		case 79:	return g_Freedom2_data.RetardCorrection;	break;
+		case 80:	return g_Megasquirt1_data.rpm;				break;
+		case 81:	return g_Megasquirt1_data.advance;			break;
+		case 82:	return g_Megasquirt1_data.afrtgt1;			break;
+		case 83:	return g_Megasquirt1_data.afrtgt2;			break;
+		case 84:	return g_Megasquirt1_data.barometer;		break;
+		case 85:	return g_Megasquirt1_data.map;				break;
+		case 86:	return g_Megasquirt1_data.mat;				break;
+		case 87:	return g_Megasquirt1_data.coolant;			break;
+		case 88:	return g_Megasquirt1_data.tps;				break;
+		case 89:	return g_Megasquirt1_data.batteryVoltage;	break;
+		case 90:	return g_Megasquirt1_data.afr1;				break;
+		case 91:	return g_Megasquirt1_data.afr2;				break;
 	}
 }
 
@@ -374,7 +409,7 @@ void rev_data_select_draw(unsigned char rev_data_select_draw)
 		case  1:	LCD_textout("< Haltech1.RPM             >");	break;
 		case  2:	LCD_textout("< Haltech2.RPM             >");	break;
 		case  3:	LCD_textout("< Freedom2.RPM             >");	break;
-		case  4:	LCD_textout("< MSsquirt1.rpm            >");	break;
+		case  4:	LCD_textout("< MSquirt1.rpm             >");	break;
 	}
 }
 
@@ -391,8 +426,25 @@ void afr_data_select_draw(unsigned char afr_data_select_draw)
 		case  2:	LCD_textout("< Haltech1.Lambda          >");	break;
 		case  3:	LCD_textout("< Haltech2.Lambda          >");	break;
 		case  4:	LCD_textout("< Freedom2.AFR             >");	break;
-		case  5:	LCD_textout("< MSsquirt1.afr1           >");	break;
-		case  6:	LCD_textout("< MSsquirt1.afr2           >");	break;
+		case  5:	LCD_textout("< MSquirt1.afr1            >");	break;
+		case  6:	LCD_textout("< MSquirt1.afr2            >");	break;
+	}
+}
+
+// --------------------------------------------------------------------
+// 目標空燃比ゲージデータ選択描画
+// --------------------------------------------------------------------
+void t_afr_data_select_draw(unsigned char t_afr_data_select_draw)
+{
+	switch(t_afr_data_select_draw)
+	{
+		default:
+		case  0:	LCD_textout("< none                     >");	break;
+		case  1:	LCD_textout("< MoTeC1.AimLambda1        >");	break;
+		case  2:	LCD_textout("< MoTeC1.AimLambda2        >");	break;
+		case  3:	LCD_textout("< Freedom2.TargetAFR       >");	break;
+		case  4:	LCD_textout("< MSquirt1.afrtgt1         >");	break;
+		case  5:	LCD_textout("< MSquirt1.afrtgt2         >");	break;
 	}
 }
 
@@ -472,29 +524,30 @@ void num_data_select_draw(unsigned char num_data_select_draw)
 		case 65:	LCD_textout("< Freedom2.Status          >");	break;
 		case 66:	LCD_textout("< Freedom2.GroundSpeed     >");	break;
 		case 67:	LCD_textout("< Freedom2.AFR             >");	break;
-		case 68:	LCD_textout("< Freedom2.IATCorrection   >");	break;
-		case 69:	LCD_textout("< Freedom2.ETCorrection    >");	break;
-		case 70:	LCD_textout("< Freedom2.EStartCorrection>");	break;
-		case 71:	LCD_textout("< Freedom2.AccelCorrection >");	break;
-		case 72:	LCD_textout("< Freedom2.PowerCorrection >");	break;
-		case 73:	LCD_textout("< Freedom2.FeedbackCorrect >");	break;
-		case 74:	LCD_textout("< Freedom2.IdolCorrection  >");	break;
-		case 75:	LCD_textout("< Freedom2.DecelCutCorrect >");	break;
-		case 76:	LCD_textout("< Freedom2.BaroCorrection  >");	break;
-		case 77:	LCD_textout("< Freedom2.IdolIGCorrect   >");	break;
-		case 78:	LCD_textout("< Freedom2.RetardCorrect   >");	break;
-		case 79:	LCD_textout("< MSsquirt1.rpm            >");	break;
-		case 80:	LCD_textout("< MSsquirt1.advance        >");	break;
-		case 81:	LCD_textout("< MSsquirt1.afrtgt1        >");	break;
-		case 82:	LCD_textout("< MSsquirt1.afrtgt2        >");	break;
-		case 83:	LCD_textout("< MSsquirt1.barometer      >");	break;
-		case 84:	LCD_textout("< MSsquirt1.map            >");	break;
-		case 85:	LCD_textout("< MSsquirt1.mat            >");	break;
-		case 86:	LCD_textout("< MSsquirt1.coolant        >");	break;
-		case 87:	LCD_textout("< MSsquirt1.tps            >");	break;
-		case 88:	LCD_textout("< MSsquirt1.batteryVoltage >");	break;
-		case 89:	LCD_textout("< MSsquirt1.afr1           >");	break;
-		case 90:	LCD_textout("< MSsquirt1.afr2           >");	break;
+		case 68:	LCD_textout("< Freedom2.TargetAFR       >");	break;
+		case 69:	LCD_textout("< Freedom2.IATCorrection   >");	break;
+		case 70:	LCD_textout("< Freedom2.ETCorrection    >");	break;
+		case 71:	LCD_textout("< Freedom2.EStartCorrection>");	break;
+		case 72:	LCD_textout("< Freedom2.AccelCorrection >");	break;
+		case 73:	LCD_textout("< Freedom2.PowerCorrection >");	break;
+		case 74:	LCD_textout("< Freedom2.FeedbackCorrect >");	break;
+		case 75:	LCD_textout("< Freedom2.IdolCorrection  >");	break;
+		case 76:	LCD_textout("< Freedom2.DecelCutCorrect >");	break;
+		case 77:	LCD_textout("< Freedom2.BaroCorrection  >");	break;
+		case 78:	LCD_textout("< Freedom2.IdolIGCorrect   >");	break;
+		case 79:	LCD_textout("< Freedom2.RetardCorrect   >");	break;
+		case 80:	LCD_textout("< MSquirt1.rpm             >");	break;
+		case 81:	LCD_textout("< MSquirt1.advance         >");	break;
+		case 82:	LCD_textout("< MSquirt1.afrtgt1         >");	break;
+		case 83:	LCD_textout("< MSquirt1.afrtgt2         >");	break;
+		case 84:	LCD_textout("< MSquirt1.barometer       >");	break;
+		case 85:	LCD_textout("< MSquirt1.map             >");	break;
+		case 86:	LCD_textout("< MSquirt1.mat             >");	break;
+		case 87:	LCD_textout("< MSquirt1.coolant         >");	break;
+		case 88:	LCD_textout("< MSquirt1.tps             >");	break;
+		case 89:	LCD_textout("< MSquirt1.batteryVoltage  >");	break;
+		case 90:	LCD_textout("< MSquirt1.afr1            >");	break;
+		case 91:	LCD_textout("< MSquirt1.afr2            >");	break;
 	}
 }
 
@@ -509,6 +562,28 @@ void num_dp_draw(unsigned char num_dp)
 		case  1:	LCD_textout("< 1         >");	break;
 		case  2:	LCD_textout("< 2         >");	break;
 		case  3:	LCD_textout("< 3         >");	break;
+	}
+	
+	return;
+}
+
+// --------------------------------------------------------------------
+// チャートゲージグリッド数選択描画
+// --------------------------------------------------------------------
+void num_grid_draw(unsigned char num_grid)
+{
+	switch(num_grid)
+	{
+		case  0:	LCD_textout("< 0         >");	break;
+		case  1:	LCD_textout("< 1         >");	break;
+		case  2:	LCD_textout("< 2         >");	break;
+		case  3:	LCD_textout("< 3         >");	break;
+		case  4:	LCD_textout("< 4         >");	break;
+		case  5:	LCD_textout("< 5         >");	break;
+		case  6:	LCD_textout("< 6         >");	break;
+		case  7:	LCD_textout("< 7         >");	break;
+		case  8:	LCD_textout("< 8         >");	break;
+		case  9:	LCD_textout("< 9         >");	break;
 	}
 	
 	return;
@@ -539,6 +614,39 @@ void num_label_draw(unsigned char num_tag)
 		case 14:	LCD_textout("Fpress");	break;
 		case 15:	LCD_textout("IJduty");	break;
 		case 16:	LCD_textout("IGadv ");	break;
+		case 17:	LCD_textout("MAF   ");	break;
+		case 18:	LCD_textout("TARGET");	break;
+		case 19:	LCD_textout("Baro-P");	break;
+		case 20:	LCD_textout("S-0   ");	break;
+		case 21:	LCD_textout("S-1   ");	break;
+		case 22:	LCD_textout("S-2   ");	break;
+		case 23:	LCD_textout("S-3   ");	break;
+		case 24:	LCD_textout("S-4   ");	break;
+		case 25:	LCD_textout("S-5   ");	break;
+		case 26:	LCD_textout("S-6   ");	break;
+		case 27:	LCD_textout("S-7   ");	break;
+		case 28:	LCD_textout("S-8   ");	break;
+		case 29:	LCD_textout("S-9   ");	break;
+		case 30:	LCD_textout("V-0   ");	break;
+		case 31:	LCD_textout("V-1   ");	break;
+		case 32:	LCD_textout("V-2   ");	break;
+		case 33:	LCD_textout("V-3   ");	break;
+		case 34:	LCD_textout("V-4   ");	break;
+		case 35:	LCD_textout("V-5   ");	break;
+		case 36:	LCD_textout("V-6   ");	break;
+		case 37:	LCD_textout("V-7   ");	break;
+		case 38:	LCD_textout("V-8   ");	break;
+		case 39:	LCD_textout("V-9   ");	break;
+		case 40:	LCD_textout("T-0   ");	break;
+		case 41:	LCD_textout("T-1   ");	break;
+		case 42:	LCD_textout("T-2   ");	break;
+		case 43:	LCD_textout("T-3   ");	break;
+		case 44:	LCD_textout("T-4   ");	break;
+		case 45:	LCD_textout("T-5   ");	break;
+		case 46:	LCD_textout("T-6   ");	break;
+		case 47:	LCD_textout("T-7   ");	break;
+		case 48:	LCD_textout("T-8   ");	break;
+		case 49:	LCD_textout("T-9   ");	break;
 	}
 	
 	return;
@@ -557,5 +665,9 @@ void num_unit_draw(unsigned char num_unit)
 		case  2:	LCD_CHR_Copy_Smallfont('V');	break;
 		case  3:	LCD_CHR_Copy_Smallfont('%');	break;
 		case  4:	LCD_CHR_Copy_Smallfont('K');	break;
+		case  5:	LCD_CHR_Copy_Smallfont('g');	break;
+		case  6:	LCD_CHR_Copy_Smallfont('m');	break;
+		case  7:	LCD_CHR_Copy_Smallfont('s');	break;
+		case  8:	LCD_CHR_Copy_Smallfont('d');	break;
 	}
 }

@@ -19,8 +19,8 @@
 // filename		:	dataregister.h
 // brief		:	FullMoni rev.B データ管理
 // author		:	Tomoya Sato
-// update		:	2013/06/16
-// version		:	1.03
+// update		:	2013/08/05
+// version		:	1.04
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -35,10 +35,12 @@
 #define num_data_select_value	90
 #define rev_data_select_value	4
 #define afr_data_select_value	6
+#define t_afr_data_select_value	5
 #define num_dp_value			3
-#define num_label_value			16
+#define num_grid_value			9
+#define num_label_value			49
 #define afr_label_value			2
-#define num_unit_value			4
+#define num_unit_value			8
 
 // --------------------------------------------------------------------
 // プロトタイプ宣言
@@ -51,11 +53,13 @@ void Init_Haltech2_data(void);
 void Init_Freedom2_data(void);
 unsigned int rev_data_select(unsigned char rev_data_select);
 unsigned int afr_data_select(unsigned char afr_data_select);
+unsigned int t_afr_data_select(unsigned char t_afr_data_select);
 unsigned int num_data_select(unsigned char num_data_select);
 void rev_data_select_draw(unsigned char rev_data_select_draw);
 void afr_data_select_draw(unsigned char afr_data_select_draw);
 void num_data_select_draw(unsigned char num_data_select_draw);
 void num_dp_draw(unsigned char num_dp);
+void num_grid_draw(unsigned char num_grid);
 void num_label_draw(unsigned char num_tag);
 void num_unit_draw(unsigned char num_unit);
 
@@ -186,7 +190,7 @@ typedef struct {
 	unsigned int Status;				/* ステータス			*/
 	unsigned int GroundSpeed;			/* データ				*/
 	unsigned int AFR;					/* AFR値				*/
-	unsigned int AimAFR;				/* 目標AFR値			*/
+	unsigned int TargetAFR;				/* 目標AFR値			*/
 	unsigned int IATCorrection;			/* 吸気温補正			*/
 	unsigned int ETCorrection;			/* 水温補正				*/
 	unsigned int EStartCorrection;		/* 始動後増量補正		*/
@@ -299,7 +303,7 @@ typedef struct {						/*										*/
 										/*	0x002C	空燃比 バイアスL			*/
 		unsigned char afr_dp;			/*	0x002D	空燃比 小数点位置			*/
 		unsigned char afr_label;		/*	0x002E	空燃比 ラベル選択			*/
-		unsigned char dummy4;			/*	0x002F								*/
+		unsigned char t_afr_data_select;/*	0x0028	目標空燃比 データ選択		*/
 	} E2P_3;							/* 										*/
 	struct {							/*										*/
 		unsigned char num1_data_select;	/*	0x0030	数値表示1 データ選択		*/
@@ -374,23 +378,41 @@ typedef struct {						/*										*/
 		unsigned char dummy4;			/*	0x006F								*/
 	} E2P_7;							/* 										*/
 	struct {							/*										*/
-		unsigned char dummy0;			/*	0x0070								*/
-		unsigned char dummy1;			/*	0x0071								*/
-		unsigned char dummy2;			/*	0x0072								*/
-		unsigned char dummy3;			/*	0x0073								*/
-		unsigned char dummy4;			/*	0x0074								*/
-		unsigned char dummy5;			/*	0x0075								*/
-		unsigned char dummy6;			/*	0x0076								*/
-		unsigned char dummy7;			/*	0x0077								*/
-		unsigned char dummy8;			/*	0x0078								*/
-		unsigned char dummy9;			/*	0x0079								*/
-		unsigned char dummyA;			/*	0x007A								*/
-		unsigned char dummyB;			/*	0x007B								*/
-		unsigned char dummyC;			/*	0x007C								*/
-		unsigned char dummyD;			/*	0x007D								*/
-		unsigned char dummyE;			/*	0x007E								*/
-		unsigned char dummyF;			/*	0x007F								*/
+		unsigned char cht1_data_select;	/*	0x0070	ゲージ数値表示1 データ選択	*/
+		int           cht1_gain;		/*	0x0071	ゲージ数値表示1 ゲインH		*/
+										/*	0x0072	ゲージ数値表示1 ゲインL		*/
+		int           cht1_bias;		/*	0x0073	ゲージ数値表示1 バイアスH	*/
+										/*	0x0074	ゲージ数値表示1 バイアスL	*/
+		unsigned char cht1_dp;			/*	0x0075	ゲージ数値表示1 小数点位置	*/
+		unsigned char cht1_label;		/*	0x0076	ゲージ数値表示1 ラベル選択	*/
+		unsigned char dummy1;			/*	0x0077								*/
+		unsigned char cht2_data_select;	/*	0x0078	ゲージ数値表示2 データ選択	*/
+		int           cht2_gain;		/*	0x0079	ゲージ数値表示2 ゲインH		*/
+										/*	0x007A	ゲージ数値表示2 ゲインL		*/
+		int           cht2_bias;		/*	0x007B	ゲージ数値表示2 バイアスH	*/
+										/*	0x007C	ゲージ数値表示2 バイアスL	*/
+		unsigned char cht2_dp;			/*	0x007D	ゲージ数値表示2 小数点位置	*/
+		unsigned char cht2_label;		/*	0x007E	ゲージ数値表示2 ラベル選択	*/
+		unsigned char dummy2;			/*	0x007F								*/
 	} E2P_8;							/* 										*/
+	struct {							/*										*/
+		int           cht1_guage_gain;	/*	0x0080	ゲージ1設定 ゲインH			*/
+										/*	0x0081	ゲージ1設定 ゲインL			*/
+		int           cht1_guage_bias;	/*	0x0082	ゲージ1設定 バイアスH		*/
+										/*	0x0083	ゲージ1設定 バイアスL		*/
+		unsigned char cht1_guage_grid;	/*	0x0084	ゲージ1設定 グリッド数		*/
+		int           cht2_guage_gain;	/*	0x0085	ゲージ2設定 ゲインH			*/
+										/*	0x0086	ゲージ2設定 ゲインL			*/
+		int           cht2_guage_bias;	/*	0x0087	ゲージ2設定 バイアスH		*/
+										/*	0x0088	ゲージ2設定 バイアスL		*/
+		unsigned char cht2_guage_grid;	/*	0x0089	ゲージ2設定 グリッド数		*/
+		unsigned char dummyA;			/*	0x008A								*/
+		unsigned char dummyB;			/*	0x008B								*/
+		unsigned char dummyC;			/*	0x008C								*/
+		unsigned char dummyD;			/*	0x008D								*/
+		unsigned char dummyE;			/*	0x008E								*/
+		unsigned char dummyF;			/*	0x008F								*/
+	} E2P_9;							/* 										*/
 } e2p_data_t;
 #pragma unpack
 

@@ -1,4 +1,4 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   16-Jun-2013 20:55:26 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    5-Aug-2013 15:20:12 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
@@ -60,7 +60,7 @@ Total Frame Size        : 0x00000030 Byte(s)
 Used Runtime Library Name
 
 
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   16-Jun-2013 20:55:26 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    5-Aug-2013 15:20:12 PAGE   1
 
 ************ OBJECT LISTING ************
 
@@ -90,8 +90,8 @@ P                                                                  ; section
         19:    // filename     :   ADS7843.c
         20:    // brief        :   FullMoni rev.B タッチパネル管理
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2013/06/16
-        23:    // version      :   1.03
+        22:    // update       :   2013/08/05
+        23:    // version      :   1.04
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------

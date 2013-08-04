@@ -19,8 +19,8 @@
 // filename		:	state_control.h
 // brief		:	FullMoni rev.B 	ステート管理
 // author		:	Tomoya Sato
-// update		:	2013/06/16
-// version		:	1.03
+// update		:	2013/08/05
+// version		:	1.04
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -70,7 +70,6 @@ static enum state
 	S010 =  10,
 	S110 = 110,
 	S210 = 210,
-	S220 = 220,
 	S120 = 120,
 	S130 = 130,
 	S999 = 999
@@ -96,7 +95,6 @@ void funcS002(void);
 void funcS010(void);
 void funcS110(void);
 void funcS210(void);
-void funcS220(void);
 void funcS120(void);
 void funcS130(void);
 void funcS999(void);
@@ -105,6 +103,7 @@ unsigned int E002(void);
 unsigned int E010(void);
 unsigned int E100(void);
 unsigned int E110(void);
+unsigned int E130(void);
 unsigned int E200(void);
 unsigned int E990(void);
 void A001(void);
@@ -131,9 +130,11 @@ void A104(void);
 void A121(void);
 void A122(void);
 void A123(void);
+void A130(void);
 void A131(void);
 void A132(void);
 void A133(void);
+void A134(void);
 void A201(void);
 void A202(void);
 void A990(void);

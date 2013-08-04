@@ -19,8 +19,8 @@
 // filename		:	initsystem.c
 // brief		:	FullMoni rev.B ƒVƒXƒeƒ€‰Šú‰»
 // author		:	Tomoya Sato
-// update		:	2013/06/16
-// version		:	1.03
+// update		:	2013/08/05
+// version		:	1.04
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -557,7 +557,7 @@ void Int_Handler_UART_Rx(void)
 				g_Freedom2_data.GroundSpeed			= sci_rcv[45] * 10000 + sci_rcv[46] * 1000 + sci_rcv[47] * 100 + sci_rcv[48] * 10 + sci_rcv[49];
 				lambda								= sci_rcv[50] * 10000 + sci_rcv[51] * 1000 + sci_rcv[52] * 100 + sci_rcv[53] * 10 + sci_rcv[54];
 				g_Freedom2_data.AFR					= (lambda & 0xFF00) >> 8;
-				g_Freedom2_data.AimAFR				= (lambda & 0x00FF);
+				g_Freedom2_data.TargetAFR			= (lambda & 0x00FF);
 			}
 			else if	(sci_rcv_command == 1)
 			{

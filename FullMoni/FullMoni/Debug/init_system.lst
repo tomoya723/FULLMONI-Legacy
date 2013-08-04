@@ -1,4 +1,4 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   16-Jun-2013 20:55:34 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    5-Aug-2013 16:39:53 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
@@ -200,7 +200,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   16-Jun-2013 20:55:34 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    5-Aug-2013 16:39:53 PAGE   1
 
 ************ OBJECT LISTING ************
 
@@ -230,8 +230,8 @@ P                                                                  ; section
         19:    // filename     :   initsystem.c
         20:    // brief        :   FullMoni rev.B ÉVÉXÉeÉÄèâä˙âª
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2013/06/16
-        23:    // version      :   1.03
+        22:    // update       :   2013/08/05
+        23:    // version      :   1.04
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------
@@ -889,10 +889,10 @@ P                                                                  ; section
        480:        possible = (gUART_FIFO_Tx_DC < UART_FIFO_DEPTH)? 1 : 0;
   00000362 010E482000000000       CMP.L       #H'0100:16,@_gUART_FIFO_Tx_DC:32
            0100               
-  0000036C 4500                   BLO         L7475:8
-  0000036E 4001                   BRA/S       L7476:8
+  0000036C 4500                   BLO         L7502:8
+  0000036E 4001                   BRA/S       L7503:8
   00000370 18AA                   SUB.B       R2L,R2L
-  00000372                    L7475:                                
+  00000372                    L7502:                                
   00000372 FA01                   MOV.B       #1:8,R2L
        481:        //------------------------
        482:        // Set the Tx Data in FIFO
@@ -912,7 +912,7 @@ P                                                                  ; section
            0001               
        489:            tie_bkup = 1;
   000003A4 0CA0                   MOV.B       R2L,R0H
-  000003A6                    L7476:                                
+  000003A6                    L7503:                                
        490:        }
        491:        SCI5.SCR.BIT.TIE = tie_bkup;
   000003A6 7700                   BLD.B       #0,R0H
@@ -931,13 +931,13 @@ P                                                                  ; section
   000003B4                    _UART_Tx_Char:                       ; function: UART_Tx_Char
   000003B4 6DF2                   PUSH.W      R2
   000003B6 0C8A                   MOV.B       R0L,R2L
-  000003B8                    L7479:                                
+  000003B8                    L7506:                                
        500:    {
        501:        while(UART_Tx(byte) == 0);
   000003B8 0CA8                   MOV.B       R2L,R0L
   000003BA 5500                   BSR         _UART_Tx:8
   000003BC 0C88                   MOV.B       R0L,R0L
-  000003BE 4700                   BEQ         L7479:8
+  000003BE 4700                   BEQ         L7506:8
   000003C0 6D72                   POP.W       R2
   000003C2 5470                   RTS
        502:    }
@@ -953,7 +953,7 @@ P                                                                  ; section
        511:        //------------------------
        512:        if (gUART_FIFO_Tx_DC > 0)
   000003C4 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_DC:32,ER0
-  000003CC 4700                   BEQ         L7483:8
+  000003CC 4700                   BEQ         L7510:8
        513:        {
        514:            SCI5.TDR = gUART_FIFO_Tx[gUART_FIFO_Tx_RP];
   000003CE 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_RP:32,ER0
@@ -970,7 +970,7 @@ P                                                                  ; section
        517:            SCI5.SSR.BIT.TDRE = 0;
   00000402 6A18F6047270           BCLR.B      #7,@H'00FFF604:16
   00000408 5470                   RTS
-  0000040A                    L7483:                                
+  0000040A                    L7510:                                
        518:        }
        519:        //-------------------------
        520:        // If FIFO Tx has no Data
@@ -996,7 +996,7 @@ P                                                                  ; section
        536:        if      (g_e2p_data.E2P_1.model == Freedom2)
   00000416 7A0500000000           MOV.L       #_sci_rcv_pointer,ER5
   0000041C 6A3800000000A005       CMP.B       #5:8,@(_g_e2p_data+2):32
-  00000424 58600000               BNE         L7488:16
+  00000424 58600000               BNE         L7515:16
        537:        {
        538:            sci_rcv[sci_rcv_pointer] = SCI5.RDR - 0x30;
   00000428 6A09F605               MOV.B       @H'00FFF605:16,R1L
@@ -1008,14 +1008,14 @@ P                                                                  ; section
        540:            
        541:            if(sci_rcv_pointer >= 55)
   0000043C 015E05200037           CMP.W       #H'0037:16,@ER5
-  00000442 58500000               BLO         L7490:16
+  00000442 58500000               BLO         L7517:16
        542:            {
        543:                sci_rcv_pointer = 0;
   00000446 7A0400000000           MOV.L       #_g_Freedom2_data,ER4
   0000044C 015D0500               MOV.W       #0:8,@ER5
        544:                if      (sci_rcv_command == 0)
   00000450 6B2000000000           MOV.W       @_sci_rcv_command:32,R0
-  00000456 58600000               BNE         L7492:16
+  00000456 58600000               BNE         L7519:16
        545:                {
        546:                    g_Freedom2_data.RPM                 = sci_rcv[0]  * 10000 + sci_rcv[1]  * 1000 + sci_rcv[2]  * 100 + sci_rcv[3]  * 10 + sci_rcv[4] ;
   0000045A 7A0500000000           MOV.L       #_sci_rcv,ER5
@@ -1217,15 +1217,15 @@ P                                                                  ; section
   0000068E 1160                   SHLR.W      #8,R0
   00000690 E000                   AND.B       #0:8,R0H
   00000692 6FC00018               MOV.W       R0,@(H'0018:16,ER4)
-       560:                    g_Freedom2_data.AimAFR              = (lambda & 0x00FF);
+       560:                    g_Freedom2_data.TargetAFR           = (lambda & 0x00FF);
   00000696 796800FF               AND.W       #H'00FF:16,E0
   0000069A 6FC8001A               MOV.W       E0,@(H'001A:16,ER4)
-  0000069E 5A000000               JMP         @L7490:24
-  000006A2                    L7492:                                
+  0000069E 5A000000               JMP         @L7517:24
+  000006A2                    L7519:                                
        561:                }
        562:                else if (sci_rcv_command == 1)
   000006A2 6B38000000001F10       CMP.W       #1:3,@_sci_rcv_command:32
-  000006AA 58600000               BNE         L7490:16
+  000006AA 58600000               BNE         L7517:16
        563:                {
        564:                    g_Freedom2_data.IATCorrection       = sci_rcv[0]  * 10000 + sci_rcv[1]  * 1000 + sci_rcv[2]  * 100 + sci_rcv[3]  * 10 + sci_rcv[4] ;
   000006AE 7A0500000000           MOV.L       #_sci_rcv,ER5
@@ -1419,8 +1419,8 @@ P                                                                  ; section
   000008DC 1750                   EXTU.W      R0
   000008DE 0908                   ADD.W       R0,E0
   000008E0 6FC80030               MOV.W       E0,@(H'0030:16,ER4)
-  000008E4 4000                   BRA         L7490:8
-  000008E6                    L7488:                                
+  000008E4 4000                   BRA         L7517:8
+  000008E6                    L7515:                                
        575:                }
        576:                else
        577:                {
@@ -1434,7 +1434,7 @@ P                                                                  ; section
        585:        }
        586:        else if (g_e2p_data.E2P_1.model == MSquirt1)
   000008E6 6A3800000000A006       CMP.B       #6:8,@(_g_e2p_data+2):32
-  000008EE 4600                   BNE         L7490:8
+  000008EE 4600                   BNE         L7517:8
        587:        {
        588:            sci_rcv[sci_rcv_pointer] = SCI5.RDR;
   000008F0 6A09F605               MOV.B       @H'00FFF605:16,R1L
@@ -1445,7 +1445,7 @@ P                                                                  ; section
        590:    //      if(sci_rcv_pointer >= 154)
        591:            if(sci_rcv_pointer >32)
   00000902 015E05200020           CMP.W       #H'0020:16,@ER5
-  00000908 4300                   BLS         L7490:8
+  00000908 4300                   BLS         L7517:8
        592:            {
        593:                sci_rcv_pointer = 0;
   0000090A 015D0500               MOV.W       #0:8,@ER5
@@ -1463,7 +1463,7 @@ P                                                                  ; section
   00000932 6E580009               MOV.B       @(9:16,ER5),R0L
   00000936 0901                   ADD.W       R0,R1
   00000938 6BA100000000           MOV.W       R1,@(_g_Megasquirt1_data+2):32
-  0000093E                    L7490:                                
+  0000093E                    L7517:                                
        596:    //          g_Megasquirt1_data.afrtgt1          =                                     sci_rcv[12];
        597:    //          g_Megasquirt1_data.afrtgt2          =                                     sci_rcv[13];
        598:    //          g_Megasquirt1_data.barometer        = ((unsigned int) sci_rcv[16] << 8) + sci_rcv[17];
