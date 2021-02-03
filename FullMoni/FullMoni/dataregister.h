@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------
-// Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+// Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
 //
 // This file is part of FullMoni firmwere.
 //
@@ -17,10 +17,10 @@
 // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
 //
 // filename		:	dataregister.h
-// brief		:	FullMoni rev.B データ管理
+// brief		:	FullMoni rev.C データ管理
 // author		:	Tomoya Sato
-// update		:	2013/08/05
-// version		:	1.04
+// update		:	2021/02/02
+// version		:	1.05
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -32,10 +32,10 @@
 // --------------------------------------------------------------------
 // define宣言
 // --------------------------------------------------------------------
-#define num_data_select_value	90
-#define rev_data_select_value	4
-#define afr_data_select_value	6
-#define t_afr_data_select_value	5
+#define num_data_select_value	103
+//#define rev_data_select_value	4
+//#define afr_data_select_value	6
+//#define t_afr_data_select_value	5
 #define num_dp_value			3
 #define num_grid_value			9
 #define num_label_value			49
@@ -46,22 +46,86 @@
 // プロトタイプ宣言
 // --------------------------------------------------------------------
 void Init_e2p_data(void);
+void Init_CAN_data(void);
 void Init_MoTeC1_data(void);
-void Init_MoTeC2_data(void);
+//void Init_MoTeC2_data(void);
 void Init_Haltech1_data(void);
 void Init_Haltech2_data(void);
 void Init_Freedom2_data(void);
-unsigned int rev_data_select(unsigned char rev_data_select);
-unsigned int afr_data_select(unsigned char afr_data_select);
-unsigned int t_afr_data_select(unsigned char t_afr_data_select);
+//unsigned int rev_data_select(unsigned char rev_data_select);
+//unsigned int afr_data_select(unsigned char afr_data_select);
+//unsigned int t_afr_data_select(unsigned char t_afr_data_select);
 unsigned int num_data_select(unsigned char num_data_select);
-void rev_data_select_draw(unsigned char rev_data_select_draw);
-void afr_data_select_draw(unsigned char afr_data_select_draw);
+//void rev_data_select_draw(unsigned char rev_data_select_draw);
+//void afr_data_select_draw(unsigned char afr_data_select_draw);
 void num_data_select_draw(unsigned char num_data_select_draw);
 void num_dp_draw(unsigned char num_dp);
 void num_grid_draw(unsigned char num_grid);
 void num_label_draw(unsigned char num_tag);
 void num_unit_draw(unsigned char num_unit);
+
+#pragma pack 1
+// --------------------------------------------------------------------
+// 標準CANデータレジスタ
+// --------------------------------------------------------------------
+typedef struct {
+	struct {							/*										*/
+		unsigned int  DATA1;			/*	0x0000	数値1上限値					*/
+										/*	0x0001								*/
+		unsigned int  DATA2;			/*	0x0002	数値2上限値					*/
+										/*	0x0003								*/
+		unsigned int  DATA3;			/*	0x0004	数値3上限値					*/
+										/*	0x0005								*/
+		unsigned int  DATA4;			/*	0x0006	数値4上限値					*/
+	} ID1;								/* 										*/
+	struct {							/*										*/
+		unsigned int  DATA1;			/*	0x0007	数値1上限値					*/
+										/*	0x0008								*/
+		unsigned int  DATA2;			/*	0x0009	数値2上限値					*/
+										/*	0x000A								*/
+		unsigned int  DATA3;			/*	0x000B	数値3上限値					*/
+										/*	0x000C								*/
+		unsigned int  DATA4;			/*	0x000D	数値4上限値					*/
+	} ID2;								/* 										*/
+	struct {							/*										*/
+		unsigned int  DATA1;			/*	0x000E	数値1上限値					*/
+										/*	0x000F								*/
+		unsigned int  DATA2;			/*	0x0010	数値2上限値					*/
+										/*	0x0011								*/
+		unsigned int  DATA3;			/*	0x0012	数値3上限値					*/
+										/*	0x0013								*/
+		unsigned int  DATA4;			/*	0x0014	数値4上限値					*/
+	} ID3;								/* 										*/
+	struct {							/*										*/
+		unsigned int  DATA1;			/*	0x0015	数値1上限値					*/
+										/*	0x0016								*/
+		unsigned int  DATA2;			/*	0x0017	数値2上限値					*/
+										/*	0x0018								*/
+		unsigned int  DATA3;			/*	0x0019	数値3上限値					*/
+										/*	0x001A								*/
+		unsigned int  DATA4;			/*	0x001B	数値4上限値					*/
+	} ID4;								/* 										*/
+	struct {							/*										*/
+		unsigned int  DATA1;			/*	0x001C	数値1上限値					*/
+										/*	0x001D								*/
+		unsigned int  DATA2;			/*	0x001E	数値2上限値					*/
+										/*	0x001F								*/
+		unsigned int  DATA3;			/*	0x0020	数値3上限値					*/
+										/*	0x0021								*/
+		unsigned int  DATA4;			/*	0x0022	数値4上限値					*/
+	} ID5;								/* 									*/
+	struct {							/*										*/
+		unsigned int  DATA1;			/*	0x0023	数値1上限値					*/
+										/*	0x0024								*/
+		unsigned int  DATA2;			/*	0x0025	数値2上限値					*/
+										/*	0x0026								*/
+		unsigned int  DATA3;			/*	0x0027	数値3上限値					*/
+										/*	0x0028								*/
+		unsigned int  DATA4;			/*	0x0029	数値4上限値					*/
+	} ID6;								/* 										*/
+} CAN_data_t;
+#pragma unpack
+
 
 // --------------------------------------------------------------------
 // MoTeC m#00系データレジスタ
@@ -255,19 +319,30 @@ typedef struct {						/*										*/
 				unsigned 			:1;	/*		b7								*/
 			} BIT;						/*										*/
 		} control;						/*										*/
-		unsigned char tp_Xmin;			/*	0x0003	タッチパネルX軸下限校正値	*/
-		unsigned char tp_Xmax;			/*	0x0004	タッチパネルX軸上限校正値	*/
-		unsigned char tp_Ymin;			/*	0x0005	タッチパネルY軸下限校正値	*/
-		unsigned char tp_Ymax;			/*	0x0006	タッチパネルY軸上限校正値	*/
-		unsigned char dimmer1;			/*	0x0007	バックライトディマー調整1	*/
-		unsigned char dimmer2;			/*	0x0008	バックライトディマー調整2	*/
-		unsigned char dummy1;			/*	0x0009								*/
-		unsigned char dummy2;			/*	0x000A								*/
-		unsigned char dummy3;			/*	0x000B								*/
-		unsigned char dummy4;			/*	0x000C								*/
-		unsigned char dummy5;			/*	0x000D								*/
-		unsigned char dummy6;			/*	0x000E								*/
-		unsigned char dummy7;			/*	0x000F								*/
+		union {							/*										*/
+			unsigned char BYTE;			/*	0x0003	CAN Stream管理				*/
+			struct {					/*										*/
+				unsigned CAN_ch1	:1;	/*		b0	CAN Stream Ch1 on/off		*/
+				unsigned CAN_ch2	:1;	/*		b1	CAN Stream Ch2 on/off		*/
+				unsigned CAN_ch3	:1;	/*		b2	CAN Stream Ch3 on/off		*/
+				unsigned CAN_ch4	:1;	/*		b3	CAN Stream Ch4 on/off		*/
+				unsigned CAN_ch5	:1;	/*		b4	CAN Stream Ch5 on/off		*/
+				unsigned CAN_ch6	:1;	/*		b5	CAN Stream Ch6 on/off		*/
+				unsigned BAUD		:1;	/*		b6	CAN ボーレート切り替え		*/
+				unsigned 			:1;	/*		b7								*/
+			} BIT;						/*										*/
+		} CANcontrol;					/*										*/
+		int				CAN_ID1;		/*	0x0004	CAN Stream ID CH1			*/
+										/*	0x0005								*/
+		int				CAN_ID2;		/*	0x0006	CAN Stream ID CH2			*/
+										/*	0x0007								*/
+		int				CAN_ID3;		/*	0x0008	CAN Stream ID CH3			*/
+										/*	0x0009								*/
+		int				CAN_ID4;		/*	0x000A	CAN Stream ID CH4			*/
+										/*	0x000B								*/
+		int				CAN_ID5;		/*	0x000C	CAN Stream ID CH5			*/
+										/*	0x000D								*/
+		int				CAN_ID6;		/*	0x000E	CAN Stream ID CH6			*/
 	} E2P_1;							/* 										*/
 	struct {							/*										*/
 		int           rev_timing_rmp1;	/*	0x0010	シフトランプ 橙作動回転数	*/
@@ -420,11 +495,12 @@ typedef struct {						/*										*/
 // extern宣言
 // --------------------------------------------------------------------
 extern volatile e2p_data_t			g_e2p_data;
+extern volatile CAN_data_t			g_CAN_data;
 extern volatile MoTeC1_data_t		g_MoTeC1_data;
 extern volatile Haltech1_data_t		g_Haltech1_data;
 extern volatile Haltech2_data_t		g_Haltech2_data;
 extern volatile Freedom2_data_t		g_Freedom2_data;
-extern volatile Megasquirt1_data_t	g_Megasquirt1_data;
+//extern volatile Megasquirt1_data_t	g_Megasquirt1_data;
 
 // --------------------------------------------------------------------
 // 多重インクルード防止

@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------
-// Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+// Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
 //
 // This file is part of FullMoni firmwere.
 //
@@ -17,10 +17,10 @@
 // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
 //
 // filename		:	state_control.c
-// brief		:	FullMoni rev.B ステート管理
+// brief		:	FullMoni rev.C ステート管理
 // author		:	Tomoya Sato
-// update		:	2013/08/05
-// version		:	1.04
+// update		:	2021/02/02
+// version		:	1.05
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -42,9 +42,9 @@
 // --------------------------------------------------------------------
 // グローバル変数宣言
 // --------------------------------------------------------------------
-volatile unsigned int	g_fps;
-volatile unsigned int	g_fps_cnt;
-volatile unsigned int	g_fps_max;
+//volatile unsigned int	g_fps;
+//volatile unsigned int	g_fps_cnt;
+//volatile unsigned int	g_fps_max;
 volatile unsigned int	g_beep_oneshotmin_flg;
 volatile unsigned int	g_beep_oneshotmax_flg;
 volatile unsigned int	g_beep_twoshotmin_flg;
@@ -96,17 +96,37 @@ void state_control(void)
 								{
 									case  1:	A011();	break;
 									case  2:	A012();	break;
-									case  3:	A013();	break;
+									case  3:	A102();	break;
 									case  4:	A014();	break;
-									case  5:	A015();	break;
-									case  6:	A016();	break;
-									case  7:	A017();	break;
-									case  8:	A018();	break;
-									case  9:	A019();	break;
-									case 10:	A020();	break;
-									case 11:	A021();	break;
-									case 12:	A022();	break;
-									case 13:	A023();	break;
+									case  5:	A013();	break;
+//									case  6:	A016();	break;
+//									case  7:	A017();	break;
+//									case  8:	A018();	break;
+//									case  9:	A019();	break;
+//									case 10:	A020();	break;
+//									case 11:	A021();	break;
+//									case 12:	A022();	break;
+//									case 13:	A023();	break;
+//									case 14:	A022();	break;
+//									case 15:	A023();	break;
+								}
+								break;
+		case S020:	funcS020();
+								switch(E020())
+								{
+									case  1:	A011();	break;
+									case  2:	A123();	break;
+									case  3:	A013();	break;
+									case  4:	A024();	break;
+//									case  5:	A015();	break;
+//									case  6:	A016();	break;
+//									case  7:	A017();	break;
+//									case  8:	A018();	break;
+//									case  9:	A019();	break;
+//									case 10:	A020();	break;
+//									case 11:	A021();	break;
+//									case 12:	A022();	break;
+//									case 13:	A023();	break;
 								}
 								break;
 		case S110:	funcS110();
@@ -116,6 +136,7 @@ void state_control(void)
 									case  2:	A102();	break;
 									case  3:	A103();	break;
 									case  4:	A104();	break;
+									case  5:	A123();	break;
 								}
 								break;
 		case S120:	funcS120();
@@ -151,6 +172,21 @@ void state_control(void)
 								break;
 	}
 }
+
+// --------------------------------------------------------------------
+// タッチ・長押しエリア判定関数
+// --------------------------------------------------------------------
+unsigned int area_judge(unsigned int X, unsigned int X1, unsigned int X2, unsigned int Y, unsigned int Y1, unsigned int Y2)
+{
+	if((X >= X1) && (X <= X2) && (Y >= Y1) && (Y <= Y2))
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+} 
 
 // --------------------------------------------------------------------
 // イベント処理：ステート遷移条件を定義
@@ -212,94 +248,412 @@ unsigned int E010(void)
 		// --------------------------------------------------------------------
 		// 保存アイコン押下判定
 		// --------------------------------------------------------------------
-		if		((g_PressX >= 130) && (g_PressX <= 193) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 1;
-		}
+		if		(area_judge(g_PressX, 130, 193, g_PressY, 215, 238))									{						return 1;	}
 		// --------------------------------------------------------------------
 		// 左カーソルアイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >=  46) && (g_PressX <= 139) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 2;
-		}
+		else if	(area_judge(g_PressX,  46, 139, g_PressY, 215, 238))									{						return 2;	}
 		// --------------------------------------------------------------------
 		// 右カーソルアイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 214) && (g_PressX <= 277) && (g_PressY >= 215) && (g_PressY <= 238))
+		else if	(area_judge(g_PressX, 214, 277, g_PressY, 215, 238))
 		{
-			return 3;
+			if(g_e2p_data.E2P_1.model == CAN_std)	// CAN_stdモードの時のみCAN ID設定画面に遷移
+			{
+				return 3;
+			}
+			else
+			{
+				return 5;
+			}
 		}
 		// --------------------------------------------------------------------
 		// モデル変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 230) && (g_PressX <= (230 + 32 -1 )) && (g_PressY >= ( 24 * 2)) && (g_PressY <= ( 24 * 2 + 24 - 1)))
-		{
-			return 4;
-		}
+		else if	(area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 2), ( 24 * 2 + 24 - 1)))	{	num_control = 1; 	return 4;	}
 		// --------------------------------------------------------------------
 		// モデル変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 2)) && (g_PressY <= ( 24 * 2 + 24 - 1)))
-		{
-			return 5;
-		}
+		else if	(area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 2), ( 24 * 2 + 24 - 1)))	{	num_control = 2;	return 4;	}
 		// --------------------------------------------------------------------
 		// ブザー変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 230) && (g_PressX <= (230 + 32 -1 )) && (g_PressY >= ( 24 * 3)) && (g_PressY <= ( 24 * 3 + 24 - 1)))
-		{
-			return 6;
-		}
+		else if	(area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 3), ( 24 * 3 + 24 - 1)))	{	num_control = 3; 	return 4;	}
 		// --------------------------------------------------------------------
 		// ブザー変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 3)) && (g_PressY <= ( 24 * 3 + 24 - 1)))
-		{
-			return 7;
-		}
+		else if	(area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 3), ( 24 * 3 + 24 - 1)))	{	num_control = 4; 	return 4;	}
 		// --------------------------------------------------------------------
 		// マスターワーニング変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 230) && (g_PressX <= (230 + 32 -1 )) && (g_PressY >= ( 24 * 4)) && (g_PressY <= ( 24 * 4 + 24 - 1)))
-		{
-			return 8;
-		}
+		else if	(area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 4), ( 24 * 4 + 24 - 1)))	{	num_control = 5;	return 4;	}
 		// --------------------------------------------------------------------
 		// マスターワーニング変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 4)) && (g_PressY <= ( 24 * 4 + 24 - 1)))
-		{
-			return 9;
-		}
+		else if	(area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 4), ( 24 * 4 + 24 - 1)))	{	num_control = 6;	return 4;	}
 		// --------------------------------------------------------------------
 		// FClogger使用変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 230) && (g_PressX <= (230 + 32 -1 )) && (g_PressY >= ( 24 * 5)) && (g_PressY <= ( 24 * 5 + 24 - 1)))
-		{
-			return 10;
-		}
+		else if	(area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 5), ( 24 * 5 + 24 - 1)))	{	num_control = 7; 	return 4;	}
 		// --------------------------------------------------------------------
 		// FClogger使用変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 5)) && (g_PressY <= ( 24 * 5 + 24 - 1)))
-		{
-			return 11;
-		}
+		else if	(area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 5), ( 24 * 5 + 24 - 1)))	{	num_control = 8;	return 4;	}
 		// --------------------------------------------------------------------
 		// プリセット変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 230) && (g_PressX <= (230 + 32 -1 )) && (g_PressY >= ( 24 * 6)) && (g_PressY <= ( 24 * 6 + 24 - 1)))
-		{
-			return 12;
-		}
+		else if	(area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 6), ( 24 * 6 + 24 - 1)))	{	num_control = 9;	return 4;	}
 		// --------------------------------------------------------------------
 		// プリセット変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 6)) && (g_PressY <= ( 24 * 6 + 24 - 1)))
+		else if	(area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 6), ( 24 * 6 + 24 - 1)))	{	num_control = 10;	return 4;	}
+	}
+	return 0;
+}
+
+unsigned int E020(void)
+{
+	// --------------------------------------------------------------------
+	// ローカル変数宣言
+	// --------------------------------------------------------------------
+	static unsigned int drag_cnt;
+	
+	// --------------------------------------------------------------------
+	// タッチ操作処理
+	// --------------------------------------------------------------------
+	if(touch_done_flg | touch_drag_flg)			// タッチパネル押下判定あり
+	{
+		// --------------------------------------------------------------------
+		// 保存アイコン押下判定
+		// --------------------------------------------------------------------
+		if		((touch_done_flg) && (area_judge(g_PressX, 130, 193, g_PressY, 215, 238)))	{	touch_done_flg = 0;	return 1;	}
+		// --------------------------------------------------------------------
+		// 左カーソルアイコン押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX,  46, 139, g_PressY, 215, 238)))	{	touch_done_flg = 0;	return 2;	}
+		// --------------------------------------------------------------------
+		// 右カーソルアイコン押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX, 214, 277, g_PressY, 215, 238)))	{	touch_done_flg = 0;	return 3;	}
+		// --------------------------------------------------------------------
+		// CAN ID1 有効無効押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX,  60, (60 + 32 - 1 ), g_PressY, ( 24 * 2), ( 24 * 2 + 24 - 1))))	{	touch_done_flg = 0;	num_control = 1;	return 4;	}
+		// --------------------------------------------------------------------
+		// CAN ID2 有効無効押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX,  60, (60 + 32 - 1 ), g_PressY, ( 24 * 3), ( 24 * 3 + 24 - 1))))	{	touch_done_flg = 0;	num_control = 2;	return 4;	}
+		// --------------------------------------------------------------------
+		// CAN ID3 有効無効押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX,  60, (60 + 32 - 1 ), g_PressY, ( 24 * 4), ( 24 * 4 + 24 - 1))))	{	touch_done_flg = 0;	num_control = 3;	return 4;	}
+		// --------------------------------------------------------------------
+		// CAN ID4 有効無効押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX,  60, (60 + 32 - 1 ), g_PressY, ( 24 * 5), ( 24 * 5 + 24 - 1))))	{	touch_done_flg = 0;	num_control = 4;	return 4;	}
+		// --------------------------------------------------------------------
+		// CAN ID5 有効無効押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX,  60, (60 + 32 - 1 ), g_PressY, ( 24 * 6), ( 24 * 6 + 24 - 1))))	{	touch_done_flg = 0;	num_control = 5;	return 4;	}
+		// --------------------------------------------------------------------
+		// CAN ID6 有効無効押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX,  60, (60 + 32 - 1 ), g_PressY, ( 24 * 7), ( 24 * 7 + 24 - 1))))	{	touch_done_flg = 0;	num_control = 6;	return 4;	}
+		// --------------------------------------------------------------------
+		// CAN Baudrate 上アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 1), ( 24 * 1 + 24 - 1))))	{	touch_done_flg = 0;	num_control = 7;	return 4;	}
+		// --------------------------------------------------------------------
+		// CAN Baudrate 下アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	((touch_done_flg) && (area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 1), ( 24 * 1 + 24 - 1))))	{	touch_done_flg = 0;	num_control = 8;	return 4;	}
+		// --------------------------------------------------------------------
+		// CAN ID1 上アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 2), ( 24 * 2 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1))
 		{
-			return 13;
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 9;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 9;
+					return 4;
+				}
+			}
 		}
+		// --------------------------------------------------------------------
+		// CAN ID1 下アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 2), ( 24 * 2 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 10;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 10;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID2 上アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 3), ( 24 * 3 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 11;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 11;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID2 下アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 3), ( 24 * 3 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 12;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 12;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID3 上アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 4), ( 24 * 4 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 13;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 13;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID3 下アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 4), ( 24 * 4 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 14;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 14;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID4 上アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 5), ( 24 * 5 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 15;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 15;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID4 下アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 5), ( 24 * 5 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 16;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 16;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID5 上アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 6), ( 24 * 6 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 17;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 17;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID5 下アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 6), ( 24 * 6 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 18;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 18;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID6 上アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1 ), g_PressY, ( 24 * 7), ( 24 * 7 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 19;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 19;
+					return 4;
+				}
+			}
+		}
+		// --------------------------------------------------------------------
+		// CAN ID6 下アイコン押下判定
+		// --------------------------------------------------------------------
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1 ), g_PressY, ( 24 * 7), ( 24 * 7 + 24 - 1))) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6))
+		{
+			if(touch_done_flg)
+			{
+				touch_done_flg = 0;		// フラグクリア
+				num_control = 20;
+				return 4;
+			}
+			else if(touch_drag_flg)
+			{
+				touch_drag_flg = 0;		// フラグクリア
+				drag_cnt ++;
+				if(drag_cnt > 5)
+				{
+					drag_cnt = 4;
+					num_control = 20;
+					return 4;
+				}
+			}
+		}
+		else
+		{
+			touch_done_flg = 0;
+			touch_drag_flg = 0;
+			drag_cnt = 0;
+		}
+	}
+	else
+	{
+		drag_cnt = 0;
+		Acc = 1;
 	}
 	return 0;
 }
@@ -316,24 +670,15 @@ unsigned int E100(void)
 		// --------------------------------------------------------------------
 		// 中央コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		if		((g_PressX >= 130) && (g_PressX <= 193) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 1;
-		}
+		if		(area_judge(g_PressX, 130, 193, g_PressY, 215, 238))	{	return 1;	}
 		// --------------------------------------------------------------------
 		// 左コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >=  46) && (g_PressX <= 139) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 2;
-		}
+		else if (area_judge(g_PressX,  46, 139, g_PressY, 215, 238))	{	return 2;	}
 		// --------------------------------------------------------------------
 		// 右コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 214) && (g_PressX <= 277) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 3;
-		}
+		else if (area_judge(g_PressX, 214, 277, g_PressY, 215, 238))	{	return 3;	}
 	}
 	return 0;
 }
@@ -355,33 +700,34 @@ unsigned int E110(void)
 		// --------------------------------------------------------------------
 		// 中央コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		if		((g_PressX >= 130) && (g_PressX <= 193) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 1;
-		}
+		if		(area_judge(g_PressX, 130, 193, g_PressY, 215, 238))	{	return 1;	}
 		// --------------------------------------------------------------------
 		// 左コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >=  46) && (g_PressX <= 139) && (g_PressY >= 215) && (g_PressY <= 238))
+		else if (area_judge(g_PressX,  46, 139, g_PressY, 215, 238))
 		{
-			return 2;
+			if(g_e2p_data.E2P_1.model == CAN_std)	// CAN_stdモードの時のみCAN ID設定画面に遷移
+			{
+				return 2;
+			}
+			else
+			{
+				return 5;
+			}
 		}
 		// --------------------------------------------------------------------
 		// 右コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 214) && (g_PressX <= 277) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 3;
-		}
+		else if (area_judge(g_PressX, 214, 277, g_PressY, 215, 238))	{	return 3;	}
 	}
-	if(touch_drag_flg)			// タッチパネル押下判定あり
+	if(touch_drag_flg)			// タッチパネル長押し判定あり
 	{
 		touch_drag_flg = 0;		// フラグクリア
 		
 		// --------------------------------------------------------------------
 		// 数値表示1長押し判定
 		// --------------------------------------------------------------------
-		if		((g_DragX >=   1) && (g_DragX <= 140) && (g_DragY >= 144) && (g_DragY <= 167))
+		if		(area_judge(g_DragX,   1, 140, g_DragY, 144, 167))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -398,7 +744,7 @@ unsigned int E110(void)
 		// --------------------------------------------------------------------
 		// 数値表示2長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >=   1) && (g_DragX <= 140) && (g_DragY >= 168) && (g_DragY <= 191))
+		else if (area_judge(g_DragX,   1, 140, g_DragY, 168, 191))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -415,7 +761,7 @@ unsigned int E110(void)
 		// --------------------------------------------------------------------
 		// 数値表示3長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >=   1) && (g_DragX <= 140) && (g_DragY >= 192) && (g_DragY <= 215))
+		else if (area_judge(g_DragX,   1, 140, g_DragY, 192, 215))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -432,7 +778,7 @@ unsigned int E110(void)
 		// --------------------------------------------------------------------
 		// 数値表示4長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >= 161) && (g_DragX <= 300) && (g_DragY >= 144) && (g_DragY <= 167))
+		else if (area_judge(g_DragX, 161, 300, g_DragY, 144, 167))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -449,7 +795,7 @@ unsigned int E110(void)
 		// --------------------------------------------------------------------
 		// 数値表示5長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >= 161) && (g_DragX <= 300) && (g_DragY >= 168) && (g_DragY <= 191))
+		else if (area_judge(g_DragX, 161, 300, g_DragY, 168, 191))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -466,7 +812,7 @@ unsigned int E110(void)
 		// --------------------------------------------------------------------
 		// 数値表示6長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >= 161) && (g_DragX <= 300) && (g_DragY >= 192) && (g_DragY <= 215))
+		else if (area_judge(g_DragX, 161, 300, g_DragY, 192, 215))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -483,7 +829,7 @@ unsigned int E110(void)
 		// --------------------------------------------------------------------
 		// 回転数表示長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >= 194) && (g_DragX <= 309) && (g_DragY >=  72) && (g_DragY <=  95))
+		else if (area_judge(g_DragX, 194, 309, g_DragY,  72,  95))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -553,41 +899,28 @@ unsigned int E130(void)
 		// --------------------------------------------------------------------
 		// 中央コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		if		((g_PressX >= 130) && (g_PressX <= 193) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 2;
-		}
+		if		(area_judge(g_PressX, 130, 193, g_PressY, 215, 238))	{	return 2;	}
 		// --------------------------------------------------------------------
 		// 左コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >=  46) && (g_PressX <= 139) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 3;
-		}
+		else if (area_judge(g_PressX,  46, 139, g_PressY, 215, 238))	{	return 3;	}
 		// --------------------------------------------------------------------
 		// 右コマンドアイコン押下判定
 		// --------------------------------------------------------------------
-		else if	((g_PressX >= 214) && (g_PressX <= 277) && (g_PressY >= 215) && (g_PressY <= 238))
-		{
-			return 4;
-		}
+		else if (area_judge(g_PressX, 214, 277, g_PressY, 215, 238))	{	return 4;	}
 	}
-	if(touch_drag_flg)			// タッチパネル押下判定あり
+	if(touch_drag_flg)			// タッチパネル長押し判定あり
 	{
 		touch_drag_flg = 0;		// フラグクリア
 		
 		// --------------------------------------------------------------------
 		// チャートドラッグ判定
 		// --------------------------------------------------------------------
-		if((g_DragX >= 114) && (g_DragX <= 314) && (g_DragY >=   5) && (g_DragY <= 141))
-		{
-			ChartX = g_DragX;
-			ChartY = g_DragY;
-		}
+		if		(area_judge(g_DragX, 114, 314, g_DragY,   5, 141))	{	ChartX = g_DragX;	ChartY = g_DragY;	}
 		// --------------------------------------------------------------------
 		// チャート数値表示1長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >=   1) && (g_DragX <= 100) && (g_DragY >= 144) && (g_DragY <= 167))
+		else if (area_judge(g_DragX,   1, 100, g_DragY, 144, 167))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -604,7 +937,7 @@ unsigned int E130(void)
 		// --------------------------------------------------------------------
 		// チャート数値表示2長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >=   1) && (g_DragX <= 100) && (g_DragY >= 192) && (g_DragY <= 215))
+		else if (area_judge(g_DragX,   1, 100, g_DragY, 192, 215))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -621,7 +954,7 @@ unsigned int E130(void)
 		// --------------------------------------------------------------------
 		// ゲージ1長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >= 113) && (g_DragX <= 316) && (g_DragY >= 146) && (g_DragY <= 176))
+		else if (area_judge(g_DragX, 113, 316, g_DragY, 146, 176))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -638,7 +971,7 @@ unsigned int E130(void)
 		// --------------------------------------------------------------------
 		// ゲージ2長押し判定
 		// --------------------------------------------------------------------
-		else if	((g_DragX >= 113) && (g_DragX <= 316) && (g_DragY >= 179) && (g_DragY <= 209))
+		else if (area_judge(g_DragX, 113, 316, g_DragY, 179, 209))
 		{
 			drag_cnt ++;
 			if(drag_cnt > 20)
@@ -679,15 +1012,11 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// 保存アイコン押下判定
 		// --------------------------------------------------------------------
-		if((touch_done_flg) && ((g_PressX >= 130) && (g_PressX <= 193) && (g_PressY >= 215) && (g_PressY <= 238)))
-		{
-			touch_done_flg = 0;		// フラグクリア
-			return 1;
-		}
+		if		((touch_done_flg) && (area_judge(g_PressX, 130, 193, g_PressY, 215, 238)))	{	touch_done_flg = 0;	return 1;	}
 		// --------------------------------------------------------------------
 		// データ変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 230) && (g_PressX <= (230 + 32 - 1)) && (g_PressY >= ( 24 * 1)) && (g_PressY <= ( 24 * 1 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1), g_PressY, ( 24 * 1), ( 24 * 1 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -710,7 +1039,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// データ変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 1)) && (g_PressY <= ( 24 * 1 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1), g_PressY, ( 24 * 1), ( 24 * 1 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -733,7 +1062,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// ゲイン変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 230) && (g_PressX <= (230 + 32 - 1)) && (g_PressY >= ( 24 * 3)) && (g_PressY <= ( 24 * 3 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1), g_PressY, ( 24 * 3), ( 24 * 3 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -756,7 +1085,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// ゲイン変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 3)) && (g_PressY <= ( 24 * 3 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1), g_PressY, ( 24 * 3), ( 24 * 3 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -779,7 +1108,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// バイアス変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 230) && (g_PressX <= (230 + 32 - 1)) && (g_PressY >= ( 24 * 4)) && (g_PressY <= ( 24 * 4 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1), g_PressY, ( 24 * 4), ( 24 * 4 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -802,7 +1131,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// バイアス変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 4)) && (g_PressY <= ( 24 * 4 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1), g_PressY, ( 24 * 4), ( 24 * 4 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -825,7 +1154,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// 小数点位置変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 230) && (g_PressX <= (230 + 32 - 1)) && (g_PressY >= ( 24 * 5)) && (g_PressY <= ( 24 * 5 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1), g_PressY, ( 24 * 5), ( 24 * 5 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -848,7 +1177,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// 小数点位置変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 5)) && (g_PressY <= ( 24 * 5 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1), g_PressY, ( 24 * 5), ( 24 * 5 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -871,7 +1200,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// タグ変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 230) && (g_PressX <= (230 + 32 - 1)) && (g_PressY >= ( 24 * 6)) && (g_PressY <= ( 24 * 6 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1), g_PressY, ( 24 * 6), ( 24 * 6 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -894,7 +1223,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// タグ変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 6)) && (g_PressY <= ( 24 * 6 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1), g_PressY, ( 24 * 6), ( 24 * 6 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -917,7 +1246,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// 単位変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 230) && (g_PressX <= (230 + 32 - 1)) && (g_PressY >= ( 24 * 7)) && (g_PressY <= ( 24 * 7 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1), g_PressY, ( 24 * 7), ( 24 * 7 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -940,7 +1269,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// 単位変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 7)) && (g_PressY <= ( 24 * 7 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1), g_PressY, ( 24 * 7), ( 24 * 7 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -963,7 +1292,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// リミット変更上アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 230) && (g_PressX <= (230 + 32 - 1)) && (g_PressY >= ( 24 * 8)) && (g_PressY <= ( 24 * 8 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 230, (230 + 32 - 1), g_PressY, ( 24 * 8), ( 24 * 8 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -986,7 +1315,7 @@ unsigned int E200(void)
 		// --------------------------------------------------------------------
 		// リミット変更下アイコン押下判定
 		// --------------------------------------------------------------------
-		else if	(((touch_done_flg) || (touch_drag_flg)) && ((g_PressX >= 270) && (g_PressX <= (270 + 32 - 1)) && (g_PressY >= ( 24 * 8)) && (g_PressY <= ( 24 * 8 + 24 - 1))))
+		else if	(((touch_done_flg) || (touch_drag_flg)) && (area_judge(g_PressX, 270, (270 + 32 - 1), g_PressY, ( 24 * 8), ( 24 * 8 + 24 - 1))))
 		{
 			if(touch_done_flg)
 			{
@@ -1033,7 +1362,7 @@ unsigned int E990(void)
 		// --------------------------------------------------------------------
 		// 保存アイコン押下判定
 		// --------------------------------------------------------------------
-		if		((g_PressX >= 130) && (g_PressX <= 193) && (g_PressY >= 215) && (g_PressY <= 238))
+		if		(area_judge(g_PressX, 130, 193, g_PressY, 215, 238))
 		{
 			return 1;
 		}
@@ -1068,7 +1397,7 @@ void A001(void)
 	// オープニング画面描画
 	// --------------------------------------------------------------------
 	LCD_CLR(COLOR_WHITE);
-	LCD_locate(  0,  0);	LCD_Gcopy(  0,   0, 320,240, (volatile unsigned int    *)TITLE);	// roadsterロゴ
+	LCD_locate(  0,  0);	LCD_Gcopy(  0,   0, 320,240, (volatile unsigned int    *)TITLE);
 	
 	LCD_Refresh();
 	
@@ -1138,12 +1467,13 @@ void A100(void)
 	// --------------------------------------------------------------------
 	switch(g_e2p_data.E2P_1.model)
 	{
+		case CAN_std:	Init_CAN();			break;
 		case MoTeC1:	Init_MoTeC1();		break;
 		case MoTeC2:	Init_MoTeC2();		break;
 		case Haltech1:	Init_Haltech1();	break;
 		case Haltech2:	Init_Haltech2();	break;
 		case Freedom2:	Init_Freedom2();	break;
-		case MSquirt1:	Init_MSquirt1();	break;
+//		case MSquirt1:	Init_MSquirt1();	break;
 	}
 	g_MoTeC1_data.ThrottlePosition			=  800;
 
@@ -1183,13 +1513,14 @@ void A011(void)
 	// --------------------------------------------------------------------
 	switch(preset_no)
 	{
-		case 1:	Preset_load_MoTeC1();		break;
-		case 2:	Preset_load_MoTeC2();		break;
+		case 1:	Preset_load_CAN();			break;
+		case 2:	Preset_load_MoTeC1();		break;
+//		case 3:	Preset_load_MoTeC2();		break;
 		case 3:	Preset_load_Haltech1();		break;
 		case 4:	Preset_load_Haltech2();		break;
 		case 5:	Preset_load_Freedom1();		break;
 		case 6:	Preset_load_Freedom2();		break;
-		case 7:	Preset_load_MegaSquirt1();	break;
+//		case 7:	Preset_load_MegaSquirt1();	break;
 		case 0:
 		default:							break;
 	}
@@ -1197,31 +1528,7 @@ void A011(void)
 	// --------------------------------------------------------------------
 	// EEPROMデータ保存
 	// --------------------------------------------------------------------
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x00, 0x00, 16);	// E2P_1
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x10, 0x10, 16);	// E2P_2
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x20, 0x20, 16);	// E2P_3
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x30, 0x30, 16);	// E2P_4
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x40, 0x40, 16);	// E2P_5
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x50, 0x50, 16);	// E2P_6
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x60, 0x60, 16);	// E2P_7
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x70, 0x70, 16);	// E2P_8
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x80, 0x80, 16);	// E2P_9
+	Save_EEPROM_ALL();
 }
 
 // --------------------------------------------------------------------
@@ -1244,12 +1551,13 @@ void A012(void)
 	// --------------------------------------------------------------------
 	switch(g_e2p_data.E2P_1.model)
 	{
+		case CAN_std:	Init_CAN();			break;
 		case MoTeC1:	Init_MoTeC1();		break;
 		case MoTeC2:	Init_MoTeC2();		break;
 		case Haltech1:	Init_Haltech1();	break;
 		case Haltech2:	Init_Haltech2();	break;
 		case Freedom2:	Init_Freedom2();	break;
-		case MSquirt1:	Init_MSquirt1();	break;
+//		case MSquirt1:	Init_MSquirt1();	break;
 	}
 	
 	// --------------------------------------------------------------------
@@ -1294,12 +1602,13 @@ void A013(void)
 	// --------------------------------------------------------------------
 	switch(g_e2p_data.E2P_1.model)
 	{
+		case CAN_std:	Init_CAN();			break;
 		case MoTeC1:	Init_MoTeC1();		break;
 		case MoTeC2:	Init_MoTeC2();		break;
 		case Haltech1:	Init_Haltech1();	break;
 		case Haltech2:	Init_Haltech2();	break;
 		case Freedom2:	Init_Freedom2();	break;
-		case MSquirt1:	Init_MSquirt1();	break;
+//		case MSquirt1:	Init_MSquirt1();	break;
 	}
 	
 	// --------------------------------------------------------------------
@@ -1316,13 +1625,140 @@ void A013(void)
 // --------------------------------------------------------------------
 void A014(void)
 {
-	g_e2p_data.E2P_1.model --;
-	g_e2p_data.E2P_1.model = ( g_e2p_data.E2P_1.model >= 255 ) ? 0 : g_e2p_data.E2P_1.model;
-	
-	LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
-	LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
+	if		(num_control == 1)
+	{
+		g_e2p_data.E2P_1.model --;
+		g_e2p_data.E2P_1.model = ( g_e2p_data.E2P_1.model >= 255 ) ? 0 : g_e2p_data.E2P_1.model;
+		
+		LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 2)
+	{
+		g_e2p_data.E2P_1.model ++;
+		g_e2p_data.E2P_1.model = (g_e2p_data.E2P_1.model > 6) ? 6 : g_e2p_data.E2P_1.model;
+		
+		LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 3)
+	{
+		if(g_e2p_data.E2P_1.control.BIT.beep_on)
+		{
+			g_e2p_data.E2P_1.control.BIT.beep_on = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.control.BIT.beep_on = 1;
+		}
+		LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 4)
+	{
+		if(g_e2p_data.E2P_1.control.BIT.beep_on)
+		{
+			g_e2p_data.E2P_1.control.BIT.beep_on = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.control.BIT.beep_on = 1;
+		}
+		LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 5)
+	{
+		if(g_e2p_data.E2P_1.control.BIT.ms_on)
+		{
+			g_e2p_data.E2P_1.control.BIT.ms_on = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.control.BIT.ms_on = 1;
+		}
+		LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 6)
+	{
+		if(g_e2p_data.E2P_1.control.BIT.ms_on)
+		{
+			g_e2p_data.E2P_1.control.BIT.ms_on = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.control.BIT.ms_on = 1;
+		}
+		LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 7)
+	{
+		if(g_e2p_data.E2P_1.control.BIT.FC_mode)
+		{
+			g_e2p_data.E2P_1.control.BIT.FC_mode = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.control.BIT.FC_mode = 1;
+		}
+		LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 8)
+	{
+		if(g_e2p_data.E2P_1.control.BIT.FC_mode)
+		{
+			g_e2p_data.E2P_1.control.BIT.FC_mode = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.control.BIT.FC_mode = 1;
+		}
+		LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 9)
+	{
+		preset_no --;
+		preset_no = ( preset_no >= 255 ) ? 0 : preset_no;
+		
+		LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 10)
+	{
+		preset_no ++;
+		preset_no = (preset_no > 6) ? 6 : preset_no;
+		
+		LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else
+	{
+		//
+	}
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
@@ -1333,203 +1769,310 @@ void A014(void)
 // --------------------------------------------------------------------
 // 
 // --------------------------------------------------------------------
-void A015(void)
+void A024(void)
 {
-	g_e2p_data.E2P_1.model ++;
-	g_e2p_data.E2P_1.model = (g_e2p_data.E2P_1.model > 6) ? 6 : g_e2p_data.E2P_1.model;
+
+
+	if		(num_control == 1)
+	{
+		if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1 == 1)
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1 = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1 = 1;
+		}
+
+	}
+	else if	(num_control == 2)
+	{
+		if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2 == 1)
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2 = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2 = 1;
+		}
+
+	}
+	else if	(num_control == 3)
+	{
+		if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3 == 1)
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3 = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3 = 1;
+		}
+
+	}
+	else if	(num_control == 4)
+	{
+		if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4 == 1)
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4 = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4 = 1;
+		}
+
+	}
+	else if	(num_control == 5)
+	{
+		if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5 == 1)
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5 = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5 = 1;
+		}
+
+	}
+	else if	(num_control == 6)
+	{
+		if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6 == 1)
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6 = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6 = 1;
+		}
+
+	}
+	else if	(num_control == 7)
+	{
+		if		(g_e2p_data.E2P_1.CANcontrol.BIT.BAUD == 1)
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.BAUD = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.BAUD = 1;
+		}
+
+	}
+	else if	(num_control == 8)
+	{
+		if		(g_e2p_data.E2P_1.CANcontrol.BIT.BAUD == 1)
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.BAUD = 0;
+		}
+		else
+		{
+			g_e2p_data.E2P_1.CANcontrol.BIT.BAUD = 1;
+		}
+
+	}
+	else if	(num_control == 9)
+	{
+		g_e2p_data.E2P_1.CAN_ID1 += Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID1 = (g_e2p_data.E2P_1.CAN_ID1 >   2047 ) ? 2047 : g_e2p_data.E2P_1.CAN_ID1;
+		
+		LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 10)
+	{
+		g_e2p_data.E2P_1.CAN_ID1 -= Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID1 = (g_e2p_data.E2P_1.CAN_ID1 <=    -1 ) ?    0 : g_e2p_data.E2P_1.CAN_ID1;
+		
+		LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 11)
+	{
+		g_e2p_data.E2P_1.CAN_ID2 += Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID2 = (g_e2p_data.E2P_1.CAN_ID2 >   2047 ) ? 2047 : g_e2p_data.E2P_1.CAN_ID2;
+		
+		LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 12)
+	{
+		g_e2p_data.E2P_1.CAN_ID2 -= Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID2 = (g_e2p_data.E2P_1.CAN_ID2 <=    -1 ) ?    0 : g_e2p_data.E2P_1.CAN_ID2;
+		
+		LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 13)
+	{
+		g_e2p_data.E2P_1.CAN_ID3 += Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID3 = (g_e2p_data.E2P_1.CAN_ID3 >   2047 ) ? 2047 : g_e2p_data.E2P_1.CAN_ID3;
+		
+		LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 14)
+	{
+		g_e2p_data.E2P_1.CAN_ID3 -= Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID3 = (g_e2p_data.E2P_1.CAN_ID3 <=    -1 ) ?    0 : g_e2p_data.E2P_1.CAN_ID3;
+		
+		LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 15)
+	{
+		g_e2p_data.E2P_1.CAN_ID4 += Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID4 = (g_e2p_data.E2P_1.CAN_ID4 >   2047 ) ? 2047 : g_e2p_data.E2P_1.CAN_ID4;
+		
+		LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 16)
+	{
+		g_e2p_data.E2P_1.CAN_ID4 -= Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID4 = (g_e2p_data.E2P_1.CAN_ID4 <=    -1 ) ?    0 : g_e2p_data.E2P_1.CAN_ID4;
+		
+		LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 17)
+	{
+		g_e2p_data.E2P_1.CAN_ID5 += Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID5 = (g_e2p_data.E2P_1.CAN_ID5 >   2047 ) ? 2047 : g_e2p_data.E2P_1.CAN_ID5;
+		
+		LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 18)
+	{
+		g_e2p_data.E2P_1.CAN_ID5 -= Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID5 = (g_e2p_data.E2P_1.CAN_ID5 <=    -1 ) ?    0 : g_e2p_data.E2P_1.CAN_ID5;
+		
+		LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 19)
+	{
+		g_e2p_data.E2P_1.CAN_ID6 += Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID6 = (g_e2p_data.E2P_1.CAN_ID6 >   2047 ) ? 2047 : g_e2p_data.E2P_1.CAN_ID6;
+		
+		LCD_locate(230,24 * 7);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(230,24 * 7);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else if	(num_control == 20)
+	{
+		g_e2p_data.E2P_1.CAN_ID6 -= Acc; Acc ++;
+		g_e2p_data.E2P_1.CAN_ID6 = (g_e2p_data.E2P_1.CAN_ID6 <=    -1 ) ?    0 : g_e2p_data.E2P_1.CAN_ID6;
+		
+		LCD_locate(270,24 * 7);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+		LCD_locate(270,24 * 7);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
+		LCD_RefreshFast();
+	}
+	else
+	{
+		//
+	}
 	
-	LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
-	LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
+	// --------------------------------------------------------------------
+	// 2度押しキャンセル
+	// --------------------------------------------------------------------
+	touch_done_flg = 0;
+	touch_drag_flg = 0;
+}
+
+/*void A015(void)
+{
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
 }
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
 void A016(void)
 {
-	if(g_e2p_data.E2P_1.control.BIT.beep_on)
-	{
-		g_e2p_data.E2P_1.control.BIT.beep_on = 0;
-	}
-	else
-	{
-		g_e2p_data.E2P_1.control.BIT.beep_on = 1;
-	}
-	LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
-	LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
 }
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
 void A017(void)
 {
-	if(g_e2p_data.E2P_1.control.BIT.beep_on)
-	{
-		g_e2p_data.E2P_1.control.BIT.beep_on = 0;
-	}
-	else
-	{
-		g_e2p_data.E2P_1.control.BIT.beep_on = 1;
-	}
-	LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
-	LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
 }
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
 void A018(void)
 {
-	if(g_e2p_data.E2P_1.control.BIT.ms_on)
-	{
-		g_e2p_data.E2P_1.control.BIT.ms_on = 0;
-	}
-	else
-	{
-		g_e2p_data.E2P_1.control.BIT.ms_on = 1;
-	}
-	LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
-	LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
 }
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
 void A019(void)
 {
-	if(g_e2p_data.E2P_1.control.BIT.ms_on)
-	{
-		g_e2p_data.E2P_1.control.BIT.ms_on = 0;
-	}
-	else
-	{
-		g_e2p_data.E2P_1.control.BIT.ms_on = 1;
-	}
-	LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
-	LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
 }
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
 void A020(void)
 {
-	if(g_e2p_data.E2P_1.control.BIT.FC_mode)
-	{
-		g_e2p_data.E2P_1.control.BIT.FC_mode = 0;
-	}
-	else
-	{
-		g_e2p_data.E2P_1.control.BIT.FC_mode = 1;
-	}
-	LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
-	LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
 }
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
 void A021(void)
 {
-	if(g_e2p_data.E2P_1.control.BIT.FC_mode)
-	{
-		g_e2p_data.E2P_1.control.BIT.FC_mode = 0;
-	}
-	else
-	{
-		g_e2p_data.E2P_1.control.BIT.FC_mode = 1;
-	}
-	LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
-	LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
 }
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
 void A022(void)
 {
-	preset_no --;
-	preset_no = ( preset_no >= 255 ) ? 0 : preset_no;
-	
-	LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
-	LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 上
-	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
 }
-
-// --------------------------------------------------------------------
-// 
-// --------------------------------------------------------------------
 void A023(void)
 {
-	preset_no ++;
-	preset_no = (preset_no > 7) ? 7 : preset_no;
-	
-	LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
-	LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONTR);	// 下
-	LCD_RefreshFast();
 	
 	// --------------------------------------------------------------------
 	// 2度押しキャンセル
 	// --------------------------------------------------------------------
 	touch_done_flg = 0;
-}
+}*/
 
 // --------------------------------------------------------------------
 // バックライトディマートグル処理
@@ -1665,7 +2208,7 @@ void A102(void)
 	// --------------------------------------------------------------------
 	// 状態遷移処理
 	// --------------------------------------------------------------------
-	g_state = S010;
+	g_state = S020;
 	
 	// --------------------------------------------------------------------
 	// プリセット変更初期化
@@ -1868,28 +2411,7 @@ void A201(void)
 	// --------------------------------------------------------------------
 	// EEPROMデータ保存
 	// --------------------------------------------------------------------
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x10, 0x10, 16);	// E2P_2
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x20, 0x20, 16);	// E2P_3
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x30, 0x30, 16);	// E2P_4
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x40, 0x40, 16);	// E2P_5
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x50, 0x50, 16);	// E2P_6
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x60, 0x60, 16);	// E2P_7
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x70, 0x70, 16);	// E2P_8
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x80, 0x80, 16);	// E2P_9
+	Save_EEPROM_ALL();
 	
 	// --------------------------------------------------------------------
 	// 画面クリア&切り替え
@@ -1944,8 +2466,10 @@ void A202(void)
 			case  4:	g_e2p_data.E2P_5.num4_data_select += Acc; g_e2p_data.E2P_5.num4_data_select = (g_e2p_data.E2P_5.num4_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_5.num4_data_select; break;
 			case  5:	g_e2p_data.E2P_6.num5_data_select += Acc; g_e2p_data.E2P_6.num5_data_select = (g_e2p_data.E2P_6.num5_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_6.num5_data_select; break;
 			case  6:	g_e2p_data.E2P_6.num6_data_select += Acc; g_e2p_data.E2P_6.num6_data_select = (g_e2p_data.E2P_6.num6_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_6.num6_data_select; break;
-			case  7:	g_e2p_data.E2P_3.rev_data_select  += Acc; g_e2p_data.E2P_3.rev_data_select  = (g_e2p_data.E2P_3.rev_data_select  > rev_data_select_value) ? rev_data_select_value : g_e2p_data.E2P_3.rev_data_select;  break;
-			case  8:	g_e2p_data.E2P_3.afr_data_select  += Acc; g_e2p_data.E2P_3.afr_data_select  = (g_e2p_data.E2P_3.afr_data_select  > afr_data_select_value) ? afr_data_select_value : g_e2p_data.E2P_3.afr_data_select;  break;
+//			case  7:	g_e2p_data.E2P_3.rev_data_select  += Acc; g_e2p_data.E2P_3.rev_data_select  = (g_e2p_data.E2P_3.rev_data_select  > rev_data_select_value) ? rev_data_select_value : g_e2p_data.E2P_3.rev_data_select;  break;
+			case  7:	g_e2p_data.E2P_3.rev_data_select  += Acc; g_e2p_data.E2P_3.rev_data_select  = (g_e2p_data.E2P_3.rev_data_select  > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_3.rev_data_select;  break;
+//			case  8:	g_e2p_data.E2P_3.afr_data_select  += Acc; g_e2p_data.E2P_3.afr_data_select  = (g_e2p_data.E2P_3.afr_data_select  > afr_data_select_value) ? afr_data_select_value : g_e2p_data.E2P_3.afr_data_select;  break;
+			case  8:	g_e2p_data.E2P_3.afr_data_select  += Acc; g_e2p_data.E2P_3.afr_data_select  = (g_e2p_data.E2P_3.afr_data_select  > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_3.afr_data_select;  break;
 			case  9:	g_e2p_data.E2P_8.cht1_data_select += Acc; g_e2p_data.E2P_8.cht1_data_select = (g_e2p_data.E2P_8.cht1_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_8.cht1_data_select; break;
 			case 10:	g_e2p_data.E2P_8.cht2_data_select += Acc; g_e2p_data.E2P_8.cht2_data_select = (g_e2p_data.E2P_8.cht2_data_select > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_8.cht2_data_select; break;
 		}
@@ -2167,7 +2691,8 @@ void A202(void)
 			case 5:	g_e2p_data.E2P_6.num5_unit += Acc; g_e2p_data.E2P_6.num5_unit = (g_e2p_data.E2P_6.num5_unit > num_unit_value) ? num_unit_value : g_e2p_data.E2P_6.num5_unit; break;
 			case 6:	g_e2p_data.E2P_6.num6_unit += Acc; g_e2p_data.E2P_6.num6_unit = (g_e2p_data.E2P_6.num6_unit > num_unit_value) ? num_unit_value : g_e2p_data.E2P_6.num6_unit; break;
 			case 7:	g_e2p_data.E2P_2.rev_timing_rmp3 -= Acc; Acc ++; g_e2p_data.E2P_2.rev_timing_rmp3 = (g_e2p_data.E2P_2.rev_timing_rmp3 < (g_e2p_data.E2P_2.rev_timing_rmp2 + 1)) ? (g_e2p_data.E2P_2.rev_timing_rmp2 + 1) : g_e2p_data.E2P_2.rev_timing_rmp3; break;
-			case 8:	g_e2p_data.E2P_3.t_afr_data_select  += Acc; g_e2p_data.E2P_3.t_afr_data_select  = (g_e2p_data.E2P_3.t_afr_data_select  > t_afr_data_select_value) ? t_afr_data_select_value : g_e2p_data.E2P_3.t_afr_data_select;  break;
+//			case 8:	g_e2p_data.E2P_3.t_afr_data_select  += Acc; g_e2p_data.E2P_3.t_afr_data_select  = (g_e2p_data.E2P_3.t_afr_data_select  > t_afr_data_select_value) ? t_afr_data_select_value : g_e2p_data.E2P_3.t_afr_data_select;  break;
+			case 8:	g_e2p_data.E2P_3.t_afr_data_select  += Acc; g_e2p_data.E2P_3.t_afr_data_select  = (g_e2p_data.E2P_3.t_afr_data_select  > num_data_select_value) ? num_data_select_value : g_e2p_data.E2P_3.t_afr_data_select;  break;
 		}
 		if((num_page != 9) && (num_page != 10) && (num_page != 11) && (num_page != 12))
 		{
@@ -2275,31 +2800,7 @@ void A991(void)
 	Init_e2p_data();						// EEPROMデータレジスタ初期化
 	Preset_load_MoTeC1();					// 初期データとしてMoTeC1データを読み込み
 	// EEPROM初期データデータ書き込み
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x00, 0x00, 16);	// E2P_1
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x10, 0x10, 16);	// E2P_2
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x20, 0x20, 16);	// E2P_3
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x30, 0x30, 16);	// E2P_4
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x40, 0x40, 16);	// E2P_5
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x50, 0x50, 16);	// E2P_6
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x60, 0x60, 16);	// E2P_7
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x70, 0x70, 16);	// E2P_8
-	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
-	while(g_int50mscnt < 0);
-	mtrs_start((const unsigned char *)&g_e2p_data + 0x80, 0x80, 16);	// E2P_9
+	Save_EEPROM_ALL();
 	
 	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("Save is complete.");
 	LCD_locate( 20, 24 * 6 + 6);	LCD_textout("Please restart!!");
@@ -2330,7 +2831,7 @@ void funcS002(void)
 }
 
 // --------------------------------------------------------------------
-// 設定画面描画
+// 設定画面1描画
 // --------------------------------------------------------------------
 void funcS010(void)
 {
@@ -2351,13 +2852,13 @@ void funcS010(void)
 	
 	switch(g_e2p_data.E2P_1.model)
 	{
+		case CAN_std:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< CAN STD  >");	break;
 		case MoTeC1:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< MoTeC100 >");	break;
 		case MoTeC2:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< MoTeC84  >");	break;
 		case Haltech1:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< Haltech1 >");	break;
 		case Haltech2:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< Haltech2 >");	break;
 		case Freedom1:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< Freedom1 >");	break;
 		case Freedom2:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< Freedom2 >");	break;
-		case MSquirt1:	LCD_locate(100, 24 * 2 + 6);	LCD_textout("< MSquirt1 >");	break;
 	}
 	LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
 	LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
@@ -2389,16 +2890,157 @@ void funcS010(void)
 	switch(preset_no)
 	{
 		case 0:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("<-nochange->");	break;
-		case 1:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< MoTeC1   >");	break;
-		case 2:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< MoTeC2   >");	break;
+		case 1:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< CAN-STD  >");	break;
+		case 2:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< MoTeC    >");	break;
+//		case 3:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< MoTeC2   >");	break;
 		case 3:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< Haltech1 >");	break;
 		case 4:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< Haltech2 >");	break;
 		case 5:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< Freedom1 >");	break;
 		case 6:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< Freedom2 >");	break;
-		case 7:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< MSquirt1 >");	break;
+//		case 7:			LCD_locate(100, 24 * 6 + 6);	LCD_textout("< MSquirt1 >");	break;
 	}
 	LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
 	LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	
+	// --------------------------------------------------------------------
+	// 保存アイコン描画
+	// --------------------------------------------------------------------
+	LCD_locate(130,215);	LCD_Gcopy(256, 120, 64, 24, (volatile unsigned int    *)FONT);
+	
+	// --------------------------------------------------------------------
+	// カーソルアイコン描画
+	// --------------------------------------------------------------------
+	LCD_locate( 46,215);	LCD_Gcopy(256,  48, 64, 24, (volatile unsigned int    *)FONT);	// 左
+	LCD_locate(214,215);	LCD_Gcopy(256,  72, 64, 24, (volatile unsigned int    *)FONT);	// 右
+	
+	LCD_Refresh();			// フレームバッファ更新
+}
+
+// --------------------------------------------------------------------
+// 設定画面2描画
+// --------------------------------------------------------------------
+void funcS020(void)
+{
+	// --------------------------------------------------------------------
+	// ローカル変数宣言
+	// --------------------------------------------------------------------
+	
+	// --------------------------------------------------------------------
+	// 画面クリア&切り替え
+	// --------------------------------------------------------------------
+	LCD_CLR(COLOR_BLACK);
+	
+	// --------------------------------------------------------------------
+	// 設定項目描画
+	// --------------------------------------------------------------------
+	LCD_locate( 20, 24 * 0 + 6);	LCD_textout("<<CAN ID SETTINGS>>");
+	
+	LCD_locate( 20, 24 * 1 + 6);	LCD_textout("Baudrate");
+	LCD_locate( 20, 24 * 2 + 6);	LCD_textout("Ch1     ");
+	LCD_locate( 20, 24 * 3 + 6);	LCD_textout("Ch2     ");
+	LCD_locate( 20, 24 * 4 + 6);	LCD_textout("Ch3     ");
+	LCD_locate( 20, 24 * 5 + 6);	LCD_textout("Ch4     ");
+	LCD_locate( 20, 24 * 6 + 6);	LCD_textout("Ch5     ");
+	LCD_locate( 20, 24 * 7 + 6);	LCD_textout("Ch6     ");
+	LCD_locate(250, 24 * 0 + 6);	LCD_textout(version);
+	
+	// ボーレート設定
+	if		(g_e2p_data.E2P_1.CANcontrol.BIT.BAUD == 0)
+	{
+		LCD_locate(100, 24 * 1 + 6);	LCD_textout("< 500kbps >");
+		
+	}
+	else
+	{
+		LCD_locate(100, 24 * 1 + 6);	LCD_textout("< 1Mbps   >");
+
+	}
+	LCD_locate(230,24 * 1);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+	LCD_locate(270,24 * 1);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	
+	// ID1
+	if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1 == 1)
+	{
+		LCD_locate(60,24 * 2);	LCD_Gcopy(256, 192, 32, 24, (volatile unsigned int    *)FONT);	// ○
+		LCD_locate(100, 24 * 2 + 6);	LCD_textout("ID <");	LCD_INT_draw(g_e2p_data.E2P_1.CAN_ID1, 4, 0);	LCD_textout(" >");
+		LCD_locate(230,24 * 2);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270,24 * 2);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	}
+	else
+	{
+		LCD_locate(60,24 * 2);	LCD_Gcopy(288, 192, 32, 24, (volatile unsigned int    *)FONT);	// ×
+		LCD_locate(100, 24 * 2 + 6);	LCD_textout("not in use.");
+	}
+	
+	// ID2
+	if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2 == 1)
+	{
+		LCD_locate(60,24 * 3);	LCD_Gcopy(256, 192, 32, 24, (volatile unsigned int    *)FONT);	// ○
+		LCD_locate(100, 24 * 3 + 6);	LCD_textout("ID <");	LCD_INT_draw(g_e2p_data.E2P_1.CAN_ID2, 4, 0);	LCD_textout(" >");
+		LCD_locate(230,24 * 3);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270,24 * 3);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	}
+	else
+	{
+		LCD_locate(60,24 * 3);	LCD_Gcopy(288, 192, 32, 24, (volatile unsigned int    *)FONT);	// ×
+		LCD_locate(100, 24 * 3 + 6);	LCD_textout("not in use.");
+	}
+	
+	// ID3
+	if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3 == 1)
+	{
+		LCD_locate(60,24 * 4);	LCD_Gcopy(256, 192, 32, 24, (volatile unsigned int    *)FONT);	// ○
+		LCD_locate(100, 24 * 4 + 6);	LCD_textout("ID <");	LCD_INT_draw(g_e2p_data.E2P_1.CAN_ID3, 4, 0);	LCD_textout(" >");
+		LCD_locate(230,24 * 4);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270,24 * 4);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	}
+	else
+	{
+		LCD_locate(60,24 * 4);	LCD_Gcopy(288, 192, 32, 24, (volatile unsigned int    *)FONT);	// ×
+		LCD_locate(100, 24 * 4 + 6);	LCD_textout("not in use.");
+	}
+	
+	// ID4
+	if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4 == 1)
+	{
+		LCD_locate(60,24 * 5);	LCD_Gcopy(256, 192, 32, 24, (volatile unsigned int    *)FONT);	// ○
+		LCD_locate(100, 24 * 5 + 6);	LCD_textout("ID <");	LCD_INT_draw(g_e2p_data.E2P_1.CAN_ID4, 4, 0);	LCD_textout(" >");
+		LCD_locate(230,24 * 5);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270,24 * 5);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	}
+	else
+	{
+		LCD_locate(60,24 * 5);	LCD_Gcopy(288, 192, 32, 24, (volatile unsigned int    *)FONT);	// ×
+		LCD_locate(100, 24 * 5 + 6);	LCD_textout("not in use.");
+	}
+	
+	// ID5
+	if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5 == 1)
+	{
+		LCD_locate(60,24 * 6);	LCD_Gcopy(256, 192, 32, 24, (volatile unsigned int    *)FONT);	// ○
+		LCD_locate(100, 24 * 6 + 6);	LCD_textout("ID <");	LCD_INT_draw(g_e2p_data.E2P_1.CAN_ID5, 4, 0);	LCD_textout(" >");
+		LCD_locate(230,24 * 6);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270,24 * 6);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	}
+	else
+	{
+		LCD_locate(60,24 * 6);	LCD_Gcopy(288, 192, 32, 24, (volatile unsigned int    *)FONT);	// ×
+		LCD_locate(100, 24 * 6 + 6);	LCD_textout("not in use.");
+	}
+	
+	// ID6
+	if		(g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6 == 1)
+	{
+		LCD_locate(60,24 * 7);	LCD_Gcopy(256, 192, 32, 24, (volatile unsigned int    *)FONT);	// ○
+		LCD_locate(100, 24 * 7 + 6);	LCD_textout("ID <");	LCD_INT_draw(g_e2p_data.E2P_1.CAN_ID6, 4, 0);	LCD_textout(" >");
+		LCD_locate(230,24 * 7);	LCD_Gcopy(256, 144, 32, 24, (volatile unsigned int    *)FONT);	// 上
+		LCD_locate(270,24 * 7);	LCD_Gcopy(288, 144, 32, 24, (volatile unsigned int    *)FONT);	// 下
+	}
+	else
+	{
+		LCD_locate(60,24 * 7);	LCD_Gcopy(288, 192, 32, 24, (volatile unsigned int    *)FONT);	// ×
+		LCD_locate(100, 24 * 7 + 6);	LCD_textout("not in use. ");
+	}
 	
 	// --------------------------------------------------------------------
 	// 保存アイコン描画
@@ -2428,14 +3070,27 @@ void funcS110(void)
 	// --------------------------------------------------------------------
 	// 数値算出
 	// --------------------------------------------------------------------
-	rev  = ((long)(rev_data_select(g_e2p_data.E2P_3.rev_data_select )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
-	afr  = ((long)(afr_data_select(g_e2p_data.E2P_3.afr_data_select )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
-	num1 = ((long)(num_data_select(g_e2p_data.E2P_4.num1_data_select)) + g_e2p_data.E2P_4.num1_bias) * g_e2p_data.E2P_4.num1_gain / 1000;
-	num2 = ((long)(num_data_select(g_e2p_data.E2P_4.num2_data_select)) + g_e2p_data.E2P_4.num2_bias) * g_e2p_data.E2P_4.num2_gain / 1000;
-	num3 = ((long)(num_data_select(g_e2p_data.E2P_5.num3_data_select)) + g_e2p_data.E2P_5.num3_bias) * g_e2p_data.E2P_5.num3_gain / 1000;
-	num4 = ((long)(num_data_select(g_e2p_data.E2P_5.num4_data_select)) + g_e2p_data.E2P_5.num4_bias) * g_e2p_data.E2P_5.num4_gain / 1000;
-	num5 = ((long)(num_data_select(g_e2p_data.E2P_6.num5_data_select)) + g_e2p_data.E2P_6.num5_bias) * g_e2p_data.E2P_6.num5_gain / 1000;
-	num6 = ((long)(num_data_select(g_e2p_data.E2P_6.num6_data_select)) + g_e2p_data.E2P_6.num6_bias) * g_e2p_data.E2P_6.num6_gain / 1000;
+//	rev  = ((long)(rev_data_select(g_e2p_data.E2P_3.rev_data_select )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
+//	afr  = ((long)(afr_data_select(g_e2p_data.E2P_3.afr_data_select )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+	
+//	rev  = ((long)(num_data_select(g_e2p_data.E2P_3.rev_data_select )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
+//	afr  = ((long)(num_data_select(g_e2p_data.E2P_3.afr_data_select )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+//	num1 = ((long)(num_data_select(g_e2p_data.E2P_4.num1_data_select)) + g_e2p_data.E2P_4.num1_bias) * g_e2p_data.E2P_4.num1_gain / 1000;
+//	num2 = ((long)(num_data_select(g_e2p_data.E2P_4.num2_data_select)) + g_e2p_data.E2P_4.num2_bias) * g_e2p_data.E2P_4.num2_gain / 1000;
+//	num3 = ((long)(num_data_select(g_e2p_data.E2P_5.num3_data_select)) + g_e2p_data.E2P_5.num3_bias) * g_e2p_data.E2P_5.num3_gain / 1000;
+//	num4 = ((long)(num_data_select(g_e2p_data.E2P_5.num4_data_select)) + g_e2p_data.E2P_5.num4_bias) * g_e2p_data.E2P_5.num4_gain / 1000;
+//	num5 = ((long)(num_data_select(g_e2p_data.E2P_6.num5_data_select)) + g_e2p_data.E2P_6.num5_bias) * g_e2p_data.E2P_6.num5_gain / 1000;
+//	num6 = ((long)(num_data_select(g_e2p_data.E2P_6.num6_data_select)) + g_e2p_data.E2P_6.num6_bias) * g_e2p_data.E2P_6.num6_gain / 1000;
+	
+	rev  = num_calc(g_e2p_data.E2P_3.rev_data_select , g_e2p_data.E2P_3.rev_bias , g_e2p_data.E2P_3.rev_gain );
+	afr  = num_calc(g_e2p_data.E2P_3.afr_data_select , g_e2p_data.E2P_3.afr_bias , g_e2p_data.E2P_3.afr_gain );
+	num1 = num_calc(g_e2p_data.E2P_4.num1_data_select, g_e2p_data.E2P_4.num1_bias, g_e2p_data.E2P_4.num1_gain);
+	num2 = num_calc(g_e2p_data.E2P_4.num2_data_select, g_e2p_data.E2P_4.num2_bias, g_e2p_data.E2P_4.num2_gain);
+	num3 = num_calc(g_e2p_data.E2P_5.num3_data_select, g_e2p_data.E2P_5.num3_bias, g_e2p_data.E2P_5.num3_gain);
+	num4 = num_calc(g_e2p_data.E2P_5.num4_data_select, g_e2p_data.E2P_5.num4_bias, g_e2p_data.E2P_5.num4_gain);
+	num5 = num_calc(g_e2p_data.E2P_6.num5_data_select, g_e2p_data.E2P_6.num5_bias, g_e2p_data.E2P_6.num5_gain);
+	num6 = num_calc(g_e2p_data.E2P_6.num6_data_select, g_e2p_data.E2P_6.num6_bias, g_e2p_data.E2P_6.num6_gain);
+
 	// 算出値リミット
 	rev  = (rev  >=  +9000) ? + 9000 : rev ;	rev  = (rev  <=      0) ?      0 : rev ;
 	afr  = (afr  >= +32000) ? +32000 : afr ;	afr  = (afr  <= -32000) ? -32000 : afr ;
@@ -2499,6 +3154,18 @@ void funcS110(void)
 	LCD_locate((RevPoint + 23)	, 10);	LCD_Gcopy((RevPoint + 23)	, 120, 320 - (RevPoint + 23)	,119, (volatile unsigned int    *)BASE);
 	
 	// --------------------------------------------------------------------
+	// CAN 受信エラー表示
+	// --------------------------------------------------------------------
+	if(g_can_error_cnt != 0)
+	{
+		LCD_locate(  1, 24 * 0 + 6);	LCD_textout("CAN ERROR");
+	}
+	else
+	{
+		LCD_locate(  1, 24 * 0 + 6);	LCD_textout("          ");
+	}
+	
+	// --------------------------------------------------------------------
 	// 数値メータ描画
 	// --------------------------------------------------------------------
 	LCD_locate(178, 24 * 3);	LCD_INT_drawBN (rev , 5, 0);
@@ -2549,13 +3216,15 @@ void funcS110(void)
 	// --------------------------------------------------------------------
 	LCD_locate( 46,215);	LCD_Gcopy(256,  48, 64, 24, (volatile unsigned int    *)FONT);	// 左
 	LCD_locate(214,215);	LCD_Gcopy(256,  72, 64, 24, (volatile unsigned int    *)FONT);	// 右
-	
+
+/*	
 	// --------------------------------------------------------------------
 	// FPS描画
 	// --------------------------------------------------------------------
 	g_fps ++;
 	LCD_locate(  0,  0);	LCD_INT_drawBN (g_fps_max, 3, 0);
 	LCD_locate( 64,  6);	LCD_textout("fps");
+*/
 	
 	LCD_Refresh();			// フレームバッファ更新
 }
@@ -2574,14 +3243,27 @@ void funcS120(void)
 	// --------------------------------------------------------------------
 	// 数値算出
 	// --------------------------------------------------------------------
-	rev  = ((long)(rev_data_select(g_e2p_data.E2P_3.rev_data_select )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
-	afr  = ((long)(afr_data_select(g_e2p_data.E2P_3.afr_data_select )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
-	num1 = ((long)(num_data_select(g_e2p_data.E2P_4.num1_data_select)) + g_e2p_data.E2P_4.num1_bias) * g_e2p_data.E2P_4.num1_gain / 1000;
-	num2 = ((long)(num_data_select(g_e2p_data.E2P_4.num2_data_select)) + g_e2p_data.E2P_4.num2_bias) * g_e2p_data.E2P_4.num2_gain / 1000;
-	num3 = ((long)(num_data_select(g_e2p_data.E2P_5.num3_data_select)) + g_e2p_data.E2P_5.num3_bias) * g_e2p_data.E2P_5.num3_gain / 1000;
-	num4 = ((long)(num_data_select(g_e2p_data.E2P_5.num4_data_select)) + g_e2p_data.E2P_5.num4_bias) * g_e2p_data.E2P_5.num4_gain / 1000;
-	num5 = ((long)(num_data_select(g_e2p_data.E2P_6.num5_data_select)) + g_e2p_data.E2P_6.num5_bias) * g_e2p_data.E2P_6.num5_gain / 1000;
-	num6 = ((long)(num_data_select(g_e2p_data.E2P_6.num6_data_select)) + g_e2p_data.E2P_6.num6_bias) * g_e2p_data.E2P_6.num6_gain / 1000;
+//	rev  = ((long)(rev_data_select(g_e2p_data.E2P_3.rev_data_select )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
+//	afr  = ((long)(afr_data_select(g_e2p_data.E2P_3.afr_data_select )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+	
+//	rev  = ((long)(num_data_select(g_e2p_data.E2P_3.rev_data_select )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
+//	afr  = ((long)(num_data_select(g_e2p_data.E2P_3.afr_data_select )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+//	num1 = ((long)(num_data_select(g_e2p_data.E2P_4.num1_data_select)) + g_e2p_data.E2P_4.num1_bias) * g_e2p_data.E2P_4.num1_gain / 1000;
+//	num2 = ((long)(num_data_select(g_e2p_data.E2P_4.num2_data_select)) + g_e2p_data.E2P_4.num2_bias) * g_e2p_data.E2P_4.num2_gain / 1000;
+//	num3 = ((long)(num_data_select(g_e2p_data.E2P_5.num3_data_select)) + g_e2p_data.E2P_5.num3_bias) * g_e2p_data.E2P_5.num3_gain / 1000;
+//	num4 = ((long)(num_data_select(g_e2p_data.E2P_5.num4_data_select)) + g_e2p_data.E2P_5.num4_bias) * g_e2p_data.E2P_5.num4_gain / 1000;
+//	num5 = ((long)(num_data_select(g_e2p_data.E2P_6.num5_data_select)) + g_e2p_data.E2P_6.num5_bias) * g_e2p_data.E2P_6.num5_gain / 1000;
+//	num6 = ((long)(num_data_select(g_e2p_data.E2P_6.num6_data_select)) + g_e2p_data.E2P_6.num6_bias) * g_e2p_data.E2P_6.num6_gain / 1000;
+	
+	rev  = num_calc(g_e2p_data.E2P_3.rev_data_select , g_e2p_data.E2P_3.rev_bias , g_e2p_data.E2P_3.rev_gain );
+	afr  = num_calc(g_e2p_data.E2P_3.afr_data_select , g_e2p_data.E2P_3.afr_bias , g_e2p_data.E2P_3.afr_gain );
+	num1 = num_calc(g_e2p_data.E2P_4.num1_data_select, g_e2p_data.E2P_4.num1_bias, g_e2p_data.E2P_4.num1_gain);
+	num2 = num_calc(g_e2p_data.E2P_4.num2_data_select, g_e2p_data.E2P_4.num2_bias, g_e2p_data.E2P_4.num2_gain);
+	num3 = num_calc(g_e2p_data.E2P_5.num3_data_select, g_e2p_data.E2P_5.num3_bias, g_e2p_data.E2P_5.num3_gain);
+	num4 = num_calc(g_e2p_data.E2P_5.num4_data_select, g_e2p_data.E2P_5.num4_bias, g_e2p_data.E2P_5.num4_gain);
+	num5 = num_calc(g_e2p_data.E2P_6.num5_data_select, g_e2p_data.E2P_6.num5_bias, g_e2p_data.E2P_6.num5_gain);
+	num6 = num_calc(g_e2p_data.E2P_6.num6_data_select, g_e2p_data.E2P_6.num6_bias, g_e2p_data.E2P_6.num6_gain);
+	
 	// 算出値リミット
 	rev  = (rev  >=  +9000) ? + 9000 : rev ;	rev  = (rev  <=      0) ?      0 : rev ;
 	afr  = (afr  >= +32767) ? +32767 : afr ;	afr  = (afr  <= -32767) ? -32767 : afr ;
@@ -2688,12 +3370,14 @@ void funcS120(void)
 	LCD_locate( 46,215);	LCD_Gcopy(256,  48, 64, 24, (volatile unsigned int    *)FONT);	// 左
 	LCD_locate(214,215);	LCD_Gcopy(256,  72, 64, 24, (volatile unsigned int    *)FONT);	// 右
 	
+/*
 	// --------------------------------------------------------------------
 	// FPS描画
 	// --------------------------------------------------------------------
 	g_fps ++;
 	LCD_locate(  0,  0);	LCD_INT_drawBN (g_fps_max, 3, 0);
 	LCD_locate( 64,  6);	LCD_textout("fps");
+*/
 	
 	LCD_Refresh();			// フレームバッファ更新
 }
@@ -2743,11 +3427,16 @@ void funcS130(void)
 	// --------------------------------------------------------------------
 	// 数値算出
 	// --------------------------------------------------------------------
-	rev  = ((long)(rev_data_select(g_e2p_data.E2P_3.rev_data_select    )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
-	afr  = ((long)(afr_data_select(g_e2p_data.E2P_3.afr_data_select    )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+//	rev  = ((long)(rev_data_select(g_e2p_data.E2P_3.rev_data_select    )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
+//	afr  = ((long)(afr_data_select(g_e2p_data.E2P_3.afr_data_select    )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+//	rev  = ((long)(num_data_select(g_e2p_data.E2P_3.rev_data_select    )) + g_e2p_data.E2P_3.rev_bias ) * g_e2p_data.E2P_3.rev_gain  / 1000;
+//	afr  = ((long)(num_data_select(g_e2p_data.E2P_3.afr_data_select    )) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+	rev  = num_calc(g_e2p_data.E2P_3.rev_data_select , g_e2p_data.E2P_3.rev_bias , g_e2p_data.E2P_3.rev_gain );
+	afr  = num_calc(g_e2p_data.E2P_3.afr_data_select , g_e2p_data.E2P_3.afr_bias , g_e2p_data.E2P_3.afr_gain );
 	if(g_e2p_data.E2P_3.t_afr_data_select != 0)
 	{
-		tafr = ((long)(t_afr_data_select(g_e2p_data.E2P_3.t_afr_data_select)) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+//		tafr = ((long)(t_afr_data_select(g_e2p_data.E2P_3.t_afr_data_select)) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
+		tafr = ((long)(num_data_select(g_e2p_data.E2P_3.t_afr_data_select)) + g_e2p_data.E2P_3.afr_bias ) * g_e2p_data.E2P_3.afr_gain  / 1000;
 	}
 	else
 	{
@@ -3005,12 +3694,14 @@ void funcS130(void)
 	LCD_locate( 46,215);	LCD_Gcopy(256,  48, 64, 24, (volatile unsigned int    *)FONT);	// 左
 	LCD_locate(214,215);	LCD_Gcopy(256,  72, 64, 24, (volatile unsigned int    *)FONT);	// 右
 	
+/*
 	// --------------------------------------------------------------------
 	// FPS描画
 	// --------------------------------------------------------------------
 	g_fps ++;
 	LCD_locate(  0,  0);	LCD_INT_drawBN (g_fps_max, 3, 0);
 	LCD_locate( 64,  6);	LCD_textout("fps");
+*/
 	
 	LCD_Refresh();			// フレームバッファ更新
 }
@@ -3073,8 +3764,10 @@ void funcS210(void)
 		case  4:		num_data_select_draw(g_e2p_data.E2P_5.num4_data_select);	break;
 		case  5:		num_data_select_draw(g_e2p_data.E2P_6.num5_data_select);	break;
 		case  6:		num_data_select_draw(g_e2p_data.E2P_6.num6_data_select);	break;
-		case  7:		rev_data_select_draw(g_e2p_data.E2P_3.rev_data_select );	break;
-		case  8:		afr_data_select_draw(g_e2p_data.E2P_3.afr_data_select );	break;
+//		case  7:		rev_data_select_draw(g_e2p_data.E2P_3.rev_data_select );	break;
+//		case  8:		afr_data_select_draw(g_e2p_data.E2P_3.afr_data_select );	break;
+		case  7:		num_data_select_draw(g_e2p_data.E2P_3.rev_data_select );	break;
+		case  8:		num_data_select_draw(g_e2p_data.E2P_3.afr_data_select );	break;
 		case  9:		num_data_select_draw(g_e2p_data.E2P_8.cht1_data_select);	break;
 		case 10:		num_data_select_draw(g_e2p_data.E2P_8.cht2_data_select);	break;
 	}
@@ -3177,7 +3870,8 @@ void funcS210(void)
 		case 5:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_6.num5_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");	break;
 		case 6:		LCD_textout("< ");	num_unit_draw(g_e2p_data.E2P_6.num6_unit);	LCD_locate(200, 24 * 7 + 6);	LCD_textout(">");	break;
 		case 7:		LCD_textout("<   ");	LCD_INT_draw(g_e2p_data.E2P_2.rev_timing_rmp3, 6, 0);	LCD_textout(">");					break;
-		case 8:		LCD_locate( 20, 24 * 8 + 6);t_afr_data_select_draw(g_e2p_data.E2P_3.t_afr_data_select );							break;
+//		case 8:		LCD_locate( 20, 24 * 8 + 6);t_afr_data_select_draw(g_e2p_data.E2P_3.t_afr_data_select );							break;
+		case 8:		LCD_locate( 20, 24 * 8 + 6);num_data_select_draw(g_e2p_data.E2P_3.t_afr_data_select );							break;
 	}
 	switch(num_page)
 	{
@@ -3235,6 +3929,68 @@ void funcS999(void)
 }
 
 // --------------------------------------------------------------------
+// 標準CAN初期化
+// --------------------------------------------------------------------
+static void Init_CAN(void)
+{
+	// --------------------------------------------------------------------
+	// CAN割り込み禁止
+	// --------------------------------------------------------------------
+	RX0IE_Disable;
+	RX1IE_Disable;
+//	ERRIE_Disable;
+//	WAKIE_Disable;
+//	MERRE_Disable;
+	
+	// --------------------------------------------------------------------
+	// CAN初期化
+	// --------------------------------------------------------------------
+	if		(g_e2p_data.E2P_1.CANcontrol.BIT.BAUD == 0)
+	{
+		CANInit(CAN_BRP_20MHz_500KBPS);
+	}
+	else
+	{
+		CANInit(CAN_BRP_20MHz_1MBPS);
+	}
+	
+	// --------------------------------------------------------------------
+	// CANフィルター設定
+	// --------------------------------------------------------------------
+	CANSetSidFilter0(0x0000);
+	CANSetSidFilter1(0x0000);
+	CANSetSidFilter2(0x0000);
+	CANSetSidFilter3(0x0000);
+	CANSetSidFilter4(0x0000);
+	CANSetSidFilter5(0x0000);
+	CANSetSidMask0(0x0800);
+	CANSetSidMask1(0x0800);
+	
+	CANSetFilterRxB0(1);
+	CANSetFilterRxB1(1);
+	
+	// --------------------------------------------------------------------
+	// CANモード切替
+	// --------------------------------------------------------------------
+	CANSetOpMode(CAM_MODE_NORMAL);
+//	CANSetOpMode(CAM_MODE_LISTEN);
+	
+	// --------------------------------------------------------------------
+	// CAN割り込み許可
+	// --------------------------------------------------------------------
+	RX0IE_Enable;
+	RX1IE_Enable;
+//	ERRIE_Enable;
+//	WAKIE_Enable;
+//	MERRE_Enable;
+	
+	// --------------------------------------------------------------------
+	// CAN 時分割処理用タイマー初期化
+	// --------------------------------------------------------------------
+	g_can_rcv_timer = 10;
+}
+
+// --------------------------------------------------------------------
 // MoTeC1初期化
 // --------------------------------------------------------------------
 static void Init_MoTeC1(void)
@@ -3288,6 +4044,7 @@ static void Init_MoTeC1(void)
 	// --------------------------------------------------------------------
 	g_can_rcv_timer = 10;
 }
+
 
 // --------------------------------------------------------------------
 // MoTeC2初期化
@@ -3540,16 +4297,16 @@ static void Init_MSquirt1(void)
 }
 
 // --------------------------------------------------------------------
-// MoTeC1プリセット読み込み
+// 標準CANプリセット読み込み
 // --------------------------------------------------------------------
-static void Preset_load_MoTeC1(void)
+static void Preset_load_CAN(void)
 {
 	g_e2p_data.E2P_2.rev_timing_rmp1			=   6250;
 	g_e2p_data.E2P_2.rev_timing_rmp2			=   6500;
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
 	g_e2p_data.E2P_3.rev_data_select			=      0; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
-	g_e2p_data.E2P_3.afr_data_select			=      0; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
-	g_e2p_data.E2P_3.t_afr_data_select			=      1;
+	g_e2p_data.E2P_3.afr_data_select			=      5; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_3.t_afr_data_select			=     18;
 	g_e2p_data.E2P_4.num1_data_select			=      4; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =      0; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
 	g_e2p_data.E2P_4.num2_data_select			=      3; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =      0; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
 	g_e2p_data.E2P_5.num3_data_select			=     15; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 2; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
@@ -3569,12 +4326,43 @@ static void Preset_load_MoTeC1(void)
 }
 
 // --------------------------------------------------------------------
+// MoTeC1プリセット読み込み
+// --------------------------------------------------------------------
+static void Preset_load_MoTeC1(void)
+{
+	g_e2p_data.E2P_2.rev_timing_rmp1			=   6250;
+	g_e2p_data.E2P_2.rev_timing_rmp2			=   6500;
+	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
+	g_e2p_data.E2P_3.rev_data_select			=     24; g_e2p_data.E2P_3.rev_gain  =   1000; g_e2p_data.E2P_3.rev_bias  =      0;
+	g_e2p_data.E2P_3.afr_data_select			=     29; g_e2p_data.E2P_3.afr_gain  =    147; g_e2p_data.E2P_3.afr_bias  =      0; g_e2p_data.E2P_3.afr_dp  = 1; g_e2p_data.E2P_3.afr_label  =  1;
+	g_e2p_data.E2P_3.t_afr_data_select			=     42;
+	g_e2p_data.E2P_4.num1_data_select			=     28; g_e2p_data.E2P_4.num1_gain =   1000; g_e2p_data.E2P_4.num1_bias =      0; g_e2p_data.E2P_4.num1_dp = 1; g_e2p_data.E2P_4.num1_label =  4; g_e2p_data.E2P_4.num1_unit =  1;
+	g_e2p_data.E2P_4.num2_data_select			=     27; g_e2p_data.E2P_4.num2_gain =   1000; g_e2p_data.E2P_4.num2_bias =      0; g_e2p_data.E2P_4.num2_dp = 1; g_e2p_data.E2P_4.num2_label =  5; g_e2p_data.E2P_4.num2_unit =  1;
+	g_e2p_data.E2P_5.num3_data_select			=     39; g_e2p_data.E2P_5.num3_gain =   1000; g_e2p_data.E2P_5.num3_bias =      0; g_e2p_data.E2P_5.num3_dp = 2; g_e2p_data.E2P_5.num3_label =  8; g_e2p_data.E2P_5.num3_unit =  2;
+	g_e2p_data.E2P_5.num4_data_select			=     26; g_e2p_data.E2P_5.num4_gain =   1000; g_e2p_data.E2P_5.num4_bias =      0; g_e2p_data.E2P_5.num4_dp = 0; g_e2p_data.E2P_5.num4_label = 12; g_e2p_data.E2P_5.num4_unit =  4;
+	g_e2p_data.E2P_6.num5_data_select			=     25; g_e2p_data.E2P_6.num5_gain =   1000; g_e2p_data.E2P_6.num5_bias =      0; g_e2p_data.E2P_6.num5_dp = 1; g_e2p_data.E2P_6.num5_label = 10; g_e2p_data.E2P_6.num5_unit =  3;
+	g_e2p_data.E2P_6.num6_data_select			=     45; g_e2p_data.E2P_6.num6_gain =   1000; g_e2p_data.E2P_6.num6_bias =      0; g_e2p_data.E2P_6.num6_dp = 1; g_e2p_data.E2P_6.num6_label = 15; g_e2p_data.E2P_6.num6_unit =  3;
+	g_e2p_data.E2P_7.num1_warning				=   1050;
+	g_e2p_data.E2P_7.num2_warning				=    700;
+	g_e2p_data.E2P_7.num3_warning				=   1600;
+	g_e2p_data.E2P_7.num4_warning				=   1500;
+	g_e2p_data.E2P_7.num5_warning				=   1100;
+	g_e2p_data.E2P_7.num6_warning				=    900;
+	g_e2p_data.E2P_8.cht1_data_select			=     24; g_e2p_data.E2P_8.cht1_gain =   1000; g_e2p_data.E2P_8.cht1_bias =      0; g_e2p_data.E2P_8.cht1_dp = 0; g_e2p_data.E2P_8.cht1_label =  3;
+	g_e2p_data.E2P_8.cht2_data_select			=     25; g_e2p_data.E2P_8.cht2_gain =   1000; g_e2p_data.E2P_8.cht2_bias =      0; g_e2p_data.E2P_8.cht2_dp = 1; g_e2p_data.E2P_8.cht2_label = 10;
+	g_e2p_data.E2P_9.cht1_guage_gain			=     25; g_e2p_data.E2P_9.cht1_guage_bias = 0; g_e2p_data.E2P_9.cht1_guage_grid = 7;
+	g_e2p_data.E2P_9.cht2_guage_gain			=    200; g_e2p_data.E2P_9.cht2_guage_bias = 0; g_e2p_data.E2P_9.cht2_guage_grid = 9;
+}
+
+/*
+// --------------------------------------------------------------------
 // MoTeC2プリセット読み込み
 // --------------------------------------------------------------------
 static void Preset_load_MoTeC2(void)
 {
 	//
 }
+*/
 
 // --------------------------------------------------------------------
 // Haltech1プリセット読み込み
@@ -3671,6 +4459,7 @@ static void Preset_load_Freedom2(void)
 	g_e2p_data.E2P_9.cht2_guage_gain			=    200; g_e2p_data.E2P_9.cht2_guage_bias = 0; g_e2p_data.E2P_9.cht2_guage_grid = 9;
 }
 
+/*
 // --------------------------------------------------------------------
 // MegaSquirt1プリセット読み込み
 // --------------------------------------------------------------------
@@ -3698,4 +4487,50 @@ static void Preset_load_MegaSquirt1(void)
 	g_e2p_data.E2P_8.cht2_data_select			=     88; g_e2p_data.E2P_8.cht2_gain =   1000; g_e2p_data.E2P_8.cht2_bias =      0; g_e2p_data.E2P_8.cht2_dp = 1; g_e2p_data.E2P_8.cht2_label = 10;
 	g_e2p_data.E2P_9.cht1_guage_gain			=     25; g_e2p_data.E2P_9.cht1_guage_bias = 0; g_e2p_data.E2P_9.cht1_guage_grid = 7;
 	g_e2p_data.E2P_9.cht2_guage_gain			=    200; g_e2p_data.E2P_9.cht2_guage_bias = 0; g_e2p_data.E2P_9.cht2_guage_grid = 9;
+}
+*/
+
+// --------------------------------------------------------------------
+// EEPROM 全書き込み
+// --------------------------------------------------------------------
+static void Save_EEPROM_ALL(void)
+{
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x00, 0x00, 16);	// E2P_1
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x10, 0x10, 16);	// E2P_2
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x20, 0x20, 16);	// E2P_3
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x30, 0x30, 16);	// E2P_4
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x40, 0x40, 16);	// E2P_5
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x50, 0x50, 16);	// E2P_6
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x60, 0x60, 16);	// E2P_7
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x70, 0x70, 16);	// E2P_8
+	g_int50mscnt =  -4;		// ピリオド50ms x   6 = 0.2s 待機
+	while(g_int50mscnt < 0);
+	mtrs_start((const unsigned char *)&g_e2p_data + 0x80, 0x80, 16);	// E2P_9
+
+}
+// --------------------------------------------------------------------
+// 表示数値計算
+// --------------------------------------------------------------------
+static int num_calc(unsigned char num_calc_data_select, int num_calc_bias, int num_calc_gain)
+{
+	int val;
+	
+	val = ((long)(num_data_select(num_calc_data_select)) + num_calc_bias ) * num_calc_gain  / 1000;
+	
+	return val;
+
 }

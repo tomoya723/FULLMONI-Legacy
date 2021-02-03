@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------
-// Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+// Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
 //
 // This file is part of FullMoni firmwere.
 //
@@ -17,10 +17,10 @@
 // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
 //
 // filename		:	dataregister.c
-// brief		:	FullMoni rev.B データ管理
+// brief		:	FullMoni rev.C データ管理
 // author		:	Tomoya Sato
-// update		:	2013/08/05
-// version		:	1.04
+// update		:	2021/02/02
+// version		:	1.05
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -39,12 +39,19 @@ void Init_e2p_data(void)
 	g_e2p_data.E2P_1.control.BIT.ms_on			=      0;
 	g_e2p_data.E2P_1.control.BIT.FC_mode		=      0;
 	g_e2p_data.E2P_1.control.BIT.defi_on		=      0;
-	g_e2p_data.E2P_1.tp_Xmin					=   0x00;
-	g_e2p_data.E2P_1.tp_Xmax					=   0x00;
-	g_e2p_data.E2P_1.tp_Ymin					=   0x00;
-	g_e2p_data.E2P_1.tp_Ymax					=   0x00;
-	g_e2p_data.E2P_1.dimmer1					=   0x00;
-	g_e2p_data.E2P_1.dimmer2					=   0x00;
+	g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1		=      1;
+	g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2		=      1;
+	g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3		=      1;
+	g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4		=      1;
+	g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5		=      1;
+	g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6		=      1;
+	g_e2p_data.E2P_1.CANcontrol.BIT.BAUD		=      1;
+	g_e2p_data.E2P_1.CAN_ID1					=   1000;
+	g_e2p_data.E2P_1.CAN_ID2					=   1001;
+	g_e2p_data.E2P_1.CAN_ID3					=   1002;
+	g_e2p_data.E2P_1.CAN_ID4					=   1003;
+	g_e2p_data.E2P_1.CAN_ID5					=   1004;
+	g_e2p_data.E2P_1.CAN_ID6					=   1005;
 	g_e2p_data.E2P_2.rev_timing_rmp1			=   6250;
 	g_e2p_data.E2P_2.rev_timing_rmp2			=   6500;
 	g_e2p_data.E2P_2.rev_timing_rmp3			=   6750;
@@ -115,6 +122,37 @@ void Init_e2p_data(void)
 	g_e2p_data.E2P_9.cht2_guage_gain			= 0x0000;
 	g_e2p_data.E2P_9.cht2_guage_bias			= 0x0000;
 	g_e2p_data.E2P_9.cht2_guage_grid			=      0;
+}
+
+// --------------------------------------------------------------------
+// 標準CANデータ 初期化
+// --------------------------------------------------------------------
+void Init_CAN_data(void)
+{
+	g_CAN_data.ID1.DATA1					= 2500;
+	g_CAN_data.ID1.DATA2					=  800;
+	g_CAN_data.ID1.DATA3					=  500;
+	g_CAN_data.ID1.DATA4					=  200;
+	g_CAN_data.ID2.DATA1					=  800;
+	g_CAN_data.ID2.DATA2					= 1000;
+	g_CAN_data.ID2.DATA3					= 1000;
+	g_CAN_data.ID2.DATA4					=  500;
+	g_CAN_data.ID3.DATA1					=   50;
+	g_CAN_data.ID3.DATA2					=  700;
+	g_CAN_data.ID3.DATA3					=   30;
+	g_CAN_data.ID3.DATA4					= 1000;
+	g_CAN_data.ID4.DATA1					=   40;
+	g_CAN_data.ID4.DATA2					=  950;
+	g_CAN_data.ID4.DATA3					=  950;
+	g_CAN_data.ID4.DATA4					= 1250;
+	g_CAN_data.ID5.DATA1					=  400;
+	g_CAN_data.ID5.DATA2					=  200;
+	g_CAN_data.ID5.DATA3					=  850;
+	g_CAN_data.ID5.DATA4					= 1000;
+	g_CAN_data.ID6.DATA1					=  200;
+	g_CAN_data.ID6.DATA2					=   10;
+	g_CAN_data.ID6.DATA3					=    1;
+	g_CAN_data.ID6.DATA4					=    1;
 }
 
 // --------------------------------------------------------------------
@@ -224,6 +262,7 @@ void Init_Freedom2_data(void)
 	g_Freedom2_data.RetardCorrection	=    0;
 }
 
+/*
 // --------------------------------------------------------------------
 // MegaSquirt(MS2/Extra) データ初期化
 // --------------------------------------------------------------------
@@ -242,7 +281,9 @@ void Init_MSquirt1_data(void)
 	g_Megasquirt1_data.afr1				=  147;
 	g_Megasquirt1_data.afr2				=  147;
 }
-	
+*/
+
+/*
 // --------------------------------------------------------------------
 // レブゲージデータ選択
 // --------------------------------------------------------------------
@@ -293,6 +334,7 @@ unsigned int t_afr_data_select(unsigned char t_afr_data_select)
 		case  5:	return g_Megasquirt1_data.afrtgt1;			break;
 	}
 }
+*/
 
 // --------------------------------------------------------------------
 // 数値ゲージデータ選択
@@ -302,101 +344,114 @@ unsigned int num_data_select(unsigned char num_data_select)
 	switch(num_data_select)
 	{
 		default:
-		case  0:	return g_MoTeC1_data.RPM;					break;
-		case  1:	return g_MoTeC1_data.ThrottlePosition;		break;
-		case  2:	return g_MoTeC1_data.ManifoldPressure;		break;
-		case  3:	return g_MoTeC1_data.InletAirTemp;			break;
-		case  4:	return g_MoTeC1_data.EngineTemp;			break;
-		case  5:	return g_MoTeC1_data.Lambda1;				break;
-		case  6:	return g_MoTeC1_data.Lambda2;				break;
-		case  7:	return g_MoTeC1_data.ExhaustPressure;		break;
-		case  8:	return g_MoTeC1_data.MassAirFlow;			break;
-		case  9:	return g_MoTeC1_data.FuelTemp;				break;
-		case 10:	return g_MoTeC1_data.FuelPressure;			break;
-		case 11:	return g_MoTeC1_data.OilTemp;				break;
-		case 12:	return g_MoTeC1_data.OilPressure;			break;
-		case 13:	return g_MoTeC1_data.ExhaustTemp1;			break;
-		case 14:	return g_MoTeC1_data.ExhaustTemp2;			break;
-		case 15:	return g_MoTeC1_data.BatteryVoltage;		break;
-		case 16:	return g_MoTeC1_data.ECUTemp;				break;
-		case 17:	return g_MoTeC1_data.GroundSpeed;			break;
-		case 18:	return g_MoTeC1_data.AimLambda1;			break;
-		case 19:	return g_MoTeC1_data.AimLambda2;			break;
-		case 20:	return g_MoTeC1_data.IgnitionAdvance;		break;
-		case 21:	return g_MoTeC1_data.InjectorDuty;			break;
-		case 22:	return g_MoTeC1_data.Gear;					break;
-		case 23:	return g_Haltech1_data.RPM;					break;
-		case 24:	return g_Haltech1_data.GroundSpeed;			break;
-		case 25:	return g_Haltech1_data.OilPressure;			break;
-		case 26:	return g_Haltech1_data.EngineTemp;			break;
-		case 27:	return g_Haltech1_data.FuelPressure;		break;
-		case 28:	return g_Haltech1_data.BatteryVoltage;		break;
-		case 29:	return g_Haltech1_data.ThrottlePosition;	break;
-		case 30:	return g_Haltech1_data.ManifoldPressure;	break;
-		case 31:	return g_Haltech1_data.InletAirTemp;		break;
-		case 32:	return g_Haltech1_data.Lambda;				break;
-		case 33:	return g_Haltech1_data.IgnitionAdvance;		break;
-		case 34:	return g_Haltech1_data.Gear;				break;
-		case 35:	return g_Haltech1_data.InjectorDuty;		break;
-		case 36:	return g_Haltech2_data.RPM;					break;
-		case 37:	return g_Haltech2_data.ManifoldPressure;	break;
-		case 38:	return g_Haltech2_data.ThrottlePosition;	break;
-		case 39:	return g_Haltech2_data.FuelPressure;		break;
-		case 40:	return g_Haltech2_data.OilPressure;			break;
-		case 41:	return g_Haltech2_data.InjectorDuty;		break;
-		case 42:	return g_Haltech2_data.IgnitionAdvance1;	break;
-		case 43:	return g_Haltech2_data.IgnitionAdvance2;	break;
-		case 44:	return g_Haltech2_data.Lambda;				break;
-		case 45:	return g_Haltech2_data.GroundSpeed;			break;
-		case 46:	return g_Haltech2_data.Gear;				break;
-		case 47:	return g_Haltech2_data.BatteryVoltage;		break;
-		case 48:	return g_Haltech2_data.InletAirTemp2;		break;
-		case 49:	return g_Haltech2_data.BaroPressure;		break;
-		case 50:	return g_Haltech2_data.EGT;					break;
-		case 51:	return g_Haltech2_data.EngineTemp;			break;
-		case 52:	return g_Haltech2_data.InletAirTemp1;		break;
-		case 53:	return g_Haltech2_data.FuelTemp;			break;
-		case 54:	return g_Haltech2_data.OilTemp;				break;
-		case 55:	return g_Freedom2_data.RPM;					break;
-		case 56:	return g_Freedom2_data.ManifoldPressure;	break;
-		case 57:	return g_Freedom2_data.EngineTemp;			break;
-		case 58:	return g_Freedom2_data.InletAirTemp;		break;
-		case 59:	return g_Freedom2_data.BarometricPressure;	break;
-		case 60:	return g_Freedom2_data.ThrottlePosition;	break;
-		case 61:	return g_Freedom2_data.BatteryVoltage;		break;
-		case 62:	return g_Freedom2_data.ValidFuelTime;		break;
-		case 63:	return g_Freedom2_data.InvalidFuelTime;		break;
-		case 64:	return g_Freedom2_data.IgnitionAdvance;		break;
-		case 65:	return g_Freedom2_data.Status;				break;
-		case 66:	return g_Freedom2_data.GroundSpeed;			break;
-		case 67:	return g_Freedom2_data.AFR;					break;
-		case 68:	return g_Freedom2_data.TargetAFR;			break;
-		case 69:	return g_Freedom2_data.IATCorrection;		break;
-		case 70:	return g_Freedom2_data.ETCorrection;		break;
-		case 71:	return g_Freedom2_data.EStartCorrection;	break;
-		case 72:	return g_Freedom2_data.AccelCorrection;		break;
-		case 73:	return g_Freedom2_data.PowerCorrection;		break;
-		case 74:	return g_Freedom2_data.FeedbackCorrection;	break;
-		case 75:	return g_Freedom2_data.IdolCorrection;		break;
-		case 76:	return g_Freedom2_data.DecelCutCorrection;	break;
-		case 77:	return g_Freedom2_data.BaroCorrection;		break;
-		case 78:	return g_Freedom2_data.IdolIGCorrection;	break;
-		case 79:	return g_Freedom2_data.RetardCorrection;	break;
-		case 80:	return g_Megasquirt1_data.rpm;				break;
-		case 81:	return g_Megasquirt1_data.advance;			break;
-		case 82:	return g_Megasquirt1_data.afrtgt1;			break;
-		case 83:	return g_Megasquirt1_data.afrtgt2;			break;
-		case 84:	return g_Megasquirt1_data.barometer;		break;
-		case 85:	return g_Megasquirt1_data.map;				break;
-		case 86:	return g_Megasquirt1_data.mat;				break;
-		case 87:	return g_Megasquirt1_data.coolant;			break;
-		case 88:	return g_Megasquirt1_data.tps;				break;
-		case 89:	return g_Megasquirt1_data.batteryVoltage;	break;
-		case 90:	return g_Megasquirt1_data.afr1;				break;
-		case 91:	return g_Megasquirt1_data.afr2;				break;
+		case   0:	return g_CAN_data.ID1.DATA1;				break;
+		case   1:	return g_CAN_data.ID1.DATA2;				break;
+		case   2:	return g_CAN_data.ID1.DATA3;				break;
+		case   3:	return g_CAN_data.ID1.DATA4;				break;
+		case   4:	return g_CAN_data.ID2.DATA1;				break;
+		case   5:	return g_CAN_data.ID2.DATA2;				break;
+		case   6:	return g_CAN_data.ID2.DATA3;				break;
+		case   7:	return g_CAN_data.ID2.DATA4;				break;
+		case   8:	return g_CAN_data.ID3.DATA1;				break;
+		case   9:	return g_CAN_data.ID3.DATA2;				break;
+		case  10:	return g_CAN_data.ID3.DATA3;				break;
+		case  11:	return g_CAN_data.ID3.DATA4;				break;
+		case  12:	return g_CAN_data.ID4.DATA1;				break;
+		case  13:	return g_CAN_data.ID4.DATA2;				break;
+		case  14:	return g_CAN_data.ID4.DATA3;				break;
+		case  15:	return g_CAN_data.ID4.DATA4;				break;
+		case  16:	return g_CAN_data.ID5.DATA1;				break;
+		case  17:	return g_CAN_data.ID5.DATA2;				break;
+		case  18:	return g_CAN_data.ID5.DATA3;				break;
+		case  19:	return g_CAN_data.ID5.DATA4;				break;
+		case  20:	return g_CAN_data.ID6.DATA1;				break;
+		case  21:	return g_CAN_data.ID6.DATA2;				break;
+		case  22:	return g_CAN_data.ID6.DATA3;				break;
+		case  23:	return g_CAN_data.ID6.DATA4;				break;
+		case  24:	return g_MoTeC1_data.RPM;					break;
+		case  25:	return g_MoTeC1_data.ThrottlePosition;		break;
+		case  26:	return g_MoTeC1_data.ManifoldPressure;		break;
+		case  27:	return g_MoTeC1_data.InletAirTemp;			break;
+		case  28:	return g_MoTeC1_data.EngineTemp;			break;
+		case  29:	return g_MoTeC1_data.Lambda1;				break;
+		case  30:	return g_MoTeC1_data.Lambda2;				break;
+		case  31:	return g_MoTeC1_data.ExhaustPressure;		break;
+		case  32:	return g_MoTeC1_data.MassAirFlow;			break;
+		case  33:	return g_MoTeC1_data.FuelTemp;				break;
+		case  34:	return g_MoTeC1_data.FuelPressure;			break;
+		case  35:	return g_MoTeC1_data.OilTemp;				break;
+		case  36:	return g_MoTeC1_data.OilPressure;			break;
+		case  37:	return g_MoTeC1_data.ExhaustTemp1;			break;
+		case  38:	return g_MoTeC1_data.ExhaustTemp2;			break;
+		case  39:	return g_MoTeC1_data.BatteryVoltage;		break;
+		case  40:	return g_MoTeC1_data.ECUTemp;				break;
+		case  41:	return g_MoTeC1_data.GroundSpeed;			break;
+		case  42:	return g_MoTeC1_data.AimLambda1;			break;
+		case  43:	return g_MoTeC1_data.AimLambda2;			break;
+		case  44:	return g_MoTeC1_data.IgnitionAdvance;		break;
+		case  45:	return g_MoTeC1_data.InjectorDuty;			break;
+		case  46:	return g_MoTeC1_data.Gear;					break;
+		case  47:	return g_Haltech1_data.RPM;					break;
+		case  48:	return g_Haltech1_data.GroundSpeed;			break;
+		case  49:	return g_Haltech1_data.OilPressure;			break;
+		case  50:	return g_Haltech1_data.EngineTemp;			break;
+		case  51:	return g_Haltech1_data.FuelPressure;		break;
+		case  52:	return g_Haltech1_data.BatteryVoltage;		break;
+		case  53:	return g_Haltech1_data.ThrottlePosition;	break;
+		case  54:	return g_Haltech1_data.ManifoldPressure;	break;
+		case  55:	return g_Haltech1_data.InletAirTemp;		break;
+		case  56:	return g_Haltech1_data.Lambda;				break;
+		case  57:	return g_Haltech1_data.IgnitionAdvance;		break;
+		case  58:	return g_Haltech1_data.Gear;				break;
+		case  59:	return g_Haltech1_data.InjectorDuty;		break;
+		case  60:	return g_Haltech2_data.RPM;					break;
+		case  61:	return g_Haltech2_data.ManifoldPressure;	break;
+		case  62:	return g_Haltech2_data.ThrottlePosition;	break;
+		case  63:	return g_Haltech2_data.FuelPressure;		break;
+		case  64:	return g_Haltech2_data.OilPressure;			break;
+		case  65:	return g_Haltech2_data.InjectorDuty;		break;
+		case  66:	return g_Haltech2_data.IgnitionAdvance1;	break;
+		case  67:	return g_Haltech2_data.IgnitionAdvance2;	break;
+		case  68:	return g_Haltech2_data.Lambda;				break;
+		case  69:	return g_Haltech2_data.GroundSpeed;			break;
+		case  70:	return g_Haltech2_data.Gear;				break;
+		case  71:	return g_Haltech2_data.BatteryVoltage;		break;
+		case  72:	return g_Haltech2_data.InletAirTemp2;		break;
+		case  73:	return g_Haltech2_data.BaroPressure;		break;
+		case  74:	return g_Haltech2_data.EGT;					break;
+		case  75:	return g_Haltech2_data.EngineTemp;			break;
+		case  76:	return g_Haltech2_data.InletAirTemp1;		break;
+		case  77:	return g_Haltech2_data.FuelTemp;			break;
+		case  78:	return g_Haltech2_data.OilTemp;				break;
+		case  79:	return g_Freedom2_data.RPM;					break;
+		case  80:	return g_Freedom2_data.ManifoldPressure;	break;
+		case  81:	return g_Freedom2_data.EngineTemp;			break;
+		case  82:	return g_Freedom2_data.InletAirTemp;		break;
+		case  83:	return g_Freedom2_data.BarometricPressure;	break;
+		case  84:	return g_Freedom2_data.ThrottlePosition;	break;
+		case  85:	return g_Freedom2_data.BatteryVoltage;		break;
+		case  86:	return g_Freedom2_data.ValidFuelTime;		break;
+		case  87:	return g_Freedom2_data.InvalidFuelTime;		break;
+		case  88:	return g_Freedom2_data.IgnitionAdvance;		break;
+		case  89:	return g_Freedom2_data.Status;				break;
+		case  90:	return g_Freedom2_data.GroundSpeed;			break;
+		case  91:	return g_Freedom2_data.AFR;					break;
+		case  92:	return g_Freedom2_data.TargetAFR;			break;
+		case  93:	return g_Freedom2_data.IATCorrection;		break;
+		case  94:	return g_Freedom2_data.ETCorrection;		break;
+		case  95:	return g_Freedom2_data.EStartCorrection;	break;
+		case  96:	return g_Freedom2_data.AccelCorrection;		break;
+		case  97:	return g_Freedom2_data.PowerCorrection;		break;
+		case  98:	return g_Freedom2_data.FeedbackCorrection;	break;
+		case  99:	return g_Freedom2_data.IdolCorrection;		break;
+		case 100:	return g_Freedom2_data.DecelCutCorrection;	break;
+		case 101:	return g_Freedom2_data.BaroCorrection;		break;
+		case 102:	return g_Freedom2_data.IdolIGCorrection;	break;
+		case 103:	return g_Freedom2_data.RetardCorrection;	break;
 	}
 }
 
+/*
 // --------------------------------------------------------------------
 // レブゲージデータ選択描画
 // --------------------------------------------------------------------
@@ -447,6 +502,7 @@ void t_afr_data_select_draw(unsigned char t_afr_data_select_draw)
 		case  5:	LCD_textout("< MSquirt1.afrtgt2         >");	break;
 	}
 }
+*/
 
 // --------------------------------------------------------------------
 // 数値ゲージデータ選択描画
@@ -456,87 +512,111 @@ void num_data_select_draw(unsigned char num_data_select_draw)
 	switch(num_data_select_draw)
 	{
 		default:
-		case  0:	LCD_textout("< MoTeC1.RPM               >");	break;
-		case  1:	LCD_textout("< MoTeC1.ThrottlePosition  >");	break;
-		case  2:	LCD_textout("< MoTeC1.ManifoldPressure  >");	break;
-		case  3:	LCD_textout("< MoTeC1.InletAirTemp      >");	break;
-		case  4:	LCD_textout("< MoTeC1.EngineTemp        >");	break;
-		case  5:	LCD_textout("< MoTeC1.Lambda1           >");	break;
-		case  6:	LCD_textout("< MoTeC1.Lambda2           >");	break;
-		case  7:	LCD_textout("< MoTeC1.ExhaustPressure   >");	break;
-		case  8:	LCD_textout("< MoTeC1.MassAirFlow       >");	break;
-		case  9:	LCD_textout("< MoTeC1.FuelTemp          >");	break;
-		case 10:	LCD_textout("< MoTeC1.FuelPressure      >");	break;
-		case 11:	LCD_textout("< MoTeC1.OilTemp           >");	break;
-		case 12:	LCD_textout("< MoTeC1.OilPressure       >");	break;
-		case 13:	LCD_textout("< MoTeC1.ExhaustTemp1      >");	break;
-		case 14:	LCD_textout("< MoTeC1.ExhaustTemp2      >");	break;
-		case 15:	LCD_textout("< MoTeC1.BatteryVoltage    >");	break;
-		case 16:	LCD_textout("< MoTeC1.ECUTemp           >");	break;
-		case 17:	LCD_textout("< MoTeC1.GroundSpeed       >");	break;
-		case 18:	LCD_textout("< MoTeC1.AimLambda1        >");	break;
-		case 19:	LCD_textout("< MoTeC1.AimLambda2        >");	break;
-		case 20:	LCD_textout("< MoTeC1.IgnitionAdvance   >");	break;
-		case 21:	LCD_textout("< MoTeC1.InjectorDuty      >");	break;
-		case 22:	LCD_textout("< MoTeC1.Gear              >");	break;
-		case 23:	LCD_textout("< Haltech1.RPM             >");	break;
-		case 24:	LCD_textout("< Haltech1.GroundSpeed     >");	break;
-		case 25:	LCD_textout("< Haltech1.OilPressure     >");	break;
-		case 26:	LCD_textout("< Haltech1.EngineTemp      >");	break;
-		case 27:	LCD_textout("< Haltech1.FuelPressure    >");	break;
-		case 28:	LCD_textout("< Haltech1.BatteryVoltage  >");	break;
-		case 29:	LCD_textout("< Haltech1.ThrottlePosition>");	break;
-		case 30:	LCD_textout("< Haltech1.ManifoldPressure>");	break;
-		case 31:	LCD_textout("< Haltech1.InletAirTemp    >");	break;
-		case 32:	LCD_textout("< Haltech1.Lambda          >");	break;
-		case 33:	LCD_textout("< Haltech1.IgnitionAdvance >");	break;
-		case 34:	LCD_textout("< Haltech1.Gear            >");	break;
-		case 35:	LCD_textout("< Haltech1.InjectorDuty    >");	break;
-		case 36:	LCD_textout("< Haltech2.RPM             >");	break;
-		case 37:	LCD_textout("< Haltech2.ManifoldPressure>");	break;
-		case 38:	LCD_textout("< Haltech2.ThrottlePosition>");	break;
-		case 39:	LCD_textout("< Haltech2.FuelPressure    >");	break;
-		case 40:	LCD_textout("< Haltech2.OilPressure     >");	break;
-		case 41:	LCD_textout("< Haltech2.InjectorDuty    >");	break;
-		case 42:	LCD_textout("< Haltech2.IgnitionAdvance1>");	break;
-		case 43:	LCD_textout("< Haltech2.IgnitionAdvance2>");	break;
-		case 44:	LCD_textout("< Haltech2.Lambda          >");	break;
-		case 45:	LCD_textout("< Haltech2.GroundSpeed     >");	break;
-		case 46:	LCD_textout("< Haltech2.Gear            >");	break;
-		case 47:	LCD_textout("< Haltech2.BatteryVoltage  >");	break;
-		case 48:	LCD_textout("< Haltech2.InletAirTemp2   >");	break;
-		case 49:	LCD_textout("< Haltech2.BaroPressure    >");	break;
-		case 50:	LCD_textout("< Haltech2.EGT             >");	break;
-		case 51:	LCD_textout("< Haltech2.EngineTemp      >");	break;
-		case 52:	LCD_textout("< Haltech2.InletAirTemp1   >");	break;
-		case 53:	LCD_textout("< Haltech2.FuelTemp        >");	break;
-		case 54:	LCD_textout("< Haltech2.OilTemp         >");	break;
-		case 55:	LCD_textout("< Freedom2.RPM             >");	break;
-		case 56:	LCD_textout("< Freedom2.ManifoldPressure>");	break;
-		case 57:	LCD_textout("< Freedom2.EngineTemp      >");	break;
-		case 58:	LCD_textout("< Freedom2.InletAirTemp    >");	break;
-		case 59:	LCD_textout("< Freedom2.BaroPressure    >");	break;
-		case 60:	LCD_textout("< Freedom2.ThrottlePosition>");	break;
-		case 61:	LCD_textout("< Freedom2.BatteryVoltage  >");	break;
-		case 62:	LCD_textout("< Freedom2.ValidFuelTime   >");	break;
-		case 63:	LCD_textout("< Freedom2.InvalidFuelTime >");	break;
-		case 64:	LCD_textout("< Freedom2.IgnitionAdvance >");	break;
-		case 65:	LCD_textout("< Freedom2.Status          >");	break;
-		case 66:	LCD_textout("< Freedom2.GroundSpeed     >");	break;
-		case 67:	LCD_textout("< Freedom2.AFR             >");	break;
-		case 68:	LCD_textout("< Freedom2.TargetAFR       >");	break;
-		case 69:	LCD_textout("< Freedom2.IATCorrection   >");	break;
-		case 70:	LCD_textout("< Freedom2.ETCorrection    >");	break;
-		case 71:	LCD_textout("< Freedom2.EStartCorrection>");	break;
-		case 72:	LCD_textout("< Freedom2.AccelCorrection >");	break;
-		case 73:	LCD_textout("< Freedom2.PowerCorrection >");	break;
-		case 74:	LCD_textout("< Freedom2.FeedbackCorrect >");	break;
-		case 75:	LCD_textout("< Freedom2.IdolCorrection  >");	break;
-		case 76:	LCD_textout("< Freedom2.DecelCutCorrect >");	break;
-		case 77:	LCD_textout("< Freedom2.BaroCorrection  >");	break;
-		case 78:	LCD_textout("< Freedom2.IdolIGCorrect   >");	break;
-		case 79:	LCD_textout("< Freedom2.RetardCorrect   >");	break;
-		case 80:	LCD_textout("< MSquirt1.rpm             >");	break;
+		case   0:	LCD_textout("< CAN-STD.ID1.DATA1        >");	break;
+		case   1:	LCD_textout("< CAN-STD.ID1.DATA2        >");	break;
+		case   2:	LCD_textout("< CAN-STD.ID1.DATA3        >");	break;
+		case   3:	LCD_textout("< CAN-STD.ID1.DATA4        >");	break;
+		case   4:	LCD_textout("< CAN-STD.ID2.DATA1        >");	break;
+		case   5:	LCD_textout("< CAN-STD.ID2.DATA2        >");	break;
+		case   6:	LCD_textout("< CAN-STD.ID2.DATA3        >");	break;
+		case   7:	LCD_textout("< CAN-STD.ID2.DATA4        >");	break;
+		case   8:	LCD_textout("< CAN-STD.ID3.DATA1        >");	break;
+		case   9:	LCD_textout("< CAN-STD.ID3.DATA2        >");	break;
+		case  10:	LCD_textout("< CAN-STD.ID3.DATA3        >");	break;
+		case  11:	LCD_textout("< CAN-STD.ID3.DATA4        >");	break;
+		case  12:	LCD_textout("< CAN-STD.ID4.DATA1        >");	break;
+		case  13:	LCD_textout("< CAN-STD.ID4.DATA2        >");	break;
+		case  14:	LCD_textout("< CAN-STD.ID4.DATA3        >");	break;
+		case  15:	LCD_textout("< CAN-STD.ID4.DATA4        >");	break;
+		case  16:	LCD_textout("< CAN-STD.ID5.DATA1        >");	break;
+		case  17:	LCD_textout("< CAN-STD.ID5.DATA2        >");	break;
+		case  18:	LCD_textout("< CAN-STD.ID5.DATA3        >");	break;
+		case  19:	LCD_textout("< CAN-STD.ID5.DATA4        >");	break;
+		case  20:	LCD_textout("< CAN-STD.ID6.DATA1        >");	break;
+		case  21:	LCD_textout("< CAN-STD.ID6.DATA2        >");	break;
+		case  22:	LCD_textout("< CAN-STD.ID6.DATA3        >");	break;
+		case  23:	LCD_textout("< CAN-STD.ID6.DATA4        >");	break;
+		case  24:	LCD_textout("< MoTeC1.RPM               >");	break;
+		case  25:	LCD_textout("< MoTeC1.ThrottlePosition  >");	break;
+		case  26:	LCD_textout("< MoTeC1.ManifoldPressure  >");	break;
+		case  27:	LCD_textout("< MoTeC1.InletAirTemp      >");	break;
+		case  28:	LCD_textout("< MoTeC1.EngineTemp        >");	break;
+		case  29:	LCD_textout("< MoTeC1.Lambda1           >");	break;
+		case  30:	LCD_textout("< MoTeC1.Lambda2           >");	break;
+		case  31:	LCD_textout("< MoTeC1.ExhaustPressure   >");	break;
+		case  32:	LCD_textout("< MoTeC1.MassAirFlow       >");	break;
+		case  33:	LCD_textout("< MoTeC1.FuelTemp          >");	break;
+		case  34:	LCD_textout("< MoTeC1.FuelPressure      >");	break;
+		case  35:	LCD_textout("< MoTeC1.OilTemp           >");	break;
+		case  36:	LCD_textout("< MoTeC1.OilPressure       >");	break;
+		case  37:	LCD_textout("< MoTeC1.ExhaustTemp1      >");	break;
+		case  38:	LCD_textout("< MoTeC1.ExhaustTemp2      >");	break;
+		case  39:	LCD_textout("< MoTeC1.BatteryVoltage    >");	break;
+		case  40:	LCD_textout("< MoTeC1.ECUTemp           >");	break;
+		case  41:	LCD_textout("< MoTeC1.GroundSpeed       >");	break;
+		case  42:	LCD_textout("< MoTeC1.AimLambda1        >");	break;
+		case  43:	LCD_textout("< MoTeC1.AimLambda2        >");	break;
+		case  44:	LCD_textout("< MoTeC1.IgnitionAdvance   >");	break;
+		case  45:	LCD_textout("< MoTeC1.InjectorDuty      >");	break;
+		case  46:	LCD_textout("< MoTeC1.Gear              >");	break;
+		case  47:	LCD_textout("< Haltech1.RPM             >");	break;
+		case  48:	LCD_textout("< Haltech1.GroundSpeed     >");	break;
+		case  49:	LCD_textout("< Haltech1.OilPressure     >");	break;
+		case  50:	LCD_textout("< Haltech1.EngineTemp      >");	break;
+		case  51:	LCD_textout("< Haltech1.FuelPressure    >");	break;
+		case  52:	LCD_textout("< Haltech1.BatteryVoltage  >");	break;
+		case  53:	LCD_textout("< Haltech1.ThrottlePosition>");	break;
+		case  54:	LCD_textout("< Haltech1.ManifoldPressure>");	break;
+		case  55:	LCD_textout("< Haltech1.InletAirTemp    >");	break;
+		case  56:	LCD_textout("< Haltech1.Lambda          >");	break;
+		case  57:	LCD_textout("< Haltech1.IgnitionAdvance >");	break;
+		case  58:	LCD_textout("< Haltech1.Gear            >");	break;
+		case  59:	LCD_textout("< Haltech1.InjectorDuty    >");	break;
+		case  60:	LCD_textout("< Haltech2.RPM             >");	break;
+		case  61:	LCD_textout("< Haltech2.ManifoldPressure>");	break;
+		case  62:	LCD_textout("< Haltech2.ThrottlePosition>");	break;
+		case  63:	LCD_textout("< Haltech2.FuelPressure    >");	break;
+		case  64:	LCD_textout("< Haltech2.OilPressure     >");	break;
+		case  65:	LCD_textout("< Haltech2.InjectorDuty    >");	break;
+		case  66:	LCD_textout("< Haltech2.IgnitionAdvance1>");	break;
+		case  67:	LCD_textout("< Haltech2.IgnitionAdvance2>");	break;
+		case  68:	LCD_textout("< Haltech2.Lambda          >");	break;
+		case  69:	LCD_textout("< Haltech2.GroundSpeed     >");	break;
+		case  70:	LCD_textout("< Haltech2.Gear            >");	break;
+		case  71:	LCD_textout("< Haltech2.BatteryVoltage  >");	break;
+		case  72:	LCD_textout("< Haltech2.InletAirTemp2   >");	break;
+		case  73:	LCD_textout("< Haltech2.BaroPressure    >");	break;
+		case  74:	LCD_textout("< Haltech2.EGT             >");	break;
+		case  75:	LCD_textout("< Haltech2.EngineTemp      >");	break;
+		case  76:	LCD_textout("< Haltech2.InletAirTemp1   >");	break;
+		case  77:	LCD_textout("< Haltech2.FuelTemp        >");	break;
+		case  78:	LCD_textout("< Haltech2.OilTemp         >");	break;
+		case  79:	LCD_textout("< Freedom2.RPM             >");	break;
+		case  80:	LCD_textout("< Freedom2.ManifoldPressure>");	break;
+		case  81:	LCD_textout("< Freedom2.EngineTemp      >");	break;
+		case  82:	LCD_textout("< Freedom2.InletAirTemp    >");	break;
+		case  83:	LCD_textout("< Freedom2.BaroPressure    >");	break;
+		case  84:	LCD_textout("< Freedom2.ThrottlePosition>");	break;
+		case  85:	LCD_textout("< Freedom2.BatteryVoltage  >");	break;
+		case  86:	LCD_textout("< Freedom2.ValidFuelTime   >");	break;
+		case  87:	LCD_textout("< Freedom2.InvalidFuelTime >");	break;
+		case  88:	LCD_textout("< Freedom2.IgnitionAdvance >");	break;
+		case  89:	LCD_textout("< Freedom2.Status          >");	break;
+		case  90:	LCD_textout("< Freedom2.GroundSpeed     >");	break;
+		case  91:	LCD_textout("< Freedom2.AFR             >");	break;
+		case  92:	LCD_textout("< Freedom2.TargetAFR       >");	break;
+		case  93:	LCD_textout("< Freedom2.IATCorrection   >");	break;
+		case  94:	LCD_textout("< Freedom2.ETCorrection    >");	break;
+		case  95:	LCD_textout("< Freedom2.EStartCorrection>");	break;
+		case  96:	LCD_textout("< Freedom2.AccelCorrection >");	break;
+		case  97:	LCD_textout("< Freedom2.PowerCorrection >");	break;
+		case  98:	LCD_textout("< Freedom2.FeedbackCorrect >");	break;
+		case  99:	LCD_textout("< Freedom2.IdolCorrection  >");	break;
+		case 100:	LCD_textout("< Freedom2.DecelCutCorrect >");	break;
+		case 101:	LCD_textout("< Freedom2.BaroCorrection  >");	break;
+		case 102:	LCD_textout("< Freedom2.IdolIGCorrect   >");	break;
+		case 103:	LCD_textout("< Freedom2.RetardCorrect   >");	break;
+/*		case 80:	LCD_textout("< MSquirt1.rpm             >");	break;
 		case 81:	LCD_textout("< MSquirt1.advance         >");	break;
 		case 82:	LCD_textout("< MSquirt1.afrtgt1         >");	break;
 		case 83:	LCD_textout("< MSquirt1.afrtgt2         >");	break;
@@ -547,7 +627,7 @@ void num_data_select_draw(unsigned char num_data_select_draw)
 		case 88:	LCD_textout("< MSquirt1.tps             >");	break;
 		case 89:	LCD_textout("< MSquirt1.batteryVoltage  >");	break;
 		case 90:	LCD_textout("< MSquirt1.afr1            >");	break;
-		case 91:	LCD_textout("< MSquirt1.afr2            >");	break;
+		case 91:	LCD_textout("< MSquirt1.afr2            >");	break;*/
 	}
 }
 

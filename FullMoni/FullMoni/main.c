@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------
-// Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+// Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
 //
 // This file is part of FullMoni firmwere.
 //
@@ -17,10 +17,10 @@
 // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
 //
 // filename		:	main.c
-// brief		:	FullMoni rev.B メインルーチン
+// brief		:	FullMoni rev.C メインルーチン
 // author		:	Tomoya Sato
-// update		:	2013/08/05
-// version		:	1.04
+// update		:	2021/02/02
+// version		:	1.05
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -36,7 +36,7 @@ void abort(void);
 // --------------------------------------------------------------------
 // システムヘッダファイル
 // --------------------------------------------------------------------
-#include <machine.h>
+//#include <machine.h>
 
 // --------------------------------------------------------------------
 // ユーザーヘッダファイル
@@ -52,12 +52,13 @@ void abort(void);
 // --------------------------------------------------------------------
 // グローバル変数宣言
 // --------------------------------------------------------------------
-volatile char version[5] = "v1.04";
+volatile char version[5] = "v1.05";
 
 // --------------------------------------------------------------------
 // グローバル構造体宣言
 // --------------------------------------------------------------------
 volatile e2p_data_t			g_e2p_data;
+volatile CAN_data_t			g_CAN_data;
 volatile MoTeC1_data_t		g_MoTeC1_data;
 volatile Haltech1_data_t	g_Haltech1_data;
 volatile Haltech2_data_t	g_Haltech2_data;
@@ -90,11 +91,12 @@ void main(void)
 	// --------------------------------------------------------------------
 	// データ初期化
 	// --------------------------------------------------------------------
+	Init_CAN_data();
 	Init_MoTeC1_data();
 	Init_Haltech1_data();
 	Init_Haltech2_data();
 	Init_Freedom2_data();
-	Init_MSquirt1_data();
+//	Init_MSquirt1_data();
 
 	// --------------------------------------------------------------------
 	// FONTデータ展開(Flash→内部RAM)
@@ -145,6 +147,7 @@ volatile unsigned int	g_led_o_min_flg;
 volatile unsigned int	g_led_r_max_flg;
 volatile unsigned int	g_led_r_min_flg;
 volatile unsigned int	g_can_rcv_timer;
+volatile unsigned int	g_can_error_cnt;
 static unsigned int		touch_cnt;
 static unsigned int		Beep_OneShotMin_cnt;
 static unsigned int		Beep_OneShotMax_cnt;
@@ -175,7 +178,16 @@ void Int_CAN2515(void)
 	// --------------------------------------------------------------------
 	CAN_rcv_INTF = CANReadReg(CANINTF);
 	
-	if((CAN_rcv_INTF & 0x02) == 0x02)
+//	if((CAN_rcv_INTF & 0x20) == 0x20)	// エラー割り込みフラグビット(EFLGレジスタの複数要因)確定
+//	{
+		g_can_error_cnt = CANReadReg(REC);	// 受信エラーカウンターストア
+//	}
+//	else
+//	{
+//		g_can_error_cnt = 0;
+//	}
+	
+	if((CAN_rcv_INTF & 0x02) == 0x02)	// 受信バッファ1フル割り込みフラグビット確定
 	{
 		CANRxB1Read(&can_rcv[1], 8);
 		
@@ -183,7 +195,53 @@ void Int_CAN2515(void)
 		
 		if(Onetime_Peakclear_cnt > 0) Onetime_Peakclear_cnt --;
 		
-		if		(g_e2p_data.E2P_1.model == MoTeC1)
+		if			(g_e2p_data.E2P_1.model == CAN_std)
+		{
+				if		((msgID == g_e2p_data.E2P_1.CAN_ID1) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1 == 1))
+				{
+							g_CAN_data.ID1.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID1.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID1.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID1.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID2) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2 == 1))
+				{
+							g_CAN_data.ID2.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID2.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID2.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID2.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID3) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3 == 1))
+				{
+							g_CAN_data.ID3.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID3.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID3.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID3.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID4) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4 == 1))
+				{
+							g_CAN_data.ID4.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID4.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID4.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID4.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID5) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5 == 1))
+				{
+							g_CAN_data.ID5.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID5.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID5.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID5.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID6) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6 == 1))
+				{
+							g_CAN_data.ID6.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID6.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID6.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID6.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+		
+		}
+		else if	(g_e2p_data.E2P_1.model == MoTeC1)
 		{
 			switch(msgID)
 			{
@@ -618,7 +676,7 @@ void Int_CAN2515(void)
 			}
 		}
 	}
-	if((CAN_rcv_INTF & 0x01) == 0x01)
+	if((CAN_rcv_INTF & 0x01) == 0x01)	// 受信バッファ0フル割り込みフラグビット確定
 	{
 		CANRxB0Read(&can_rcv[1], 8);
 		
@@ -626,7 +684,52 @@ void Int_CAN2515(void)
 		
 		if(Onetime_Peakclear_cnt > 0) Onetime_Peakclear_cnt --;
 		
-		if		(g_e2p_data.E2P_1.model == MoTeC1)
+		if			(g_e2p_data.E2P_1.model == CAN_std)
+		{
+				if		((msgID == g_e2p_data.E2P_1.CAN_ID1) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch1 == 1))
+				{
+							g_CAN_data.ID1.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID1.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID1.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID1.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID2) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch2 == 1))
+				{
+							g_CAN_data.ID2.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID2.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID2.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID2.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID3) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch3 == 1))
+				{
+							g_CAN_data.ID3.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID3.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID3.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID3.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID4) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch4 == 1))
+				{
+							g_CAN_data.ID4.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID4.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID4.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID4.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID5) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch5 == 1))
+				{
+							g_CAN_data.ID5.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID5.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID5.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID5.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+				else if	((msgID == g_e2p_data.E2P_1.CAN_ID6) && (g_e2p_data.E2P_1.CANcontrol.BIT.CAN_ch6 == 1))
+				{
+							g_CAN_data.ID6.DATA1				= ((((unsigned int) can_rcv[6] ) << 8) + can_rcv[7] );
+							g_CAN_data.ID6.DATA2				= ((((unsigned int) can_rcv[8] ) << 8) + can_rcv[9] );
+							g_CAN_data.ID6.DATA3				= ((((unsigned int) can_rcv[10]) << 8) + can_rcv[11]);
+							g_CAN_data.ID6.DATA4				= ((((unsigned int) can_rcv[12]) << 8) + can_rcv[13]);
+				}
+		}
+		else if	(g_e2p_data.E2P_1.model == MoTeC1)
 		{
 			switch(msgID)
 			{
@@ -1179,6 +1282,7 @@ void Int_50msFunc(void)
 		g_beep_twoshotmin_flg = 0;
 		Beep_TwoShotMin_cnt = 0;
 	}
+/*
 	// --------------------------------------------------------------------
 	// FPS計測カウンタインクリメント
 	// --------------------------------------------------------------------
@@ -1192,7 +1296,7 @@ void Int_50msFunc(void)
 	else
 	{
 		//
-	}
+*/
 	
 	// --------------------------------------------------------------------
 	// EXDMA転送時間待機
@@ -1370,7 +1474,7 @@ static void Beep_TwoShotMin_control(void)
 }
 
 // --------------------------------------------------------------------
-// 定期割り込みルーチン 50mSec毎
+// 定期割り込みルーチン 1mSec毎
 // --------------------------------------------------------------------
 void Int_1msFunc(void)
 {
@@ -1463,7 +1567,7 @@ void Int_1msFunc(void)
 				//
 			}
 		}
-	}
+/*	}
 	else if	(g_e2p_data.E2P_1.model == MSquirt1)
 	{
 		sci_rcv_cnt ++;
@@ -1479,7 +1583,7 @@ void Int_1msFunc(void)
 //		else
 //		{
 //			//
-//		}
+//		}*/
 	}
 	else
 	{

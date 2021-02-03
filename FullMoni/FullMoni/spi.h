@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------
-// Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+// Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
 //
 // This file is part of FullMoni firmwere.
 //
@@ -17,10 +17,10 @@
 // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
 //
 // filename		:	spi.h
-// brief		:	FullMoni rev.B SPIí êMèàóù
+// brief		:	FullMoni rev.C SPIí êMèàóù
 // author		:	Tomoya Sato
-// update		:	2013/08/05
-// version		:	1.04
+// update		:	2021/02/02
+// version		:	1.05
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------

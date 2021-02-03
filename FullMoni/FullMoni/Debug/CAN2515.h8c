@@ -1,10 +1,10 @@
 -cpu=H8SXA:24:MD
 -lang=c
--object="C:\WorkSpace\FullMoni\FullMoni\Debug\CAN2515.obj"
+-object="D:\WorkSpace\FullMoni\FullMoni\Debug\CAN2515.obj"
 -outcode=sjis
 -debug
--list="C:\WorkSpace\FullMoni\FullMoni\Debug\CAN2515.lst"
+-list="D:\WorkSpace\FullMoni\FullMoni\Debug\CAN2515.lst"
 -show=object,nostatistics,allocation,tab=4
 -chgincpath
-"C:\WorkSpace\FullMoni\FullMoni\CAN2515.c"
+"D:\WorkSpace\FullMoni\FullMoni\CAN2515.c"
 -nologo

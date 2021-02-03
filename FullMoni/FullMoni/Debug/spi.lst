@@ -1,24 +1,10 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    5-Aug-2013 15:20:17 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:31 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
-FILE NAME: C:\WorkSpace\FullMoni\FullMoni\spi.c
+FILE NAME: D:\WorkSpace\FullMoni\FullMoni\spi.c
 
-Function (File C:\WorkSpa, Line    40): Init_SPI
-
-  Optimize Option Specified : No Allocation Information Available
-
-Parameter Area Size     : 0x00000000 Byte(s)
-Linkage Area Size       : 0x00000004 Byte(s)
-Local Variable Size     : 0x00000000 Byte(s)
-Temporary Size          : 0x00000000 Byte(s)
-Register Save Area Size : 0x00000000 Byte(s)
-Total Frame Size        : 0x00000004 Byte(s)
-
-Used Runtime Library Name
-
-
-Function (File C:\WorkSpa, Line    76): SPI_Set_BaudRate
+Function (File D:\WorkSpa, Line    40): Init_SPI
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -32,7 +18,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   130): SPI_TxRx
+Function (File D:\WorkSpa, Line    76): SPI_Set_BaudRate
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -46,17 +32,31 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    5-Aug-2013 15:20:17 PAGE   1
+Function (File D:\WorkSpa, Line   130): SPI_TxRx
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:31 PAGE   1
 
 ************ OBJECT LISTING ************
 
-FILE NAME: C:\WorkSpace\FullMoni\FullMoni\spi.c
+FILE NAME: D:\WorkSpace\FullMoni\FullMoni\spi.c
 
 SCT OFFSET CODE               LABEL     INSTRUCTION OPERAND    COMMENT
 
 P                                                                  ; section
          1:    // --------------------------------------------------------------------
-         2:    // Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+         2:    // Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
          3:    //
          4:    // This file is part of FullMoni firmwere.
          5:    //
@@ -74,10 +74,10 @@ P                                                                  ; section
         17:    // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
         18:    //
         19:    // filename     :   spi.c
-        20:    // brief        :   FullMoni rev.B SPIí êMèàóù
+        20:    // brief        :   FullMoni rev.C SPIí êMèàóù
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2013/08/05
-        23:    // version      :   1.04
+        22:    // update       :   2021/02/02
+        23:    // version      :   1.05
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------

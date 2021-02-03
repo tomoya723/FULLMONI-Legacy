@@ -8,21 +8,57 @@
 "ECXLABEL_LAST_FINDS_DATA" "" 
 [BREAKPOINTS]
 [OPEN_WORKSPACE_FILES]
-"C:\WorkSpace\FullMoni\FullMoni\dataregister.c" 
-"C:\WorkSpace\FullMoni\FullMoni\dataregister.h" 
-"C:\WorkSpace\FullMoni\FullMoni\init_system.c" 
-"C:\WorkSpace\FullMoni\FullMoni\init_system.h" 
-"C:\WorkSpace\FullMoni\FullMoni\main.c" 
-"C:\WorkSpace\FullMoni\FullMoni\state_control.c" 
-"C:\WorkSpace\FullMoni\FullMoni\state_control.h" 
+"D:\WorkSpace\FullMoni\FullMoni\ADS7843.c" 
+"D:\WorkSpace\FullMoni\FullMoni\ADS7843.h" 
+"D:\WorkSpace\FullMoni\FullMoni\CAN2515.c" 
+"D:\WorkSpace\FullMoni\FullMoni\CAN2515.h" 
+"D:\WorkSpace\FullMoni\FullMoni\dataregister.c" 
+"D:\WorkSpace\FullMoni\FullMoni\dataregister.h" 
+"D:\WorkSpace\FullMoni\FullMoni\dbsct.c" 
+"D:\WorkSpace\FullMoni\FullMoni\iic.c" 
+"D:\WorkSpace\FullMoni\FullMoni\iic.h" 
+"D:\WorkSpace\FullMoni\FullMoni\init_system.c" 
+"D:\WorkSpace\FullMoni\FullMoni\init_system.h" 
+"D:\WorkSpace\FullMoni\FullMoni\intprg.c" 
+"D:\WorkSpace\FullMoni\FullMoni\iodefine.h" 
+"D:\WorkSpace\FullMoni\FullMoni\main.c" 
+"D:\WorkSpace\FullMoni\FullMoni\resetprg.c" 
+"D:\WorkSpace\FullMoni\FullMoni\sbrk.c" 
+"D:\WorkSpace\FullMoni\FullMoni\sbrk.h" 
+"D:\WorkSpace\FullMoni\FullMoni\spi.c" 
+"D:\WorkSpace\FullMoni\FullMoni\spi.h" 
+"D:\WorkSpace\FullMoni\FullMoni\stacksct.h" 
+"D:\WorkSpace\FullMoni\FullMoni\state_control.c" 
+"D:\WorkSpace\FullMoni\FullMoni\state_control.h" 
+"D:\WorkSpace\FullMoni\FullMoni\TFTLCD35.c" 
+"D:\WorkSpace\FullMoni\FullMoni\TFTLCD35.h" 
+"D:\WorkSpace\FullMoni\FullMoni\typedefine.h" 
 [WORKSPACE_FILE_STATES]
-"C:\WorkSpace\FullMoni\FullMoni\dataregister.c" 110 145 887 358 0 5 
-"C:\WorkSpace\FullMoni\FullMoni\dataregister.h" 132 174 887 358 0 6 
-"C:\WorkSpace\FullMoni\FullMoni\init_system.c" 22 29 887 358 0 1 
-"C:\WorkSpace\FullMoni\FullMoni\init_system.h" 44 58 887 358 0 2 
-"C:\WorkSpace\FullMoni\FullMoni\main.c" 0 0 883 354 0 0 
-"C:\WorkSpace\FullMoni\FullMoni\state_control.c" -4 -30 1027 566 1 3 
-"C:\WorkSpace\FullMoni\FullMoni\state_control.h" 88 116 887 358 0 4 
+"D:\WorkSpace\FullMoni\FullMoni\ADS7843.c" 0 0 1499 376 0 0 
+"D:\WorkSpace\FullMoni\FullMoni\ADS7843.h" 156 156 1503 380 0 13 
+"D:\WorkSpace\FullMoni\FullMoni\CAN2515.c" 26 26 1503 380 0 1 
+"D:\WorkSpace\FullMoni\FullMoni\CAN2515.h" 0 0 1503 380 0 14 
+"D:\WorkSpace\FullMoni\FullMoni\TFTLCD35.c" 130 130 1503 380 0 12 
+"D:\WorkSpace\FullMoni\FullMoni\TFTLCD35.h" 52 52 1503 380 0 23 
+"D:\WorkSpace\FullMoni\FullMoni\dataregister.c" 52 52 1503 380 0 2 
+"D:\WorkSpace\FullMoni\FullMoni\dataregister.h" 26 26 1503 380 0 15 
+"D:\WorkSpace\FullMoni\FullMoni\dbsct.c" 78 78 1503 380 0 3 
+"D:\WorkSpace\FullMoni\FullMoni\iic.c" 104 104 1503 380 0 4 
+"D:\WorkSpace\FullMoni\FullMoni\iic.h" 52 52 1503 380 0 16 
+"D:\WorkSpace\FullMoni\FullMoni\init_system.c" 130 130 1503 380 0 5 
+"D:\WorkSpace\FullMoni\FullMoni\init_system.h" 78 78 1503 380 0 17 
+"D:\WorkSpace\FullMoni\FullMoni\intprg.c" 156 156 1503 380 0 6 
+"D:\WorkSpace\FullMoni\FullMoni\iodefine.h" 104 104 1503 380 0 18 
+"D:\WorkSpace\FullMoni\FullMoni\main.c" 0 0 1503 380 0 7 
+"D:\WorkSpace\FullMoni\FullMoni\resetprg.c" 26 26 1503 380 0 8 
+"D:\WorkSpace\FullMoni\FullMoni\sbrk.c" 52 52 1503 380 0 9 
+"D:\WorkSpace\FullMoni\FullMoni\sbrk.h" 130 130 1503 380 0 19 
+"D:\WorkSpace\FullMoni\FullMoni\spi.c" 78 78 1503 380 0 10 
+"D:\WorkSpace\FullMoni\FullMoni\spi.h" 156 156 1503 380 0 20 
+"D:\WorkSpace\FullMoni\FullMoni\stacksct.h" 0 0 1503 380 0 21 
+"D:\WorkSpace\FullMoni\FullMoni\state_control.c" 104 104 1503 380 0 11 
+"D:\WorkSpace\FullMoni\FullMoni\state_control.h" 26 26 1503 380 0 22 
+"D:\WorkSpace\FullMoni\FullMoni\typedefine.h" -8 -31 1675 575 1 24 
 [LOADED_PROJECTS]
 "FullMoni" 
 [END]

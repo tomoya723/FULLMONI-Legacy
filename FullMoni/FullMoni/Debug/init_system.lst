@@ -1,24 +1,10 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    5-Aug-2013 16:39:53 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:30 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
-FILE NAME: C:\WorkSpace\FullMoni\FullMoni\init_system.c
+FILE NAME: D:\WorkSpace\FullMoni\FullMoni\init_system.c
 
-Function (File C:\WorkSpa, Line    43): Init_CPG
-
-  Optimize Option Specified : No Allocation Information Available
-
-Parameter Area Size     : 0x00000000 Byte(s)
-Linkage Area Size       : 0x00000004 Byte(s)
-Local Variable Size     : 0x00000000 Byte(s)
-Temporary Size          : 0x00000000 Byte(s)
-Register Save Area Size : 0x00000000 Byte(s)
-Total Frame Size        : 0x00000004 Byte(s)
-
-Used Runtime Library Name
-
-
-Function (File C:\WorkSpa, Line    57): Init_INTC
+Function (File D:\WorkSpa, Line    43): Init_CPG
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -32,7 +18,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line    81): Init_MSTP
+Function (File D:\WorkSpa, Line    57): Init_INTC
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -46,7 +32,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   122): Init_GPIO
+Function (File D:\WorkSpa, Line    81): Init_MSTP
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -60,7 +46,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   245): Init_BSC
+Function (File D:\WorkSpa, Line   122): Init_GPIO
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -74,7 +60,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   285): Init_EXDMAC
+Function (File D:\WorkSpa, Line   245): Init_BSC
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -88,7 +74,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   309): Init_DMAC
+Function (File D:\WorkSpa, Line   285): Init_EXDMAC
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -102,7 +88,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   350): Init_TPU
+Function (File D:\WorkSpa, Line   309): Init_DMAC
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -116,7 +102,21 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   464): UART_Tx
+Function (File D:\WorkSpa, Line   350): Init_TPU
+
+  Optimize Option Specified : No Allocation Information Available
+
+Parameter Area Size     : 0x00000000 Byte(s)
+Linkage Area Size       : 0x00000004 Byte(s)
+Local Variable Size     : 0x00000000 Byte(s)
+Temporary Size          : 0x00000000 Byte(s)
+Register Save Area Size : 0x00000000 Byte(s)
+Total Frame Size        : 0x00000004 Byte(s)
+
+Used Runtime Library Name
+
+
+Function (File D:\WorkSpa, Line   464): UART_Tx
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -130,7 +130,7 @@ Total Frame Size        : 0x00000006 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   499): UART_Tx_Char
+Function (File D:\WorkSpa, Line   499): UART_Tx_Char
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -144,7 +144,7 @@ Total Frame Size        : 0x00000006 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   507): Int_Handler_UART_Tx
+Function (File D:\WorkSpa, Line   507): Int_Handler_UART_Tx
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -158,7 +158,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   531): Int_Handler_UART_Rx
+Function (File D:\WorkSpa, Line   531): Int_Handler_UART_Rx
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -172,7 +172,7 @@ Total Frame Size        : 0x00000010 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   623): Int_Handler_UART_Rx_ERR
+Function (File D:\WorkSpa, Line   623): Int_Handler_UART_Rx_ERR
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -186,7 +186,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-Function (File C:\WorkSpa, Line   634): Int_Handler_UART_Tx_END
+Function (File D:\WorkSpa, Line   634): Int_Handler_UART_Tx_END
 
   Optimize Option Specified : No Allocation Information Available
 
@@ -200,17 +200,17 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    5-Aug-2013 16:39:53 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:30 PAGE   1
 
 ************ OBJECT LISTING ************
 
-FILE NAME: C:\WorkSpace\FullMoni\FullMoni\init_system.c
+FILE NAME: D:\WorkSpace\FullMoni\FullMoni\init_system.c
 
 SCT OFFSET CODE               LABEL     INSTRUCTION OPERAND    COMMENT
 
 P                                                                  ; section
          1:    // --------------------------------------------------------------------
-         2:    // Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+         2:    // Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
          3:    //
          4:    // This file is part of FullMoni firmwere.
          5:    //
@@ -228,10 +228,10 @@ P                                                                  ; section
         17:    // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
         18:    //
         19:    // filename     :   initsystem.c
-        20:    // brief        :   FullMoni rev.B システム初期化
+        20:    // brief        :   FullMoni rev.C システム初期化
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2013/08/05
-        23:    // version      :   1.04
+        22:    // update       :   2021/02/02
+        23:    // version      :   1.05
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------
@@ -889,10 +889,10 @@ P                                                                  ; section
        480:        possible = (gUART_FIFO_Tx_DC < UART_FIFO_DEPTH)? 1 : 0;
   00000362 010E482000000000       CMP.L       #H'0100:16,@_gUART_FIFO_Tx_DC:32
            0100               
-  0000036C 4500                   BLO         L7502:8
-  0000036E 4001                   BRA/S       L7503:8
+  0000036C 4500                   BLO         L7576:8
+  0000036E 4001                   BRA/S       L7577:8
   00000370 18AA                   SUB.B       R2L,R2L
-  00000372                    L7502:                                
+  00000372                    L7576:                                
   00000372 FA01                   MOV.B       #1:8,R2L
        481:        //------------------------
        482:        // Set the Tx Data in FIFO
@@ -912,7 +912,7 @@ P                                                                  ; section
            0001               
        489:            tie_bkup = 1;
   000003A4 0CA0                   MOV.B       R2L,R0H
-  000003A6                    L7503:                                
+  000003A6                    L7577:                                
        490:        }
        491:        SCI5.SCR.BIT.TIE = tie_bkup;
   000003A6 7700                   BLD.B       #0,R0H
@@ -931,13 +931,13 @@ P                                                                  ; section
   000003B4                    _UART_Tx_Char:                       ; function: UART_Tx_Char
   000003B4 6DF2                   PUSH.W      R2
   000003B6 0C8A                   MOV.B       R0L,R2L
-  000003B8                    L7506:                                
+  000003B8                    L7580:                                
        500:    {
        501:        while(UART_Tx(byte) == 0);
   000003B8 0CA8                   MOV.B       R2L,R0L
   000003BA 5500                   BSR         _UART_Tx:8
   000003BC 0C88                   MOV.B       R0L,R0L
-  000003BE 4700                   BEQ         L7506:8
+  000003BE 4700                   BEQ         L7580:8
   000003C0 6D72                   POP.W       R2
   000003C2 5470                   RTS
        502:    }
@@ -953,7 +953,7 @@ P                                                                  ; section
        511:        //------------------------
        512:        if (gUART_FIFO_Tx_DC > 0)
   000003C4 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_DC:32,ER0
-  000003CC 4700                   BEQ         L7510:8
+  000003CC 4700                   BEQ         L7584:8
        513:        {
        514:            SCI5.TDR = gUART_FIFO_Tx[gUART_FIFO_Tx_RP];
   000003CE 01006B2000000000       MOV.L       @_gUART_FIFO_Tx_RP:32,ER0
@@ -970,7 +970,7 @@ P                                                                  ; section
        517:            SCI5.SSR.BIT.TDRE = 0;
   00000402 6A18F6047270           BCLR.B      #7,@H'00FFF604:16
   00000408 5470                   RTS
-  0000040A                    L7510:                                
+  0000040A                    L7584:                                
        518:        }
        519:        //-------------------------
        520:        // If FIFO Tx has no Data
@@ -995,8 +995,8 @@ P                                                                  ; section
        535:        
        536:        if      (g_e2p_data.E2P_1.model == Freedom2)
   00000416 7A0500000000           MOV.L       #_sci_rcv_pointer,ER5
-  0000041C 6A3800000000A005       CMP.B       #5:8,@(_g_e2p_data+2):32
-  00000424 58600000               BNE         L7515:16
+  0000041C 6A3800000000A006       CMP.B       #6:8,@(_g_e2p_data+2):32
+  00000424 58600000               BNE         L7589:16
        537:        {
        538:            sci_rcv[sci_rcv_pointer] = SCI5.RDR - 0x30;
   00000428 6A09F605               MOV.B       @H'00FFF605:16,R1L
@@ -1008,208 +1008,208 @@ P                                                                  ; section
        540:            
        541:            if(sci_rcv_pointer >= 55)
   0000043C 015E05200037           CMP.W       #H'0037:16,@ER5
-  00000442 58500000               BLO         L7517:16
+  00000442 58500000               BLO         L7589:16
        542:            {
        543:                sci_rcv_pointer = 0;
   00000446 7A0400000000           MOV.L       #_g_Freedom2_data,ER4
   0000044C 015D0500               MOV.W       #0:8,@ER5
        544:                if      (sci_rcv_command == 0)
   00000450 6B2000000000           MOV.W       @_sci_rcv_command:32,R0
-  00000456 58600000               BNE         L7519:16
+  00000456 58600000               BNE         L7592:16
        545:                {
        546:                    g_Freedom2_data.RPM                 = sci_rcv[0]  * 10000 + sci_rcv[1]  * 1000 + sci_rcv[2]  * 100 + sci_rcv[3]  * 10 + sci_rcv[4] ;
-  0000045A 7A0500000000           MOV.L       #_sci_rcv,ER5
-  00000460 6858                   MOV.B       @ER5,R0L
+  0000045A 7A0100000000           MOV.L       #_sci_rcv,ER1
+  00000460 6818                   MOV.B       @ER1,R0L
   00000462 1750                   EXTU.W      R0
   00000464 0D08                   MOV.W       R0,E0
-  00000466 79092710               MOV.W       #H'2710:16,E1
-  0000046A 01C25098               MULS.W      E1,E0
-  0000046E 6E580001               MOV.B       @(1:16,ER5),R0L
-  00000472 790103E8               MOV.W       #H'03E8:16,R1
-  00000476 01C25010               MULS.W      R1,R0
+  00000466 790D2710               MOV.W       #H'2710:16,E5
+  0000046A 01C250D8               MULS.W      E5,E0
+  0000046E 6E180001               MOV.B       @(1:16,ER1),R0L
+  00000472 790503E8               MOV.W       #H'03E8:16,R5
+  00000476 01C25050               MULS.W      R5,R0
   0000047A 0908                   ADD.W       R0,E0
-  0000047C 6E580002               MOV.B       @(2:16,ER5),R0L
+  0000047C 6E180002               MOV.B       @(2:16,ER1),R0L
   00000480 FE64                   MOV.B       #H'64:8,R6L
   00000482 50E0                   MULXU.B     R6L,R0
   00000484 0908                   ADD.W       R0,E0
-  00000486 6E580003               MOV.B       @(3:16,ER5),R0L
+  00000486 6E180003               MOV.B       @(3:16,ER1),R0L
   0000048A 01CC50A0               MULXU.B     #H'A:4,R0
   0000048E 0908                   ADD.W       R0,E0
-  00000490 6E580004               MOV.B       @(4:16,ER5),R0L
+  00000490 6E180004               MOV.B       @(4:16,ER1),R0L
   00000494 1750                   EXTU.W      R0
   00000496 0908                   ADD.W       R0,E0
   00000498 69C8                   MOV.W       E0,@ER4
        547:                    g_Freedom2_data.ManifoldPressure    =                       sci_rcv[5]  * 1000 + sci_rcv[6]  * 100 + sci_rcv[7]  * 10 + sci_rcv[8] ;
-  0000049A 6E580005               MOV.B       @(5:16,ER5),R0L
+  0000049A 6E180005               MOV.B       @(5:16,ER1),R0L
   0000049E 0D08                   MOV.W       R0,E0
-  000004A0 01C25018               MULS.W      R1,E0
-  000004A4 6E580006               MOV.B       @(6:16,ER5),R0L
+  000004A0 01C25058               MULS.W      R5,E0
+  000004A4 6E180006               MOV.B       @(6:16,ER1),R0L
   000004A8 50E0                   MULXU.B     R6L,R0
   000004AA 0908                   ADD.W       R0,E0
-  000004AC 6E580007               MOV.B       @(7:16,ER5),R0L
+  000004AC 6E180007               MOV.B       @(7:16,ER1),R0L
   000004B0 01CC50A0               MULXU.B     #H'A:4,R0
   000004B4 0908                   ADD.W       R0,E0
-  000004B6 6E580008               MOV.B       @(8:16,ER5),R0L
+  000004B6 6E180008               MOV.B       @(8:16,ER1),R0L
   000004BA 1750                   EXTU.W      R0
   000004BC 0908                   ADD.W       R0,E0
   000004BE 6FC80002               MOV.W       E0,@(2:16,ER4)
        548:                    g_Freedom2_data.EngineTemp          = sci_rcv[9]  * 10000 + sci_rcv[10] * 1000 + sci_rcv[11] * 100 + sci_rcv[12] * 10 + sci_rcv[13];
-  000004C2 6E580009               MOV.B       @(9:16,ER5),R0L
+  000004C2 6E180009               MOV.B       @(9:16,ER1),R0L
   000004C6 0D08                   MOV.W       R0,E0
-  000004C8 01C25098               MULS.W      E1,E0
-  000004CC 6E58000A               MOV.B       @(H'000A:16,ER5),R0L
-  000004D0 01C25010               MULS.W      R1,R0
+  000004C8 01C250D8               MULS.W      E5,E0
+  000004CC 6E18000A               MOV.B       @(H'000A:16,ER1),R0L
+  000004D0 01C25050               MULS.W      R5,R0
   000004D4 0908                   ADD.W       R0,E0
-  000004D6 6E58000B               MOV.B       @(H'000B:16,ER5),R0L
+  000004D6 6E18000B               MOV.B       @(H'000B:16,ER1),R0L
   000004DA 50E0                   MULXU.B     R6L,R0
   000004DC 0908                   ADD.W       R0,E0
-  000004DE 6E58000C               MOV.B       @(H'000C:16,ER5),R0L
+  000004DE 6E18000C               MOV.B       @(H'000C:16,ER1),R0L
   000004E2 01CC50A0               MULXU.B     #H'A:4,R0
   000004E6 0908                   ADD.W       R0,E0
-  000004E8 6E58000D               MOV.B       @(H'000D:16,ER5),R0L
+  000004E8 6E18000D               MOV.B       @(H'000D:16,ER1),R0L
   000004EC 1750                   EXTU.W      R0
   000004EE 0908                   ADD.W       R0,E0
   000004F0 6FC80004               MOV.W       E0,@(4:16,ER4)
        549:                    g_Freedom2_data.InletAirTemp        = sci_rcv[14] * 10000 + sci_rcv[15] * 1000 + sci_rcv[16] * 100 + sci_rcv[17] * 10 + sci_rcv[18];
-  000004F4 6E58000E               MOV.B       @(H'000E:16,ER5),R0L
+  000004F4 6E18000E               MOV.B       @(H'000E:16,ER1),R0L
   000004F8 0D08                   MOV.W       R0,E0
-  000004FA 01C25098               MULS.W      E1,E0
-  000004FE 6E58000F               MOV.B       @(H'000F:16,ER5),R0L
-  00000502 01C25010               MULS.W      R1,R0
+  000004FA 01C250D8               MULS.W      E5,E0
+  000004FE 6E18000F               MOV.B       @(H'000F:16,ER1),R0L
+  00000502 01C25050               MULS.W      R5,R0
   00000506 0908                   ADD.W       R0,E0
-  00000508 6E580010               MOV.B       @(H'0010:16,ER5),R0L
+  00000508 6E180010               MOV.B       @(H'0010:16,ER1),R0L
   0000050C 50E0                   MULXU.B     R6L,R0
   0000050E 0908                   ADD.W       R0,E0
-  00000510 6E580011               MOV.B       @(H'0011:16,ER5),R0L
+  00000510 6E180011               MOV.B       @(H'0011:16,ER1),R0L
   00000514 01CC50A0               MULXU.B     #H'A:4,R0
   00000518 0908                   ADD.W       R0,E0
-  0000051A 6E580012               MOV.B       @(H'0012:16,ER5),R0L
+  0000051A 6E180012               MOV.B       @(H'0012:16,ER1),R0L
   0000051E 1750                   EXTU.W      R0
   00000520 0908                   ADD.W       R0,E0
   00000522 6FC80006               MOV.W       E0,@(6:16,ER4)
        550:                    g_Freedom2_data.BarometricPressure  =                       sci_rcv[19] * 1000 + sci_rcv[20] * 100 + sci_rcv[21] * 10 + sci_rcv[22];
-  00000526 6E580013               MOV.B       @(H'0013:16,ER5),R0L
+  00000526 6E180013               MOV.B       @(H'0013:16,ER1),R0L
   0000052A 0D08                   MOV.W       R0,E0
-  0000052C 01C25018               MULS.W      R1,E0
-  00000530 6E580014               MOV.B       @(H'0014:16,ER5),R0L
+  0000052C 01C25058               MULS.W      R5,E0
+  00000530 6E180014               MOV.B       @(H'0014:16,ER1),R0L
   00000534 50E0                   MULXU.B     R6L,R0
   00000536 0908                   ADD.W       R0,E0
-  00000538 6E580015               MOV.B       @(H'0015:16,ER5),R0L
+  00000538 6E180015               MOV.B       @(H'0015:16,ER1),R0L
   0000053C 01CC50A0               MULXU.B     #H'A:4,R0
   00000540 0908                   ADD.W       R0,E0
-  00000542 6E580016               MOV.B       @(H'0016:16,ER5),R0L
+  00000542 6E180016               MOV.B       @(H'0016:16,ER1),R0L
   00000546 1750                   EXTU.W      R0
   00000548 0908                   ADD.W       R0,E0
   0000054A 6FC80008               MOV.W       E0,@(8:16,ER4)
        551:                    g_Freedom2_data.ThrottlePosition    =                       sci_rcv[23] * 1000 + sci_rcv[24] * 100 + sci_rcv[25] * 10 + sci_rcv[26];
-  0000054E 6E580017               MOV.B       @(H'0017:16,ER5),R0L
+  0000054E 6E180017               MOV.B       @(H'0017:16,ER1),R0L
   00000552 0D08                   MOV.W       R0,E0
-  00000554 01C25018               MULS.W      R1,E0
-  00000558 6E580018               MOV.B       @(H'0018:16,ER5),R0L
+  00000554 01C25058               MULS.W      R5,E0
+  00000558 6E180018               MOV.B       @(H'0018:16,ER1),R0L
   0000055C 50E0                   MULXU.B     R6L,R0
   0000055E 0908                   ADD.W       R0,E0
-  00000560 6E580019               MOV.B       @(H'0019:16,ER5),R0L
+  00000560 6E180019               MOV.B       @(H'0019:16,ER1),R0L
   00000564 01CC50A0               MULXU.B     #H'A:4,R0
   00000568 0908                   ADD.W       R0,E0
-  0000056A 6E58001A               MOV.B       @(H'001A:16,ER5),R0L
+  0000056A 6E18001A               MOV.B       @(H'001A:16,ER1),R0L
   0000056E 1750                   EXTU.W      R0
   00000570 0908                   ADD.W       R0,E0
   00000572 6FC8000A               MOV.W       E0,@(H'000A:16,ER4)
        552:                    g_Freedom2_data.BatteryVoltage      =                                            sci_rcv[27] * 100 + sci_rcv[28] * 10 + sci_rcv[29];
-  00000576 6E58001B               MOV.B       @(H'001B:16,ER5),R0L
+  00000576 6E18001B               MOV.B       @(H'001B:16,ER1),R0L
   0000057A 50E0                   MULXU.B     R6L,R0
   0000057C 0D08                   MOV.W       R0,E0
-  0000057E 6E58001C               MOV.B       @(H'001C:16,ER5),R0L
+  0000057E 6E18001C               MOV.B       @(H'001C:16,ER1),R0L
   00000582 01CC50A0               MULXU.B     #H'A:4,R0
   00000586 0908                   ADD.W       R0,E0
-  00000588 6E58001D               MOV.B       @(H'001D:16,ER5),R0L
+  00000588 6E18001D               MOV.B       @(H'001D:16,ER1),R0L
   0000058C 1750                   EXTU.W      R0
   0000058E 0908                   ADD.W       R0,E0
   00000590 6FC8000C               MOV.W       E0,@(H'000C:16,ER4)
        553:                    g_Freedom2_data.ValidFuelTime       =                       sci_rcv[30] * 1000 + sci_rcv[31] * 100 + sci_rcv[32] * 10 + sci_rcv[33];
-  00000594 6E58001E               MOV.B       @(H'001E:16,ER5),R0L
+  00000594 6E18001E               MOV.B       @(H'001E:16,ER1),R0L
   00000598 0D08                   MOV.W       R0,E0
-  0000059A 01C25018               MULS.W      R1,E0
-  0000059E 6E58001F               MOV.B       @(H'001F:16,ER5),R0L
+  0000059A 01C25058               MULS.W      R5,E0
+  0000059E 6E18001F               MOV.B       @(H'001F:16,ER1),R0L
   000005A2 50E0                   MULXU.B     R6L,R0
   000005A4 0908                   ADD.W       R0,E0
-  000005A6 6E580020               MOV.B       @(H'0020:16,ER5),R0L
+  000005A6 6E180020               MOV.B       @(H'0020:16,ER1),R0L
   000005AA 01CC50A0               MULXU.B     #H'A:4,R0
   000005AE 0908                   ADD.W       R0,E0
-  000005B0 6E580021               MOV.B       @(H'0021:16,ER5),R0L
+  000005B0 6E180021               MOV.B       @(H'0021:16,ER1),R0L
   000005B4 1750                   EXTU.W      R0
   000005B6 0908                   ADD.W       R0,E0
   000005B8 6FC8000E               MOV.W       E0,@(H'000E:16,ER4)
        554:                    g_Freedom2_data.InvalidFuelTime     =                       sci_rcv[34] * 1000 + sci_rcv[35] * 100 + sci_rcv[36] * 10 + sci_rcv[37];
-  000005BC 6E580022               MOV.B       @(H'0022:16,ER5),R0L
+  000005BC 6E180022               MOV.B       @(H'0022:16,ER1),R0L
   000005C0 0D08                   MOV.W       R0,E0
-  000005C2 01C25018               MULS.W      R1,E0
-  000005C6 6E580023               MOV.B       @(H'0023:16,ER5),R0L
+  000005C2 01C25058               MULS.W      R5,E0
+  000005C6 6E180023               MOV.B       @(H'0023:16,ER1),R0L
   000005CA 50E0                   MULXU.B     R6L,R0
   000005CC 0908                   ADD.W       R0,E0
-  000005CE 6E580024               MOV.B       @(H'0024:16,ER5),R0L
+  000005CE 6E180024               MOV.B       @(H'0024:16,ER1),R0L
   000005D2 01CC50A0               MULXU.B     #H'A:4,R0
   000005D6 0908                   ADD.W       R0,E0
-  000005D8 6E580025               MOV.B       @(H'0025:16,ER5),R0L
+  000005D8 6E180025               MOV.B       @(H'0025:16,ER1),R0L
   000005DC 1750                   EXTU.W      R0
   000005DE 0908                   ADD.W       R0,E0
   000005E0 6FC80010               MOV.W       E0,@(H'0010:16,ER4)
        555:                    g_Freedom2_data.IgnitionAdvance     =                                                                sci_rcv[38] * 10 + sci_rcv[39];
-  000005E4 6E580026               MOV.B       @(H'0026:16,ER5),R0L
+  000005E4 6E180026               MOV.B       @(H'0026:16,ER1),R0L
   000005E8 01CC50A0               MULXU.B     #H'A:4,R0
   000005EC 0D08                   MOV.W       R0,E0
-  000005EE 6E580027               MOV.B       @(H'0027:16,ER5),R0L
+  000005EE 6E180027               MOV.B       @(H'0027:16,ER1),R0L
   000005F2 1750                   EXTU.W      R0
   000005F4 0908                   ADD.W       R0,E0
   000005F6 6FC80012               MOV.W       E0,@(H'0012:16,ER4)
        556:                    g_Freedom2_data.Status              = sci_rcv[40] * 10000 + sci_rcv[41] * 1000 + sci_rcv[42] * 100 + sci_rcv[43] * 10 + sci_rcv[44];
-  000005FA 6E580028               MOV.B       @(H'0028:16,ER5),R0L
+  000005FA 6E180028               MOV.B       @(H'0028:16,ER1),R0L
   000005FE 0D08                   MOV.W       R0,E0
-  00000600 01C25098               MULS.W      E1,E0
-  00000604 6E580029               MOV.B       @(H'0029:16,ER5),R0L
-  00000608 01C25010               MULS.W      R1,R0
+  00000600 01C250D8               MULS.W      E5,E0
+  00000604 6E180029               MOV.B       @(H'0029:16,ER1),R0L
+  00000608 01C25050               MULS.W      R5,R0
   0000060C 0908                   ADD.W       R0,E0
-  0000060E 6E58002A               MOV.B       @(H'002A:16,ER5),R0L
+  0000060E 6E18002A               MOV.B       @(H'002A:16,ER1),R0L
   00000612 50E0                   MULXU.B     R6L,R0
   00000614 0908                   ADD.W       R0,E0
-  00000616 6E58002B               MOV.B       @(H'002B:16,ER5),R0L
+  00000616 6E18002B               MOV.B       @(H'002B:16,ER1),R0L
   0000061A 01CC50A0               MULXU.B     #H'A:4,R0
   0000061E 0908                   ADD.W       R0,E0
-  00000620 6E58002C               MOV.B       @(H'002C:16,ER5),R0L
+  00000620 6E18002C               MOV.B       @(H'002C:16,ER1),R0L
   00000624 1750                   EXTU.W      R0
   00000626 0908                   ADD.W       R0,E0
   00000628 6FC80014               MOV.W       E0,@(H'0014:16,ER4)
        557:                    g_Freedom2_data.GroundSpeed         = sci_rcv[45] * 10000 + sci_rcv[46] * 1000 + sci_rcv[47] * 100 + sci_rcv[48] * 10 + sci_rcv[49];
-  0000062C 6E58002D               MOV.B       @(H'002D:16,ER5),R0L
+  0000062C 6E18002D               MOV.B       @(H'002D:16,ER1),R0L
   00000630 0D08                   MOV.W       R0,E0
-  00000632 01C25098               MULS.W      E1,E0
-  00000636 6E58002E               MOV.B       @(H'002E:16,ER5),R0L
-  0000063A 01C25010               MULS.W      R1,R0
+  00000632 01C250D8               MULS.W      E5,E0
+  00000636 6E18002E               MOV.B       @(H'002E:16,ER1),R0L
+  0000063A 01C25050               MULS.W      R5,R0
   0000063E 0908                   ADD.W       R0,E0
-  00000640 6E58002F               MOV.B       @(H'002F:16,ER5),R0L
+  00000640 6E18002F               MOV.B       @(H'002F:16,ER1),R0L
   00000644 50E0                   MULXU.B     R6L,R0
   00000646 0908                   ADD.W       R0,E0
-  00000648 6E580030               MOV.B       @(H'0030:16,ER5),R0L
+  00000648 6E180030               MOV.B       @(H'0030:16,ER1),R0L
   0000064C 01CC50A0               MULXU.B     #H'A:4,R0
   00000650 0908                   ADD.W       R0,E0
-  00000652 6E580031               MOV.B       @(H'0031:16,ER5),R0L
+  00000652 6E180031               MOV.B       @(H'0031:16,ER1),R0L
   00000656 1750                   EXTU.W      R0
   00000658 0908                   ADD.W       R0,E0
   0000065A 6FC80016               MOV.W       E0,@(H'0016:16,ER4)
        558:                    lambda                              = sci_rcv[50] * 10000 + sci_rcv[51] * 1000 + sci_rcv[52] * 100 + sci_rcv[53] * 10 + sci_rcv[54];
-  0000065E 6E580032               MOV.B       @(H'0032:16,ER5),R0L
+  0000065E 6E180032               MOV.B       @(H'0032:16,ER1),R0L
   00000662 0D08                   MOV.W       R0,E0
-  00000664 01C25098               MULS.W      E1,E0
-  00000668 6E580033               MOV.B       @(H'0033:16,ER5),R0L
-  0000066C 01C25010               MULS.W      R1,R0
+  00000664 01C250D8               MULS.W      E5,E0
+  00000668 6E180033               MOV.B       @(H'0033:16,ER1),R0L
+  0000066C 01C25050               MULS.W      R5,R0
   00000670 0908                   ADD.W       R0,E0
-  00000672 6E580034               MOV.B       @(H'0034:16,ER5),R0L
+  00000672 6E180034               MOV.B       @(H'0034:16,ER1),R0L
   00000676 50E0                   MULXU.B     R6L,R0
   00000678 0908                   ADD.W       R0,E0
-  0000067A 6E580035               MOV.B       @(H'0035:16,ER5),R0L
+  0000067A 6E180035               MOV.B       @(H'0035:16,ER1),R0L
   0000067E 01CC50A0               MULXU.B     #H'A:4,R0
   00000682 0908                   ADD.W       R0,E0
-  00000684 6E580036               MOV.B       @(H'0036:16,ER5),R0L
+  00000684 6E180036               MOV.B       @(H'0036:16,ER1),R0L
   00000688 1750                   EXTU.W      R0
   0000068A 0908                   ADD.W       R0,E0
        559:                    g_Freedom2_data.AFR                 = (lambda & 0xFF00) >> 8;
@@ -1220,207 +1220,206 @@ P                                                                  ; section
        560:                    g_Freedom2_data.TargetAFR           = (lambda & 0x00FF);
   00000696 796800FF               AND.W       #H'00FF:16,E0
   0000069A 6FC8001A               MOV.W       E0,@(H'001A:16,ER4)
-  0000069E 5A000000               JMP         @L7517:24
-  000006A2                    L7519:                                
+  0000069E 5A000000               JMP         @L7589:24
+  000006A2                    L7592:                                
        561:                }
        562:                else if (sci_rcv_command == 1)
   000006A2 6B38000000001F10       CMP.W       #1:3,@_sci_rcv_command:32
-  000006AA 58600000               BNE         L7517:16
+  000006AA 58600000               BNE         L7589:16
        563:                {
        564:                    g_Freedom2_data.IATCorrection       = sci_rcv[0]  * 10000 + sci_rcv[1]  * 1000 + sci_rcv[2]  * 100 + sci_rcv[3]  * 10 + sci_rcv[4] ;
-  000006AE 7A0500000000           MOV.L       #_sci_rcv,ER5
-  000006B4 6858                   MOV.B       @ER5,R0L
+  000006AE 7A0100000000           MOV.L       #_sci_rcv,ER1
+  000006B4 6818                   MOV.B       @ER1,R0L
   000006B6 1750                   EXTU.W      R0
   000006B8 0D08                   MOV.W       R0,E0
-  000006BA 79092710               MOV.W       #H'2710:16,E1
-  000006BE 01C25098               MULS.W      E1,E0
-  000006C2 6E580001               MOV.B       @(1:16,ER5),R0L
-  000006C6 790103E8               MOV.W       #H'03E8:16,R1
-  000006CA 01C25010               MULS.W      R1,R0
+  000006BA 790D2710               MOV.W       #H'2710:16,E5
+  000006BE 01C250D8               MULS.W      E5,E0
+  000006C2 6E180001               MOV.B       @(1:16,ER1),R0L
+  000006C6 790503E8               MOV.W       #H'03E8:16,R5
+  000006CA 01C25050               MULS.W      R5,R0
   000006CE 0908                   ADD.W       R0,E0
-  000006D0 6E580002               MOV.B       @(2:16,ER5),R0L
+  000006D0 6E180002               MOV.B       @(2:16,ER1),R0L
   000006D4 FE64                   MOV.B       #H'64:8,R6L
   000006D6 50E0                   MULXU.B     R6L,R0
   000006D8 0908                   ADD.W       R0,E0
-  000006DA 6E580003               MOV.B       @(3:16,ER5),R0L
+  000006DA 6E180003               MOV.B       @(3:16,ER1),R0L
   000006DE 01CC50A0               MULXU.B     #H'A:4,R0
   000006E2 0908                   ADD.W       R0,E0
-  000006E4 6E580004               MOV.B       @(4:16,ER5),R0L
+  000006E4 6E180004               MOV.B       @(4:16,ER1),R0L
   000006E8 1750                   EXTU.W      R0
   000006EA 0908                   ADD.W       R0,E0
   000006EC 6FC8001C               MOV.W       E0,@(H'001C:16,ER4)
        565:                    g_Freedom2_data.ETCorrection        = sci_rcv[5]  * 10000 + sci_rcv[6]  * 1000 + sci_rcv[7]  * 100 + sci_rcv[8]  * 10 + sci_rcv[9] ;
-  000006F0 6E580005               MOV.B       @(5:16,ER5),R0L
+  000006F0 6E180005               MOV.B       @(5:16,ER1),R0L
   000006F4 0D08                   MOV.W       R0,E0
-  000006F6 01C25098               MULS.W      E1,E0
-  000006FA 6E580006               MOV.B       @(6:16,ER5),R0L
-  000006FE 01C25010               MULS.W      R1,R0
+  000006F6 01C250D8               MULS.W      E5,E0
+  000006FA 6E180006               MOV.B       @(6:16,ER1),R0L
+  000006FE 01C25050               MULS.W      R5,R0
   00000702 0908                   ADD.W       R0,E0
-  00000704 6E580007               MOV.B       @(7:16,ER5),R0L
+  00000704 6E180007               MOV.B       @(7:16,ER1),R0L
   00000708 50E0                   MULXU.B     R6L,R0
   0000070A 0908                   ADD.W       R0,E0
-  0000070C 6E580008               MOV.B       @(8:16,ER5),R0L
+  0000070C 6E180008               MOV.B       @(8:16,ER1),R0L
   00000710 01CC50A0               MULXU.B     #H'A:4,R0
   00000714 0908                   ADD.W       R0,E0
-  00000716 6E580009               MOV.B       @(9:16,ER5),R0L
+  00000716 6E180009               MOV.B       @(9:16,ER1),R0L
   0000071A 1750                   EXTU.W      R0
   0000071C 0908                   ADD.W       R0,E0
   0000071E 6FC8001E               MOV.W       E0,@(H'001E:16,ER4)
        566:                    g_Freedom2_data.EStartCorrection    = sci_rcv[10] * 10000 + sci_rcv[11] * 1000 + sci_rcv[12] * 100 + sci_rcv[13] * 10 + sci_rcv[14];
-  00000722 6E58000A               MOV.B       @(H'000A:16,ER5),R0L
+  00000722 6E18000A               MOV.B       @(H'000A:16,ER1),R0L
   00000726 0D08                   MOV.W       R0,E0
-  00000728 01C25098               MULS.W      E1,E0
-  0000072C 6E58000B               MOV.B       @(H'000B:16,ER5),R0L
-  00000730 01C25010               MULS.W      R1,R0
+  00000728 01C250D8               MULS.W      E5,E0
+  0000072C 6E18000B               MOV.B       @(H'000B:16,ER1),R0L
+  00000730 01C25050               MULS.W      R5,R0
   00000734 0908                   ADD.W       R0,E0
-  00000736 6E58000C               MOV.B       @(H'000C:16,ER5),R0L
+  00000736 6E18000C               MOV.B       @(H'000C:16,ER1),R0L
   0000073A 50E0                   MULXU.B     R6L,R0
   0000073C 0908                   ADD.W       R0,E0
-  0000073E 6E58000D               MOV.B       @(H'000D:16,ER5),R0L
+  0000073E 6E18000D               MOV.B       @(H'000D:16,ER1),R0L
   00000742 01CC50A0               MULXU.B     #H'A:4,R0
   00000746 0908                   ADD.W       R0,E0
-  00000748 6E58000E               MOV.B       @(H'000E:16,ER5),R0L
+  00000748 6E18000E               MOV.B       @(H'000E:16,ER1),R0L
   0000074C 1750                   EXTU.W      R0
   0000074E 0908                   ADD.W       R0,E0
   00000750 6FC80020               MOV.W       E0,@(H'0020:16,ER4)
        567:                    g_Freedom2_data.AccelCorrection     = sci_rcv[15] * 10000 + sci_rcv[16] * 1000 + sci_rcv[17] * 100 + sci_rcv[18] * 10 + sci_rcv[19];
-  00000754 6E58000F               MOV.B       @(H'000F:16,ER5),R0L
+  00000754 6E18000F               MOV.B       @(H'000F:16,ER1),R0L
   00000758 0D08                   MOV.W       R0,E0
-  0000075A 01C25098               MULS.W      E1,E0
-  0000075E 6E580010               MOV.B       @(H'0010:16,ER5),R0L
-  00000762 01C25010               MULS.W      R1,R0
+  0000075A 01C250D8               MULS.W      E5,E0
+  0000075E 6E180010               MOV.B       @(H'0010:16,ER1),R0L
+  00000762 01C25050               MULS.W      R5,R0
   00000766 0908                   ADD.W       R0,E0
-  00000768 6E580011               MOV.B       @(H'0011:16,ER5),R0L
+  00000768 6E180011               MOV.B       @(H'0011:16,ER1),R0L
   0000076C 50E0                   MULXU.B     R6L,R0
   0000076E 0908                   ADD.W       R0,E0
-  00000770 6E580012               MOV.B       @(H'0012:16,ER5),R0L
+  00000770 6E180012               MOV.B       @(H'0012:16,ER1),R0L
   00000774 01CC50A0               MULXU.B     #H'A:4,R0
   00000778 0908                   ADD.W       R0,E0
-  0000077A 6E580013               MOV.B       @(H'0013:16,ER5),R0L
+  0000077A 6E180013               MOV.B       @(H'0013:16,ER1),R0L
   0000077E 1750                   EXTU.W      R0
   00000780 0908                   ADD.W       R0,E0
   00000782 6FC80022               MOV.W       E0,@(H'0022:16,ER4)
        568:                    g_Freedom2_data.PowerCorrection     = sci_rcv[20] * 10000 + sci_rcv[21] * 1000 + sci_rcv[22] * 100 + sci_rcv[23] * 10 + sci_rcv[24];
-  00000786 6E580014               MOV.B       @(H'0014:16,ER5),R0L
+  00000786 6E180014               MOV.B       @(H'0014:16,ER1),R0L
   0000078A 0D08                   MOV.W       R0,E0
-  0000078C 01C25098               MULS.W      E1,E0
-  00000790 6E580015               MOV.B       @(H'0015:16,ER5),R0L
-  00000794 01C25010               MULS.W      R1,R0
+  0000078C 01C250D8               MULS.W      E5,E0
+  00000790 6E180015               MOV.B       @(H'0015:16,ER1),R0L
+  00000794 01C25050               MULS.W      R5,R0
   00000798 0908                   ADD.W       R0,E0
-  0000079A 6E580016               MOV.B       @(H'0016:16,ER5),R0L
+  0000079A 6E180016               MOV.B       @(H'0016:16,ER1),R0L
   0000079E 50E0                   MULXU.B     R6L,R0
   000007A0 0908                   ADD.W       R0,E0
-  000007A2 6E580017               MOV.B       @(H'0017:16,ER5),R0L
+  000007A2 6E180017               MOV.B       @(H'0017:16,ER1),R0L
   000007A6 01CC50A0               MULXU.B     #H'A:4,R0
   000007AA 0908                   ADD.W       R0,E0
-  000007AC 6E580018               MOV.B       @(H'0018:16,ER5),R0L
+  000007AC 6E180018               MOV.B       @(H'0018:16,ER1),R0L
   000007B0 1750                   EXTU.W      R0
   000007B2 0908                   ADD.W       R0,E0
   000007B4 6FC80024               MOV.W       E0,@(H'0024:16,ER4)
        569:                    g_Freedom2_data.FeedbackCorrection  = sci_rcv[25] * 10000 + sci_rcv[26] * 1000 + sci_rcv[27] * 100 + sci_rcv[28] * 10 + sci_rcv[29];
-  000007B8 6E580019               MOV.B       @(H'0019:16,ER5),R0L
+  000007B8 6E180019               MOV.B       @(H'0019:16,ER1),R0L
   000007BC 0D08                   MOV.W       R0,E0
-  000007BE 01C25098               MULS.W      E1,E0
-  000007C2 6E58001A               MOV.B       @(H'001A:16,ER5),R0L
-  000007C6 01C25010               MULS.W      R1,R0
+  000007BE 01C250D8               MULS.W      E5,E0
+  000007C2 6E18001A               MOV.B       @(H'001A:16,ER1),R0L
+  000007C6 01C25050               MULS.W      R5,R0
   000007CA 0908                   ADD.W       R0,E0
-  000007CC 6E58001B               MOV.B       @(H'001B:16,ER5),R0L
+  000007CC 6E18001B               MOV.B       @(H'001B:16,ER1),R0L
   000007D0 50E0                   MULXU.B     R6L,R0
   000007D2 0908                   ADD.W       R0,E0
-  000007D4 6E58001C               MOV.B       @(H'001C:16,ER5),R0L
+  000007D4 6E18001C               MOV.B       @(H'001C:16,ER1),R0L
   000007D8 01CC50A0               MULXU.B     #H'A:4,R0
   000007DC 0908                   ADD.W       R0,E0
-  000007DE 6E58001D               MOV.B       @(H'001D:16,ER5),R0L
+  000007DE 6E18001D               MOV.B       @(H'001D:16,ER1),R0L
   000007E2 1750                   EXTU.W      R0
   000007E4 0908                   ADD.W       R0,E0
   000007E6 6FC80026               MOV.W       E0,@(H'0026:16,ER4)
        570:                    g_Freedom2_data.IdolCorrection      = sci_rcv[30] * 10000 + sci_rcv[31] * 1000 + sci_rcv[32] * 100 + sci_rcv[33] * 10 + sci_rcv[34];
-  000007EA 6E58001E               MOV.B       @(H'001E:16,ER5),R0L
+  000007EA 6E18001E               MOV.B       @(H'001E:16,ER1),R0L
   000007EE 0D08                   MOV.W       R0,E0
-  000007F0 01C25098               MULS.W      E1,E0
-  000007F4 6E58001F               MOV.B       @(H'001F:16,ER5),R0L
-  000007F8 01C25010               MULS.W      R1,R0
+  000007F0 01C250D8               MULS.W      E5,E0
+  000007F4 6E18001F               MOV.B       @(H'001F:16,ER1),R0L
+  000007F8 01C25050               MULS.W      R5,R0
   000007FC 0908                   ADD.W       R0,E0
-  000007FE 6E580020               MOV.B       @(H'0020:16,ER5),R0L
+  000007FE 6E180020               MOV.B       @(H'0020:16,ER1),R0L
   00000802 50E0                   MULXU.B     R6L,R0
   00000804 0908                   ADD.W       R0,E0
-  00000806 6E580021               MOV.B       @(H'0021:16,ER5),R0L
+  00000806 6E180021               MOV.B       @(H'0021:16,ER1),R0L
   0000080A 01CC50A0               MULXU.B     #H'A:4,R0
   0000080E 0908                   ADD.W       R0,E0
-  00000810 6E580022               MOV.B       @(H'0022:16,ER5),R0L
+  00000810 6E180022               MOV.B       @(H'0022:16,ER1),R0L
   00000814 1750                   EXTU.W      R0
   00000816 0908                   ADD.W       R0,E0
   00000818 6FC80028               MOV.W       E0,@(H'0028:16,ER4)
        571:                    g_Freedom2_data.DecelCutCorrection  = sci_rcv[35] * 10000 + sci_rcv[36] * 1000 + sci_rcv[37] * 100 + sci_rcv[38] * 10 + sci_rcv[39];
-  0000081C 6E580023               MOV.B       @(H'0023:16,ER5),R0L
+  0000081C 6E180023               MOV.B       @(H'0023:16,ER1),R0L
   00000820 0D08                   MOV.W       R0,E0
-  00000822 01C25098               MULS.W      E1,E0
-  00000826 6E580024               MOV.B       @(H'0024:16,ER5),R0L
-  0000082A 01C25010               MULS.W      R1,R0
+  00000822 01C250D8               MULS.W      E5,E0
+  00000826 6E180024               MOV.B       @(H'0024:16,ER1),R0L
+  0000082A 01C25050               MULS.W      R5,R0
   0000082E 0908                   ADD.W       R0,E0
-  00000830 6E580025               MOV.B       @(H'0025:16,ER5),R0L
+  00000830 6E180025               MOV.B       @(H'0025:16,ER1),R0L
   00000834 50E0                   MULXU.B     R6L,R0
   00000836 0908                   ADD.W       R0,E0
-  00000838 6E580026               MOV.B       @(H'0026:16,ER5),R0L
+  00000838 6E180026               MOV.B       @(H'0026:16,ER1),R0L
   0000083C 01CC50A0               MULXU.B     #H'A:4,R0
   00000840 0908                   ADD.W       R0,E0
-  00000842 6E580027               MOV.B       @(H'0027:16,ER5),R0L
+  00000842 6E180027               MOV.B       @(H'0027:16,ER1),R0L
   00000846 1750                   EXTU.W      R0
   00000848 0908                   ADD.W       R0,E0
   0000084A 6FC8002A               MOV.W       E0,@(H'002A:16,ER4)
        572:                    g_Freedom2_data.BaroCorrection      = sci_rcv[40] * 10000 + sci_rcv[41] * 1000 + sci_rcv[42] * 100 + sci_rcv[43] * 10 + sci_rcv[44];
-  0000084E 6E580028               MOV.B       @(H'0028:16,ER5),R0L
+  0000084E 6E180028               MOV.B       @(H'0028:16,ER1),R0L
   00000852 0D08                   MOV.W       R0,E0
-  00000854 01C25098               MULS.W      E1,E0
-  00000858 6E580029               MOV.B       @(H'0029:16,ER5),R0L
-  0000085C 01C25010               MULS.W      R1,R0
+  00000854 01C250D8               MULS.W      E5,E0
+  00000858 6E180029               MOV.B       @(H'0029:16,ER1),R0L
+  0000085C 01C25050               MULS.W      R5,R0
   00000860 0908                   ADD.W       R0,E0
-  00000862 6E58002A               MOV.B       @(H'002A:16,ER5),R0L
+  00000862 6E18002A               MOV.B       @(H'002A:16,ER1),R0L
   00000866 50E0                   MULXU.B     R6L,R0
   00000868 0908                   ADD.W       R0,E0
-  0000086A 6E58002B               MOV.B       @(H'002B:16,ER5),R0L
+  0000086A 6E18002B               MOV.B       @(H'002B:16,ER1),R0L
   0000086E 01CC50A0               MULXU.B     #H'A:4,R0
   00000872 0908                   ADD.W       R0,E0
-  00000874 6E58002C               MOV.B       @(H'002C:16,ER5),R0L
+  00000874 6E18002C               MOV.B       @(H'002C:16,ER1),R0L
   00000878 1750                   EXTU.W      R0
   0000087A 0908                   ADD.W       R0,E0
   0000087C 6FC8002C               MOV.W       E0,@(H'002C:16,ER4)
        573:                    g_Freedom2_data.IdolIGCorrection    = sci_rcv[45] * 10000 + sci_rcv[46] * 1000 + sci_rcv[47] * 100 + sci_rcv[48] * 10 + sci_rcv[49];
-  00000880 6E58002D               MOV.B       @(H'002D:16,ER5),R0L
+  00000880 6E18002D               MOV.B       @(H'002D:16,ER1),R0L
   00000884 0D08                   MOV.W       R0,E0
-  00000886 01C25098               MULS.W      E1,E0
-  0000088A 6E58002E               MOV.B       @(H'002E:16,ER5),R0L
-  0000088E 01C25010               MULS.W      R1,R0
+  00000886 01C250D8               MULS.W      E5,E0
+  0000088A 6E18002E               MOV.B       @(H'002E:16,ER1),R0L
+  0000088E 01C25050               MULS.W      R5,R0
   00000892 0908                   ADD.W       R0,E0
-  00000894 6E58002F               MOV.B       @(H'002F:16,ER5),R0L
+  00000894 6E18002F               MOV.B       @(H'002F:16,ER1),R0L
   00000898 50E0                   MULXU.B     R6L,R0
   0000089A 0908                   ADD.W       R0,E0
-  0000089C 6E580030               MOV.B       @(H'0030:16,ER5),R0L
+  0000089C 6E180030               MOV.B       @(H'0030:16,ER1),R0L
   000008A0 01CC50A0               MULXU.B     #H'A:4,R0
   000008A4 0908                   ADD.W       R0,E0
-  000008A6 6E580031               MOV.B       @(H'0031:16,ER5),R0L
+  000008A6 6E180031               MOV.B       @(H'0031:16,ER1),R0L
   000008AA 1750                   EXTU.W      R0
   000008AC 0908                   ADD.W       R0,E0
   000008AE 6FC8002E               MOV.W       E0,@(H'002E:16,ER4)
        574:                    g_Freedom2_data.RetardCorrection    = sci_rcv[50] * 10000 + sci_rcv[51] * 1000 + sci_rcv[52] * 100 + sci_rcv[53] * 10 + sci_rcv[54];
-  000008B2 6E580032               MOV.B       @(H'0032:16,ER5),R0L
+  000008B2 6E180032               MOV.B       @(H'0032:16,ER1),R0L
   000008B6 0D08                   MOV.W       R0,E0
-  000008B8 01C25098               MULS.W      E1,E0
-  000008BC 6E580033               MOV.B       @(H'0033:16,ER5),R0L
-  000008C0 01C25010               MULS.W      R1,R0
+  000008B8 01C250D8               MULS.W      E5,E0
+  000008BC 6E180033               MOV.B       @(H'0033:16,ER1),R0L
+  000008C0 01C25050               MULS.W      R5,R0
   000008C4 0908                   ADD.W       R0,E0
-  000008C6 6E580034               MOV.B       @(H'0034:16,ER5),R0L
+  000008C6 6E180034               MOV.B       @(H'0034:16,ER1),R0L
   000008CA 50E0                   MULXU.B     R6L,R0
   000008CC 0908                   ADD.W       R0,E0
-  000008CE 6E580035               MOV.B       @(H'0035:16,ER5),R0L
+  000008CE 6E180035               MOV.B       @(H'0035:16,ER1),R0L
   000008D2 01CC50A0               MULXU.B     #H'A:4,R0
   000008D6 0908                   ADD.W       R0,E0
-  000008D8 6E580036               MOV.B       @(H'0036:16,ER5),R0L
+  000008D8 6E180036               MOV.B       @(H'0036:16,ER1),R0L
   000008DC 1750                   EXTU.W      R0
   000008DE 0908                   ADD.W       R0,E0
   000008E0 6FC80030               MOV.W       E0,@(H'0030:16,ER4)
-  000008E4 4000                   BRA         L7517:8
-  000008E6                    L7515:                                
+  000008E4                    L7589:                                
        575:                }
        576:                else
        577:                {
@@ -1431,39 +1430,17 @@ P                                                                  ; section
        582:            {
        583:                //
        584:            }
-       585:        }
+       585:    /*  }
        586:        else if (g_e2p_data.E2P_1.model == MSquirt1)
-  000008E6 6A3800000000A006       CMP.B       #6:8,@(_g_e2p_data+2):32
-  000008EE 4600                   BNE         L7517:8
        587:        {
        588:            sci_rcv[sci_rcv_pointer] = SCI5.RDR;
-  000008F0 6A09F605               MOV.B       @H'00FFF605:16,R1L
-  000008F4 6950                   MOV.W       @ER5,R0
-  000008F6 78026AA900000000       MOV.B       R1L,@(_sci_rcv:32,R0.W)
        589:            sci_rcv_pointer ++;
-  000008FE 7DD00A10               ADD.W       #1:3,@ER5
        590:    //      if(sci_rcv_pointer >= 154)
        591:            if(sci_rcv_pointer >32)
-  00000902 015E05200020           CMP.W       #H'0020:16,@ER5
-  00000908 4300                   BLS         L7517:8
        592:            {
        593:                sci_rcv_pointer = 0;
-  0000090A 015D0500               MOV.W       #0:8,@ER5
        594:                g_Megasquirt1_data.rpm              = ((unsigned int) sci_rcv[6]  << 8) + sci_rcv[7] ;
-  0000090E 6A2100000000           MOV.B       @(_sci_rcv+6):32,R1H
-  00000914 1899                   SUB.B       R1L,R1L
-  00000916 7A0500000000           MOV.L       #_sci_rcv,ER5
-  0000091C 6E580007               MOV.B       @(7:16,ER5),R0L
-  00000920 1750                   EXTU.W      R0
-  00000922 0901                   ADD.W       R0,R1
-  00000924 6BA100000000           MOV.W       R1,@_g_Megasquirt1_data:32
        595:                g_Megasquirt1_data.advance          = ((unsigned int) sci_rcv[8]  << 8) + sci_rcv[9] ;
-  0000092A 6A2100000000           MOV.B       @(_sci_rcv+8):32,R1H
-  00000930 1899                   SUB.B       R1L,R1L
-  00000932 6E580009               MOV.B       @(9:16,ER5),R0L
-  00000936 0901                   ADD.W       R0,R1
-  00000938 6BA100000000           MOV.W       R1,@(_g_Megasquirt1_data+2):32
-  0000093E                    L7517:                                
        596:    //          g_Megasquirt1_data.afrtgt1          =                                     sci_rcv[12];
        597:    //          g_Megasquirt1_data.afrtgt2          =                                     sci_rcv[13];
        598:    //          g_Megasquirt1_data.barometer        = ((unsigned int) sci_rcv[16] << 8) + sci_rcv[17];
@@ -1478,7 +1455,7 @@ P                                                                  ; section
        607:            else
        608:            {
        609:                //
-       610:            }
+       610:            }*/
        611:        }
        612:        else
        613:        {
@@ -1486,36 +1463,36 @@ P                                                                  ; section
        615:        }
        616:        
        617:        SCI5.SSR.BIT.RDRF = 0;
-  0000093E 6A18F6047260           BCLR.B      #6,@H'00FFF604:16
-  00000944 5426                   RTS/L       (ER4-ER6)
+  000008E4 6A18F6047260           BCLR.B      #6,@H'00FFF604:16
+  000008EA 5426                   RTS/L       (ER4-ER6)
        618:    }
        619:    
        620:    // --------------------------------------------------------------------
        621:    // UART 受信エラーハンドラ
        622:    // --------------------------------------------------------------------
        623:    void Int_Handler_UART_Rx_ERR(void)
-  00000946                    _Int_Handler_UART_Rx_ERR:            ; function: Int_Handler_UART_Rx_ERR
+  000008EC                    _Int_Handler_UART_Rx_ERR:            ; function: Int_Handler_UART_Rx_ERR
        624:    {
        625:        SCI5.SSR.BIT.FER = 0;
-  00000946 6A18F6047240           BCLR.B      #4,@H'00FFF604:16
+  000008EC 6A18F6047240           BCLR.B      #4,@H'00FFF604:16
        626:        SCI5.SSR.BIT.ORER = 0;
-  0000094C 6A18F6047250           BCLR.B      #5,@H'00FFF604:16
+  000008F2 6A18F6047250           BCLR.B      #5,@H'00FFF604:16
        627:        SCI5.SSR.BIT.PER = 0;
-  00000952 6A18F6047230           BCLR.B      #3,@H'00FFF604:16
+  000008F8 6A18F6047230           BCLR.B      #3,@H'00FFF604:16
        628:        SCI5.SSR.BIT.RDRF = 0;
-  00000958 6A18F6047260           BCLR.B      #6,@H'00FFF604:16
-  0000095E 5470                   RTS
+  000008FE 6A18F6047260           BCLR.B      #6,@H'00FFF604:16
+  00000904 5470                   RTS
        629:    }
        630:    
        631:    // --------------------------------------------------------------------
        632:    // UART 送信終了ハンドラ
        633:    // --------------------------------------------------------------------
        634:    void Int_Handler_UART_Tx_END(void)
-  00000960                    _Int_Handler_UART_Tx_END:            ; function: Int_Handler_UART_Tx_END
+  00000906                    _Int_Handler_UART_Tx_END:            ; function: Int_Handler_UART_Tx_END
        635:    {
        636:        SCI5.SSR.BIT.TEND = 0;
-  00000960 6A18F6047220           BCLR.B      #2,@H'00FFF604:16
-  00000966 5470                   RTS
+  00000906 6A18F6047220           BCLR.B      #2,@H'00FFF604:16
+  0000090C 5470                   RTS
        637:    }
 B                                                                  ; section
   00000000                    _gUART_FIFO_Tx_WP:                   ; static: gUART_FIFO_Tx_WP

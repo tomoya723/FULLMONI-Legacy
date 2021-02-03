@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------
-// Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+// Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
 //
 // This file is part of FullMoni firmwere.
 //
@@ -17,10 +17,10 @@
 // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
 //
 // filename		:	TFTLCD35.h
-// brief		:	FullMoni rev.B TFTâtèªä«óù
+// brief		:	FullMoni rev.C TFTâtèªä«óù
 // author		:	Tomoya Sato
-// update		:	2013/08/05
-// version		:	1.04
+// update		:	2021/02/02
+// version		:	1.05
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -44,7 +44,7 @@ void Init_TFTLCD(void);
 void Display_Home(void);
 void LCD_Refresh(void);
 void LCD_locate(unsigned int x, unsigned int y);
-void LCD_pset(unsigned int x, unsigned int y, unsigned int color);
+//void LCD_pset(unsigned int x, unsigned int y, unsigned int color);
 void LCD_line(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1, unsigned int color);
 void LCD_line2(unsigned int x0, unsigned int y0, unsigned int x1, unsigned int y1, unsigned int color);
 void swap(int *x0, int *x1);

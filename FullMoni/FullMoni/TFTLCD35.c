@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------
-// Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+// Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
 //
 // This file is part of FullMoni firmwere.
 //
@@ -17,10 +17,10 @@
 // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
 //
 // filename		:	TFTLCD35.c
-// brief		:	FullMoni rev.B TFT‰t»ŠÇ—
+// brief		:	FullMoni rev.C TFT‰t»ŠÇ—
 // author		:	Tomoya Sato
-// update		:	2013/08/05
-// version		:	1.04
+// update		:	2021/02/02
+// version		:	1.05
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -252,7 +252,7 @@ void LCD_FadeIN(void)
 	
 	for(z = 0x2579; z >= 0x10; z -- )
 	{
-		for(y = 0; y <= 100; y ++ )
+		for(y = 0; y <= 10; y ++ )
 		{
 			TPU4.TGRB = z & 0xFFFF;
 		}
@@ -290,6 +290,7 @@ void FONT_open(void)
 	}
 }
 
+/*
 // --------------------------------------------------------------------
 // TFT LCD “_•`‰æ
 // --------------------------------------------------------------------
@@ -308,6 +309,7 @@ void LCD_pset(unsigned int x, unsigned int y, unsigned int color)
 		*(BDATA + (x + z * 320)) = color;
 	}
 }
+*/
 
 // --------------------------------------------------------------------
 // TFT LCD ü•`‰æ

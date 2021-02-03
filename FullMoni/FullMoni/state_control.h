@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------
-// Copylight (C) 2013, Tomoya Sato( http://pub.ne.jp/nacci_tomoya )
+// Copylight (C) 2021, Tomoya Sato( https://blog.goo.ne.jp/nacci_tomoya )
 //
 // This file is part of FullMoni firmwere.
 //
@@ -17,10 +17,10 @@
 // along with FullMoni. if not, see <http:/www.gnu.org/licenses/>.
 //
 // filename		:	state_control.h
-// brief		:	FullMoni rev.B 	ステート管理
+// brief		:	FullMoni rev.C 	ステート管理
 // author		:	Tomoya Sato
-// update		:	2013/08/05
-// version		:	1.04
+// update		:	2021/02/02
+// version		:	1.05
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -46,6 +46,7 @@ extern volatile unsigned long	gUART_FIFO_Tx_RP;
 extern volatile unsigned long	gUART_FIFO_Tx_DC;
 extern volatile unsigned char	sci_rcv[154];
 extern volatile unsigned int	sci_rcv_pointer;
+extern volatile unsigned int	g_can_error_cnt;
 
 // --------------------------------------------------------------------
 // define宣言
@@ -68,6 +69,7 @@ static enum state
 	S001 =   1,
 	S002 =   2,
 	S010 =  10,
+	S020 =  20,
 	S110 = 110,
 	S210 = 210,
 	S120 = 120,
@@ -77,13 +79,14 @@ static enum state
 
 static enum model
 {
-	MoTeC1		= 0,
-	MoTeC2		= 1,
-	Haltech1	= 2,
-	Haltech2	= 3,
-	Freedom1	= 4,
-	Freedom2	= 5,
-	MSquirt1	= 6
+	CAN_std		= 0,
+	MoTeC1		= 1,
+	MoTeC2		= 2,
+	Haltech1	= 3,
+	Haltech2	= 4,
+	Freedom1	= 5,
+	Freedom2	= 6
+//	MSquirt1	= 7
 } g_model;
 
 // --------------------------------------------------------------------
@@ -93,14 +96,17 @@ void state_control(void);
 void funcS001(void);
 void funcS002(void);
 void funcS010(void);
+void funcS020(void);
 void funcS110(void);
 void funcS210(void);
 void funcS120(void);
 void funcS130(void);
 void funcS999(void);
+unsigned int area_judge(unsigned int X, unsigned int X1, unsigned int X2, unsigned int Y, unsigned int Y1, unsigned int Y2);
 unsigned int E001(void);
 unsigned int E002(void);
 unsigned int E010(void);
+unsigned int E020(void);
 unsigned int E100(void);
 unsigned int E110(void);
 unsigned int E130(void);
@@ -123,6 +129,7 @@ void A020(void);
 void A021(void);
 void A022(void);
 void A023(void);
+void A024(void);
 void A101(void);
 void A102(void);
 void A103(void);
@@ -139,20 +146,23 @@ void A201(void);
 void A202(void);
 void A990(void);
 void A991(void);
+static void Init_CAN(void);
 static void Init_MoTeC1(void);
 static void Init_MoTeC2(void);
 static void Init_Haltech1(void);
 static void Init_Haltech2(void);
 static void Init_Freedom2(void);
-static void Init_MSquirt1(void);
+//static void Init_MSquirt1(void);
+static void Preset_load_CAN(void);
 static void Preset_load_MoTeC1(void);
-static void Preset_load_MoTeC2(void);
+//static void Preset_load_MoTeC2(void);
 static void Preset_load_Haltech1(void);
 static void Preset_load_Haltech2(void);
 static void Preset_load_Freedom1(void);
 static void Preset_load_Freedom2(void);
-static void Preset_load_MegaSquirt1(void);
-
+//static void Preset_load_MegaSquirt1(void);
+static void Save_EEPROM_ALL(void);
+static int num_calc(unsigned char num_calc_data_select, int num_calc_bias, int num_calc_gain);
 
 // --------------------------------------------------------------------
 // 多重インクルード防止
