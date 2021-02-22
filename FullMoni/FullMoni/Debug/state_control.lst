@@ -1,4 +1,4 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:32 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   21-Feb-2021 16:25:44 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
@@ -802,7 +802,7 @@ Total Frame Size        : 0x00000008 Byte(s)
 Used Runtime Library Name
 
 
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:32 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   21-Feb-2021 16:25:44 PAGE   1
 
 ************ OBJECT LISTING ************
 
@@ -832,8 +832,8 @@ P                                                                  ; section
         19:    // filename     :   state_control.c
         20:    // brief        :   FullMoni rev.C ステート管理
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2021/02/02
-        23:    // version      :   1.05
+        22:    // update       :   2021/02/21
+        23:    // version      :   1.06
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------

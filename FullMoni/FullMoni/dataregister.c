@@ -19,8 +19,8 @@
 // filename		:	dataregister.c
 // brief		:	FullMoni rev.C ÉfÅ[É^ä«óù
 // author		:	Tomoya Sato
-// update		:	2021/02/02
-// version		:	1.05
+// update		:	2021/02/21
+// version		:	1.06
 // --------------------------------------------------------------------
 
 // --------------------------------------------------------------------
@@ -684,49 +684,49 @@ void num_label_draw(unsigned char num_tag)
 		case  4:	LCD_textout("Etemp ");	break;
 		case  5:	LCD_textout("Atemp ");	break;
 		case  6:	LCD_textout("Otemp ");	break;
-		case  7:	LCD_textout("EXTemp");	break;
-		case  8:	LCD_textout("BATT  ");	break;
-		case  9:	LCD_textout("SPEED ");	break;
-		case 10:	LCD_textout("TPS   ");	break;
-		case 11:	LCD_textout("GEAR  ");	break;
-		case 12:	LCD_textout("MAP   ");	break;
-		case 13:	LCD_textout("Opress");	break;
-		case 14:	LCD_textout("Fpress");	break;
-		case 15:	LCD_textout("IJduty");	break;
-		case 16:	LCD_textout("IGadv ");	break;
-		case 17:	LCD_textout("MAF   ");	break;
-		case 18:	LCD_textout("TARGET");	break;
-		case 19:	LCD_textout("Baro-P");	break;
-		case 20:	LCD_textout("S-0   ");	break;
-		case 21:	LCD_textout("S-1   ");	break;
-		case 22:	LCD_textout("S-2   ");	break;
-		case 23:	LCD_textout("S-3   ");	break;
-		case 24:	LCD_textout("S-4   ");	break;
-		case 25:	LCD_textout("S-5   ");	break;
-		case 26:	LCD_textout("S-6   ");	break;
-		case 27:	LCD_textout("S-7   ");	break;
-		case 28:	LCD_textout("S-8   ");	break;
-		case 29:	LCD_textout("S-9   ");	break;
-		case 30:	LCD_textout("V-0   ");	break;
-		case 31:	LCD_textout("V-1   ");	break;
-		case 32:	LCD_textout("V-2   ");	break;
-		case 33:	LCD_textout("V-3   ");	break;
-		case 34:	LCD_textout("V-4   ");	break;
-		case 35:	LCD_textout("V-5   ");	break;
-		case 36:	LCD_textout("V-6   ");	break;
-		case 37:	LCD_textout("V-7   ");	break;
-		case 38:	LCD_textout("V-8   ");	break;
-		case 39:	LCD_textout("V-9   ");	break;
-		case 40:	LCD_textout("T-0   ");	break;
-		case 41:	LCD_textout("T-1   ");	break;
-		case 42:	LCD_textout("T-2   ");	break;
-		case 43:	LCD_textout("T-3   ");	break;
-		case 44:	LCD_textout("T-4   ");	break;
-		case 45:	LCD_textout("T-5   ");	break;
-		case 46:	LCD_textout("T-6   ");	break;
-		case 47:	LCD_textout("T-7   ");	break;
-		case 48:	LCD_textout("T-8   ");	break;
-		case 49:	LCD_textout("T-9   ");	break;
+		case  7:	LCD_textout("Ftemp ");	break;
+		case  8:	LCD_textout("EXTemp");	break;
+		case  9:	LCD_textout("BATT  ");	break;
+		case 10:	LCD_textout("SPEED ");	break;
+		case 11:	LCD_textout("TPS   ");	break;
+		case 12:	LCD_textout("GEAR  ");	break;
+		case 13:	LCD_textout("MAP   ");	break;
+		case 14:	LCD_textout("MGP   ");	break;
+		case 15:	LCD_textout("Opress");	break;
+		case 16:	LCD_textout("Fpress");	break;
+		case 17:	LCD_textout("IJduty");	break;
+		case 18:	LCD_textout("IGadv ");	break;
+		case 19:	LCD_textout("MAF   ");	break;
+		case 20:	LCD_textout("TARGET");	break;
+		case 21:	LCD_textout("Baro-P");	break;
+		case 22:	LCD_textout("S-0   ");	break;
+		case 23:	LCD_textout("S-1   ");	break;
+		case 24:	LCD_textout("S-2   ");	break;
+		case 25:	LCD_textout("S-3   ");	break;
+		case 26:	LCD_textout("S-4   ");	break;
+		case 27:	LCD_textout("S-5   ");	break;
+		case 28:	LCD_textout("S-6   ");	break;
+		case 29:	LCD_textout("S-7   ");	break;
+		case 30:	LCD_textout("S-8   ");	break;
+		case 31:	LCD_textout("S-9   ");	break;
+		case 32:	LCD_textout("V-0   ");	break;
+		case 33:	LCD_textout("V-1   ");	break;
+		case 34:	LCD_textout("V-2   ");	break;
+		case 35:	LCD_textout("V-3   ");	break;
+		case 36:	LCD_textout("V-4   ");	break;
+		case 37:	LCD_textout("V-5   ");	break;
+		case 38:	LCD_textout("V-6   ");	break;
+		case 39:	LCD_textout("V-7   ");	break;
+		case 40:	LCD_textout("V-8   ");	break;
+		case 41:	LCD_textout("V-9   ");	break;
+		case 42:	LCD_textout("T-0   ");	break;
+		case 43:	LCD_textout("T-1   ");	break;
+		case 44:	LCD_textout("T-2   ");	break;
+		case 45:	LCD_textout("T-3   ");	break;
+		case 46:	LCD_textout("T-4   ");	break;
+		case 47:	LCD_textout("T-5   ");	break;
+		case 48:	LCD_textout("T-6   ");	break;
+		case 49:	LCD_textout("T-7   ");	break;
 	}
 	
 	return;

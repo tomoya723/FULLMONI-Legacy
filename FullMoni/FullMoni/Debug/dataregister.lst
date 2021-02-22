@@ -1,4 +1,4 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:28 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   21-Feb-2021 16:25:42 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
@@ -172,7 +172,7 @@ Total Frame Size        : 0x00000004 Byte(s)
 Used Runtime Library Name
 
 
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:28 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   21-Feb-2021 16:25:42 PAGE   1
 
 ************ OBJECT LISTING ************
 
@@ -202,8 +202,8 @@ P                                                                  ; section
         19:    // filename     :   dataregister.c
         20:    // brief        :   FullMoni rev.C ÉfÅ[É^ä«óù
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2021/02/02
-        23:    // version      :   1.05
+        22:    // update       :   2021/02/21
+        23:    // version      :   1.06
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------
@@ -1821,175 +1821,175 @@ P                                                                  ; section
   00000C96 7A0000000000           MOV.L       #L1458,ER0
   00000C9C 5A000000               JMP         @L1447:24
   00000CA0                    L1397:                               ; case label 
-       687:            case  7:    LCD_textout("EXTemp");  break;
+       687:            case  7:    LCD_textout("Ftemp ");  break;
   00000CA0 7A0000000000           MOV.L       #L1460,ER0
   00000CA6 5A000000               JMP         @L1447:24
   00000CAA                    L1398:                               ; case label 
-       688:            case  8:    LCD_textout("BATT  ");  break;
+       688:            case  8:    LCD_textout("EXTemp");  break;
   00000CAA 7A0000000000           MOV.L       #L1462,ER0
   00000CB0 5A000000               JMP         @L1447:24
   00000CB4                    L1399:                               ; case label 
-       689:            case  9:    LCD_textout("SPEED ");  break;
+       689:            case  9:    LCD_textout("BATT  ");  break;
   00000CB4 7A0000000000           MOV.L       #L1464,ER0
   00000CBA 5A000000               JMP         @L1447:24
   00000CBE                    L1400:                               ; case label 
-       690:            case 10:    LCD_textout("TPS   ");  break;
+       690:            case 10:    LCD_textout("SPEED ");  break;
   00000CBE 7A0000000000           MOV.L       #L1466,ER0
   00000CC4 5A000000               JMP         @L1447:24
   00000CC8                    L1401:                               ; case label 
-       691:            case 11:    LCD_textout("GEAR  ");  break;
+       691:            case 11:    LCD_textout("TPS   ");  break;
   00000CC8 7A0000000000           MOV.L       #L1468,ER0
   00000CCE 5A000000               JMP         @L1447:24
   00000CD2                    L1402:                               ; case label 
-       692:            case 12:    LCD_textout("MAP   ");  break;
+       692:            case 12:    LCD_textout("GEAR  ");  break;
   00000CD2 7A0000000000           MOV.L       #L1470,ER0
   00000CD8 5A000000               JMP         @L1447:24
   00000CDC                    L1403:                               ; case label 
-       693:            case 13:    LCD_textout("Opress");  break;
+       693:            case 13:    LCD_textout("MAP   ");  break;
   00000CDC 7A0000000000           MOV.L       #L1472,ER0
   00000CE2 5A000000               JMP         @L1447:24
   00000CE6                    L1404:                               ; case label 
-       694:            case 14:    LCD_textout("Fpress");  break;
+       694:            case 14:    LCD_textout("MGP   ");  break;
   00000CE6 7A0000000000           MOV.L       #L1474,ER0
   00000CEC 5A000000               JMP         @L1447:24
   00000CF0                    L1405:                               ; case label 
-       695:            case 15:    LCD_textout("IJduty");  break;
+       695:            case 15:    LCD_textout("Opress");  break;
   00000CF0 7A0000000000           MOV.L       #L1476,ER0
   00000CF6 5A000000               JMP         @L1447:24
   00000CFA                    L1406:                               ; case label 
-       696:            case 16:    LCD_textout("IGadv ");  break;
+       696:            case 16:    LCD_textout("Fpress");  break;
   00000CFA 7A0000000000           MOV.L       #L1478,ER0
   00000D00 5A000000               JMP         @L1447:24
   00000D04                    L1407:                               ; case label 
-       697:            case 17:    LCD_textout("MAF   ");  break;
+       697:            case 17:    LCD_textout("IJduty");  break;
   00000D04 7A0000000000           MOV.L       #L1480,ER0
   00000D0A 5A000000               JMP         @L1447:24
   00000D0E                    L1408:                               ; case label 
-       698:            case 18:    LCD_textout("TARGET");  break;
+       698:            case 18:    LCD_textout("IGadv ");  break;
   00000D0E 7A0000000000           MOV.L       #L1482,ER0
   00000D14 5A000000               JMP         @L1447:24
   00000D18                    L1409:                               ; case label 
-       699:            case 19:    LCD_textout("Baro-P");  break;
+       699:            case 19:    LCD_textout("MAF   ");  break;
   00000D18 7A0000000000           MOV.L       #L1484,ER0
   00000D1E 5A000000               JMP         @L1447:24
   00000D22                    L1410:                               ; case label 
-       700:            case 20:    LCD_textout("S-0   ");  break;
+       700:            case 20:    LCD_textout("TARGET");  break;
   00000D22 7A0000000000           MOV.L       #L1486,ER0
   00000D28 5A000000               JMP         @L1447:24
   00000D2C                    L1411:                               ; case label 
-       701:            case 21:    LCD_textout("S-1   ");  break;
+       701:            case 21:    LCD_textout("Baro-P");  break;
   00000D2C 7A0000000000           MOV.L       #L1488,ER0
   00000D32 5A000000               JMP         @L1447:24
   00000D36                    L1412:                               ; case label 
-       702:            case 22:    LCD_textout("S-2   ");  break;
+       702:            case 22:    LCD_textout("S-0   ");  break;
   00000D36 7A0000000000           MOV.L       #L1490,ER0
   00000D3C 5A000000               JMP         @L1447:24
   00000D40                    L1413:                               ; case label 
-       703:            case 23:    LCD_textout("S-3   ");  break;
+       703:            case 23:    LCD_textout("S-1   ");  break;
   00000D40 7A0000000000           MOV.L       #L1492,ER0
   00000D46 5A000000               JMP         @L1447:24
   00000D4A                    L1414:                               ; case label 
-       704:            case 24:    LCD_textout("S-4   ");  break;
+       704:            case 24:    LCD_textout("S-2   ");  break;
   00000D4A 7A0000000000           MOV.L       #L1494,ER0
   00000D50 5A000000               JMP         @L1447:24
   00000D54                    L1415:                               ; case label 
-       705:            case 25:    LCD_textout("S-5   ");  break;
+       705:            case 25:    LCD_textout("S-3   ");  break;
   00000D54 7A0000000000           MOV.L       #L1496,ER0
   00000D5A 5A000000               JMP         @L1447:24
   00000D5E                    L1416:                               ; case label 
-       706:            case 26:    LCD_textout("S-6   ");  break;
+       706:            case 26:    LCD_textout("S-4   ");  break;
   00000D5E 7A0000000000           MOV.L       #L1498,ER0
   00000D64 5A000000               JMP         @L1447:24
   00000D68                    L1417:                               ; case label 
-       707:            case 27:    LCD_textout("S-7   ");  break;
+       707:            case 27:    LCD_textout("S-5   ");  break;
   00000D68 7A0000000000           MOV.L       #L1500,ER0
   00000D6E 5A000000               JMP         @L1447:24
   00000D72                    L1418:                               ; case label 
-       708:            case 28:    LCD_textout("S-8   ");  break;
+       708:            case 28:    LCD_textout("S-6   ");  break;
   00000D72 7A0000000000           MOV.L       #L1502,ER0
   00000D78 5A000000               JMP         @L1447:24
   00000D7C                    L1419:                               ; case label 
-       709:            case 29:    LCD_textout("S-9   ");  break;
+       709:            case 29:    LCD_textout("S-7   ");  break;
   00000D7C 7A0000000000           MOV.L       #L1504,ER0
   00000D82 5A000000               JMP         @L1447:24
   00000D86                    L1420:                               ; case label 
-       710:            case 30:    LCD_textout("V-0   ");  break;
+       710:            case 30:    LCD_textout("S-8   ");  break;
   00000D86 7A0000000000           MOV.L       #L1506,ER0
   00000D8C 5A000000               JMP         @L1447:24
   00000D90                    L1421:                               ; case label 
-       711:            case 31:    LCD_textout("V-1   ");  break;
+       711:            case 31:    LCD_textout("S-9   ");  break;
   00000D90 7A0000000000           MOV.L       #L1508,ER0
   00000D96 5A000000               JMP         @L1447:24
   00000D9A                    L1422:                               ; case label 
-       712:            case 32:    LCD_textout("V-2   ");  break;
+       712:            case 32:    LCD_textout("V-0   ");  break;
   00000D9A 7A0000000000           MOV.L       #L1510,ER0
   00000DA0 5A000000               JMP         @L1447:24
   00000DA4                    L1423:                               ; case label 
-       713:            case 33:    LCD_textout("V-3   ");  break;
+       713:            case 33:    LCD_textout("V-1   ");  break;
   00000DA4 7A0000000000           MOV.L       #L1512,ER0
   00000DAA 5A000000               JMP         @L1447:24
   00000DAE                    L1424:                               ; case label 
-       714:            case 34:    LCD_textout("V-4   ");  break;
+       714:            case 34:    LCD_textout("V-2   ");  break;
   00000DAE 7A0000000000           MOV.L       #L1514,ER0
   00000DB4 5A000000               JMP         @L1447:24
   00000DB8                    L1425:                               ; case label 
-       715:            case 35:    LCD_textout("V-5   ");  break;
+       715:            case 35:    LCD_textout("V-3   ");  break;
   00000DB8 7A0000000000           MOV.L       #L1516,ER0
   00000DBE 5A000000               JMP         @L1447:24
   00000DC2                    L1426:                               ; case label 
-       716:            case 36:    LCD_textout("V-6   ");  break;
+       716:            case 36:    LCD_textout("V-4   ");  break;
   00000DC2 7A0000000000           MOV.L       #L1518,ER0
   00000DC8 5A000000               JMP         @L1447:24
   00000DCC                    L1427:                               ; case label 
-       717:            case 37:    LCD_textout("V-7   ");  break;
+       717:            case 37:    LCD_textout("V-5   ");  break;
   00000DCC 7A0000000000           MOV.L       #L1520,ER0
   00000DD2 5A000000               JMP         @L1447:24
   00000DD6                    L1428:                               ; case label 
-       718:            case 38:    LCD_textout("V-8   ");  break;
+       718:            case 38:    LCD_textout("V-6   ");  break;
   00000DD6 7A0000000000           MOV.L       #L1522,ER0
   00000DDC 4000                   BRA         L1447:8
   00000DDE                    L1429:                               ; case label 
-       719:            case 39:    LCD_textout("V-9   ");  break;
+       719:            case 39:    LCD_textout("V-7   ");  break;
   00000DDE 7A0000000000           MOV.L       #L1524,ER0
   00000DE4 4000                   BRA         L1447:8
   00000DE6                    L1430:                               ; case label 
-       720:            case 40:    LCD_textout("T-0   ");  break;
+       720:            case 40:    LCD_textout("V-8   ");  break;
   00000DE6 7A0000000000           MOV.L       #L1526,ER0
   00000DEC 4000                   BRA         L1447:8
   00000DEE                    L1431:                               ; case label 
-       721:            case 41:    LCD_textout("T-1   ");  break;
+       721:            case 41:    LCD_textout("V-9   ");  break;
   00000DEE 7A0000000000           MOV.L       #L1528,ER0
   00000DF4 4000                   BRA         L1447:8
   00000DF6                    L1432:                               ; case label 
-       722:            case 42:    LCD_textout("T-2   ");  break;
+       722:            case 42:    LCD_textout("T-0   ");  break;
   00000DF6 7A0000000000           MOV.L       #L1530,ER0
   00000DFC 4000                   BRA         L1447:8
   00000DFE                    L1433:                               ; case label 
-       723:            case 43:    LCD_textout("T-3   ");  break;
+       723:            case 43:    LCD_textout("T-1   ");  break;
   00000DFE 7A0000000000           MOV.L       #L1532,ER0
   00000E04 4000                   BRA         L1447:8
   00000E06                    L1434:                               ; case label 
-       724:            case 44:    LCD_textout("T-4   ");  break;
+       724:            case 44:    LCD_textout("T-2   ");  break;
   00000E06 7A0000000000           MOV.L       #L1534,ER0
   00000E0C 4000                   BRA         L1447:8
   00000E0E                    L1435:                               ; case label 
-       725:            case 45:    LCD_textout("T-5   ");  break;
+       725:            case 45:    LCD_textout("T-3   ");  break;
   00000E0E 7A0000000000           MOV.L       #L1536,ER0
   00000E14 4000                   BRA         L1447:8
   00000E16                    L1436:                               ; case label 
-       726:            case 46:    LCD_textout("T-6   ");  break;
+       726:            case 46:    LCD_textout("T-4   ");  break;
   00000E16 7A0000000000           MOV.L       #L1538,ER0
   00000E1C 4000                   BRA         L1447:8
   00000E1E                    L1437:                               ; case label 
-       727:            case 47:    LCD_textout("T-7   ");  break;
+       727:            case 47:    LCD_textout("T-5   ");  break;
   00000E1E 7A0000000000           MOV.L       #L1540,ER0
   00000E24 4000                   BRA         L1447:8
   00000E26                    L1438:                               ; case label 
-       728:            case 48:    LCD_textout("T-8   ");  break;
+       728:            case 48:    LCD_textout("T-6   ");  break;
   00000E26 7A0000000000           MOV.L       #L1542,ER0
   00000E2C 4000                   BRA         L1447:8
   00000E2E                    L1439:                               ; case label 
-       729:            case 49:    LCD_textout("T-9   ");  break;
+       729:            case 49:    LCD_textout("T-7   ");  break;
   00000E2E 7A0000000000           MOV.L       #L1544,ER0
   00000E34 4000                   BRA         L1447:8
   00000E36                    L1443:                                
@@ -2908,91 +2908,91 @@ C                                                                  ; section
   00000E8F                    L1458:
   00000E8F 4F74656D702000         .SDATAZ     "Otemp "
   00000E96                    L1460:
-  00000E96 455854656D7000         .SDATAZ     "EXTemp"
+  00000E96 4674656D702000         .SDATAZ     "Ftemp "
   00000E9D                    L1462:
-  00000E9D 42415454202000         .SDATAZ     "BATT  "
+  00000E9D 455854656D7000         .SDATAZ     "EXTemp"
   00000EA4                    L1464:
-  00000EA4 53504545442000         .SDATAZ     "SPEED "
+  00000EA4 42415454202000         .SDATAZ     "BATT  "
   00000EAB                    L1466:
-  00000EAB 54505320202000         .SDATAZ     "TPS   "
+  00000EAB 53504545442000         .SDATAZ     "SPEED "
   00000EB2                    L1468:
-  00000EB2 47454152202000         .SDATAZ     "GEAR  "
+  00000EB2 54505320202000         .SDATAZ     "TPS   "
   00000EB9                    L1470:
-  00000EB9 4D415020202000         .SDATAZ     "MAP   "
+  00000EB9 47454152202000         .SDATAZ     "GEAR  "
   00000EC0                    L1472:
-  00000EC0 4F707265737300         .SDATAZ     "Opress"
+  00000EC0 4D415020202000         .SDATAZ     "MAP   "
   00000EC7                    L1474:
-  00000EC7 46707265737300         .SDATAZ     "Fpress"
+  00000EC7 4D475020202000         .SDATAZ     "MGP   "
   00000ECE                    L1476:
-  00000ECE 494A6475747900         .SDATAZ     "IJduty"
+  00000ECE 4F707265737300         .SDATAZ     "Opress"
   00000ED5                    L1478:
-  00000ED5 49476164762000         .SDATAZ     "IGadv "
+  00000ED5 46707265737300         .SDATAZ     "Fpress"
   00000EDC                    L1480:
-  00000EDC 4D414620202000         .SDATAZ     "MAF   "
+  00000EDC 494A6475747900         .SDATAZ     "IJduty"
   00000EE3                    L1482:
-  00000EE3 54415247455400         .SDATAZ     "TARGET"
+  00000EE3 49476164762000         .SDATAZ     "IGadv "
   00000EEA                    L1484:
-  00000EEA 4261726F2D5000         .SDATAZ     "Baro-P"
+  00000EEA 4D414620202000         .SDATAZ     "MAF   "
   00000EF1                    L1486:
-  00000EF1 532D3020202000         .SDATAZ     "S-0   "
+  00000EF1 54415247455400         .SDATAZ     "TARGET"
   00000EF8                    L1488:
-  00000EF8 532D3120202000         .SDATAZ     "S-1   "
+  00000EF8 4261726F2D5000         .SDATAZ     "Baro-P"
   00000EFF                    L1490:
-  00000EFF 532D3220202000         .SDATAZ     "S-2   "
+  00000EFF 532D3020202000         .SDATAZ     "S-0   "
   00000F06                    L1492:
-  00000F06 532D3320202000         .SDATAZ     "S-3   "
+  00000F06 532D3120202000         .SDATAZ     "S-1   "
   00000F0D                    L1494:
-  00000F0D 532D3420202000         .SDATAZ     "S-4   "
+  00000F0D 532D3220202000         .SDATAZ     "S-2   "
   00000F14                    L1496:
-  00000F14 532D3520202000         .SDATAZ     "S-5   "
+  00000F14 532D3320202000         .SDATAZ     "S-3   "
   00000F1B                    L1498:
-  00000F1B 532D3620202000         .SDATAZ     "S-6   "
+  00000F1B 532D3420202000         .SDATAZ     "S-4   "
   00000F22                    L1500:
-  00000F22 532D3720202000         .SDATAZ     "S-7   "
+  00000F22 532D3520202000         .SDATAZ     "S-5   "
   00000F29                    L1502:
-  00000F29 532D3820202000         .SDATAZ     "S-8   "
+  00000F29 532D3620202000         .SDATAZ     "S-6   "
   00000F30                    L1504:
-  00000F30 532D3920202000         .SDATAZ     "S-9   "
+  00000F30 532D3720202000         .SDATAZ     "S-7   "
   00000F37                    L1506:
-  00000F37 562D3020202000         .SDATAZ     "V-0   "
+  00000F37 532D3820202000         .SDATAZ     "S-8   "
   00000F3E                    L1508:
-  00000F3E 562D3120202000         .SDATAZ     "V-1   "
+  00000F3E 532D3920202000         .SDATAZ     "S-9   "
   00000F45                    L1510:
-  00000F45 562D3220202000         .SDATAZ     "V-2   "
+  00000F45 562D3020202000         .SDATAZ     "V-0   "
   00000F4C                    L1512:
-  00000F4C 562D3320202000         .SDATAZ     "V-3   "
+  00000F4C 562D3120202000         .SDATAZ     "V-1   "
   00000F53                    L1514:
-  00000F53 562D3420202000         .SDATAZ     "V-4   "
+  00000F53 562D3220202000         .SDATAZ     "V-2   "
   00000F5A                    L1516:
-  00000F5A 562D3520202000         .SDATAZ     "V-5   "
+  00000F5A 562D3320202000         .SDATAZ     "V-3   "
   00000F61                    L1518:
-  00000F61 562D3620202000         .SDATAZ     "V-6   "
+  00000F61 562D3420202000         .SDATAZ     "V-4   "
   00000F68                    L1520:
-  00000F68 562D3720202000         .SDATAZ     "V-7   "
+  00000F68 562D3520202000         .SDATAZ     "V-5   "
   00000F6F                    L1522:
-  00000F6F 562D3820202000         .SDATAZ     "V-8   "
+  00000F6F 562D3620202000         .SDATAZ     "V-6   "
   00000F76                    L1524:
-  00000F76 562D3920202000         .SDATAZ     "V-9   "
+  00000F76 562D3720202000         .SDATAZ     "V-7   "
   00000F7D                    L1526:
-  00000F7D 542D3020202000         .SDATAZ     "T-0   "
+  00000F7D 562D3820202000         .SDATAZ     "V-8   "
   00000F84                    L1528:
-  00000F84 542D3120202000         .SDATAZ     "T-1   "
+  00000F84 562D3920202000         .SDATAZ     "V-9   "
   00000F8B                    L1530:
-  00000F8B 542D3220202000         .SDATAZ     "T-2   "
+  00000F8B 542D3020202000         .SDATAZ     "T-0   "
   00000F92                    L1532:
-  00000F92 542D3320202000         .SDATAZ     "T-3   "
+  00000F92 542D3120202000         .SDATAZ     "T-1   "
   00000F99                    L1534:
-  00000F99 542D3420202000         .SDATAZ     "T-4   "
+  00000F99 542D3220202000         .SDATAZ     "T-2   "
   00000FA0                    L1536:
-  00000FA0 542D3520202000         .SDATAZ     "T-5   "
+  00000FA0 542D3320202000         .SDATAZ     "T-3   "
   00000FA7                    L1538:
-  00000FA7 542D3620202000         .SDATAZ     "T-6   "
+  00000FA7 542D3420202000         .SDATAZ     "T-4   "
   00000FAE                    L1540:
-  00000FAE 542D3720202000         .SDATAZ     "T-7   "
+  00000FAE 542D3520202000         .SDATAZ     "T-5   "
   00000FB5                    L1542:
-  00000FB5 542D3820202000         .SDATAZ     "T-8   "
+  00000FB5 542D3620202000         .SDATAZ     "T-6   "
   00000FBC                    L1544:
-  00000FBC 542D3920202000         .SDATAZ     "T-9   "
+  00000FBC 542D3720202000         .SDATAZ     "T-7   "
   00000FC3                    L1545:
   00000FC3 20202020202000         .SDATAZ     "      "
 

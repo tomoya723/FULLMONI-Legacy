@@ -1,4 +1,4 @@
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:31 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   21-Feb-2021 16:25:43 PAGE   1
 
 ******* STACK FRAME INFORMATION ********
 
@@ -60,7 +60,7 @@ Total Frame Size        : 0x00000008 Byte(s)
 Used Runtime Library Name
 
 
-H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)    2-Feb-2021 10:47:31 PAGE   1
+H8S,H8/300 SERIES C/C++ COMPILER (V.7.00.00.000)   21-Feb-2021 16:25:43 PAGE   1
 
 ************ OBJECT LISTING ************
 
@@ -90,8 +90,8 @@ P                                                                  ; section
         19:    // filename     :   main.c
         20:    // brief        :   FullMoni rev.C メインルーチン
         21:    // author       :   Tomoya Sato
-        22:    // update       :   2021/02/02
-        23:    // version      :   1.05
+        22:    // update       :   2021/02/21
+        23:    // version      :   1.06
         24:    // --------------------------------------------------------------------
         25:    
         26:    // --------------------------------------------------------------------
@@ -123,7 +123,7 @@ P                                                                  ; section
         52:    // --------------------------------------------------------------------
         53:    // グローバル変数宣言
         54:    // --------------------------------------------------------------------
-        55:    volatile char version[5] = "v1.05";
+        55:    volatile char version[5] = "v1.06";
         56:    
         57:    // --------------------------------------------------------------------
         58:    // グローバル構造体宣言
@@ -3783,7 +3783,7 @@ P                                                                  ; section
       1606:    
 D                                                                  ; section
   00000000                    _version:                            ; static: version
-  00000000 76312E3035             .SDATA      "v1.05"
+  00000000 76312E3036             .SDATA      "v1.06"
 B                                                                  ; section
   00000000                    __$can_rcv_cnt$8:                    ; static: can_rcv_cnt
   00000000 00000002               .RES.W      1
