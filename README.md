@@ -33,11 +33,11 @@
 
 ## ４．回路設計
  - ２０１１年９月２７日更新
- - ＜回路図はこちら＞
+ - SCH : [FULLMONI_revC_SCH_20130128_101.pdf](https://github.com/tomoya723/FULLMONI-Legacy/blob/4514685d8f7103bcbfc3824f94381c39d037f4da/Hardware/FULLMONI_revC_SCH_20130128_101.pdf)<br>
 
 ## ５．基板設計
  - ２０１１年９月２７日更新
- - ＜基板図はこちら＞
+ -  PCB : [FULLMONI_revC_PCB_20130306_101.pdf](https://github.com/tomoya723/FULLMONI-Legacy/blob/c4a8cc1ee19b74c6463b97665e4f9444e0cc6ba2/Hardware/FULLMONI_revC_PCB_20130306_101.pdf)<br>
 
 ## ６．基板作成仕様
  - 外形１３０．０ｍｍ×６６．０ｍｍ（但し外形はルーター加工特殊形状）
