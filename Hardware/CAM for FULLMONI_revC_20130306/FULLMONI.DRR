@@ -1,0 +1,26 @@
+---------------------------------------------------------------------------
+NCDrill File Report For: FULLMONI.PCB   6-Mar-2013   09:12:20
+---------------------------------------------------------------------------
+
+
+
+Layer Pair : TopLayer to BottomLayer
+ASCII File : NCDrillOutput.TXT
+EIA File   : NCDrillOutput.DRL
+
+Tool         Hole Size          Hole Count Plated       Tool Travel
+---------------------------------------------------------------------------
+T1        0.9mm (35.433mil)        14               152.05 mm (5.99 Inch)
+T2        1.1mm (43.307mil)        3                131.04 mm (5.16 Inch)
+T3        1.3mm (51.181mil)        4                35.36 mm (1.39 Inch)
+T4        1.6mm (62.992mil)        2                35.68 mm (1.40 Inch)
+T5        0.75mm (29.528mil)       6                88.26 mm (3.47 Inch)
+T6        0.7mm (27.559mil)        4                144.45 mm (5.69 Inch)
+T7        0.5mm (19.685mil)        213              978.05 mm (38.51 Inch)
+T8        0.6mm (23.622mil)        4                150.81 mm (5.94 Inch)
+T9        2.4mm (94.488mil)        1         NPTH   28.75 mm (1.13 Inch)
+T10       2.6mm (102.362mil)       4         NPTH   273.21 mm (10.76 Inch)
+---------------------------------------------------------------------------
+Totals                             255              2017.68 mm (79.44 Inch)
+
+Total Processing Time : 00:00:00
