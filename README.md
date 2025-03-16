@@ -32,11 +32,11 @@
  - ＳＰＩフラッシュＲＯＭ　４ｋｂｉｔ
 
 ## ４．回路設計
- - ２０１１年９月２７日更新
+ - 2013年1月28日更新
  - SCH : [FULLMONI_revC_SCH_20130128_101.pdf](https://github.com/tomoya723/FULLMONI-Legacy/blob/4514685d8f7103bcbfc3824f94381c39d037f4da/Hardware/FULLMONI_revC_SCH_20130128_101.pdf)<br>
 
 ## ５．基板設計
- - ２０１１年９月２７日更新
+ - 2013年3月6日更新
  -  PCB : [FULLMONI_revC_PCB_20130306_101.pdf](https://github.com/tomoya723/FULLMONI-Legacy/blob/c4a8cc1ee19b74c6463b97665e4f9444e0cc6ba2/Hardware/FULLMONI_revC_PCB_20130306_101.pdf)<br>
 
 ## ５．ケース設計
