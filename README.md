@@ -39,6 +39,10 @@
  - ２０１１年９月２７日更新
  -  PCB : [FULLMONI_revC_PCB_20130306_101.pdf](https://github.com/tomoya723/FULLMONI-Legacy/blob/c4a8cc1ee19b74c6463b97665e4f9444e0cc6ba2/Hardware/FULLMONI_revC_PCB_20130306_101.pdf)<br>
 
+## ５．ケース設計
+ タカチ LC135-Nをベースに加工
+ Case data: [LCケース加工図面20121030.pdf](https://github.com/tomoya723/FULLMONI-Legacy/blob/f6450ae8e5cbf89b6b0861b6293d36d16016387c/Hardware/LC%E3%82%B1%E3%83%BC%E3%82%B9%E5%8A%A0%E5%B7%A5%E5%9B%B3%E9%9D%A220121030.pdf)<br>
+
 ## ６．基板作成仕様
  - 外形１３０．０ｍｍ×６６．０ｍｍ（但し外形はルーター加工特殊形状）
  - 板厚１．６ｍｍ
